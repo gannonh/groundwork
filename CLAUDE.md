@@ -2,7 +2,7 @@
 
 Groundwork turns customer conversations into a ranked map of customer problems, with verbatim quotes and revenue attached, and syncs the results into Linear. It is for product managers at B2B software companies.
 
-- Product spec: `Groundwork Product Vision and v1 PRD.md`.
+- Product spec: `docs/product/prd.md`.
 - Visual spec: variant D in `prototypes/opportunity-map/index.html`. Open it with `open "prototypes/opportunity-map/index.html#hybrid"`.
 - Decisions: `docs/adr/`. Read the relevant ADR before changing what it decided.
 - Work: the Linear project **Groundwork** in the Kata-sh team (issues KAT-3462 to KAT-3470), milestone **Gate 1: Evidence map from real exports**.
