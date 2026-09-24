@@ -1,0 +1,728 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Groundwork · Opportunity map prototypes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<style>
+:root {
+  --bg: #f7f7f5;
+  --panel: #ffffff;
+  --ink: #18181b;
+  --ink-2: #52525b;
+  --ink-3: #a1a1aa;
+  --line: #e7e5e4;
+  --line-2: #f1f0ee;
+  --accent: #4f46e5;
+  --accent-soft: #eef2ff;
+  --up: #c2410c;
+  --up-soft: #fff1e6;
+  --down: #0f766e;
+  --down-soft: #e6f6f4;
+  --warn: #b45309;
+  --warn-soft: #fef3c7;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { font-family: Inter, system-ui, sans-serif; font-size: 13px; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; cursor: pointer; }
+.app { display: grid; grid-template-rows: auto auto 1fr; height: 100vh; }
+
+/* chrome */
+.top { display: flex; align-items: center; gap: 24px; padding: 0 20px; height: 48px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 8px; font-weight: 700; letter-spacing: -0.01em; }
+.brand-mark { width: 18px; height: 18px; border-radius: 5px; background: linear-gradient(135deg, #4f46e5, #0f766e); }
+.ws { color: var(--ink-3); font-weight: 500; }
+.nav { display: flex; gap: 4px; }
+.nav a { padding: 6px 10px; border-radius: 6px; color: var(--ink-2); text-decoration: none; font-weight: 500; }
+.nav a.on { background: var(--line-2); color: var(--ink); }
+.nav .count { margin-left: 6px; font-size: 11px; background: var(--warn-soft); color: var(--warn); padding: 1px 6px; border-radius: 10px; }
+.top .spacer { flex: 1; }
+.run-meta { color: var(--ink-3); font-size: 12px; }
+.filters { display: flex; align-items: center; gap: 6px; padding: 10px 20px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.chip { border: 1px solid var(--line); background: var(--panel); border-radius: 6px; padding: 5px 9px; color: var(--ink-2); font-weight: 500; }
+.chip b { color: var(--ink); font-weight: 600; }
+.chip:hover { border-color: var(--ink-3); }
+.filters .spacer { flex: 1; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 7px; padding: 2px; background: var(--bg); }
+.seg button { border: 0; background: none; padding: 4px 10px; border-radius: 5px; color: var(--ink-2); font-weight: 500; }
+.seg button.on { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+main { min-height: 0; position: relative; }
+.variant { display: none; height: 100%; }
+.variant.on { display: flex; }
+
+/* switcher */
+.switcher { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; padding: 5px; background: #18181b; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,.25); z-index: 50; }
+.switcher button { border: 0; background: none; color: #a1a1aa; padding: 7px 14px; border-radius: 8px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+.switcher button kbd { font-family: var(--mono); font-size: 10px; border: 1px solid #3f3f46; border-radius: 4px; padding: 0 4px; color: #71717a; }
+.switcher button.on { background: #fafafa; color: #18181b; }
+.switcher button.on kbd { border-color: #d4d4d8; color: #71717a; }
+
+/* shared bits */
+.num { font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-3); }
+.pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 10px; white-space: nowrap; }
+.pill.up { background: var(--up-soft); color: var(--up); }
+.pill.down { background: var(--down-soft); color: var(--down); }
+.pill.flat { background: var(--line-2); color: var(--ink-2); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.linked { background: var(--accent-soft); color: var(--accent); }
+.pill.new { background: #f5f3ff; color: #7c3aed; border: 1px dashed #c4b5fd; }
+.pain { display: inline-flex; gap: 2px; }
+.pain i { width: 5px; height: 12px; border-radius: 1px; background: var(--line); }
+.pain i.f { background: var(--up); }
+.btn { border: 1px solid var(--line); background: var(--panel); border-radius: 7px; padding: 7px 12px; font-weight: 600; }
+.btn.primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn.primary.done { background: var(--accent-soft); color: var(--accent); border-color: #c7d2fe; }
+
+/* detail (shared) */
+.detail { padding: 22px 24px 90px; overflow: auto; }
+.detail .crumb { font-size: 12px; color: var(--ink-3); margin-bottom: 6px; }
+.detail h2 { font-size: 19px; line-height: 1.3; margin: 0 0 12px; letter-spacing: -0.01em; }
+.detail .actions { display: flex; gap: 8px; margin-bottom: 18px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 18px; }
+.stats > div { padding: 10px 12px; border-right: 1px solid var(--line); }
+.stats > div:last-child { border-right: 0; }
+.stats .k { font-size: 11px; color: var(--ink-3); font-weight: 500; margin-bottom: 3px; }
+.stats .v { font-size: 17px; font-weight: 650; }
+.section-h { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin: 20px 0 8px; display: flex; justify-content: space-between; }
+.trend-box { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.quote { border-left: 3px solid var(--line); padding: 2px 0 2px 12px; margin-bottom: 14px; }
+.quote p { margin: 0 0 5px; font-size: 13.5px; line-height: 1.5; }
+.quote p mark { background: #fef9c3; padding: 0 1px; }
+.quote .meta { font-size: 11.5px; color: var(--ink-3); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.quote .meta b { color: var(--ink-2); font-weight: 600; }
+.quote.low { border-left-color: #fcd34d; }
+.sol { display: flex; justify-content: space-between; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 6px; }
+.acct { display: grid; grid-template-columns: 1fr auto auto; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line-2); }
+
+/* ---------- A: Outline ---------- */
+#v-outline .tree { flex: 1; overflow: auto; padding-bottom: 80px; }
+#v-outline .side { width: 440px; border-left: 1px solid var(--line); background: var(--panel); flex-shrink: 0; }
+.tt { width: 100%; border-collapse: collapse; }
+.tt th { position: sticky; top: 0; background: var(--bg); text-align: right; font-size: 11px; font-weight: 600; color: var(--ink-3); padding: 10px 12px; border-bottom: 1px solid var(--line); z-index: 1; white-space: nowrap; }
+.tt th:first-child { text-align: left; padding-left: 20px; }
+.tt td { padding: 9px 12px; border-bottom: 1px solid var(--line-2); text-align: right; white-space: nowrap; }
+.tt td:first-child { text-align: left; white-space: normal; }
+.tt tr.o td { background: var(--bg); font-weight: 600; padding-top: 12px; padding-bottom: 12px; }
+.tt tr.o td:first-child { padding-left: 20px; }
+.tt tr.p { background: var(--panel); cursor: pointer; }
+.tt tr.p td:first-child { padding-left: 44px; }
+.tt tr.p:hover td { background: #fafaf9; }
+.tt tr.p.sel td { background: var(--accent-soft); }
+.tt tr.s td { background: var(--panel); color: var(--ink-2); font-size: 12px; }
+.tt tr.s td:first-child { padding-left: 68px; }
+.caret { display: inline-block; width: 14px; color: var(--ink-3); cursor: pointer; }
+.ptitle { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+/* ---------- B: Ranked ---------- */
+#v-ranked { gap: 0; }
+#v-ranked .weights { width: 260px; flex-shrink: 0; padding: 22px 20px; border-right: 1px solid var(--line); background: var(--panel); overflow: auto; }
+#v-ranked .weights h3 { font-size: 13px; margin: 0 0 4px; }
+#v-ranked .weights p { color: var(--ink-3); margin: 0 0 18px; font-size: 12px; line-height: 1.5; }
+.w { margin-bottom: 18px; }
+.w label { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 6px; }
+.w label span.sw { width: 9px; height: 9px; border-radius: 2px; display: inline-block; margin-right: 6px; }
+.w input { width: 100%; accent-color: var(--ink); }
+.w small { color: var(--ink-3); font-size: 11.5px; }
+#v-ranked .list { flex: 1; overflow: auto; padding: 18px 28px 90px; }
+.rank { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 8px; transition: transform .35s ease; }
+.rank.open { border-color: #c7d2fe; box-shadow: 0 4px 18px rgba(79,70,229,.08); }
+.rank-row { display: grid; grid-template-columns: 34px 1fr 200px 70px 80px 76px; gap: 14px; align-items: center; padding: 12px 16px; cursor: pointer; }
+.rank-n { font-size: 18px; font-weight: 700; color: var(--ink-3); }
+.rank-t { font-weight: 600; font-size: 14px; }
+.rank-t .o { display: block; font-size: 11.5px; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
+.bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; background: var(--line-2); }
+.bar i { display: block; height: 100%; transition: width .3s; }
+.score { font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+.rank .detail { border-top: 1px solid var(--line); padding: 16px 20px 20px; overflow: visible; }
+.rank .detail h2, .rank .detail .crumb { display: none; }
+.rank .detail-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+.colhead { display: grid; grid-template-columns: 34px 1fr 200px 70px 80px 76px; gap: 14px; padding: 0 16px 8px; font-size: 11px; font-weight: 600; color: var(--ink-3); }
+.colhead span:nth-child(n+4) { text-align: right; }
+.rank-row > .num { text-align: right; }
+
+/* ---------- C: Map ---------- */
+#v-map { flex-direction: column; }
+.map-bar { display: flex; align-items: center; gap: 16px; padding: 12px 20px; }
+.legend { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 12px; }
+.legend .ramp { width: 140px; height: 8px; border-radius: 4px; }
+.map-wrap { flex: 1; min-height: 0; padding: 0 20px 80px; position: relative; }
+#treemap { width: 100%; height: 100%; }
+.tile { position: absolute; overflow: hidden; border-radius: 8px; padding: 10px 11px; cursor: pointer; transition: left .45s, top .45s, width .45s, height .45s, box-shadow .15s; border: 1px solid rgba(0,0,0,.06); }
+.tile:hover { box-shadow: 0 0 0 2px var(--ink); z-index: 2; }
+.tile.sel { box-shadow: 0 0 0 2px var(--accent); z-index: 2; }
+.tile .t { font-weight: 600; line-height: 1.3; font-size: 13px; }
+.tile .m { margin-top: 5px; font-size: 12px; opacity: .8; }
+.tile .flag { position: absolute; right: 8px; bottom: 8px; }
+.group-label { position: absolute; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: left .45s, top .45s, width .45s; }
+.group-label span { font-weight: 500; color: var(--ink-3); text-transform: none; letter-spacing: 0; margin-left: 6px; }
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 480px; background: var(--panel); box-shadow: -12px 0 40px rgba(0,0,0,.12); transform: translateX(105%); transition: transform .28s ease; z-index: 40; display: flex; flex-direction: column; }
+.drawer.on { transform: none; }
+.drawer .x { position: absolute; top: 14px; right: 14px; border: 0; background: var(--line-2); width: 28px; height: 28px; border-radius: 7px; font-size: 16px; line-height: 1; }
+.scrim { position: fixed; inset: 0; background: rgba(24,24,27,.12); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 39; }
+.scrim.on { opacity: 1; pointer-events: auto; }
+.proposal { position: absolute; border: 1.5px dashed #c4b5fd; background: repeating-linear-gradient(135deg, #faf5ff, #faf5ff 6px, #f5f3ff 6px, #f5f3ff 12px); color: #6d28d9; }
+
+/* ---------- D: Hybrid ---------- */
+#v-hybrid .rail { width: 250px; flex-shrink: 0; padding: 20px 18px 90px; border-right: 1px solid var(--line); background: var(--panel); overflow: auto; }
+.rail-h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 14px; }
+.rail .w { margin-bottom: 14px; }
+.fgroup { margin-bottom: 16px; }
+.fh { font-weight: 600; margin-bottom: 6px; }
+.fopt { display: flex; align-items: center; gap: 8px; padding: 3px 0; color: var(--ink-2); cursor: pointer; }
+.fopt input { accent-color: var(--ink); margin: 0; }
+.fopt .muted { margin-left: auto; font-size: 11.5px; }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip.sm, .btn.sm { padding: 3px 8px; font-size: 12px; }
+.h-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.h-toolbar { display: flex; align-items: center; gap: 12px; padding: 12px 28px; border-bottom: 1px solid var(--line); }
+.h-toolbar .spacer, .ghead .spacer, .proposal-card .spacer { flex: 1; }
+kbd { font-family: var(--mono); font-size: 10.5px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; background: var(--panel); }
+.h-body { flex: 1; min-height: 0; display: flex; }
+#h-list { flex: 1; overflow: auto; padding: 16px 28px 90px; }
+.h-detail { display: none; width: 460px; flex-shrink: 0; border-left: 1px solid var(--line); background: var(--panel); }
+#v-hybrid.split .h-detail { display: block; }
+#v-hybrid.split #h-list { padding: 16px 16px 90px 20px; }
+#v-hybrid.split .rank-row, #v-hybrid.split .colhead { grid-template-columns: 30px 1fr 110px 64px 70px; gap: 12px; }
+.rank.h.sel { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 4px 18px rgba(79,70,229,.10); }
+.rank.h .rank-t .pill { margin-left: 4px; vertical-align: 1px; }
+.ghead { display: flex; align-items: center; gap: 10px; padding: 18px 6px 10px; cursor: pointer; }
+.ghead:first-child { padding-top: 4px; }
+.ghead .gt { font-size: 15px; font-weight: 650; letter-spacing: -0.01em; }
+.ghead .gm { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+.proposal-card { display: flex; align-items: center; gap: 10px; padding: 11px 16px; margin-bottom: 14px; border: 1.5px dashed #c4b5fd; border-radius: 12px; background: #faf8ff; }
+.ghead ~ .proposal-card { margin: 0 0 8px; }
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="brand-mark"></div>Groundwork <span class="ws">/ Acme Analytics</span></div>
+    <nav class="nav">
+      <a class="on" href="#">Opportunities</a>
+      <a href="#">Triage<span class="count">23</span></a>
+      <a href="#">Sources</a>
+      <a href="#">Accounts</a>
+      <a href="#">Packs</a>
+    </nav>
+    <div class="spacer"></div>
+    <div class="run-meta">4,812 items · 3,906 mentions · last run 2h ago · $0.63</div>
+  </header>
+  <div class="filters">
+    <button class="chip">Segment <b>All</b></button>
+    <button class="chip">Plan <b>All</b></button>
+    <button class="chip">Source <b>5 of 5</b></button>
+    <button class="chip">Speaker <b>Any</b></button>
+    <button class="chip">Date <b>Last 90 days</b></button>
+    <div class="spacer"></div>
+    <span id="variant-controls"></span>
+  </div>
+  <main>
+    <section class="variant" id="v-outline">
+      <div class="tree"><table class="tt" id="tt"></table></div>
+      <aside class="side detail" id="outline-detail"></aside>
+    </section>
+    <section class="variant" id="v-ranked">
+      <aside class="weights" id="weights"></aside>
+      <div class="list" id="ranked-list"></div>
+    </section>
+    <section class="variant" id="v-map">
+      <div class="map-bar">
+        <div class="seg" id="size-seg"></div>
+        <div class="legend"><span>Shrinking</span><div class="ramp" id="ramp"></div><span>Growing</span><span class="muted">· color = 4-week trend</span></div>
+      </div>
+      <div class="map-wrap"><div id="treemap"></div></div>
+      <div class="scrim" id="scrim"></div>
+      <aside class="drawer" id="drawer"><button class="x" id="drawer-x">×</button><div class="detail" id="drawer-detail" style="flex:1"></div></aside>
+    </section>
+    <section class="variant" id="v-hybrid">
+      <aside class="rail">
+        <div class="rail-h">Rank by</div>
+        <div id="h-weights"></div>
+        <div class="rail-h" style="margin-top:26px">Filter</div>
+        <div id="h-filters"></div>
+      </aside>
+      <div class="h-main">
+        <div class="h-toolbar" id="h-toolbar"></div>
+        <div class="h-body">
+          <div class="list" id="h-list"></div>
+          <aside class="detail h-detail" id="h-detail"></aside>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="switcher" id="switcher"></div>
+
+<script>
+// ---------- mock data ----------
+const OUTCOMES = [
+  { id: 'o1', title: 'Get customer data in without engineering help' },
+  { id: 'o2', title: 'Trust the numbers in reports' },
+  { id: 'o3', title: 'Share findings with stakeholders' },
+  { id: 'o4', title: 'Control access and spend' },
+];
+
+const SOURCES = { zd: 'Zendesk ticket', gong: 'Gong call', nps: 'NPS comment', int: 'Interview', g2: 'G2 review' };
+
+function trendSeries(seed, dir) {
+  let x = 6 + (seed % 5), out = [];
+  for (let i = 0; i < 12; i++) {
+    const wobble = Math.sin(seed * 3.1 + i * 1.7) * 2.2;
+    x = Math.max(1, x + dir * 0.9 + wobble * 0.5);
+    out.push(Math.round(x + wobble));
+  }
+  return out.map(v => Math.max(1, v));
+}
+
+const PROBLEMS = [
+  { id: 'p1', o: 'o1', title: 'CSV imports fail silently on malformed rows', accounts: 38, arr: 1420000, mentions: 112, pain: 3, dir: 1.1, low: 6, link: null,
+    sols: [['Row-level error report after import', 41], ['Dry-run / validate before import', 23]],
+    quotes: [
+      ['We uploaded 40k rows and <mark>only 31k showed up. No error, nothing.</mark> We found out a week later from finance.', 'Juniper Freight', 184000, 'admin', 'zd', 'Sep 12'],
+      ['Honestly the <mark>import is a black box</mark>. I just re-upload until the count looks right.', 'Parcelly', 62000, 'end_user', 'int', 'Aug 29'],
+      ['If a row is bad just tell me which one. <mark>I spent two days bisecting a CSV.</mark>', 'Kestrel Labs', 96000, 'admin', 'gong', 'Sep 3', true],
+    ] },
+  { id: 'p2', o: 'o1', title: 'Field mapping must be redone for every import', accounts: 27, arr: 980000, mentions: 64, pain: 2, dir: 0.1, low: 2, link: null,
+    sols: [['Saved mapping templates', 38], ['Auto-detect columns from headers', 12]],
+    quotes: [
+      ['Every Monday I <mark>map the same 22 columns by hand</mark>. Please remember them.', 'Tandem Retail', 71000, 'end_user', 'nps', 'Sep 15'],
+      ['The mapping step is where my team <mark>loses 30 minutes a week</mark>.', 'Meridian Ops', 118000, 'admin', 'gong', 'Aug 21'],
+    ] },
+  { id: 'p3', o: 'o1', title: 'No way to backfill historical data', accounts: 12, arr: 610000, mentions: 29, pain: 2, dir: 0.8, low: 1, link: null,
+    sols: [['Bulk historical import job', 17]],
+    quotes: [
+      ['We can only see data since we signed up, so <mark>year-over-year is impossible</mark>.', 'Halcyon Bank', 240000, 'buyer', 'gong', 'Sep 9'],
+      ['Our board wants 3 years of trend. <mark>We still build that in Excel.</mark>', 'Fernway', 88000, 'executive', 'int', 'Aug 30'],
+    ] },
+  { id: 'p4', o: 'o2', title: "Dashboard totals don't match the source system", accounts: 44, arr: 2310000, mentions: 141, pain: 3, dir: 1.6, low: 9, link: null,
+    sols: [['Reconciliation view vs. source', 36], ['Show calculation lineage per metric', 29], ['Export raw rows behind a number', 14]],
+    quotes: [
+      ['Our CFO saw <mark>revenue off by 4% versus Stripe</mark> and now nobody trusts the dashboard.', 'Halcyon Bank', 240000, 'executive', 'gong', 'Sep 18'],
+      ['I have to <mark>screenshot the source system next to yours</mark> in every exec review to prove it\'s right.', 'Orbitly', 132000, 'end_user', 'int', 'Sep 6'],
+      ['Numbers don\'t tie out. <mark>This is a renewal risk for us.</mark>', 'Cobalt Insurance', 310000, 'buyer', 'zd', 'Sep 11'],
+      ['Totals are different depending on which page you look at?', 'Lumen Clinics', 74000, 'end_user', 'g2', 'Aug 25', true],
+    ] },
+  { id: 'p5', o: 'o2', title: "Can't tell when data was last refreshed", accounts: 31, arr: 1050000, mentions: 77, pain: 1, dir: 0, low: 3, link: 'LIN-417',
+    sols: [['"Last synced" timestamp on every chart', 44]],
+    quotes: [
+      ['Is this <mark>live or from yesterday</mark>? I genuinely can\'t tell.', 'Quillstack', 54000, 'end_user', 'nps', 'Sep 14'],
+      ['We made a pricing call on <mark>stale data</mark> because the sync had failed overnight.', 'Tandem Retail', 71000, 'executive', 'gong', 'Aug 27'],
+    ] },
+  { id: 'p6', o: 'o2', title: 'Timezone handling shifts daily counts', accounts: 9, arr: 420000, mentions: 18, pain: 1, dir: -0.8, low: 2, link: null,
+    sols: [['Workspace timezone setting', 11]],
+    quotes: [
+      ['Daily signups are <mark>off by one day for our APAC team</mark>.', 'Arcadia Games', 66000, 'end_user', 'zd', 'Aug 18'],
+    ] },
+  { id: 'p7', o: 'o3', title: 'Exported charts lose formatting in slides', accounts: 22, arr: 540000, mentions: 58, pain: 1, dir: -0.9, low: 4, link: null,
+    sols: [['Export to Google Slides', 19], ['SVG export', 9]],
+    quotes: [
+      ['Every export <mark>comes out blurry</mark> and I rebuild the chart in Keynote.', 'Fernway', 88000, 'end_user', 'g2', 'Aug 12'],
+      ['The legend <mark>disappears when I paste into PowerPoint</mark>.', 'Brightline Health', 43000, 'end_user', 'zd', 'Aug 20', true],
+    ] },
+  { id: 'p8', o: 'o3', title: 'Viewers need a paid seat to see a dashboard', accounts: 35, arr: 1880000, mentions: 96, pain: 2, dir: 1.3, low: 5, link: 'LIN-482',
+    sols: [['Free view-only seats', 52], ['Public share links', 21]],
+    quotes: [
+      ['I can\'t justify <mark>a $40 seat for a VP who looks once a month</mark>.', 'Cobalt Insurance', 310000, 'buyer', 'gong', 'Sep 16'],
+      ['We ended up <mark>sharing one login across the sales team</mark>. Not great.', 'Northwind', 150000, 'admin', 'int', 'Sep 2'],
+      ['Seat pricing is the <mark>main reason we\'re evaluating alternatives</mark>.', 'Orbitly', 132000, 'buyer', 'gong', 'Sep 19'],
+    ] },
+  { id: 'p9', o: 'o3', title: 'No scheduled email digest', accounts: 17, arr: 390000, mentions: 41, pain: 0, dir: 0.1, low: 3, link: null,
+    sols: [['Weekly email digest', 31]],
+    quotes: [
+      ['I\'d love a <mark>Monday email with the 5 numbers I care about</mark>.', 'Parcelly', 62000, 'executive', 'nps', 'Sep 8'],
+    ] },
+  { id: 'p10', o: 'o4', title: "Admins can't restrict access by team", accounts: 19, arr: 1640000, mentions: 47, pain: 3, dir: 1.0, low: 2, link: null,
+    sols: [['Team-scoped permissions', 27], ['Row-level security', 13]],
+    quotes: [
+      ['Security review flagged that <mark>every user can see every region\'s data</mark>. That blocks our rollout.', 'Halcyon Bank', 240000, 'admin', 'gong', 'Sep 17'],
+      ['We need <mark>HR dashboards visible to HR only</mark>, full stop.', 'Lumen Clinics', 74000, 'admin', 'zd', 'Sep 4'],
+    ] },
+  { id: 'p11', o: 'o4', title: 'Usage-based bill is unpredictable', accounts: 26, arr: 1120000, mentions: 69, pain: 2, dir: 0.9, low: 7, link: null,
+    sols: [['Spend alerts and caps', 34], ['Usage forecast on billing page', 15]],
+    quotes: [
+      ['Our <mark>bill doubled in March</mark> and we had no warning.', 'Meridian Ops', 118000, 'buyer', 'gong', 'Sep 10'],
+      ['Finance keeps asking me <mark>what next month will cost</mark> and I can\'t answer.', 'Kestrel Labs', 96000, 'admin', 'int', 'Aug 31', true],
+    ] },
+  { id: 'p12', o: 'o4', title: 'SSO setup requires contacting support', accounts: 8, arr: 720000, mentions: 15, pain: 1, dir: 0, low: 0, link: null,
+    sols: [['Self-serve SAML setup', 12]],
+    quotes: [
+      ['Took <mark>three weeks of back-and-forth</mark> to get Okta working.', 'Cobalt Insurance', 310000, 'admin', 'zd', 'Aug 16'],
+    ] },
+];
+PROBLEMS.forEach((p, i) => {
+  p.trend = trendSeries(i + 2, p.dir);
+  const last4 = p.trend.slice(-4).reduce((a, b) => a + b, 0), prev4 = p.trend.slice(-8, -4).reduce((a, b) => a + b, 0);
+  p.delta = (last4 - prev4) / Math.max(prev4, 1);
+});
+const PROPOSAL = { title: 'Mobile app crashes on large dashboards', mentions: 23, accounts: 11, arr: 460000 };
+
+const PAIN_LABELS = ['Mild annoyance', 'Slows work', 'Blocks work', 'Deal breaker'];
+const byId = Object.fromEntries(PROBLEMS.map(p => [p.id, p]));
+const outcomeOf = id => OUTCOMES.find(o => o.id === id);
+
+// ---------- format helpers ----------
+const fmtArr = v => v >= 1e6 ? `$${(v / 1e6).toFixed(2)}M` : `$${Math.round(v / 1000)}k`;
+const fmtPct = d => `${d > 0 ? '+' : ''}${Math.round(d * 100)}%`;
+const trendClass = d => d > 0.08 ? 'up' : d < -0.08 ? 'down' : 'flat';
+const trendPill = d => `<span class="pill ${trendClass(d)}">${d > 0.08 ? '▲' : d < -0.08 ? '▼' : '■'} ${fmtPct(d)}</span>`;
+const painBar = n => `<span class="pain" title="${PAIN_LABELS[n]}">${[0,1,2,3].map(i => `<i class="${i <= n ? 'f' : ''}"></i>`).join('')}</span>`;
+
+function spark(series, w = 72, h = 20, color) {
+  const max = Math.max(...series), min = Math.min(...series);
+  const pts = series.map((v, i) => [i / (series.length - 1) * w, h - 2 - (v - min) / Math.max(max - min, 1) * (h - 4)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join('');
+  const c = color || 'var(--ink-2)';
+  return `<svg width="${w}" height="${h}" style="display:block"><path d="${d}" fill="none" stroke="${c}" stroke-width="1.5" stroke-linejoin="round"/><circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="2" fill="${c}"/></svg>`;
+}
+
+function bigTrend(series) {
+  const w = 380, h = 70, max = Math.max(...series);
+  const bw = w / series.length;
+  return `<svg viewBox="0 0 ${w} ${h + 16}" width="100%">${series.map((v, i) => {
+    const bh = v / max * h;
+    return `<rect x="${i * bw + 2}" y="${h - bh}" width="${bw - 4}" height="${bh}" rx="2" fill="${i >= 8 ? 'var(--ink)' : 'var(--line)'}"/>`;
+  }).join('')}<text x="0" y="${h + 13}" font-size="10" fill="var(--ink-3)">12 weeks ago</text><text x="${w}" y="${h + 13}" font-size="10" fill="var(--ink-3)" text-anchor="end">this week</text></svg>`;
+}
+
+// ---------- shared detail ----------
+const D = {
+  actions: p => `<div class="actions">${p.link
+    ? `<button class="btn primary done" data-link="${p.id}">✓ Linked ${p.link}</button>`
+    : `<button class="btn primary" data-link="${p.id}">Push to Linear</button>`}<button class="btn">Share</button><button class="btn">Merge…</button></div>`,
+  stats: p => `<div class="stats">
+      <div><div class="k">Accounts</div><div class="v num">${p.accounts}</div></div>
+      <div><div class="k">ARR</div><div class="v num">${fmtArr(p.arr)}</div></div>
+      <div><div class="k">Mentions</div><div class="v num">${p.mentions}</div></div>
+      <div><div class="k">Pain</div><div class="v" style="font-size:13px;padding-top:4px">${painBar(p.pain)} <span class="muted" style="font-weight:500">${PAIN_LABELS[p.pain]}</span></div></div>
+    </div>`,
+  trend: p => `<div class="section-h"><span>Mentions per week</span>${trendPill(p.delta)}</div><div class="trend-box">${bigTrend(p.trend)}</div>`,
+  quotes: p => `<div class="section-h"><span>What customers said</span><span>${p.low ? `<span class="pill warn">${p.low} need review</span>` : ''}</span></div>
+    ${p.quotes.map(q => `
+      <div class="quote ${q[6] ? 'low' : ''}">
+        <p>“${q[0]}”</p>
+        <div class="meta"><b>${q[1]}</b><span>${fmtArr(q[2])} ARR</span><span>${q[3].replace('_', ' ')}</span><span>${SOURCES[q[4]]} · ${q[5]}</span>${q[6] ? '<span class="pill warn">62% confident</span>' : ''}</div>
+      </div>`).join('')}`,
+  sols: p => `<div class="section-h"><span>Requested solutions</span><span>mentions</span></div>
+    ${p.sols.map(s => `<div class="sol"><span>${s[0]}</span><span class="num muted">${s[1]}</span></div>`).join('')}`,
+  accts: p => `<div class="section-h"><span>Top accounts</span><span>ARR</span></div>
+    ${[...new Map(p.quotes.map(q => [q[1], q[2]])).entries()].sort((a, b) => b[1] - a[1]).map(a => `<div class="acct"><span>${a[0]}</span><span></span><span class="num">${fmtArr(a[1])}</span></div>`).join('')}`,
+};
+function detailHTML(p) {
+  return `<div class="crumb">${outcomeOf(p.o).title}</div><h2>${p.title}</h2>` + D.actions(p) + D.stats(p) + D.trend(p) + D.quotes(p) + D.sols(p) + D.accts(p);
+}
+function inlineDetailHTML(p) {
+  return `<div class="detail inline"><div class="detail-grid"><div>${D.actions(p)}${D.stats(p)}${D.quotes(p)}</div><div>${D.trend(p).replace('section-h', 'section-h" style="margin-top:0')}${D.sols(p)}${D.accts(p)}</div></div></div>`;
+}
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-link]');
+  if (!b) return;
+  e.stopPropagation();
+  const p = byId[b.dataset.link];
+  if (!p.link) { p.link = 'LIN-' + (500 + Math.floor(Math.random() * 90)); renderAll(); }
+});
+
+// ---------- A: Outline ----------
+const collapsed = new Set();
+let outlineSel = 'p4';
+function renderOutline() {
+  const rows = [`<thead><tr><th>Opportunity</th><th>Accounts</th><th>ARR</th><th>Mentions</th><th>Pain</th><th>12-week trend</th><th></th></tr></thead><tbody>`];
+  for (const o of OUTCOMES) {
+    const ps = PROBLEMS.filter(p => p.o === o.id).sort((a, b) => b.arr - a.arr);
+    const acc = Math.round(ps.reduce((s, p) => s + p.accounts, 0) * 0.78);
+    const arr = ps.reduce((s, p) => s + p.arr, 0) * 0.8;
+    const men = ps.reduce((s, p) => s + p.mentions, 0);
+    const tr = ps[0].trend.map((_, i) => ps.reduce((s, p) => s + p.trend[i], 0));
+    const open = !collapsed.has(o.id);
+    rows.push(`<tr class="o" data-o="${o.id}"><td><span class="caret">${open ? '▾' : '▸'}</span>${o.title} <span class="muted" style="font-weight:500">· ${ps.length} problems</span></td><td class="num">${acc}</td><td class="num">${fmtArr(arr)}</td><td class="num">${men}</td><td></td><td>${spark(tr)}</td><td></td></tr>`);
+    if (!open) continue;
+    for (const p of ps) {
+      rows.push(`<tr class="p ${p.id === outlineSel ? 'sel' : ''}" data-p="${p.id}">
+        <td><div class="ptitle">${p.title}${p.link ? `<span class="pill linked">${p.link}</span>` : ''}${p.low ? `<span class="pill warn">${p.low} to review</span>` : ''}</div></td>
+        <td class="num">${p.accounts}</td><td class="num">${fmtArr(p.arr)}</td><td class="num">${p.mentions}</td>
+        <td>${painBar(p.pain)}</td>
+        <td><div style="display:flex;gap:8px;align-items:center;justify-content:flex-end">${spark(p.trend, 64, 18, p.delta > .08 ? 'var(--up)' : p.delta < -.08 ? 'var(--down)' : 'var(--ink-3)')}<span class="num muted" style="width:38px">${fmtPct(p.delta)}</span></div></td><td></td></tr>`);
+      if (p.id === outlineSel) for (const s of p.sols) rows.push(`<tr class="s"><td>↳ ${s[0]} <span class="muted">· solution idea</span></td><td></td><td></td><td class="num">${s[1]}</td><td></td><td></td><td></td></tr>`);
+    }
+    if (o.id === 'o3') rows.push(`<tr class="p"><td><div class="ptitle"><span class="pill new">Proposed</span>${PROPOSAL.title} <span class="muted">· from ${PROPOSAL.mentions} unplaced mentions</span></div></td><td class="num muted">${PROPOSAL.accounts}</td><td class="num muted">${fmtArr(PROPOSAL.arr)}</td><td class="num muted">${PROPOSAL.mentions}</td><td></td><td><button class="btn" style="padding:3px 8px;font-size:12px">Review</button></td><td></td></tr>`);
+  }
+  rows.push('</tbody>');
+  document.getElementById('tt').innerHTML = rows.join('');
+  document.getElementById('outline-detail').innerHTML = detailHTML(byId[outlineSel]);
+}
+document.getElementById('tt').addEventListener('click', e => {
+  const o = e.target.closest('tr.o'); const p = e.target.closest('tr.p[data-p]');
+  if (o) { collapsed.has(o.dataset.o) ? collapsed.delete(o.dataset.o) : collapsed.add(o.dataset.o); renderOutline(); }
+  if (p) { outlineSel = p.dataset.p; renderOutline(); }
+});
+
+// ---------- B: Ranked ----------
+const WEIGHTS = [
+  { k: 'reach', label: 'Reach', hint: 'Distinct accounts', color: '#4f46e5', v: 30, f: p => p.accounts / 44 },
+  { k: 'revenue', label: 'Revenue', hint: 'ARR of those accounts', color: '#0f766e', v: 35, f: p => p.arr / 2310000 },
+  { k: 'pain', label: 'Pain', hint: 'Judge-scored severity', color: '#c2410c', v: 20, f: p => p.pain / 3 },
+  { k: 'trend', label: 'Momentum', hint: '4-week change in mentions', color: '#a16207', v: 15, f: p => Math.max(0, Math.min(1, (p.delta + 0.3) / 0.9)) },
+];
+let rankedOpen = null;
+function scoreOf(p) {
+  const tot = WEIGHTS.reduce((s, w) => s + w.v, 0) || 1;
+  const parts = WEIGHTS.map(w => w.f(p) * w.v / tot * 100);
+  return { parts, total: parts.reduce((a, b) => a + b, 0) };
+}
+const weightsHTML = () => `
+    ${WEIGHTS.map((w, i) => `<div class="w"><label><span><span class="sw" style="background:${w.color}"></span>${w.label}</span><span class="num" data-wv="${i}">${w.v}</span></label><input type="range" min="0" max="60" value="${w.v}" data-w="${i}"><small>${w.hint}</small></div>`).join('')}
+    <div style="display:flex;flex-wrap:wrap;gap:6px"><button class="chip" data-preset="30,35,20,15">Balanced</button><button class="chip" data-preset="10,60,20,10">Enterprise</button><button class="chip" data-preset="50,10,20,20">Breadth</button><button class="chip" data-preset="15,15,20,50">Heating up</button></div>`;
+function renderWeights() {
+  document.getElementById('weights').innerHTML = `<h3>Ranking weights</h3><p>Code does the math. Drag to change what "most important" means for this planning cycle.</p>` + weightsHTML();
+  document.getElementById('h-weights').innerHTML = weightsHTML();
+}
+const rankPrevY = new Map();
+function renderRanked() {
+  const list = document.getElementById('ranked-list');
+  list.querySelectorAll('.rank').forEach(el => rankPrevY.set(el.dataset.p, el.getBoundingClientRect().top));
+  const ranked = PROBLEMS.map(p => ({ p, s: scoreOf(p) })).sort((a, b) => b.s.total - a.s.total);
+  list.innerHTML = `<div class="colhead"><span>#</span><span>Problem</span><span>Score</span><span>Accounts</span><span>ARR</span><span>Trend</span></div>` +
+    ranked.map(({ p, s }, i) => `
+    <div class="rank ${rankedOpen === p.id ? 'open' : ''}" data-p="${p.id}">
+      <div class="rank-row">
+        <div class="rank-n">${i + 1}</div>
+        <div class="rank-t">${p.title} ${p.link ? `<span class="pill linked">${p.link}</span>` : ''}<span class="o">${outcomeOf(p.o).title}</span></div>
+        <div><div class="bar">${s.parts.map((v, j) => `<i style="width:${v}%;background:${WEIGHTS[j].color}"></i>`).join('')}</div><div class="score">${s.total.toFixed(0)} / 100</div></div>
+        <div class="num">${p.accounts}</div>
+        <div class="num">${fmtArr(p.arr)}</div>
+        <div style="text-align:right">${trendPill(p.delta)}</div>
+      </div>
+      ${rankedOpen === p.id ? inlineDetailHTML(p) : ''}
+    </div>`).join('');
+  list.querySelectorAll('.rank').forEach(el => {
+    const prev = rankPrevY.get(el.dataset.p);
+    if (prev == null) return;
+    const dy = prev - el.getBoundingClientRect().top;
+    if (!dy) return;
+    el.style.transition = 'none'; el.style.transform = `translateY(${dy}px)`;
+    requestAnimationFrame(() => { el.style.transition = ''; el.style.transform = ''; });
+  });
+}
+document.addEventListener('input', e => {
+  if (e.target.dataset.w == null) return;
+  const i = +e.target.dataset.w; WEIGHTS[i].v = +e.target.value;
+  document.querySelectorAll(`[data-wv="${i}"]`).forEach(el => el.textContent = WEIGHTS[i].v);
+  document.querySelectorAll(`input[data-w="${i}"]`).forEach(el => { if (el !== e.target) el.value = WEIGHTS[i].v; });
+  renderRanked(); renderHybrid();
+});
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-preset]'); if (!b) return;
+  b.dataset.preset.split(',').forEach((v, i) => WEIGHTS[i].v = +v);
+  renderWeights(); renderRanked(); renderHybrid();
+});
+document.getElementById('ranked-list').addEventListener('click', e => {
+  const row = e.target.closest('.rank-row'); if (!row) return;
+  const id = row.parentElement.dataset.p; rankedOpen = rankedOpen === id ? null : id;
+  rankPrevY.clear(); renderRanked();
+});
+
+// ---------- D: Hybrid ----------
+const SEGMENTS = [['ent', 'Enterprise', 150000], ['mid', 'Mid-market', 80000], ['smb', 'SMB', 0]];
+const segOf = arr => SEGMENTS.find(sg => arr >= sg[2])[0];
+const H = { layout: 'split', group: 'flat', sel: 'p4', segs: new Set(['ent', 'mid', 'smb']), collapsed: new Set() };
+// Fake segment filtering: scale each problem's numbers by the share of its quotes from the selected segments.
+function view(p) {
+  if (H.segs.size === 3) return p;
+  const n = p.quotes.length;
+  const hit = p.quotes.filter(q => H.segs.has(segOf(q[2])));
+  const share = (hit.length + 0.15) / (n + 0.45);
+  const arrShare = (hit.reduce((s, q) => s + q[2], 0) + 20000) / (p.quotes.reduce((s, q) => s + q[2], 0) + 60000);
+  return { ...p, accounts: Math.max(1, Math.round(p.accounts * share)), mentions: Math.max(1, Math.round(p.mentions * share)), arr: p.arr * arrShare, quotes: hit.length ? hit : p.quotes };
+}
+function hybridRail() {
+  const srcCounts = { zd: 1840, gong: 312, nps: 1906, int: 44, g2: 710 };
+  document.getElementById('h-filters').innerHTML = `
+    <div class="fgroup"><div class="fh">Segment</div>${SEGMENTS.map(([k, l]) => `<label class="fopt"><input type="checkbox" data-seg="${k}" ${H.segs.has(k) ? 'checked' : ''}>${l}</label>`).join('')}</div>
+    <div class="fgroup"><div class="fh">Source</div>${Object.entries(SOURCES).map(([k, l]) => `<label class="fopt"><input type="checkbox" checked>${l.replace(/ (ticket|call|comment|review)$/, '')}<span class="muted num">${srcCounts[k].toLocaleString()}</span></label>`).join('')}</div>
+    <div class="fgroup"><div class="fh">Speaker</div><div class="chips">${['End user', 'Admin', 'Buyer', 'Exec'].map(r => `<button class="chip sm">${r}</button>`).join('')}</div></div>
+    <div class="fgroup"><div class="fh">Date</div><div class="seg" style="width:100%">${['30d', '90d', '1y'].map(d => `<button class="${d === '90d' ? 'on' : ''}" style="flex:1">${d}</button>`).join('')}</div></div>`;
+}
+const hPrevY = new Map();
+function hCard(p, s, rank) {
+  const split = H.layout === 'split', sel = H.sel === p.id;
+  const meta = H.group === 'outcome' ? `${p.accounts} accounts · ${p.mentions} mentions` : outcomeOf(p.o).title;
+  return `<div class="rank h ${sel ? (split ? 'sel' : 'open') : ''}" data-p="${p.id}">
+    <div class="rank-row">
+      <div class="rank-n">${rank}</div>
+      <div class="rank-t">${p.title} ${p.link ? `<span class="pill linked">${p.link}</span>` : ''}${p.low ? `<span class="pill warn" title="Low-confidence placements">${p.low}</span>` : ''}<span class="o">${meta}</span></div>
+      <div><div class="bar">${s.parts.map((v, j) => `<i style="width:${v}%;background:${WEIGHTS[j].color}"></i>`).join('')}</div><div class="score">${s.total.toFixed(0)}</div></div>
+      ${split ? '' : `<div class="num">${p.accounts}</div>`}
+      <div class="num">${fmtArr(p.arr)}</div>
+      <div style="text-align:right">${trendPill(p.delta)}</div>
+    </div>
+    ${sel && !split ? inlineDetailHTML(p) : ''}
+  </div>`;
+}
+function hOrder() {
+  const ranked = PROBLEMS.map(view).map(p => ({ p, s: scoreOf(p) })).sort((a, b) => b.s.total - a.s.total);
+  ranked.forEach((r, i) => r.rank = i + 1);
+  if (H.group === 'flat') return { ranked, groups: null };
+  const groups = OUTCOMES.map(o => ({ o, items: ranked.filter(r => r.p.o === o.id) }))
+    .sort((a, b) => b.items.reduce((s, r) => s + r.s.total, 0) - a.items.reduce((s, r) => s + r.s.total, 0));
+  return { ranked, groups };
+}
+function renderHybrid(animate = true) {
+  const split = H.layout === 'split';
+  const root = document.getElementById('v-hybrid');
+  root.classList.toggle('split', split);
+  document.getElementById('h-toolbar').innerHTML = `
+    <div class="seg">${[['flat', 'Ranked'], ['outcome', 'By outcome']].map(([k, l]) => `<button class="${H.group === k ? 'on' : ''}" data-group="${k}">${l}</button>`).join('')}</div>
+    <div class="spacer"></div>
+    <span class="muted" style="font-size:12px">${split ? '<kbd>j</kbd> <kbd>k</kbd> to move' : 'Click a row to expand'}</span>
+    <div class="seg" title="Detail layout">${[['inline', '▤ Stack'], ['split', '◧ Split']].map(([k, l]) => `<button class="${H.layout === k ? 'on' : ''}" data-layout="${k}">${l}</button>`).join('')}</div>`;
+  const list = document.getElementById('h-list');
+  if (animate) list.querySelectorAll('.rank').forEach(el => hPrevY.set(el.dataset.p, el.getBoundingClientRect().top)); else hPrevY.clear();
+  const { ranked, groups } = hOrder();
+  if (split && !ranked.some(r => r.p.id === H.sel)) H.sel = ranked[0].p.id;
+  const head = `<div class="colhead"><span>#</span><span>Problem</span><span>Score</span>${split ? '' : '<span>Accounts</span>'}<span>ARR</span><span>Trend</span></div>`;
+  const proposal = `<div class="proposal-card"><span class="pill new">Proposed</span><b>${PROPOSAL.title}</b><span class="muted">from ${PROPOSAL.mentions} unplaced mentions · ${PROPOSAL.accounts} accounts</span><div class="spacer"></div><button class="btn sm">Review</button></div>`;
+  let body;
+  if (!groups) body = proposal + head + ranked.map(r => hCard(r.p, r.s, r.rank)).join('');
+  else body = groups.map(({ o, items }) => {
+    const open = !H.collapsed.has(o.id);
+    const acc = Math.round(items.reduce((s, r) => s + r.p.accounts, 0) * 0.78), arr = items.reduce((s, r) => s + r.p.arr, 0) * 0.8;
+    const tr = items[0].p.trend.map((_, i) => items.reduce((s, r) => s + r.p.trend[i], 0));
+    return `<div class="ghead" data-g="${o.id}"><span class="caret">${open ? '▾' : '▸'}</span><div><div class="gt">${o.title}</div><div class="gm">${items.length} problems · ${acc} accounts · ${fmtArr(arr)} ARR</div></div><div class="spacer"></div>${spark(tr, 90, 24)}</div>`
+      + (open ? items.map(r => hCard(r.p, r.s, r.rank)).join('') + (o.id === 'o3' ? proposal : '') : '');
+  }).join('');
+  list.innerHTML = body;
+  document.getElementById('h-detail').innerHTML = split ? detailHTML(view(byId[H.sel])) : '';
+  list.querySelectorAll('.rank').forEach(el => {
+    const prev = hPrevY.get(el.dataset.p);
+    if (prev == null) return;
+    const dy = prev - el.getBoundingClientRect().top;
+    if (!dy) return;
+    el.style.transition = 'none'; el.style.transform = `translateY(${dy}px)`;
+    requestAnimationFrame(() => { el.style.transition = ''; el.style.transform = ''; });
+  });
+}
+document.getElementById('v-hybrid').addEventListener('click', e => {
+  const g = e.target.closest('[data-group]'), l = e.target.closest('[data-layout]'), gh = e.target.closest('.ghead'), row = e.target.closest('#h-list .rank-row');
+  if (g) { H.group = g.dataset.group; renderHybrid(false); }
+  else if (l) { H.layout = l.dataset.layout; if (l.dataset.layout === 'inline') H.sel = null; renderHybrid(false); }
+  else if (gh) { const id = gh.dataset.g; H.collapsed.has(id) ? H.collapsed.delete(id) : H.collapsed.add(id); renderHybrid(false); }
+  else if (row) {
+    const id = row.parentElement.dataset.p;
+    H.sel = H.layout === 'inline' && H.sel === id ? null : id;
+    renderHybrid(false);
+    if (H.layout === 'split') document.getElementById('h-detail').scrollTop = 0;
+  }
+});
+document.getElementById('h-filters').addEventListener('change', e => {
+  const k = e.target.dataset.seg; if (!k) return;
+  e.target.checked ? H.segs.add(k) : H.segs.delete(k);
+  if (!H.segs.size) { H.segs.add(k); e.target.checked = true; }
+  renderHybrid();
+});
+function hMove(d) {
+  const ids = [...document.querySelectorAll('#h-list .rank')].map(el => el.dataset.p);
+  const i = ids.indexOf(H.sel);
+  H.sel = ids[Math.max(0, Math.min(ids.length - 1, i < 0 ? 0 : i + d))];
+  renderHybrid(false);
+  document.querySelector(`#h-list .rank[data-p="${H.sel}"]`)?.scrollIntoView({ block: 'nearest' });
+  document.getElementById('h-detail').scrollTop = 0;
+}
+
+// ---------- C: Map ----------
+let sizeBy = 'arr', mapSel = null;
+const SIZE_OPTS = [['arr', 'ARR'], ['accounts', 'Accounts'], ['mentions', 'Mentions']];
+const color = d3.scaleLinear().domain([-0.4, 0, 0.6]).range(['#99d5cd', '#f1f0ee', '#fb923c']).clamp(true);
+function renderMap() {
+  document.getElementById('size-seg').innerHTML = '<span class="muted" style="padding:0 8px 0 6px;align-self:center">Size by</span>' + SIZE_OPTS.map(([k, l]) => `<button class="${k === sizeBy ? 'on' : ''}" data-size="${k}">${l}</button>`).join('');
+  document.getElementById('ramp').style.background = `linear-gradient(90deg, ${color(-0.4)}, ${color(0)}, ${color(0.6)})`;
+  const host = document.getElementById('treemap');
+  const W = host.clientWidth, H = host.clientHeight;
+  if (!W || !H) return;
+  const root = d3.hierarchy({ children: OUTCOMES.map(o => ({ o, children: PROBLEMS.filter(p => p.o === o.id).map(p => ({ p })) })) })
+    .sum(d => d.p ? d.p[sizeBy] : 0).sort((a, b) => b.value - a.value);
+  d3.treemap().size([W, H]).paddingInner(d => d.depth === 0 ? 14 : 5).paddingTop(d => d.depth === 1 ? 26 : 0).round(true).tile(d3.treemapSquarify.ratio(1.3))(root);
+
+  const existing = new Map([...host.querySelectorAll('[data-k]')].map(el => [el.dataset.k, el]));
+  const seen = new Set();
+  const put = (k, cls, html, style) => {
+    let el = existing.get(k);
+    if (!el) { el = document.createElement('div'); el.dataset.k = k; host.appendChild(el); }
+    el.className = cls; el.innerHTML = html; Object.assign(el.style, style); seen.add(k);
+    return el;
+  };
+  host.style.position = 'relative';
+  for (const g of root.children) {
+    put('g' + g.data.o.id, 'group-label', `${g.data.o.title}<span>${sizeBy === 'arr' ? fmtArr(g.value * 0.8) : Math.round(g.value)}</span>`, { left: g.x0 + 'px', top: (g.y0 + 5) + 'px', width: (g.x1 - g.x0) + 'px' });
+    for (const n of g.children) {
+      const p = n.data.p, w = n.x1 - n.x0, h = n.y1 - n.y0;
+      const metric = sizeBy === 'arr' ? fmtArr(p.arr) : sizeBy === 'accounts' ? `${p.accounts} accounts` : `${p.mentions} mentions`;
+      const small = w < 150 || h < 70;
+      put(p.id, `tile ${mapSel === p.id ? 'sel' : ''}`,
+        `<div class="t" style="font-size:${small ? 12 : 13.5}px">${p.title}</div>
+         <div class="m num">${metric} · ${fmtPct(p.delta)}</div>
+         ${!small && h > 110 ? `<div style="margin-top:8px">${spark(p.trend, Math.min(w - 24, 120), 22, 'rgba(0,0,0,.55)')}</div>` : ''}
+         <div class="flag">${p.link ? `<span class="pill linked">${p.link}</span>` : ''}${p.low && !small ? ` <span class="pill warn">${p.low}</span>` : ''}</div>`,
+        { left: n.x0 + 'px', top: n.y0 + 'px', width: w + 'px', height: h + 'px', background: color(p.delta) });
+    }
+  }
+  for (const [k, el] of existing) if (!seen.has(k)) el.remove();
+}
+document.getElementById('size-seg').addEventListener('click', e => {
+  const b = e.target.closest('[data-size]'); if (!b) return; sizeBy = b.dataset.size; renderMap();
+});
+document.getElementById('treemap').addEventListener('click', e => {
+  const t = e.target.closest('.tile'); if (!t) return;
+  mapSel = t.dataset.k; renderMap(); openDrawer();
+});
+function openDrawer() {
+  document.getElementById('drawer-detail').innerHTML = detailHTML(byId[mapSel]);
+  document.getElementById('drawer').classList.add('on'); document.getElementById('scrim').classList.add('on');
+}
+function closeDrawer() {
+  mapSel = null; document.getElementById('drawer').classList.remove('on'); document.getElementById('scrim').classList.remove('on'); renderMap();
+}
+document.getElementById('scrim').addEventListener('click', closeDrawer);
+document.getElementById('drawer-x').addEventListener('click', closeDrawer);
+window.addEventListener('resize', () => current === 'map' && renderMap());
+
+// ---------- switcher ----------
+const VARIANTS = [
+  ['outline', 'A · Outline', 'Tree table with a pinned evidence panel. Dense, keyboard-friendly, closest to Linear.'],
+  ['ranked', 'B · Ranked', 'Flat leaderboard of problems. Weights on the left re-rank live; rows expand into evidence.'],
+  ['map', 'C · Map', 'Treemap sized by ARR, accounts or mentions, colored by trend. Click a tile for evidence.'],
+  ['hybrid', 'D · Hybrid', 'B as the base. Filters and weights in the left rail; toggle outcome grouping and stacked vs. split detail.'],
+];
+let current = (location.hash.slice(1) || 'hybrid');
+if (!VARIANTS.some(v => v[0] === current)) current = 'hybrid';
+function renderAll() {
+  renderOutline(); renderWeights(); renderRanked(); hybridRail(); renderHybrid(false);
+  if (current === 'map') renderMap();
+  if (mapSel) document.getElementById('drawer-detail').innerHTML = detailHTML(byId[mapSel]);
+}
+function show(v) {
+  current = v; history.replaceState(null, '', '#' + v);
+  document.querySelectorAll('.variant').forEach(el => el.classList.toggle('on', el.id === 'v-' + v));
+  document.querySelector('.filters').style.display = v === 'hybrid' ? 'none' : '';
+  document.getElementById('switcher').innerHTML = VARIANTS.map(([k, l, d], i) => `<button class="${k === v ? 'on' : ''}" data-v="${k}" title="${d}"><kbd>${i + 1}</kbd>${l}</button>`).join('');
+  if (v === 'map') renderMap(); else closeDrawerSilently();
+}
+function closeDrawerSilently() { mapSel = null; document.getElementById('drawer').classList.remove('on'); document.getElementById('scrim').classList.remove('on'); }
+document.getElementById('switcher').addEventListener('click', e => { const b = e.target.closest('[data-v]'); if (b) show(b.dataset.v); });
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  const i = +e.key - 1; if (VARIANTS[i]) show(VARIANTS[i][0]);
+  if (e.key === 'Escape' && mapSel) closeDrawer();
+  if (current === 'hybrid' && (e.key === 'j' || e.key === 'ArrowDown')) { e.preventDefault(); hMove(1); }
+  if (current === 'hybrid' && (e.key === 'k' || e.key === 'ArrowUp')) { e.preventDefault(); hMove(-1); }
+});
+renderAll(); show(current);
+</script>
+</body>
+</html>
