@@ -8,7 +8,7 @@ Groundwork turns customer conversations into a ranked map of customer problems, 
 
 The first release targets product managers at B2B software companies. It ingests sources PMs control: interview transcripts, NPS and survey comments, app reviews, sales call transcripts and ticket exports. Every mention lands in an opportunity tree (outcome, problem, requested solution), and code ranks problems by accounts, revenue and trend.
 
-TypeSafe's Jev model makes each judgment for about $0.00013 per item, or $1.30 per 10,000 items. An LLM writes only the text a person reads. The core is open source under AGPL, with a hosted cloud as the revenue center.
+TypeSafe's Jev model makes each judgment for about $0.00013 per item, or $1.30 per 10,000 items. An LLM writes only the text a person reads. The core is open source under MIT, with a hosted cloud as the revenue center.
 
 The first milestone is a four-week concierge test with 8 PMs before any self-serve build.
 
@@ -69,7 +69,7 @@ Seven principles decide trade-offs when the PRD is silent.
 4. **Uncertainty is visible.** Low-confidence judgments go to a triage queue, and the UI shows confidence wherever it affects a number.
 5. **Rubrics are code.** Question packs are versioned files, reviewed like code and tested against labeled examples before rollout.
 6. **Meet teams where they plan.** Sync to Linear, Jira and Productboard. v1 ships no roadmap or timeline UI.
-7. **Open by default.** AGPL core, self-hostable, with a pluggable judge backend so the product runs without a TypeSafe key.
+7. **Open by default.** MIT core, self-hostable, with a pluggable judge backend so the product runs without a TypeSafe key.
 
 ## How it works
 
@@ -258,7 +258,7 @@ Phase 3 moves Groundwork from exports to live data, which requires a support-ops
 
 The hosted cloud earns the revenue, priced per workspace by items processed, with free viewers so designers and engineers join at no cost.
 
-**Licensing.** The core ships under AGPL-3.0. Enterprise features (SSO, audit export, data residency, advanced permissions) live in a separate directory under a commercial license. Dual licensing requires a contributor license agreement from day one.
+**Licensing.** The core ships under MIT. AGPL's network clause adds adoption friction for self-hosting companies without a real advantage, so MIT it is (see `docs/adr/0005-mit-license.md`). Contributions come in under MIT, so no contributor license agreement is needed.
 
 **Pricing hypothesis.**
 
@@ -268,7 +268,7 @@ The hosted cloud earns the revenue, priced per workspace by items processed, wit
 | Cloud Free | $0 | 1,000 items per month, 1 editor |
 | Team | $49 per workspace per month | 10,000 items per month, 5 editors, unlimited viewers, Linear and Jira sync |
 | Growth | $249 per workspace per month | 100,000 items per month, live connectors, CRM sync, scheduled runs |
-| Enterprise | Custom | SSO, audit export, data residency, commercial license |
+| Enterprise | Custom | SSO, audit export, data residency |
 
 For reference, Productboard Spark costs $150 per month for 10 makers, and Unwrap starts near $2,000 per month. Jev input for a full Growth month (100,000 items) costs about $13; LLM calls and hosting make up the rest of cost of goods.
 
@@ -294,7 +294,7 @@ The largest risk is bundling: Linear, Productboard and Canny can extend their AI
 - [ ] Does Linear's API allow creating customer requests on issues, or only issues and comments?
 - [ ] Per-workspace pricing or per-item pricing for the hosted plan?
 - [ ] Should interview transcripts be the lead source in positioning, given the Dovetail overlap?
-- [ ] AGPL core, or MIT core with a separate commercial cloud?
+- [x] AGPL core, or MIT core with a separate commercial cloud? MIT core, decided Sep 24, 2026.
 - [ ] Which three starter tree templates cover most of the concierge PMs?
 
 ## Sources
