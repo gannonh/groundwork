@@ -67,6 +67,13 @@
   --color-down-soft: #e6f6f4;
   --color-warn: #b45309;
   --color-warn-soft: #fef3c7;
+  --color-warn-line: #fcd34d;
+  --color-mark: #fef9c3;
+
+  --color-reach: #4f46e5;
+  --color-revenue: #0f766e;
+  --color-pain: #c2410c;
+  --color-momentum: #a16207;
 }
 
 @layer base {

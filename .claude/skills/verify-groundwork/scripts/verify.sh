@@ -161,8 +161,8 @@ cmd_doctor() {
   health=$(curl -s -o /dev/stdout -w ' %{http_code}' "$URL/api/health" 2>/dev/null || true)
   if [[ $health == '{"ok":true} 200' ]]; then ok "GET /api/health -> $health"; else bad "GET /api/health -> '${health:-no answer}'"; fi
 
-  if curl -s "$URL/" 2>/dev/null | grep -q '<title>Groundwork</title>'; then ok "GET / serves the Groundwork shell"
-  else bad "GET / does not serve <title>Groundwork</title>"; fi
+  if curl -sL "$URL/" 2>/dev/null | grep -q '<title>Groundwork</title>'; then ok "GET / (following redirects) serves the Groundwork shell"
+  else bad "GET / (following redirects) does not serve <title>Groundwork</title>"; fi
 
   local want got
   want=$(grep -c '"tag"' "$ROOT/drizzle/meta/_journal.json")

@@ -11,6 +11,7 @@
 //   expect-current=Name    assert Name is the one and only nav link with aria-current="page"
 //   expect-text=Text       assert Text is visible on the page
 //   expect-focus=Name      assert the focused element's accessible name (text or aria-label)
+//   expect-eval=JS         assert a JavaScript expression evaluated in the page is truthy
 //   snap=label             write label.png and label.aria.yml to the evidence dir
 import { readFileSync, mkdirSync, appendFileSync, renameSync, rmSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
@@ -85,6 +86,7 @@ const steps = {
     expect
       .poll(() => page.evaluate(() => document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.textContent?.trim()))
       .toBe(label),
+  'expect-eval': (js) => expect.poll(() => page.evaluate(js)).toBeTruthy(),
   snap,
 }
 

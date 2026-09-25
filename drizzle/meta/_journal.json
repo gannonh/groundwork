@@ -8,6 +8,13 @@
       "when": 1790295222351,
       "tag": "0000_enable-pgvector",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790377386710,
+      "tag": "0001_opportunity-map",
+      "breakpoints": true
     }
   ]
 }
