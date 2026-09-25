@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { selectQuotes } from './evidence.ts'
+import { groupByAccount, parseEvidenceFilter, selectQuotes } from './evidence.ts'
 import type { CountedMention } from './metrics.ts'
 import type { Account, AccountId, Confidence, ItemId, MentionId, Usd } from './types.ts'
 
@@ -70,5 +70,52 @@ describe('selectQuotes', () => {
       ['o1', 'orbitly', null],
       ['l-new', 'lumen', 0.62],
     ])
+  })
+})
+
+describe('groupByAccount', () => {
+  test('orders accounts by ARR then name, keeps mention order, and drops mentions with no known account', () => {
+    const tied = new Map([...accounts, ['acme' as AccountId, account('acme', 150_000)]])
+    const groups = groupByAccount(
+      [
+        mention('n2', 'northwind', '2026-09-18', 0.6),
+        mention('x1', 'unknown-co', '2026-09-17'),
+        { ...mention('anon', 'halcyon', '2026-09-16'), accountId: null },
+        mention('a1', 'acme', '2026-09-15'),
+        mention('h1', 'halcyon', '2026-09-14'),
+        mention('n1', 'northwind', '2026-09-13'),
+      ],
+      tied,
+    )
+    expect(groups.map((g) => [g.account.name, g.mentions.map((m) => m.mentionId)])).toEqual([
+      ['halcyon', ['h1']],
+      ['acme', ['a1']],
+      ['northwind', ['n2', 'n1']],
+    ])
+  })
+})
+
+describe('parseEvidenceFilter', () => {
+  test.each([
+    [{ evidence: 'mentions' }, { evidence: 'mentions' }],
+    [{ evidence: 'accounts', solution: 'ignored' }, { evidence: 'accounts' }],
+    [{ evidence: 'solution', solution: 's-1' }, { evidence: 'solution', solution: 's-1' }],
+    [{ evidence: 'account', account: 'a-1' }, { evidence: 'account', account: 'a-1' }],
+  ])('accepts %j', (raw, filter) => {
+    expect(parseEvidenceFilter(raw)).toEqual(filter)
+  })
+
+  test.each([
+    [undefined],
+    [null],
+    ['mentions'],
+    [{}],
+    [{ evidence: 'quotes' }],
+    [{ evidence: 'solution' }],
+    [{ evidence: 'solution', solution: '' }],
+    [{ evidence: 'account', account: 42 }],
+    [{ evidence: 'account', solution: 'a-1' }],
+  ])('rejects %j', (raw) => {
+    expect(parseEvidenceFilter(raw)).toBeNull()
   })
 })
