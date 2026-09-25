@@ -178,7 +178,11 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
         .orderBy(asc(t.sentence.itemId), asc(t.sentence.ordinal))
     : []
   const sentencesByItem = new Map<ItemId, RedactedText[]>()
-  for (const row of sentenceRows) sentencesByItem.set(row.itemId, [...(sentencesByItem.get(row.itemId) ?? []), row.text])
+  for (const row of sentenceRows) {
+    const sentences = sentencesByItem.get(row.itemId)
+    if (sentences) sentences.push(row.text)
+    else sentencesByItem.set(row.itemId, [row.text])
+  }
   const sourceLabel = new Map(sources.map((s) => [s.id, itemLabel(s.name, s.itemKind)]))
 
   const views = problems.map((problem): ProblemView => {
