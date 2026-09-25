@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { splitSentences } from '../../domain/sentences.ts'
+import { splitSentences } from '../../ingest/sentences.ts'
 import type {
   AccountId,
   Confidence,
