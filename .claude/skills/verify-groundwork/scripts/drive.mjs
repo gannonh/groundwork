@@ -8,11 +8,11 @@
 //   back=                  press the browser Back button
 //   expect-url=/path       assert the current path (and search) equals /path
 //   expect-title=Text      assert document.title
-//   expect-current=Name    assert the nav link named Name has aria-current="page"
+//   expect-current=Name    assert Name is the one and only nav link with aria-current="page"
 //   expect-text=Text       assert Text is visible on the page
 //   expect-focus=Name      assert the focused element's accessible name (text or aria-label)
 //   snap=label             write label.png and label.aria.yml to the evidence dir
-import { readFileSync, mkdirSync, appendFileSync, renameSync } from 'node:fs'
+import { readFileSync, mkdirSync, appendFileSync, renameSync, rmSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
 import { join } from 'node:path'
 import { chromium, expect } from '@playwright/test'
@@ -42,6 +42,8 @@ const state = Object.fromEntries(
     .map((line) => [line.slice(0, line.indexOf('=')), line.slice(line.indexOf('=') + 1)]),
 )
 const out = join(state.EVIDENCE_DIR, name)
+// A rerun replaces the scenario's evidence, so old failures never sit beside a new pass.
+rmSync(out, { recursive: true, force: true })
 mkdirSync(out, { recursive: true })
 const logFile = join(out, 'steps.log')
 const log = (line) => {
@@ -77,11 +79,7 @@ const steps = {
   back: () => page.goBack(),
   'expect-url': (path) => expect.poll(() => new URL(page.url()).pathname + new URL(page.url()).search).toBe(path),
   'expect-title': (title) => expect(page).toHaveTitle(title),
-  'expect-current': (label) =>
-    expect(page.getByRole('navigation').getByRole('link', { name: label, exact: true })).toHaveAttribute(
-      'aria-current',
-      'page',
-    ),
+  'expect-current': (label) => expect(page.getByRole('navigation').locator('a[aria-current="page"]')).toHaveText([label]),
   'expect-text': (text) => expect(page.getByText(text, { exact: false }).first()).toBeVisible(),
   'expect-focus': (label) =>
     expect

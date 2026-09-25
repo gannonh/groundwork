@@ -48,6 +48,19 @@ free_port() {
   die "no free port in 4100-4199"
 }
 
+# A failed `up` undoes whatever it created, so a broken attempt leaves no process,
+# database, or instance dir behind. Logs move to the evidence dir.
+UP_INST='' UP_EV='' UP_DB='' UP_PID=''
+up_rollback() {
+  [[ -n $UP_INST ]] || return 0
+  [[ -n $UP_PID ]] && { kill -KILL -- "-$UP_PID" 2>/dev/null || true; }
+  [[ -n $UP_DB ]] && { psql_db -d groundwork -c "drop database if exists $UP_DB with (force)" >/dev/null 2>&1 || true; }
+  cp "$UP_INST"/*.log "$UP_EV/" 2>/dev/null || true
+  rm -rf "$UP_INST"
+  [[ -f $VERIFY_DIR/current && $(cat "$VERIFY_DIR/current") == "$(basename "$UP_INST")" ]] && rm -f "$VERIFY_DIR/current"
+  echo "verify: up failed; rolled back. Logs: $UP_EV" >&2
+}
+
 cmd_up() {
   local mode=dev host_kind=local id
   id=$(date +%Y%m%d-%H%M%S)
@@ -60,6 +73,7 @@ cmd_up() {
     esac
     shift
   done
+  [[ $id =~ ^[A-Za-z0-9_-]+$ ]] || die "--id may contain only letters, digits, '-' and '_'"
 
   local host
   case $host_kind in
@@ -71,6 +85,8 @@ cmd_up() {
   local inst="$INSTANCES/$id" ev="$EVIDENCE/$id"
   [[ -e $inst ]] && die "instance '$id' already exists"
   mkdir -p "$inst" "$ev"
+  UP_INST=$inst UP_EV=$ev
+  trap up_rollback EXIT
 
   [[ -d $ROOT/node_modules ]] || (cd "$ROOT" && pnpm12 install --frozen-lockfile)
   docker compose -f "$ROOT/docker-compose.yml" up -d --wait db >/dev/null 2>&1 || die "Postgres did not become healthy (docker compose up -d --wait db)"
@@ -80,6 +96,7 @@ cmd_up() {
   local db="gw_verify_${id//-/_}"
   local url="postgres://$DB_USER:$DB_PASS@localhost:5432/$db"
   psql_db -d groundwork -c "create database $db" >/dev/null
+  UP_DB=$db
   (cd "$ROOT" && DATABASE_URL=$url "$node" src/db/migrate.ts && DATABASE_URL=$url "$node" src/db/seed.ts) >"$inst/setup.log" 2>&1 \
     || { cat "$inst/setup.log" >&2; die "migrate/seed failed"; }
 
@@ -93,6 +110,7 @@ cmd_up() {
     DATABASE_URL=$url setsid "$node" node_modules/vite/bin/vite.js dev --port "$port" --strictPort --host "$host" >"$inst/server.log" 2>&1 &
   fi
   local pid=$!
+  UP_PID=$pid
 
   cat >"$inst/state.env" <<EOF
 RUN_ID=$id
@@ -114,13 +132,14 @@ EOF
     if curl -sf "http://$host:$port/api/health" >/dev/null 2>&1; then
       echo "ready  id=$id  mode=$mode  url=http://$host:$port  db=$db"
       echo "evidence: $ev"
+      trap - EXIT
       return
     fi
     kill -0 "$pid" 2>/dev/null || { tail -30 "$inst/server.log" >&2; die "server exited before ready"; }
     sleep 0.5
   done
   tail -30 "$inst/server.log" >&2
-  die "server not ready after 60s; run 'verify.sh down $id'"
+  die "server not ready after 60s"
 }
 
 cmd_doctor() {

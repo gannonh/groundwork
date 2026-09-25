@@ -25,9 +25,9 @@ What `up` does:
 2. Starts `docker compose up -d --wait db`. The compose project is `groundwork` in every worktree, so all worktrees share one Postgres container on `127.0.0.1:5432`. `up` never stops it.
 3. Creates a fresh database `gw_verify_<id>`, then runs `src/db/migrate.ts` and `src/db/seed.ts` against it. Your run never touches the `groundwork` database that `pnpm dev` uses.
 4. Picks the first free port in 4100-4199 and starts the server under `setsid`, so the whole process group can be killed later.
-5. Waits for `GET /api/health` to return 200. It then prints `ready  id=<id>  mode=<mode>  url=<url>  db=<db>` and the evidence path.
+5. Waits up to 60 seconds for `GET /api/health` to return 200. It then prints `ready  id=<id>  mode=<mode>  url=<url>  db=<db>` and the evidence path.
 
-It is ready when that `ready` line prints. Instance state is in `.verify/instances/<id>/state.env`, along with `setup.log`, `server.log`, and `build.log` (prod only). `.verify/current` holds the last ID started, and every command defaults to it.
+It is ready when that `ready` line prints. If any step fails, `up` rolls back: it kills the server, drops the database, removes the instance dir, and leaves the logs in the evidence dir. You can then retry with the same `--id`. Instance state is in `.verify/instances/<id>/state.env`, along with `setup.log`, `server.log`, and `build.log` (prod only). `.verify/current` holds the last ID started, and every command defaults to it.
 
 Several instances can run side by side, each with its own port and database. For a main-vs-branch comparison (scenario 1 in each Linear issue), create a worktree of `main` and run its own copy of this skill there. Running `up` in this worktree always serves this worktree's code.
 
@@ -67,12 +67,12 @@ It runs the steps in order in headless Chromium and stops at the first failure. 
 | `back=` | Press the browser Back button. Headless Chromium ignores `press=Alt+ArrowLeft`. |
 | `expect-url=/path` | The pathname plus search equals `/path`. The step retries until it matches or times out. |
 | `expect-title=Text` | Assert `document.title`. |
-| `expect-current=Name` | The top-bar link `Name` has `aria-current="page"`. |
+| `expect-current=Name` | `Name` is the only top-bar link with `aria-current="page"`. |
 | `expect-text=Text` | Some visible element contains `Text`. |
 | `expect-focus=Name` | The focused element's `aria-label`, or else its text, equals `Name`. |
 | `snap=label` | Write `label.png` (full page) and `label.aria.yml`, whose first line is the URL. |
 
-`steps.log` records every step, plus console errors, page errors, and HTTP responses of 400 or above. Read it: a PASS with a `pageerror` line is not a clean pass. `--video` writes `video.webm` for the whole run.
+`steps.log` records every step, plus console errors, page errors, and HTTP responses of 400 or above. Read it: a PASS with a `pageerror` line is not a clean pass. `--video` writes `video.webm` for the whole run. Each run clears its `--name` folder first, so a retry replaces the earlier evidence instead of adding to it.
 
 The first time on a machine, install the browser: `node node_modules/@playwright/test/cli.js install chromium`.
 
