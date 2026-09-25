@@ -1,0 +1,301 @@
+Response ID,Submitted,Score,Comment,Account
+R-0001,30/08/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-009
+R-0002,18/09/2026,3,Imports fail without telling us which row is broken.,ACC-007
+R-0003,10/08/2026,6,"Love the dashboards, but the numbers do not always match our CRM.",ACC-026
+R-0004,08/07/2026,4,"Easy to use, and the charts look great.",ACC-011
+R-0005,14/07/2026,9,I never know when the data was last refreshed.,ACC-022
+R-0006,07/07/2026,0,I never know when the data was last refreshed. Score reason: detractor.,ACC-026
+R-0007,01/07/2026,2,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-012
+R-0008,30/08/2026,2,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-057
+R-0009,04/06/2026,5,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-020
+R-0010,02/07/2026,8,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-003
+R-0011,19/07/2026,5,"Solid tool, and support answers fast.",ACC-045
+R-0012,27/08/2026,10,"Easy to use, and the charts look great.",ACC-059
+R-0013,15/06/2026,6,"Easy to use, and the charts look great.",ACC-042
+R-0014,12/06/2026,5,I never know when the data was last refreshed.,ACC-037
+R-0015,14/09/2026,5,I never know when the data was last refreshed.,ACC-009
+R-0016,10/08/2026,8,Setup took a week because SSO needed a support ticket.,ACC-060
+R-0017,06/09/2026,0,Mapping columns on every upload is tedious.,ACC-018
+R-0018,05/06/2026,7,"Love the dashboards, but the numbers do not always match our CRM.",ACC-029
+R-0019,23/06/2026,6,Mapping columns on every upload is tedious.,ACC-053
+R-0020,08/09/2026,8,"Love the dashboards, but the numbers do not always match our CRM.",ACC-014
+R-0021,06/09/2026,8,"Love the dashboards, but the numbers do not always match our CRM. Score reason: passive.",ACC-031
+R-0022,04/06/2026,5,Setup took a week because SSO needed a support ticket.,ACC-045
+R-0023,16/08/2026,3,Setup took a week because SSO needed a support ticket.,ACC-038
+R-0024,07/06/2026,4,Great product. Exports to slides still need work. Score reason: detractor.,ACC-026
+R-0025,07/07/2026,8,"Easy to use, and the charts look great.",ACC-022
+R-0026,02/09/2026,8,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-008
+R-0027,30/06/2026,5,"Love the dashboards, but the numbers do not always match our CRM.",ACC-038
+R-0028,28/06/2026,6,"Love the dashboards, but the numbers do not always match our CRM.",ACC-041
+R-0029,06/09/2026,7,"Love the dashboards, but the numbers do not always match our CRM.",ACC-035
+R-0030,15/08/2026,3,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-039
+R-0031,07/07/2026,9,Mapping columns on every upload is tedious. Score reason: promoter.,ACC-034
+R-0032,29/06/2026,6,"The bill is hard to predict, which makes renewals tense.",ACC-031
+R-0033,12/07/2026,10,Imports fail without telling us which row is broken. Score reason: promoter.,ACC-046
+R-0034,13/08/2026,3,"Easy to use, and the charts look great.",ACC-045
+R-0035,20/06/2026,8,"Easy to use, and the charts look great.",ACC-033
+R-0036,15/06/2026,2,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-021
+R-0037,23/08/2026,2,Mapping columns on every upload is tedious.,ACC-001
+R-0038,30/07/2026,7,Setup took a week because SSO needed a support ticket. Score reason: passive.,ACC-056
+R-0039,12/08/2026,3,Great product. Exports to slides still need work.,ACC-052
+R-0040,26/07/2026,6,"Love the dashboards, but the numbers do not always match our CRM.",ACC-002
+R-0041,28/06/2026,4,"The bill is hard to predict, which makes renewals tense.",ACC-041
+R-0042,13/09/2026,5,Great product. Exports to slides still need work.,ACC-048
+R-0043,10/06/2026,3,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-050
+R-0044,09/09/2026,0,Mapping columns on every upload is tedious.,ACC-045
+R-0045,15/08/2026,6,"Solid tool, and support answers fast.",ACC-001
+R-0046,09/09/2026,4,I never know when the data was last refreshed. Score reason: detractor.,ACC-045
+R-0047,22/08/2026,3,"Easy to use, and the charts look great. Score reason: detractor.",ACC-032
+R-0048,02/08/2026,0,"Solid tool, and support answers fast.",ACC-025
+R-0049,07/08/2026,0,I never know when the data was last refreshed.,ACC-054
+R-0050,14/08/2026,7,Mapping columns on every upload is tedious.,ACC-001
+R-0051,13/07/2026,10,"Easy to use, and the charts look great.",ACC-007
+R-0052,19/06/2026,0,Setup took a week because SSO needed a support ticket. Score reason: detractor.,ACC-019
+R-0053,14/07/2026,0,"Easy to use, and the charts look great.",ACC-025
+R-0054,24/06/2026,3,Setup took a week because SSO needed a support ticket.,ACC-055
+R-0055,13/07/2026,5,Great product. Exports to slides still need work.,ACC-024
+R-0056,23/08/2026,0,"Solid tool, and support answers fast.",ACC-033
+R-0057,15/09/2026,5,"Solid tool, and support answers fast.",ACC-043
+R-0058,09/06/2026,5,Mapping columns on every upload is tedious.,ACC-051
+R-0059,19/08/2026,5,"Solid tool, and support answers fast.",ACC-057
+R-0060,24/07/2026,2,Setup took a week because SSO needed a support ticket.,ACC-045
+R-0061,20/07/2026,5,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-040
+R-0062,06/09/2026,8,"Love the dashboards, but the numbers do not always match our CRM.",ACC-013
+R-0063,02/06/2026,0,"Easy to use, and the charts look great.",ACC-006
+R-0064,22/07/2026,7,"Love the dashboards, but the numbers do not always match our CRM.",ACC-024
+R-0065,20/09/2026,7,Setup took a week because SSO needed a support ticket.,ACC-010
+R-0066,13/06/2026,2,"Solid tool, and support answers fast. Score reason: detractor.",ACC-058
+R-0067,29/08/2026,6,"The bill is hard to predict, which makes renewals tense.",ACC-032
+R-0068,29/06/2026,5,"Easy to use, and the charts look great.",ACC-036
+R-0069,09/07/2026,7,"Solid tool, and support answers fast.",ACC-032
+R-0070,22/07/2026,3,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-009
+R-0071,29/07/2026,6,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-035
+R-0072,20/08/2026,9,"Solid tool, and support answers fast.",ACC-048
+R-0073,28/07/2026,4,Mapping columns on every upload is tedious. Score reason: detractor.,ACC-019
+R-0074,15/08/2026,10,Mapping columns on every upload is tedious. Score reason: promoter.,ACC-026
+R-0075,01/08/2026,0,I never know when the data was last refreshed.,ACC-040
+R-0076,18/06/2026,2,Imports fail without telling us which row is broken.,ACC-003
+R-0077,25/07/2026,3,Setup took a week because SSO needed a support ticket. Score reason: detractor.,ACC-060
+R-0078,07/09/2026,2,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-055
+R-0079,19/07/2026,9,"Love the dashboards, but the numbers do not always match our CRM.",ACC-006
+R-0080,09/09/2026,10,Mapping columns on every upload is tedious.,ACC-027
+R-0081,16/06/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-028
+R-0082,26/08/2026,7,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: passive.",ACC-020
+R-0083,04/08/2026,2,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-049
+R-0084,02/06/2026,5,I never know when the data was last refreshed. Score reason: detractor.,ACC-058
+R-0085,24/08/2026,6,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-016
+R-0086,04/08/2026,9,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-029
+R-0087,22/06/2026,3,"The bill is hard to predict, which makes renewals tense.",ACC-042
+R-0088,06/06/2026,9,Imports fail without telling us which row is broken.,ACC-001
+R-0089,20/08/2026,9,"Solid tool, and support answers fast.",ACC-060
+R-0090,18/06/2026,7,"Love the dashboards, but the numbers do not always match our CRM. Score reason: passive.",ACC-016
+R-0091,07/09/2026,10,I never know when the data was last refreshed.,ACC-020
+R-0092,14/09/2026,3,"Solid tool, and support answers fast. Score reason: detractor.",ACC-057
+R-0093,05/07/2026,6,Imports fail without telling us which row is broken.,ACC-043
+R-0094,03/06/2026,9,I never know when the data was last refreshed.,ACC-036
+R-0095,26/07/2026,10,"Easy to use, and the charts look great.",ACC-034
+R-0096,23/06/2026,10,"Love the dashboards, but the numbers do not always match our CRM.",ACC-007
+R-0097,20/09/2026,7,"Love the dashboards, but the numbers do not always match our CRM.",ACC-023
+R-0098,24/07/2026,10,"Solid tool, and support answers fast. Score reason: promoter.",ACC-044
+R-0099,09/08/2026,4,Setup took a week because SSO needed a support ticket.,ACC-048
+R-0100,04/08/2026,4,Great product. Exports to slides still need work.,ACC-048
+R-0101,10/09/2026,5,"Love the dashboards, but the numbers do not always match our CRM.",ACC-048
+R-0102,04/09/2026,7,Imports fail without telling us which row is broken. Score reason: passive.,ACC-046
+R-0103,05/09/2026,2,Setup took a week because SSO needed a support ticket. Score reason: detractor.,ACC-027
+R-0104,08/09/2026,3,"Easy to use, and the charts look great. Score reason: detractor.",ACC-015
+R-0105,06/09/2026,10,"Solid tool, and support answers fast.",ACC-020
+R-0106,06/07/2026,2,"Easy to use, and the charts look great.",ACC-015
+R-0107,07/06/2026,10,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-057
+R-0108,21/08/2026,0,Mapping columns on every upload is tedious.,ACC-014
+R-0109,28/06/2026,1,"Easy to use, and the charts look great. Score reason: detractor.",ACC-048
+R-0110,27/07/2026,3,"Love the dashboards, but the numbers do not always match our CRM.",ACC-056
+R-0111,29/06/2026,3,"Love the dashboards, but the numbers do not always match our CRM.",ACC-059
+R-0112,01/09/2026,3,I never know when the data was last refreshed.,ACC-033
+R-0113,27/08/2026,10,I never know when the data was last refreshed.,ACC-051
+R-0114,20/09/2026,4,Mapping columns on every upload is tedious.,ACC-014
+R-0115,17/06/2026,5,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-026
+R-0116,12/07/2026,3,"Easy to use, and the charts look great.",ACC-013
+R-0117,11/09/2026,8,Mapping columns on every upload is tedious. Score reason: passive.,ACC-029
+R-0118,15/07/2026,2,I never know when the data was last refreshed. Score reason: detractor.,ACC-004
+R-0119,15/09/2026,7,Great product. Exports to slides still need work. Score reason: passive.,ACC-035
+R-0120,03/09/2026,1,Setup took a week because SSO needed a support ticket.,ACC-045
+R-0121,18/06/2026,4,Setup took a week because SSO needed a support ticket.,ACC-012
+R-0122,07/09/2026,7,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: passive.",ACC-011
+R-0123,05/08/2026,10,"Easy to use, and the charts look great.",ACC-029
+R-0124,25/06/2026,1,Great product. Exports to slides still need work.,ACC-011
+R-0125,08/08/2026,5,Mapping columns on every upload is tedious. Score reason: detractor.,ACC-052
+R-0126,05/09/2026,5,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-015
+R-0127,24/08/2026,5,"Solid tool, and support answers fast.",ACC-005
+R-0128,07/06/2026,8,"The bill is hard to predict, which makes renewals tense.",ACC-020
+R-0129,01/08/2026,9,I never know when the data was last refreshed. Score reason: promoter.,ACC-037
+R-0130,27/06/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-026
+R-0131,02/07/2026,7,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-044
+R-0132,13/09/2026,5,Imports fail without telling us which row is broken.,ACC-036
+R-0133,03/06/2026,1,Great product. Exports to slides still need work.,ACC-015
+R-0134,10/08/2026,3,"The bill is hard to predict, which makes renewals tense.",ACC-044
+R-0135,22/06/2026,5,Setup took a week because SSO needed a support ticket.,ACC-014
+R-0136,09/09/2026,5,Great product. Exports to slides still need work.,ACC-002
+R-0137,22/06/2026,10,I never know when the data was last refreshed. Score reason: promoter.,ACC-049
+R-0138,16/06/2026,8,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-010
+R-0139,21/07/2026,5,Great product. Exports to slides still need work.,ACC-034
+R-0140,29/06/2026,4,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-015
+R-0141,04/09/2026,7,I never know when the data was last refreshed.,ACC-055
+R-0142,03/06/2026,7,Setup took a week because SSO needed a support ticket.,ACC-015
+R-0143,12/07/2026,1,"Easy to use, and the charts look great.",ACC-048
+R-0144,14/08/2026,8,Setup took a week because SSO needed a support ticket.,ACC-045
+R-0145,14/07/2026,4,Mapping columns on every upload is tedious. Score reason: detractor.,ACC-020
+R-0146,04/06/2026,9,"Love the dashboards, but the numbers do not always match our CRM.",ACC-059
+R-0147,27/08/2026,7,Mapping columns on every upload is tedious.,ACC-036
+R-0148,15/06/2026,4,I never know when the data was last refreshed.,ACC-028
+R-0149,15/06/2026,8,Setup took a week because SSO needed a support ticket.,ACC-050
+R-0150,03/07/2026,1,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-040
+R-0151,21/06/2026,4,"Solid tool, and support answers fast.",ACC-060
+R-0152,22/06/2026,0,I never know when the data was last refreshed.,ACC-059
+R-0153,25/07/2026,2,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-040
+R-0154,25/08/2026,5,Great product. Exports to slides still need work.,ACC-003
+R-0155,24/08/2026,0,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-007
+R-0156,29/07/2026,0,"The bill is hard to predict, which makes renewals tense.",ACC-033
+R-0157,05/09/2026,9,"Solid tool, and support answers fast. Score reason: promoter.",ACC-007
+R-0158,06/08/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-052
+R-0159,22/08/2026,2,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-032
+R-0160,08/06/2026,7,I never know when the data was last refreshed.,ACC-044
+R-0161,02/07/2026,8,"Solid tool, and support answers fast.",ACC-039
+R-0162,11/06/2026,2,Great product. Exports to slides still need work.,ACC-022
+R-0163,07/08/2026,1,"Solid tool, and support answers fast. Score reason: detractor.",ACC-010
+R-0164,03/06/2026,6,Mapping columns on every upload is tedious.,ACC-037
+R-0165,09/09/2026,4,"The bill is hard to predict, which makes renewals tense.",ACC-046
+R-0166,08/08/2026,4,"The bill is hard to predict, which makes renewals tense.",ACC-053
+R-0167,23/08/2026,9,"Love the dashboards, but the numbers do not always match our CRM.",ACC-032
+R-0168,01/09/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-001
+R-0169,07/09/2026,6,"The bill is hard to predict, which makes renewals tense.",ACC-013
+R-0170,08/09/2026,3,"Love the dashboards, but the numbers do not always match our CRM.",ACC-021
+R-0171,12/09/2026,7,Mapping columns on every upload is tedious. Score reason: passive.,ACC-020
+R-0172,27/06/2026,0,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-007
+R-0173,14/07/2026,10,"Easy to use, and the charts look great.",ACC-055
+R-0174,19/08/2026,0,Imports fail without telling us which row is broken.,ACC-039
+R-0175,15/06/2026,0,Imports fail without telling us which row is broken.,ACC-009
+R-0176,01/09/2026,9,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-039
+R-0177,08/06/2026,4,Great product. Exports to slides still need work.,ACC-017
+R-0178,24/07/2026,6,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-010
+R-0179,06/08/2026,5,"Solid tool, and support answers fast.",ACC-024
+R-0180,13/07/2026,8,"Easy to use, and the charts look great.",ACC-001
+R-0181,12/09/2026,0,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-060
+R-0182,15/09/2026,2,"Solid tool, and support answers fast.",ACC-052
+R-0183,17/07/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-012
+R-0184,28/06/2026,5,Mapping columns on every upload is tedious.,ACC-015
+R-0185,19/06/2026,1,"Love the dashboards, but the numbers do not always match our CRM.",ACC-049
+R-0186,11/09/2026,2,I never know when the data was last refreshed.,ACC-035
+R-0187,16/08/2026,6,"Solid tool, and support answers fast.",ACC-019
+R-0188,08/08/2026,0,Great product. Exports to slides still need work.,ACC-059
+R-0189,19/09/2026,5,Imports fail without telling us which row is broken.,ACC-020
+R-0190,08/06/2026,2,"Solid tool, and support answers fast.",ACC-017
+R-0191,31/07/2026,7,Setup took a week because SSO needed a support ticket.,ACC-040
+R-0192,23/08/2026,0,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-030
+R-0193,01/07/2026,6,"Easy to use, and the charts look great. Score reason: detractor.",ACC-043
+R-0194,04/09/2026,5,"Solid tool, and support answers fast.",ACC-038
+R-0195,17/06/2026,2,Imports fail without telling us which row is broken.,ACC-056
+R-0196,15/07/2026,6,"The bill is hard to predict, which makes renewals tense.",ACC-002
+R-0197,15/06/2026,3,I never know when the data was last refreshed.,ACC-033
+R-0198,12/06/2026,3,Great product. Exports to slides still need work.,ACC-040
+R-0199,07/08/2026,1,Setup took a week because SSO needed a support ticket.,ACC-019
+R-0200,17/09/2026,8,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: passive.",ACC-034
+R-0201,25/06/2026,7,Great product. Exports to slides still need work.,ACC-005
+R-0202,07/09/2026,2,Mapping columns on every upload is tedious.,ACC-007
+R-0203,24/07/2026,5,"The bill is hard to predict, which makes renewals tense.",ACC-035
+R-0204,05/07/2026,8,"Easy to use, and the charts look great.",ACC-011
+R-0205,02/07/2026,0,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-053
+R-0206,26/07/2026,9,"The bill is hard to predict, which makes renewals tense.",ACC-002
+R-0207,21/06/2026,9,Great product. Exports to slides still need work.,ACC-057
+R-0208,28/08/2026,0,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-007
+R-0209,03/08/2026,2,"Solid tool, and support answers fast. Score reason: detractor.",ACC-018
+R-0210,20/08/2026,4,"Love the dashboards, but the numbers do not always match our CRM.",ACC-055
+R-0211,23/07/2026,6,"The bill is hard to predict, which makes renewals tense.",ACC-034
+R-0212,11/07/2026,9,Great product. Exports to slides still need work.,ACC-010
+R-0213,15/08/2026,8,Imports fail without telling us which row is broken.,ACC-049
+R-0214,16/08/2026,10,Great product. Exports to slides still need work.,ACC-044
+R-0215,18/09/2026,9,"Love the dashboards, but the numbers do not always match our CRM.",ACC-004
+R-0216,30/07/2026,3,"Easy to use, and the charts look great. Score reason: detractor.",ACC-009
+R-0217,02/08/2026,2,Setup took a week because SSO needed a support ticket.,ACC-037
+R-0218,11/06/2026,6,Great product. Exports to slides still need work.,ACC-011
+R-0219,07/09/2026,4,"Love the dashboards, but the numbers do not always match our CRM.",ACC-006
+R-0220,10/09/2026,9,I never know when the data was last refreshed. Score reason: promoter.,ACC-058
+R-0221,07/06/2026,2,"Solid tool, and support answers fast. Score reason: detractor.",ACC-027
+R-0222,17/09/2026,5,"Love the dashboards, but the numbers do not always match our CRM.",ACC-031
+R-0223,13/07/2026,4,Mapping columns on every upload is tedious.,ACC-054
+R-0224,19/08/2026,0,Imports fail without telling us which row is broken.,ACC-060
+R-0225,30/06/2026,8,Setup took a week because SSO needed a support ticket.,ACC-037
+R-0226,10/09/2026,8,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-006
+R-0227,16/06/2026,0,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-060
+R-0228,03/06/2026,6,"Easy to use, and the charts look great. Score reason: detractor.",ACC-007
+R-0229,02/08/2026,8,"The bill is hard to predict, which makes renewals tense. Score reason: passive.",ACC-001
+R-0230,19/09/2026,7,Mapping columns on every upload is tedious. Score reason: passive.,ACC-049
+R-0231,09/06/2026,4,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-052
+R-0232,27/08/2026,4,Mapping columns on every upload is tedious.,ACC-016
+R-0233,13/07/2026,5,"Solid tool, and support answers fast.",ACC-010
+R-0234,28/08/2026,6,Imports fail without telling us which row is broken.,ACC-026
+R-0235,06/06/2026,0,"Love the dashboards, but the numbers do not always match our CRM.",ACC-033
+R-0236,13/09/2026,10,"Easy to use, and the charts look great.",ACC-014
+R-0237,20/08/2026,10,Mapping columns on every upload is tedious.,ACC-031
+R-0238,05/06/2026,10,"Solid tool, and support answers fast.",ACC-050
+R-0239,18/09/2026,0,"Solid tool, and support answers fast.",ACC-018
+R-0240,18/06/2026,5,Great product. Exports to slides still need work.,ACC-007
+R-0241,17/07/2026,0,I never know when the data was last refreshed. Score reason: detractor.,ACC-031
+R-0242,04/08/2026,2,"Easy to use, and the charts look great.",ACC-022
+R-0243,05/09/2026,5,Setup took a week because SSO needed a support ticket.,ACC-011
+R-0244,26/08/2026,7,Mapping columns on every upload is tedious.,ACC-026
+R-0245,13/06/2026,5,Imports fail without telling us which row is broken.,ACC-057
+R-0246,25/08/2026,7,"Solid tool, and support answers fast. Score reason: passive.",ACC-043
+R-0247,23/07/2026,7,"Easy to use, and the charts look great.",ACC-010
+R-0248,21/08/2026,4,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-029
+R-0249,19/09/2026,4,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-025
+R-0250,29/06/2026,5,Imports fail without telling us which row is broken.,ACC-010
+R-0251,20/08/2026,9,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-003
+R-0252,07/07/2026,6,Mapping columns on every upload is tedious.,ACC-015
+R-0253,17/09/2026,0,"Love the dashboards, but the numbers do not always match our CRM. Score reason: detractor.",ACC-030
+R-0254,18/09/2026,1,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-057
+R-0255,17/08/2026,6,Setup took a week because SSO needed a support ticket.,ACC-011
+R-0256,06/06/2026,2,"Solid tool, and support answers fast. Score reason: detractor.",ACC-016
+R-0257,08/07/2026,7,"The bill is hard to predict, which makes renewals tense.",ACC-017
+R-0258,31/08/2026,1,"Solid tool, and support answers fast.",ACC-001
+R-0259,28/07/2026,2,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-039
+R-0260,02/06/2026,6,"Solid tool, and support answers fast.",ACC-017
+R-0261,10/09/2026,0,Setup took a week because SSO needed a support ticket.,ACC-039
+R-0262,09/09/2026,4,I never know when the data was last refreshed.,ACC-048
+R-0263,15/09/2026,6,"The bill is hard to predict, which makes renewals tense. Score reason: detractor.",ACC-026
+R-0264,21/08/2026,10,"Solid tool, and support answers fast.",ACC-036
+R-0265,06/08/2026,1,"The bill is hard to predict, which makes renewals tense.",ACC-045
+R-0266,22/07/2026,10,"Easy to use, and the charts look great. Score reason: promoter.",ACC-018
+R-0267,07/09/2026,7,Great product. Exports to slides still need work. Score reason: passive.,ACC-025
+R-0268,02/07/2026,8,"Love the dashboards, but the numbers do not always match our CRM.",ACC-004
+R-0269,31/08/2026,0,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-009
+R-0270,07/09/2026,9,Mapping columns on every upload is tedious. Score reason: promoter.,ACC-052
+R-0271,18/09/2026,5,Imports fail without telling us which row is broken. Score reason: detractor.,ACC-039
+R-0272,12/06/2026,10,Imports fail without telling us which row is broken.,ACC-033
+R-0273,07/06/2026,3,"Love the dashboards, but the numbers do not always match our CRM.",ACC-031
+R-0274,27/08/2026,6,Mapping columns on every upload is tedious. Score reason: detractor.,ACC-051
+R-0275,05/06/2026,7,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: passive.",ACC-010
+R-0276,25/07/2026,5,Setup took a week because SSO needed a support ticket.,ACC-036
+R-0277,23/07/2026,3,"We can't restrict dashboards by team, which is a blocker for finance. Score reason: detractor.",ACC-033
+R-0278,05/07/2026,1,Mapping columns on every upload is tedious. Score reason: detractor.,ACC-002
+R-0279,01/06/2026,1,Imports fail without telling us which row is broken.,ACC-032
+R-0280,14/06/2026,6,"Solid tool, and support answers fast.",ACC-007
+R-0281,28/06/2026,1,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-042
+R-0282,25/08/2026,8,"Easy to use, and the charts look great.",ACC-009
+R-0283,29/08/2026,8,Mapping columns on every upload is tedious.,ACC-034
+R-0284,19/08/2026,0,Imports fail without telling us which row is broken.,ACC-035
+R-0285,26/06/2026,5,Imports fail without telling us which row is broken.,ACC-021
+R-0286,30/08/2026,6,Mapping columns on every upload is tedious.,ACC-033
+R-0287,29/08/2026,7,Imports fail without telling us which row is broken.,ACC-054
+R-0288,10/08/2026,6,Setup took a week because SSO needed a support ticket.,ACC-043
+R-0289,23/07/2026,0,Great product. Exports to slides still need work.,ACC-051
+R-0290,17/06/2026,9,"The bill is hard to predict, which makes renewals tense.",ACC-037
+R-0291,07/06/2026,6,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-032
+R-0292,05/06/2026,5,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-021
+R-0293,22/06/2026,6,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-035
+R-0294,05/09/2026,9,Setup took a week because SSO needed a support ticket. Score reason: promoter.,ACC-003
+R-0295,14/09/2026,4,"Easy to use, and the charts look great.",ACC-002
+R-0296,08/07/2026,0,Setup took a week because SSO needed a support ticket.,ACC-004
+R-0297,24/07/2026,6,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-021
+R-0298,05/08/2026,9,"Solid tool, and support answers fast. Score reason: promoter.",ACC-052
+R-0299,31/08/2026,0,"We can't restrict dashboards by team, which is a blocker for finance.",ACC-015
+R-0300,13/07/2026,9,"Love the dashboards, but the numbers do not always match our CRM.",ACC-051
