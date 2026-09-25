@@ -25,12 +25,12 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
         <Stat label="ARR">{formatUsd(metrics.arr)}</Stat>
         <Stat label="Mentions">{metrics.mentions}</Stat>
         <Stat label="Pain">
-          <span className="flex items-center gap-1.5 pt-1 text-[13px]">
+          <span className="block pt-1 text-[13px]">
             {metrics.pain === null ? (
               <span className="font-medium text-ink-3">Not scored</span>
             ) : (
               <>
-                <PainMeter level={metrics.pain} />
+                <PainMeter level={metrics.pain} />{' '}
                 <span className="font-medium text-ink-3">{PAIN_LABELS[metrics.pain]}</span>
               </>
             )}
