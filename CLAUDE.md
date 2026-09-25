@@ -84,7 +84,6 @@ The dev lifecycle (imported below from `docs/process/lifecycle.md`) decides tick
 ## Dev lifecycle
 
 @docs/process/lifecycle.md
-
 <!-- begin global rules -->
 ## Subagent delegation
 
@@ -135,21 +134,21 @@ The browser runs on the Kata Code client, which can be a different machine from 
 
 Provider-qualified per-role choices. Read the installed pstack provider-dispatch reference before dispatching a configured role. Every documented role remains present. `inherit-parent` and `auto` use the parent model natively and still count as one panel lane.
 
-feature, refactoring: claude:opus@high
-bug-fix: claude:opus@high
-perf-issue: claude:opus@high
-hillclimb: claude:opus@low
-judgment and prose: claude:opus@high
-hardest tasks: claude:opus@xhigh
-how explorer: claude:opus@high
-how explainer: claude:opus@high
+feature, refactoring: inherit-parent
+bug-fix: inherit-parent
+perf-issue: inherit-parent
+hillclimb: inherit-parent
+judgment and prose: inherit-parent
+hardest tasks: inherit-parent
+how explorer: inherit-parent
+how explainer: inherit-parent
 why investigators: inherit-parent
 why synthesizer: inherit-parent
 reflect tooling: inherit-parent
 reflect judgment, divergent, synthesizer: inherit-parent
-arena runners: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium, cursor:grok-4.7@xhigh
-arena cross-judge pool: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium, cursor:grok-4.7@xhigh
-swarm workers: claude:opus@high
-architect runners: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium, cursor:grok-4.7@xhigh
-interrogate reviewers: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium, cursor:grok-4.7@xhigh
+arena runners: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium
+arena cross-judge pool: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium
+swarm workers: inherit-parent
+architect runners: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium
+interrogate reviewers: claude:fable@medium, claude:opus@xhigh, codex:gpt-6-sol@medium
 <!-- pstack:models:end -->
