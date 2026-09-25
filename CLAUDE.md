@@ -11,7 +11,49 @@ Groundwork turns customer conversations into a ranked map of customer problems, 
 
 TanStack Start on Vite, strict TypeScript, Postgres 18 with pgvector, Drizzle ORM, pg-boss for background jobs, Tailwind with shadcn/ui, Vitest, and Playwright. pnpm on Node 22 LTS.
 
-The app does not exist yet. The scaffold slice adds the commands and the layout to this section. Keep both current as slices land.
+Keep the setup, scripts, and layout below current as slices land.
+
+### Setup
+
+```sh
+nvm use
+pnpm install
+cp .env.example .env
+docker compose up -d db
+pnpm db:migrate
+pnpm dev
+```
+
+The app serves on http://localhost:3000.
+
+### Scripts
+
+| Script | What it does |
+| --- | --- |
+| `pnpm dev` | Vite dev server on port 3000. |
+| `pnpm build` | Production build into `.output/`. |
+| `pnpm start` | Runs the production build on port 3000. |
+| `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
+| `pnpm typecheck` | `tsc --noEmit`. |
+| `pnpm test` | Vitest unit tests. Needs the database. |
+| `pnpm e2e` | Playwright against `pnpm start`. Run `pnpm build` first. |
+| `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
+| `pnpm db:migrate` | Applies pending migrations. |
+| `pnpm db:seed` | Seeds the database. |
+
+`dev`, `start`, `test`, `db:migrate`, and `db:seed` read `.env` when it exists.
+
+### Layout
+
+- `src/routes/`: file routes. `src/routes/api/` holds server routes.
+- `src/components/`: custom components. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
+- `src/db/`: Postgres pool, Drizzle schema, migrate and seed scripts.
+- `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
+- `drizzle/`: generated SQL migrations.
+- `e2e/`: Playwright specs.
+- `docs/`: product spec, ADRs, and process docs.
+- `prototypes/`: throwaway design prototypes.
+- `.github/workflows/`: CI.
 
 ## Rules for the code
 
