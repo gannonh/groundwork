@@ -14,6 +14,13 @@ export default defineConfig(
       globals: { ...globals.browser, ...globals.node },
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
+    rules: {
+      // TanStack Router redirects by throwing redirect().
+      '@typescript-eslint/only-throw-error': [
+        'error',
+        { allow: [{ from: 'package', package: '@tanstack/router-core', name: 'Redirect' }] },
+      ],
+    },
   },
   { files: ['**/*.js'], extends: [tseslint.configs.disableTypeChecked] },
 )

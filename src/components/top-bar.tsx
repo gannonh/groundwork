@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 const navItems = [
-  { to: '/', label: 'Opportunities' },
+  { to: '/opportunities', label: 'Opportunities' },
   { to: '/triage', label: 'Triage' },
   { to: '/sources', label: 'Sources' },
   { to: '/accounts', label: 'Accounts' },
@@ -20,7 +20,6 @@ export function TopBar() {
           <Link
             key={item.to}
             to={item.to}
-            activeOptions={{ exact: item.to === '/' }}
             className="rounded-md px-2.5 py-1.5 font-medium whitespace-nowrap"
             activeProps={{ className: 'bg-line-2 text-foreground' }}
             inactiveProps={{ className: 'text-ink-2' }}
