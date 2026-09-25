@@ -5,7 +5,7 @@ description: Launch an isolated Groundwork instance (TanStack Start web app + Po
 
 # Verify Groundwork
 
-Groundwork is a web app. The user surface is the browser UI at `/` (Opportunities), `/triage`, `/sources`, `/accounts`, and `/packs`, under a shared top bar. The only API is `GET /api/health`. Everything runs from this worktree against the shared Docker Postgres.
+Groundwork is a web app. The user surface is the browser UI at `/opportunities` (`/` redirects there), `/triage`, `/sources`, `/accounts`, and `/packs`, under a shared top bar. The only API is `GET /api/health`. Everything runs from this worktree against the shared Docker Postgres.
 
 Read `features/README.md` before driving anything. It is the map of what to prove and how.
 
@@ -43,7 +43,7 @@ This check is read-only. Run it before driving, and again whenever something loo
 
 - The recorded PID is alive and holds the listening port.
 - `GET /api/health` returns `{"ok":true} 200`.
-- `GET /` serves `<title>Groundwork</title>`.
+- `GET /`, following its redirects, serves `<title>Groundwork</title>`.
 - The run database has every migration listed in `drizzle/meta/_journal.json`.
 - `HEAD` still matches the commit at launch. In prod mode a mismatch is a FAIL, because the build is stale. In dev mode it is a warning.
 

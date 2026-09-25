@@ -6,7 +6,7 @@ This directory lists the user-facing behavior of Groundwork that can be verified
 
 - Run `verify.sh up` and wait for the `ready` line. Use `--host tailscale` only for the Kata Code integrated browser.
 - `verify.sh doctor` exits 0 for the instance you are about to drive.
-- The instance has its own database, `gw_verify_<id>`, with every migration applied and the seed run. At the moment the seed inserts nothing, so every screen starts empty.
+- The instance has its own database, `gw_verify_<id>`, with every migration applied and the seed run. The seed loads prototype D's Acme Analytics workspace, so Opportunities shows 12 ranked problems. The other sections start empty.
 - Drive only an instance that `verify.sh` started in this worktree.
 
 ## Driving conventions
@@ -33,8 +33,9 @@ Each feature file starts with an H1 title and a one-paragraph description of wha
 
 - [App shell navigation](./navigation.md): the top bar, moving between the five sections, and the active-section marker.
 - [Section routes](./section-routes.md): opening each section directly by URL, reloading, the browser back button, and the Not Found page.
+- [Opportunity map](./opportunities.md): the ranked problem cards, the selected problem's detail, selection in the URL, and the empty state.
 - [Health check](./health.md): `GET /api/health` reports whether the server can reach Postgres.
 
 ## Not built yet
 
-These PRD features have no screen yet: the opportunity map (ranked cards, weights, filters, URL view state), triage, source uploads, accounts, packs, and Linear sync. Each section route still renders an empty `main`. When a slice lands one of them, add a feature file for it here.
+These PRD features have no screen yet: the opportunity map's weights, filters, outcome grouping, and other URL view state, triage, source uploads, accounts, packs, and Linear sync. Each of those section routes still renders an empty `main`. When a slice lands one of them, add a feature file for it here.
