@@ -74,14 +74,6 @@ The app serves on http://localhost:3000.
 - Rank cards, score bars, sparklines, trend bars, and quotes are custom components.
 - Design a new screen as a throwaway prototype first. Build three variants behind one switcher under `prototypes/<screen>/`, get Gannon's pick, then cut slices.
 
-## Verifying work
-
-- Tests alone do not prove a slice. Before a PR leaves draft, run the app, drive the changed screen in a browser, and record or screenshot the result.
-- Unit tests call the code the way its users do and assert literal expected values.
-- Live TypeSafe and LLM calls cost money, and TypeSafe has no sandbox. Tests use the recorded judge backend. Make live calls only in named live checks.
-- Live browser checks per PR: 10 scenarios when the slice changes a screen, 4 when it does not. Scenario 1 runs the same flow on `main` and on the branch. Each Linear issue lists its scenarios.
-- A PR that changes a screen carries screenshots and a 30 to 60 second video for Human Review.
-
 ## How agent skills fit
 
 The dev lifecycle (imported below from `docs/process/lifecycle.md`) decides ticket status and when to merge. pstack skills decide how the work gets done inside a status. Do not run the autopilot or orchestrate playbooks unless Gannon asks for them.
