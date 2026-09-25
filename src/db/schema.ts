@@ -28,6 +28,7 @@ import type {
   Usd,
   WorkspaceId,
 } from '../domain/types.ts'
+import type { ColumnMapping } from '../ingest/mapping.ts'
 
 const tz = { withTimezone: true } as const
 const pk = <T extends string>() => uuid('id').$type<T>().primaryKey().default(sql`uuidv7()`)
@@ -107,19 +108,26 @@ export const account = pgTable(
   ],
 )
 
-export const source = pgTable('source', {
-  id: pk<SourceId>(),
-  workspaceId: uuid('workspace_id')
-    .$type<WorkspaceId>()
-    .notNull()
-    .references(() => workspace.id, { onDelete: 'cascade' }),
-  kind: sourceKind('kind').notNull(),
-  name: text('name').notNull(),
-  itemKind: itemKind('item_kind').notNull(),
-  fieldMapping: jsonb('field_mapping').$type<Readonly<Record<string, string>>>().notNull().default({}),
-  cursor: text('cursor'),
-  createdAt: createdAt(),
-})
+export const source = pgTable(
+  'source',
+  {
+    id: pk<SourceId>(),
+    workspaceId: uuid('workspace_id')
+      .$type<WorkspaceId>()
+      .notNull()
+      .references(() => workspace.id, { onDelete: 'cascade' }),
+    kind: sourceKind('kind').notNull(),
+    name: text('name').notNull(),
+    itemKind: itemKind('item_kind').notNull(),
+    /** The upload's normalized header (`shapeOf`). An upload with the same columns lands in the same source. */
+    shape: text('shape'),
+    /** Written only by the importer, from a parsed mapping. Null for sources that were never uploaded, like the seed's. */
+    fieldMapping: jsonb('field_mapping').$type<ColumnMapping>(),
+    cursor: text('cursor'),
+    createdAt: createdAt(),
+  },
+  (t) => [unique('source_shape_key').on(t.workspaceId, t.shape)],
+)
 
 export const item = pgTable(
   'item',
@@ -137,6 +145,8 @@ export const item = pgTable(
     externalId: text('external_id').notNull(),
     body: text('body').$type<RawText>().notNull(),
     occurredAt: timestamp('occurred_at', tz).notNull(),
+    /** The account ID as written in the upload. account_id resolves from it whenever that account is imported. */
+    accountRef: text('account_ref'),
     accountId: uuid('account_id')
       .$type<AccountId>()
       .references(() => account.id, { onDelete: 'set null' }),
