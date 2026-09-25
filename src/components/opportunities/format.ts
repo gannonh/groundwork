@@ -9,7 +9,9 @@ export const PAIN_LABELS: Record<PainLevel, string> = {
 
 /** '$2.31M', '$184k'. */
 export function formatUsd(value: number): string {
-  return value >= 1e6 ? `$${(value / 1e6).toFixed(2)}M` : `$${String(Math.round(value / 1000))}k`
+  // Compare after rounding, so 999,999 reads $1.00M rather than $1000k.
+  const thousands = Math.round(value / 1000)
+  return thousands >= 1000 ? `$${(value / 1e6).toFixed(2)}M` : `$${String(thousands)}k`
 }
 
 /** '+36%', '-40%', '0%'. */
