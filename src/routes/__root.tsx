@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { TopBar } from '@/components/top-bar'
 import appCss from '@/styles/app.css?url'
 
 export const Route = createRootRoute({
@@ -21,6 +22,7 @@ function RootDocument({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <TopBar />
         {children}
         <Scripts />
       </body>
