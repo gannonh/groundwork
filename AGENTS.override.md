@@ -9,7 +9,7 @@ Groundwork turns customer conversations into a ranked map of customer problems, 
 
 ## Stack
 
-TanStack Start on Vite, strict TypeScript, Postgres 18 with pgvector, Drizzle ORM, pg-boss for background jobs, Tailwind with shadcn/ui, Vitest, and Playwright. pnpm on Node 22 LTS.
+TanStack Start on Vite, strict TypeScript, Postgres 18 with pgvector, Drizzle ORM, pg-boss for background jobs, Tailwind with shadcn/ui, Vitest, and Playwright. pnpm on Node 24 LTS.
 
 Keep the setup, scripts, and layout below current as slices land.
 
