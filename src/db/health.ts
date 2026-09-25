@@ -1,0 +1,10 @@
+import type { Pool } from 'pg'
+
+export async function healthResponse(pool: Pool): Promise<Response> {
+  try {
+    await pool.query('select 1')
+    return Response.json({ ok: true })
+  } catch {
+    return Response.json({ ok: false }, { status: 503 })
+  }
+}

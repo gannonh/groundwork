@@ -14,6 +14,7 @@ import { Route as AccountsRouteImport } from './routes/accounts'
 import { Route as PacksRouteImport } from './routes/packs'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as TriageRouteImport } from './routes/triage'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const TriageRoute = TriageRouteImport.update({
   path: '/triage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
+  '/api/health': typeof ApiHealthRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/accounts' | '/packs' | '/sources' | '/triage'
+  fullPaths:
+    '/' | '/accounts' | '/packs' | '/sources' | '/triage' | '/api/health'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/accounts' | '/packs' | '/sources' | '/triage'
-  id: '__root__' | '/' | '/accounts' | '/packs' | '/sources' | '/triage'
+  to: '/' | '/accounts' | '/packs' | '/sources' | '/triage' | '/api/health'
+  id:
+    | '__root__'
+    | '/'
+    | '/accounts'
+    | '/packs'
+    | '/sources'
+    | '/triage'
+    | '/api/health'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   PacksRoute: typeof PacksRoute
   SourcesRoute: typeof SourcesRoute
   TriageRoute: typeof TriageRoute
+  ApiHealthRoute: typeof ApiHealthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TriageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,6 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   PacksRoute: PacksRoute,
   SourcesRoute: SourcesRoute,
   TriageRoute: TriageRoute,
+  ApiHealthRoute: ApiHealthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
