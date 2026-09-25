@@ -5,7 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import globals from 'globals'
 
 export default defineConfig(
-  { ignores: ['.output', '.nitro', '.tanstack', 'playwright-report', 'test-results'] },
+  { ignores: ['.output', '.nitro', '.tanstack', 'playwright-report', 'test-results', '.claude', '.verify'] },
   js.configs.recommended,
   tseslint.configs.strictTypeChecked,
   reactHooks.configs.flat.recommended,
