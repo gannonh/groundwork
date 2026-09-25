@@ -5,26 +5,32 @@ export const CONFIDENT_QUOTES = 3
 export const MAX_QUOTES = 4
 
 /**
- * Which quotes a detail shows. One voice per account: the account's newest confident mention, else its newest
- * low-confidence one. Confident voices by account ARR desc, at most CONFIDENT_QUOTES, then needs-review voices by
- * ARR desc up to MAX_QUOTES, so a needs-review quote is visible whenever one exists.
+ * Which quotes a detail shows: up to CONFIDENT_QUOTES confident voices, one per account by ARR desc, then
+ * low-confidence voices from accounts not yet shown, by ARR desc, up to MAX_QUOTES. A voice is an account's newest
+ * mention of that confidence. When every low-confidence mention comes from a shown account, the top one by ARR still
+ * gets the spare slot. So whenever a mention needs review, at least one returned quote has lowConfidence set.
  */
 export function selectQuotes(
   evidence: readonly CountedMention[],
   accounts: ReadonlyMap<AccountId, Account>,
 ): readonly CountedMention[] {
-  const voices = new Map<string, CountedMention>()
-  for (const mention of evidence) {
-    const key = mention.accountId ?? mention.mentionId
-    const current = voices.get(key)
-    if (!current || (current.lowConfidence !== null && mention.lowConfidence === null)) voices.set(key, mention)
-  }
   const arrOf = (m: CountedMention) => (m.accountId ? (accounts.get(m.accountId)?.arr ?? 0) : 0)
-  const byArr = (list: CountedMention[]) => list.sort((a, b) => arrOf(b) - arrOf(a))
-  const all = [...voices.values()]
-  const confident = byArr(all.filter((m) => m.lowConfidence === null)).slice(0, CONFIDENT_QUOTES)
-  const needsReview = byArr(all.filter((m) => m.lowConfidence !== null))
-  return [...confident, ...needsReview].slice(0, MAX_QUOTES)
+  const voiceOf = (m: CountedMention) => m.accountId ?? m.mentionId
+  const voices = (mentions: readonly CountedMention[]) => {
+    const newest = new Map<string, CountedMention>()
+    // Evidence is newest first, so the first mention seen per account is its newest.
+    for (const m of mentions) if (!newest.has(voiceOf(m))) newest.set(voiceOf(m), m)
+    return [...newest.values()].sort((a, b) => arrOf(b) - arrOf(a))
+  }
+
+  const confident = voices(evidence.filter((m) => m.lowConfidence === null)).slice(0, CONFIDENT_QUOTES)
+  const low = voices(evidence.filter((m) => m.lowConfidence !== null))
+  const shown = new Set(confident.map(voiceOf))
+  const unshownLow = low.filter((m) => !shown.has(voiceOf(m))).slice(0, MAX_QUOTES - confident.length)
+  if (unshownLow.length > 0) return [...confident, ...unshownLow]
+
+  // Every low-confidence mention comes from a shown account. CONFIDENT_QUOTES < MAX_QUOTES leaves it a slot.
+  return [...confident, ...low.slice(0, 1)]
 }
 
 export type TopAccount = { readonly account: Account; readonly mentions: number; readonly allNeedReview: boolean }

@@ -135,6 +135,11 @@ describe('pnpm db:seed', () => {
       ['Lumen Clinics', 74_000],
     ])
     expect(byTitle(map, "Can't tell when data was last refreshed").link?.identifier).toBe('LIN-417')
+    expect(
+      problemsOf(map)
+        .filter((p) => p.metrics.needsReview > 0 && !p.quotes.some((q) => q.lowConfidence !== null))
+        .map((p) => p.title),
+    ).toEqual([])
   })
 
   test('an empty database loads as an empty map, not an error', async () => {
