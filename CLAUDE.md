@@ -51,7 +51,7 @@ The app serves on http://localhost:3000.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
 - `drizzle/`: generated SQL migrations.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree; a local, gitignored `t3.json` runs it when Kata Code creates one.
+- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
