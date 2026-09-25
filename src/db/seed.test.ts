@@ -2,7 +2,13 @@ import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import { account, item, judgeAnswer, mention, placement, sentence, source, workspace } from '@/db/schema'
 import { BALANCED, rank } from '@/domain/rank'
-import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
+import {
+  loadEvidence,
+  loadOpportunityMap,
+  type EvidenceList,
+  type OpportunityMap,
+  type ProblemView,
+} from '@/server/opportunity-map.server'
 import type { Confidence, RawText, RedactedText, Usd } from '@/domain/types'
 import { buildSeed, SEED_WORKSPACE_ID, seedId } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
@@ -203,6 +209,61 @@ describe('pnpm db:seed', () => {
       'Orbitly',
       'Lumen Clinics',
     ])
+  })
+
+  test("lists the evidence behind each of the top problem's numbers", async () => {
+    const top = "Dashboard totals don't match the source system"
+    const lists = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const map = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      const problem = byTitle(map, top)
+      const other = byTitle(map, 'Usage-based bill is unpredictable')
+      const solution = problem.solutions.find((s) => s.title === 'Reconciliation view vs. source')
+      const foreignSolution = other.solutions[0]
+      if (!solution || !foreignSolution) throw new Error('missing seeded solution')
+      const load = (id: string, filter: Parameters<typeof loadEvidence>[2]) =>
+        loadEvidence(tx, id, filter, SEED_WORKSPACE_ID)
+      const accounts = await load(problem.id, { evidence: 'accounts' })
+      const kite = accounts.kind === 'accounts' ? accounts.groups.find((g) => g.account.name === 'Kite Dynamics') : null
+      if (!kite) throw new Error('missing seeded account')
+      return {
+        mentions: await load(problem.id, { evidence: 'mentions' }),
+        accounts,
+        solution: await load(problem.id, { evidence: 'solution', solution: solution.id }),
+        kite: await load(problem.id, { evidence: 'account', account: kite.account.id }),
+        unknownProblem: await load('00000000-0000-0000-0000-000000000000', { evidence: 'mentions' }),
+        foreignSolution: await load(problem.id, { evidence: 'solution', solution: foreignSolution.id }),
+      }
+    })
+
+    const rowsOf = (list: EvidenceList) => {
+      if (list.kind !== 'mentions') throw new Error(`expected a mentions list, got ${list.kind}`)
+      return list
+    }
+    const mentions = rowsOf(lists.mentions)
+    expect([mentions.problemTitle, mentions.scope, mentions.rows.length]).toEqual([top, null, 141])
+    expect(mentions.rows.filter((r) => r.lowConfidence !== null)).toHaveLength(9)
+
+    if (lists.accounts.kind !== 'accounts') throw new Error('expected an accounts list')
+    const { groups } = lists.accounts
+    expect(groups).toHaveLength(44)
+    expect(groups.reduce((sum, g) => sum + g.account.arr, 0)).toBe(2_310_000)
+    expect(groups.reduce((sum, g) => sum + g.rows.length, 0)).toBe(141)
+    expect(groups.slice(0, 2).map((g) => g.account.name)).toEqual(['Cobalt Insurance', 'Halcyon Bank'])
+
+    const solution = rowsOf(lists.solution)
+    expect([solution.scope, solution.rows.length]).toEqual(['Reconciliation view vs. source', 36])
+
+    const kite = rowsOf(lists.kite)
+    expect(kite.rows.map((r) => r.account?.name)).toEqual([
+      'Kite Dynamics',
+      'Kite Dynamics',
+      'Kite Dynamics',
+      'Kite Dynamics',
+    ])
+
+    expect(lists.unknownProblem).toEqual({ kind: 'missing' })
+    expect(lists.foreignSolution).toEqual({ kind: 'missing' })
   })
 
   test('an empty database loads as an empty map, not an error', async () => {
