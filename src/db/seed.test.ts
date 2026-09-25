@@ -1,9 +1,10 @@
 import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '@/db/client'
-import { workspace } from '@/db/schema'
+import { account, item, judgeAnswer, mention, placement, sentence, source, workspace } from '@/db/schema'
 import { BALANCED, rank } from '@/domain/rank'
 import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
-import { buildSeed, SEED_WORKSPACE_ID } from './seed/build.ts'
+import type { Confidence, RawText, RedactedText, Usd } from '@/domain/types'
+import { buildSeed, SEED_WORKSPACE_ID, seedId } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
 import { rollbackAfter } from './testing.ts'
 
@@ -126,6 +127,82 @@ describe('pnpm db:seed', () => {
         .filter((p) => p.metrics.needsReview > 0 && !p.quotes.some((q) => q.lowConfidence !== null))
         .map((p) => p.title),
     ).toEqual([])
+  })
+
+  test("a placement on another workspace's item does not count toward a seeded problem", async () => {
+    const top = "Dashboard totals don't match the source system"
+    const map = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const [other] = await tx
+        .insert(workspace)
+        .values({ slug: 'other-workspace', name: 'Other' })
+        .returning({ id: workspace.id })
+      if (!other) throw new Error('no workspace')
+      const [otherSource] = await tx
+        .insert(source)
+        .values({ workspaceId: other.id, kind: 'upload', name: 'Zendesk', itemKind: 'ticket' })
+        .returning({ id: source.id })
+      const [otherAccount] = await tx
+        .insert(account)
+        .values({ workspaceId: other.id, externalId: 'foreign', name: 'Foreign Corp', arr: 9_000_000 as Usd })
+        .returning({ id: account.id })
+      if (!otherSource || !otherAccount) throw new Error('no source or account')
+      const text = 'Our totals are wrong as well.'
+      const [foreign] = await tx
+        .insert(item)
+        .values({
+          workspaceId: other.id,
+          sourceId: otherSource.id,
+          externalId: 'foreign-1',
+          body: text as RawText,
+          occurredAt: new Date('2026-09-19T15:00:00Z'),
+          accountId: otherAccount.id,
+        })
+        .returning({ id: item.id })
+      if (!foreign) throw new Error('no item')
+      await tx.insert(sentence).values({ itemId: foreign.id, ordinal: 0, text: text as RedactedText })
+      const packId = seedId('pack', 'product-insights/0.3.0')
+      const problemId = seedId('opportunity', 'p4')
+      const [answer] = await tx
+        .insert(judgeAnswer)
+        .values({
+          packId,
+          itemId: foreign.id,
+          questionKey: 'place',
+          subject: 'm0',
+          value: { type: 'choice', option: problemId },
+          probabilities: { [problemId]: 0.95, none: 0.05 },
+          confidence: 0.95 as Confidence,
+          backend: 'recorded',
+          modelVersion: 'recorded-1.0.0',
+        })
+        .returning({ id: judgeAnswer.id })
+      const [foreignMention] = await tx
+        .insert(mention)
+        .values({ packId, itemId: foreign.id, ordinal: 0, sentenceStart: 0, sentenceEnd: 0 })
+        .returning({ id: mention.id })
+      if (!answer || !foreignMention) throw new Error('no answer or mention')
+      await tx.insert(placement).values({
+        mentionId: foreignMention.id,
+        opportunityId: problemId,
+        judgeAnswerId: answer.id,
+        confidence: 0.95 as Confidence,
+      })
+      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+    })
+
+    const problem = byTitle(map, top)
+    expect({
+      accounts: problem.metrics.accounts,
+      arr: problem.metrics.arr,
+      mentions: problem.metrics.mentions,
+    }).toEqual({ accounts: 44, arr: 2_310_000, mentions: 141 })
+    expect(problem.quotes.map((q) => q.account?.name)).toEqual([
+      'Cobalt Insurance',
+      'Halcyon Bank',
+      'Orbitly',
+      'Lumen Clinics',
+    ])
   })
 
   test('an empty database loads as an empty map, not an error', async () => {

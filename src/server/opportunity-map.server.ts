@@ -115,7 +115,8 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     .from(t.placement)
     .innerJoin(t.mention, eq(t.mention.id, t.placement.mentionId))
     .innerJoin(t.item, eq(t.item.id, t.mention.itemId))
-    .where(eq(t.mention.packId, pack.id))
+    // The schema does not tie a mention's item to its pack's workspace, so the read path does.
+    .where(and(eq(t.mention.packId, pack.id), eq(t.item.workspaceId, ws.id)))
   const accounts: Account[] = await db
     .select({ id: t.account.id, name: t.account.name, arr: t.account.arr })
     .from(t.account)
