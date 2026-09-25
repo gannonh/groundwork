@@ -32,6 +32,8 @@ import type {
 const tz = { withTimezone: true } as const
 const pk = <T extends string>() => uuid('id').$type<T>().primaryKey().default(sql`uuidv7()`)
 const createdAt = () => timestamp('created_at', tz).notNull().defaultNow()
+/** A model name and a semantic version, such as 'jev-1.13.0'. Rejects 'jev-latest' and bare names. */
+const PINNED_MODEL = String.raw`'^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'`
 
 export const opportunityKind = pgEnum('opportunity_kind', ['outcome', 'problem', 'solution'])
 export const itemKind = pgEnum('item_kind', ['ticket', 'call', 'survey_response', 'review', 'interview'])
@@ -76,7 +78,7 @@ export const pack = pgTable(
   },
   (t) => [
     unique('pack_version_key').on(t.workspaceId, t.name, t.version),
-    check('pack_judge_model_pinned', sql`${t.judgeModel} not like '%latest%'`),
+    check('pack_judge_model_pinned', sql`${t.judgeModel} ~ ${sql.raw(PINNED_MODEL)}`),
     check(
       'pack_thresholds_open_unit',
       sql`${t.detectThreshold} > 0 and ${t.detectThreshold} < 1 and ${t.placeThreshold} > 0 and ${t.placeThreshold} < 1`,
@@ -220,7 +222,7 @@ export const judgeAnswer = pgTable(
   (t) => [
     unique('judge_answer_key').on(t.packId, t.itemId, t.questionKey, t.subject),
     index('judge_answer_question_idx').on(t.packId, t.questionKey),
-    check('judge_answer_model_pinned', sql`${t.modelVersion} not like '%latest%'`),
+    check('judge_answer_model_pinned', sql`${t.modelVersion} ~ ${sql.raw(PINNED_MODEL)}`),
     check('judge_answer_confidence_unit', sql`${t.confidence} >= 0 and ${t.confidence} <= 1`),
   ],
 )

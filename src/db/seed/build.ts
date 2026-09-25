@@ -93,7 +93,7 @@ const NAME_B = [
   'Analytics', 'Bio', 'Capital', 'Dynamics', 'Energy', 'Foods', 'Group', 'Health',
   'Industries', 'Logistics', 'Media', 'Networks', 'Outfitters', 'Partners', 'Robotics', 'Systems',
 ]
-const ANSWERS = { backend: 'recorded', modelVersion: 'seed-prototype-d' } as const
+const ANSWERS = { backend: 'recorded', modelVersion: 'recorded-1.0.0' } as const
 
 type Slot = {
   readonly accountId: AccountId

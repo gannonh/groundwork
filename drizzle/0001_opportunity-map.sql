@@ -44,7 +44,7 @@ CREATE TABLE "judge_answer" (
 	"model_version" text NOT NULL,
 	"asked_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "judge_answer_key" UNIQUE("pack_id","item_id","question_key","subject"),
-	CONSTRAINT "judge_answer_model_pinned" CHECK ("judge_answer"."model_version" not like '%latest%'),
+	CONSTRAINT "judge_answer_model_pinned" CHECK ("judge_answer"."model_version" ~ '^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'),
 	CONSTRAINT "judge_answer_confidence_unit" CHECK ("judge_answer"."confidence" >= 0 and "judge_answer"."confidence" <= 1)
 );
 --> statement-breakpoint
@@ -97,7 +97,7 @@ CREATE TABLE "pack" (
 	"definition" jsonb NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "pack_version_key" UNIQUE("workspace_id","name","version"),
-	CONSTRAINT "pack_judge_model_pinned" CHECK ("pack"."judge_model" not like '%latest%'),
+	CONSTRAINT "pack_judge_model_pinned" CHECK ("pack"."judge_model" ~ '^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'),
 	CONSTRAINT "pack_thresholds_open_unit" CHECK ("pack"."detect_threshold" > 0 and "pack"."detect_threshold" < 1 and "pack"."place_threshold" > 0 and "pack"."place_threshold" < 1)
 );
 --> statement-breakpoint

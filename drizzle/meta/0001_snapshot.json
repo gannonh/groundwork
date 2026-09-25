@@ -1,5 +1,5 @@
 {
-  "id": "d66a72ce-dcfc-4387-a9ae-9533663a4086",
+  "id": "58ed104b-6c3a-4963-aa7a-1e7f36a228a0",
   "prevId": "8b6b3dca-8c88-4e2a-8947-97212afe2aec",
   "version": "7",
   "dialect": "postgresql",
@@ -379,7 +379,7 @@
       "checkConstraints": {
         "judge_answer_model_pinned": {
           "name": "judge_answer_model_pinned",
-          "value": "\"judge_answer\".\"model_version\" not like '%latest%'"
+          "value": "\"judge_answer\".\"model_version\" ~ '^[a-z][a-z0-9-]*-[0-9]+\\.[0-9]+\\.[0-9]+$'"
         },
         "judge_answer_confidence_unit": {
           "name": "judge_answer_confidence_unit",
@@ -850,7 +850,7 @@
       "checkConstraints": {
         "pack_judge_model_pinned": {
           "name": "pack_judge_model_pinned",
-          "value": "\"pack\".\"judge_model\" not like '%latest%'"
+          "value": "\"pack\".\"judge_model\" ~ '^[a-z][a-z0-9-]*-[0-9]+\\.[0-9]+\\.[0-9]+$'"
         },
         "pack_thresholds_open_unit": {
           "name": "pack_thresholds_open_unit",

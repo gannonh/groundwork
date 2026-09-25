@@ -1,25 +1,11 @@
-import { TransactionRollbackError } from 'drizzle-orm'
 import { afterAll, describe, expect, test } from 'vitest'
-import { db, pool, type Db } from '@/db/client'
+import { pool } from '@/db/client'
 import { workspace } from '@/db/schema'
 import { BALANCED, rank } from '@/domain/rank'
 import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
 import { buildSeed, SEED_WORKSPACE_ID } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
-
-async function rollbackAfter(work: (tx: Db) => Promise<OpportunityMap>): Promise<OpportunityMap> {
-  let result: OpportunityMap | undefined
-  try {
-    await db.transaction(async (tx) => {
-      result = await work(tx)
-      tx.rollback()
-    })
-  } catch (error) {
-    if (!(error instanceof TransactionRollbackError)) throw error
-  }
-  if (!result) throw new Error('the transaction produced no result')
-  return result
-}
+import { rollbackAfter } from './testing.ts'
 
 function problemsOf(map: OpportunityMap): readonly ProblemView[] {
   if (map.kind !== 'ready') throw new Error('expected a ready map')
