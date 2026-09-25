@@ -2,13 +2,17 @@ import pg from 'pg'
 import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import { healthResponse } from '@/db/health'
+import { Route } from './health'
 
 describe('GET /api/health', () => {
   afterAll(() => pool.end())
 
-  test('returns 200 and ok true when the database answers', async () => {
-    const response = await healthResponse(pool)
+  test('the registered GET handler returns 200 and ok true when the database answers', async () => {
+    const handlers = Route.options.server?.handlers
+    if (typeof handlers !== 'object' || !('GET' in handlers)) throw new Error('GET /api/health is not registered')
+    const response = await handlers.GET()
     expect(response.status).toBe(200)
+    expect(response.headers.get('cache-control')).toBe('no-store')
     expect(await response.json()).toEqual({ ok: true })
   })
 
