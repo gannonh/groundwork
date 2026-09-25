@@ -11,3 +11,6 @@ dist
 /blob-report
 /playwright/.cache
 /.verify
+
+# Kata Code project config, local to each machine
+t3.json
