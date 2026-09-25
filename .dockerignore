@@ -1,0 +1,9 @@
+.git
+.env
+node_modules
+.output
+.nitro
+.tanstack
+test-results
+playwright-report
+blob-report
