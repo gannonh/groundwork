@@ -14,6 +14,11 @@ export function formatUsd(value: number): string {
   return thousands >= 1000 ? `$${(value / 1e6).toFixed(2)}M` : `$${String(thousands)}k`
 }
 
+/** '1 mention', '141 mentions'. */
+export function mentionCount(count: number): string {
+  return `${String(count)} ${count === 1 ? 'mention' : 'mentions'}`
+}
+
 /** '+36%', '-40%', '0%'. */
 export function formatDelta(delta: number): string {
   const pct = Math.round(delta * 100)

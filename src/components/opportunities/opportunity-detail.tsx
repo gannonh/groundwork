@@ -1,15 +1,23 @@
 import type { ReactNode } from 'react'
+import { Link } from '@tanstack/react-router'
+import type { EvidenceFilter } from '@/domain/evidence'
 import type { TrendWindow } from '@/domain/metrics'
-import type { PainLevel } from '@/domain/types'
-import type { ProblemView, QuoteView } from '@/server/opportunity-map.server'
-import { PAIN_LABELS, formatDay, formatRole, formatUsd } from './format'
+import type { OpportunityId, PainLevel } from '@/domain/types'
+import type { ProblemView } from '@/server/opportunity-map.server'
+import { PAIN_LABELS, formatUsd, mentionCount } from './format'
 import { LinkedPill, Pill, TrendPill } from './pill'
+import { Quote } from './quote'
 import { TrendBars } from './trend-bars'
 
 export type OpportunityDetailProps = { readonly problem: ProblemView; readonly window: TrendWindow }
 
 export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
   const { metrics } = problem
+  const evidence = (filter: EvidenceFilter, label: string, children: ReactNode) => (
+    <EvidenceLink problemId={problem.id} filter={filter} label={label}>
+      {children}
+    </EvidenceLink>
+  )
   return (
     <div className="px-6 pt-[22px] pb-[90px]">
       <div className="mb-1.5 text-[12px] text-ink-3">{problem.outcome.title}</div>
@@ -21,9 +29,19 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
       )}
 
       <dl className="mb-[18px] grid grid-cols-4 rounded-[10px] border">
-        <Stat label="Accounts">{metrics.accounts}</Stat>
-        <Stat label="ARR">{formatUsd(metrics.arr)}</Stat>
-        <Stat label="Mentions">{metrics.mentions}</Stat>
+        <Stat label="Accounts">
+          {evidence({ evidence: 'accounts' }, `Show the ${String(metrics.accounts)} accounts`, metrics.accounts)}
+        </Stat>
+        <Stat label="ARR">
+          {evidence(
+            { evidence: 'accounts' },
+            `Show the accounts behind ${formatUsd(metrics.arr)} ARR`,
+            formatUsd(metrics.arr),
+          )}
+        </Stat>
+        <Stat label="Mentions">
+          {evidence({ evidence: 'mentions' }, `Show the ${mentionCount(metrics.mentions)}`, metrics.mentions)}
+        </Stat>
         <Stat label="Pain">
           <span className="block pt-1 text-[13px]">
             {metrics.pain === null ? (
@@ -62,7 +80,13 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
                 {solution.needsReview}
               </Pill>
             )}
-            <span className="text-ink-3 tabular-nums">{solution.mentions}</span>
+            <span className="text-ink-3 tabular-nums">
+              {evidence(
+                { evidence: 'solution', solution: solution.id },
+                `Show the ${mentionCount(solution.mentions)} of ${solution.title}`,
+                solution.mentions,
+              )}
+            </span>
           </span>
         </div>
       ))}
@@ -76,7 +100,11 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
               {account.allNeedReview && <Pill tone="warn">needs review</Pill>}
             </span>
             <span className="text-ink-3 tabular-nums">
-              {account.mentions} {account.mentions === 1 ? 'mention' : 'mentions'}
+              {evidence(
+                { evidence: 'account', account: account.id },
+                `Show ${account.name}'s ${mentionCount(account.mentions)}`,
+                mentionCount(account.mentions),
+              )}
             </span>
             <span className="tabular-nums">{formatUsd(account.arr)}</span>
           </li>
@@ -92,6 +120,31 @@ export function MissingOpportunity() {
       <h2 className="mb-2 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">Opportunity not found</h2>
       <p className="text-ink-2">It may have been merged or deleted. Pick a problem from the list.</p>
     </div>
+  )
+}
+
+function EvidenceLink({
+  problemId,
+  filter,
+  label,
+  children,
+}: {
+  problemId: OpportunityId
+  filter: EvidenceFilter
+  label: string
+  children: ReactNode
+}) {
+  return (
+    <Link
+      to="/opportunities/$id"
+      params={{ id: problemId }}
+      search={filter}
+      resetScroll={false}
+      aria-label={label}
+      className="rounded-[3px] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+    >
+      {children}
+    </Link>
   )
 }
 
@@ -120,40 +173,5 @@ function PainMeter({ level }: { level: PainLevel }) {
         <i key={i} className={`h-3 w-[5px] rounded-[1px] ${i <= level ? 'bg-up' : 'bg-border'}`} />
       ))}
     </span>
-  )
-}
-
-function Quote({ quote }: { quote: QuoteView }) {
-  const { text } = quote
-  return (
-    <figure
-      className={`mb-3.5 border-l-[3px] py-0.5 pl-3 ${quote.lowConfidence === null ? 'border-l-border' : 'border-l-warn-line'}`}
-    >
-      <blockquote className="mb-[5px] text-[13.5px] leading-normal">
-        “{text.leadingEllipsis && '… '}
-        {text.sentences.map((sentence, i) => (
-          <span key={i}>
-            {i > 0 && ' '}
-            {sentence.highlighted ? <mark className="bg-mark px-px">{sentence.text}</mark> : sentence.text}
-          </span>
-        ))}
-        {text.trailingEllipsis && ' …'}”
-      </blockquote>
-      <figcaption className="flex flex-wrap items-center gap-2 text-[11.5px] text-ink-3">
-        {quote.account && (
-          <>
-            <b className="font-semibold text-ink-2">{quote.account.name}</b>
-            <span>{formatUsd(quote.account.arr)} ARR</span>
-          </>
-        )}
-        {quote.role && <span>{formatRole(quote.role)}</span>}
-        <span>
-          {quote.source} · {formatDay(quote.date)}
-        </span>
-        {quote.lowConfidence !== null && (
-          <Pill tone="warn">{Math.round(quote.lowConfidence * 100)}% confident</Pill>
-        )}
-      </figcaption>
-    </figure>
   )
 }
