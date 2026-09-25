@@ -181,11 +181,12 @@ export const opportunity = pgTable(
     createdAt: createdAt(),
   },
   (t) => [
-    unique('opportunity_id_kind_key').on(t.id, t.kind),
+    unique('opportunity_id_kind_workspace_key').on(t.id, t.kind, t.workspaceId),
+    // Checks the parent's kind and workspace. Outcomes have a null parent, which MATCH SIMPLE skips.
     foreignKey({
       name: 'opportunity_parent_fk',
-      columns: [t.parentId, t.parentKind],
-      foreignColumns: [t.id, t.kind],
+      columns: [t.parentId, t.parentKind, t.workspaceId],
+      foreignColumns: [t.id, t.kind, t.workspaceId],
     }),
     check(
       'opportunity_tree_shape',

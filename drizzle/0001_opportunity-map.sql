@@ -82,7 +82,7 @@ CREATE TABLE "opportunity" (
 	"description" text,
 	"owner" text,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
-	CONSTRAINT "opportunity_id_kind_key" UNIQUE("id","kind"),
+	CONSTRAINT "opportunity_id_kind_workspace_key" UNIQUE("id","kind","workspace_id"),
 	CONSTRAINT "opportunity_tree_shape" CHECK (("opportunity"."kind" = 'outcome' and "opportunity"."parent_id" is null and "opportunity"."parent_kind" is null) or ("opportunity"."kind" = 'problem' and "opportunity"."parent_id" is not null and "opportunity"."parent_kind" = 'outcome') or ("opportunity"."kind" = 'solution' and "opportunity"."parent_id" is not null and "opportunity"."parent_kind" = 'problem'))
 );
 --> statement-breakpoint
@@ -151,7 +151,7 @@ ALTER TABLE "mention" ADD CONSTRAINT "mention_item_id_item_id_fk" FOREIGN KEY ("
 ALTER TABLE "mention" ADD CONSTRAINT "mention_start_fk" FOREIGN KEY ("item_id","sentence_start") REFERENCES "public"."sentence"("item_id","ordinal") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "mention" ADD CONSTRAINT "mention_end_fk" FOREIGN KEY ("item_id","sentence_end") REFERENCES "public"."sentence"("item_id","ordinal") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "opportunity" ADD CONSTRAINT "opportunity_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "opportunity" ADD CONSTRAINT "opportunity_parent_fk" FOREIGN KEY ("parent_id","parent_kind") REFERENCES "public"."opportunity"("id","kind") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "opportunity" ADD CONSTRAINT "opportunity_parent_fk" FOREIGN KEY ("parent_id","parent_kind","workspace_id") REFERENCES "public"."opportunity"("id","kind","workspace_id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "pack" ADD CONSTRAINT "pack_workspace_id_workspace_id_fk" FOREIGN KEY ("workspace_id") REFERENCES "public"."workspace"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "placement" ADD CONSTRAINT "placement_mention_id_mention_id_fk" FOREIGN KEY ("mention_id") REFERENCES "public"."mention"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "placement" ADD CONSTRAINT "placement_opportunity_id_opportunity_id_fk" FOREIGN KEY ("opportunity_id") REFERENCES "public"."opportunity"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

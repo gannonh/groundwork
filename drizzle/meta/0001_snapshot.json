@@ -1,5 +1,5 @@
 {
-  "id": "58ed104b-6c3a-4963-aa7a-1e7f36a228a0",
+  "id": "bddc1e56-d4ae-4f83-b6f0-3e17531041d7",
   "prevId": "8b6b3dca-8c88-4e2a-8947-97212afe2aec",
   "version": "7",
   "dialect": "postgresql",
@@ -727,11 +727,13 @@
           "tableTo": "opportunity",
           "columnsFrom": [
             "parent_id",
-            "parent_kind"
+            "parent_kind",
+            "workspace_id"
           ],
           "columnsTo": [
             "id",
-            "kind"
+            "kind",
+            "workspace_id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -739,12 +741,13 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "opportunity_id_kind_key": {
-          "name": "opportunity_id_kind_key",
+        "opportunity_id_kind_workspace_key": {
+          "name": "opportunity_id_kind_workspace_key",
           "nullsNotDistinct": false,
           "columns": [
             "id",
-            "kind"
+            "kind",
+            "workspace_id"
           ]
         }
       },
