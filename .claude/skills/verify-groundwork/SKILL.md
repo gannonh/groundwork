@@ -70,6 +70,7 @@ It runs the steps in order in headless Chromium and stops at the first failure. 
 | `expect-current=Name` | `Name` is the only top-bar link with `aria-current="page"`. |
 | `expect-text=Text` | Some visible element contains `Text`. |
 | `expect-focus=Name` | The focused element's `aria-label`, or else its text, equals `Name`. |
+| `expect-eval=JS` | A JavaScript expression evaluated in the page is truthy, for example `expect-eval=document.documentElement.scrollWidth<=innerWidth`. The step retries until it holds or times out. |
 | `snap=label` | Write `label.png` (full page) and `label.aria.yml`, whose first line is the URL. |
 
 `steps.log` records every step, plus console errors, page errors, and HTTP responses of 400 or above. Read it: a PASS with a `pageerror` line is not a clean pass. `--video` writes `video.webm` for the whole run. Each run clears its `--name` folder first, so a retry replaces the earlier evidence instead of adding to it.
