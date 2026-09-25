@@ -20,7 +20,6 @@ function OpportunitiesPage() {
   const { id } = useParams({ strict: false })
   if (map.kind === 'empty') return <EmptyMap />
 
-  // KAT-3464 replaces BALANCED with the weights in the URL; the call stays the same.
   const ranked = rank(map.problems, BALANCED)
   const selected = id === undefined ? ranked[0] : ranked.find((r) => r.item.id === id)
 
