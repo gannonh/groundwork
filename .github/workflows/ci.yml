@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:0.8.6-pg18
+        env:
+          POSTGRES_USER: groundwork
+          POSTGRES_PASSWORD: groundwork
+          POSTGRES_DB: groundwork
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U groundwork -d groundwork"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgres://groundwork:groundwork@localhost:5432/groundwork
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm db:migrate
+      - run: pnpm test
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm build
+      - run: pnpm e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
