@@ -168,8 +168,9 @@ cmd_doctor() {
 
   # Read the whole body before matching. With `curl | grep -q`, grep exits at the
   # title, curl dies writing the rest of the page, and pipefail fails the check.
+  # tr reads to EOF; it drops the NUL bytes in TanStack's serialized route ids.
   local page
-  page=$(curl -sL "$URL/" 2>/dev/null || true)
+  page=$(curl -sL "$URL/" 2>/dev/null | tr -d '\0' || true)
   if [[ $page == *'<title>Groundwork</title>'* ]]; then ok "GET / (following redirects) serves the Groundwork shell"
   else bad "GET / (following redirects) does not serve <title>Groundwork</title>"; fi
 
