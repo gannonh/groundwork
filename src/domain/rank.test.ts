@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { BALANCED, rank } from './rank.ts'
+import { BALANCED, PRESETS, groupRanked, rank } from './rank.ts'
 import type { PainLevel } from './types.ts'
 
 type Problem = { readonly title: string; readonly metrics: { accounts: number; arr: number; pain: PainLevel; delta: number } }
@@ -57,4 +57,55 @@ describe('rank with Balanced weights', () => {
       ['second', 50, 0],
     ])
   })
+})
+
+describe('rank under each preset', () => {
+  const DASHBOARD = "Dashboard totals don't match the source system"
+  const CSV = 'CSV imports fail silently on malformed rows'
+  const VIEWERS = 'Viewers need a paid seat to see a dashboard'
+  const ADMINS = "Admins can't restrict access by team"
+
+  test('Balanced, Breadth, and Heating up share a top four', () => {
+    const topFour = (name: string) =>
+      rank(PROTOTYPE, PRESETS.find((p) => p.name === name)?.weights ?? BALANCED)
+        .slice(0, 4)
+        .map((r) => r.item.title)
+    expect(topFour('Balanced')).toEqual([DASHBOARD, CSV, VIEWERS, ADMINS])
+    expect(topFour('Breadth')).toEqual([DASHBOARD, CSV, VIEWERS, ADMINS])
+    expect(topFour('Heating up')).toEqual([DASHBOARD, CSV, VIEWERS, ADMINS])
+  })
+
+  test('Enterprise moves Admins above CSV', () => {
+    const [, enterprise] = PRESETS
+    expect(enterprise.name).toBe('Enterprise')
+    expect(
+      rank(PROTOTYPE, enterprise.weights)
+        .slice(0, 4)
+        .map((r) => r.item.title),
+    ).toEqual([DASHBOARD, VIEWERS, ADMINS, CSV])
+  })
+})
+
+test('groupRanked orders groups by summed score and keeps each member\'s overall position', () => {
+  const OUTCOME: Record<string, string> = {
+    'CSV imports fail silently on malformed rows': 'data in',
+    'Field mapping must be redone for every import': 'data in',
+    'No way to backfill historical data': 'data in',
+    "Dashboard totals don't match the source system": 'trust',
+    "Can't tell when data was last refreshed": 'trust',
+    'Timezone handling shifts daily counts': 'trust',
+    'Exported charts lose formatting in slides': 'share',
+    'Viewers need a paid seat to see a dashboard': 'share',
+    'No scheduled email digest': 'share',
+    "Admins can't restrict access by team": 'control',
+    'Usage-based bill is unpredictable': 'control',
+    'SSO setup requires contacting support': 'control',
+  }
+  const groups = groupRanked(rank(PROTOTYPE, BALANCED), (p) => OUTCOME[p.title])
+  expect(groups.map((g) => [g.key, g.members.map((r) => r.position)])).toEqual([
+    ['data in', [2, 6, 8]],
+    ['trust', [1, 7, 12]],
+    ['control', [4, 5, 10]],
+    ['share', [3, 9, 11]],
+  ])
 })

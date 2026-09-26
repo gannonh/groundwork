@@ -11,6 +11,7 @@ import type {
   OpportunityId,
   PainLevel,
   Placement,
+  SourceId,
   Usd,
 } from './types.ts'
 
@@ -31,7 +32,9 @@ const solution = (id: string, parent: string): Opportunity => ({
 const account = (id: string, arr: number): Account => ({ id: id as AccountId, name: id, arr: arr as Usd })
 const item = (id: string, accountId: string | null, date: string, pain: PainLevel | null = null): Item => ({
   id: id as ItemId,
+  sourceId: 'zendesk' as SourceId,
   accountId: accountId as AccountId | null,
+  role: null,
   occurredAt: new Date(`${date}T15:00:00Z`),
   pain,
 })

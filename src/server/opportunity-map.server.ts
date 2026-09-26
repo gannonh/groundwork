@@ -10,6 +10,7 @@ import {
   type EvidenceFilter,
   type QuoteText,
 } from '@/domain/evidence'
+import { filterEvidence, type MapFilter } from '@/domain/filters'
 import {
   computeMetrics,
   evidenceAsOf,
@@ -17,9 +18,9 @@ import {
   type Measured,
   type OpportunityMetrics,
   type TrendWindow,
+  type WeeklyCounts,
 } from '@/domain/metrics'
 import {
-  isNonEmpty,
   toPainLevel,
   type Account,
   type AccountId,
@@ -28,12 +29,12 @@ import {
   type Item,
   type ItemId,
   type MentionId,
-  type NonEmptyArray,
   type Opportunity,
   type OpportunityId,
   type Placement,
   type RedactedText,
   type SnapshotId,
+  type SourceId,
   type SpeakerRole,
   type Usd,
   type WorkspaceId,
@@ -46,8 +47,20 @@ export type OpportunityMap =
       readonly workspaceName: string
       readonly snapshot: SnapshotId
       readonly window: TrendWindow
-      readonly problems: NonEmptyArray<ProblemView>
+      /** Every source in the workspace, whatever the filter. */
+      readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
+      readonly outcomes: readonly OutcomeView[]
+      /** Problems with at least one mention that passes the filter. Empty when the filter hides every one. */
+      readonly problems: readonly ProblemView[]
     }
+
+export type OutcomeView = {
+  readonly id: OpportunityId
+  readonly title: string
+  readonly metrics: Pick<OpportunityMetrics, 'accounts' | 'arr' | 'mentions' | 'needsReview'> & {
+    readonly weekly: WeeklyCounts
+  }
+}
 
 export type MetricsView = Omit<OpportunityMetrics, 'evidence'>
 export type ProblemView = {
@@ -90,14 +103,15 @@ export type EvidenceList =
   | { readonly kind: 'stale' }
   | {
       readonly kind: 'mentions'
-      readonly problemTitle: string
-      /** A solution title or an account name. Null when the list is every mention of the problem. */
+      /** The problem or outcome the list belongs to. */
+      readonly subjectTitle: string
+      /** A solution title or an account name. Null when the list is every mention of the subject. */
       readonly scope: string | null
       readonly rows: readonly QuoteView[]
     }
   | {
       readonly kind: 'accounts'
-      readonly problemTitle: string
+      readonly subjectTitle: string
       /** ARR desc, then name. */
       readonly groups: readonly {
         readonly account: { readonly id: AccountId; readonly name: string; readonly arr: Usd }
@@ -110,12 +124,16 @@ const MISSING: EvidenceList = { kind: 'missing' }
 const STALE: EvidenceList = { kind: 'stale' }
 
 /**
- * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack.
- * Queries run one at a time, so this also works inside a transaction.
+ * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack,
+ * counting only the evidence that passes `filter`. Queries run one at a time, so this also works inside a transaction.
  */
-export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Promise<OpportunityMap> {
-  const read = await readWorkspace(db, workspaceId)
-  if (!read) return { kind: 'empty' }
+export async function loadOpportunityMap(
+  db: Db,
+  filter: MapFilter,
+  workspaceId?: WorkspaceId,
+): Promise<OpportunityMap> {
+  const read = await readWorkspace(db, filter, workspaceId)
+  if (!read?.opportunities.some((o) => o.kind === 'problem')) return { kind: 'empty' }
   const { workspace, snapshot, window, opportunities, accountsById } = read
 
   const linkRows = await db
@@ -126,7 +144,7 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     .orderBy(asc(t.link.createdAt), asc(t.link.id))
 
   const byId = new Map(opportunities.map((o) => [o.id, o]))
-  const problems = opportunities.filter((o) => o.kind === 'problem')
+  const problems = opportunities.filter((o) => o.kind === 'problem' && o.metrics.mentions > 0)
   const quotesByProblem = new Map(problems.map((p) => [p.id, selectQuotes(p.metrics.evidence, accountsById)]))
   const toQuoteView = await read.loadQuotes([...quotesByProblem.values()].flat())
 
@@ -143,7 +161,7 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
       metrics,
       quotes: (quotesByProblem.get(problem.id) ?? []).map(toQuoteView),
       solutions: opportunities
-        .filter((o) => o.kind === 'solution' && o.parentId === problem.id)
+        .filter((o) => o.kind === 'solution' && o.parentId === problem.id && o.metrics.mentions > 0)
         .map((s) => ({ id: s.id, title: s.title, mentions: s.metrics.mentions, needsReview: s.metrics.needsReview }))
         .sort((a, b) => b.mentions - a.mentions),
       topAccounts: topAccounts(evidence, accountsById, TOP_ACCOUNTS).map((a) => ({
@@ -156,56 +174,77 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     }
   })
 
-  return isNonEmpty(views)
-    ? { kind: 'ready', workspaceName: workspace.name, snapshot, window, problems: views }
-    : { kind: 'empty' }
+  return {
+    kind: 'ready',
+    workspaceName: workspace.name,
+    snapshot,
+    window,
+    sources: read.sources,
+    outcomes: opportunities
+      .filter((o) => o.kind === 'outcome')
+      .map(({ id, title, metrics }) => ({
+        id,
+        title,
+        metrics: {
+          accounts: metrics.accounts,
+          arr: metrics.arr,
+          mentions: metrics.mentions,
+          needsReview: metrics.needsReview,
+          weekly: metrics.weekly,
+        },
+      })),
+    problems: views,
+  }
 }
 
 export type EvidenceRequest = {
-  readonly problemId: string
+  /** A problem or an outcome. */
+  readonly subjectId: string
   readonly filter: EvidenceFilter
   /** The snapshot of the map the client clicked a number on. */
   readonly snapshot: SnapshotId
 }
 
 /**
- * The counted mentions behind one number on a problem's detail, as quotes. Every list is a slice of computeMetrics'
- * evidence, so its length is the number the detail shows, or `stale` when that number has changed since.
+ * The counted mentions behind one number on a problem's detail or an outcome's header, as quotes. Every list is a slice of computeMetrics'
+ * evidence under the same map filter, so its length is the number the detail shows, or `stale` when that number has
+ * changed since.
  */
 export async function loadEvidence(
   db: Db,
-  { problemId, filter, snapshot }: EvidenceRequest,
+  mapFilter: MapFilter,
+  { subjectId, filter, snapshot }: EvidenceRequest,
   workspaceId?: WorkspaceId,
 ): Promise<EvidenceList> {
-  const read = await readWorkspace(db, workspaceId)
+  const read = await readWorkspace(db, mapFilter, workspaceId)
   if (read && read.snapshot !== snapshot) return STALE
-  const problem = read?.opportunities.find((o) => o.kind === 'problem' && o.id === problemId)
-  if (!read || !problem) return MISSING
+  const subject = read?.opportunities.find((o) => o.kind !== 'solution' && o.id === subjectId)
+  if (!read || !subject) return MISSING
   const mentionsOf = async (scope: string | null, mentions: readonly CountedMention[]): Promise<EvidenceList> => {
     const toQuoteView = await read.loadQuotes(mentions)
-    return { kind: 'mentions', problemTitle: problem.title, scope, rows: mentions.map(toQuoteView) }
+    return { kind: 'mentions', subjectTitle: subject.title, scope, rows: mentions.map(toQuoteView) }
   }
 
   switch (filter.evidence) {
     case 'mentions':
-      return mentionsOf(null, problem.metrics.evidence)
+      return mentionsOf(null, subject.metrics.evidence)
     case 'solution': {
       const solution = read.opportunities.find(
-        (o) => o.kind === 'solution' && o.id === filter.solution && o.parentId === problem.id,
+        (o) => o.kind === 'solution' && o.id === filter.solution && o.parentId === subject.id,
       )
       return solution ? mentionsOf(solution.title, solution.metrics.evidence) : MISSING
     }
     case 'account': {
       const account = read.accountsById.get(filter.account)
-      const mentions = problem.metrics.evidence.filter((m) => m.accountId === filter.account)
+      const mentions = subject.metrics.evidence.filter((m) => m.accountId === filter.account)
       return account && mentions.length > 0 ? mentionsOf(account.name, mentions) : MISSING
     }
     case 'accounts': {
-      const groups = groupByAccount(problem.metrics.evidence, read.accountsById)
+      const groups = groupByAccount(subject.metrics.evidence, read.accountsById)
       const toQuoteView = await read.loadQuotes(groups.flatMap((g) => g.mentions))
       return {
         kind: 'accounts',
-        problemTitle: problem.title,
+        subjectTitle: subject.title,
         groups: groups.map(({ account, mentions }) => ({
           account: { id: account.id, name: account.name, arr: account.arr },
           rows: mentions.map(toQuoteView),
@@ -221,12 +260,20 @@ type WorkspaceRead = {
   readonly window: TrendWindow
   readonly opportunities: readonly Measured[]
   readonly accountsById: ReadonlyMap<AccountId, Account>
+  readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
   /** Fetches the sentences behind `mentions`, then turns each of them into a quote. */
   readonly loadQuotes: (mentions: readonly CountedMention[]) => Promise<(counted: CountedMention) => QuoteView>
 }
 
-/** The workspace's measured opportunity tree: the given workspace, else the oldest, through its newest pack. */
-async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Promise<WorkspaceRead | null> {
+/**
+ * The workspace's measured opportunity tree, counting only the evidence that passes `filter`: the given workspace,
+ * else the oldest, through its newest pack. The snapshot digests the stored inputs before filtering.
+ */
+async function readWorkspace(
+  db: Db,
+  filter: MapFilter,
+  workspaceId: WorkspaceId | undefined,
+): Promise<WorkspaceRead | null> {
   const [ws] = await db
     .select({ id: t.workspace.id, name: t.workspace.name })
     .from(t.workspace)
@@ -277,6 +324,7 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
     .select({ id: t.source.id, name: t.source.name, itemKind: t.source.itemKind })
     .from(t.source)
     .where(eq(t.source.workspaceId, ws.id))
+    .orderBy(asc(t.source.name), asc(t.source.id))
 
   const painByItem = new Map(
     painRows.map((r) => [r.itemId, r.value.type === 'score' ? toPainLevel(r.value.level) : null] as const),
@@ -287,7 +335,9 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
   for (const row of placementRows) {
     items.set(row.itemId, {
       id: row.itemId,
+      sourceId: row.sourceId,
       accountId: row.accountId,
+      role: row.authorRole,
       occurredAt: row.occurredAt,
       pain: painByItem.get(row.itemId) ?? null,
     })
@@ -295,7 +345,9 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
     spans.set(row.mentionId, row)
   }
 
-  const { window, opportunities } = computeMetrics(
+  // Taken before filtering, so the trend window and the date cutoff hold still while filters change.
+  const asOf = evidenceAsOf([...items.values()], new Date())
+  const evidence = filterEvidence(
     {
       opportunities: treeRows.map(toOpportunity),
       placements,
@@ -303,8 +355,10 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
       accounts,
       placeThreshold: pack.placeThreshold,
     },
-    { asOf: evidenceAsOf([...items.values()], new Date()) },
+    filter,
+    asOf,
   )
+  const { window, opportunities } = computeMetrics(evidence, { asOf })
   // Rows start with their id and sort as strings, so SQL row order cannot change the digest.
   const rows = (values: readonly (readonly unknown[])[]) => values.map((v) => JSON.stringify(v)).sort()
   const snapshot = createHash('sha256')
@@ -313,7 +367,9 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
         pack: [pack.id, pack.placeThreshold],
         tree: rows(treeRows.map((o) => [o.id, o.kind, o.parentId])),
         placements: rows(placements.map((p) => [p.mentionId, p.opportunityId, p.confidence, p.itemId])),
-        items: rows([...items.values()].map((i) => [i.id, i.accountId, i.occurredAt.toISOString(), i.pain])),
+        items: rows(
+          [...items.values()].map((i) => [i.id, i.accountId, i.occurredAt.toISOString(), i.pain, i.sourceId, i.role]),
+        ),
         accounts: rows(accounts.map((a) => [a.id, a.arr])),
       }),
     )
@@ -355,7 +411,15 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
     }
   }
 
-  return { workspace: ws, snapshot, window, opportunities, accountsById, loadQuotes }
+  return {
+    workspace: ws,
+    snapshot,
+    window,
+    opportunities,
+    accountsById,
+    sources: sources.map((s) => ({ id: s.id, name: s.name })),
+    loadQuotes,
+  }
 }
 
 function toOpportunity(row: {

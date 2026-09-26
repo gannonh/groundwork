@@ -42,7 +42,9 @@ export type Account = { readonly id: AccountId; readonly name: string; readonly 
 /** `pain` is the item-level judge Score answer for the pack being read, if any. */
 export type Item = {
   readonly id: ItemId
+  readonly sourceId: SourceId
   readonly accountId: AccountId | null
+  readonly role: SpeakerRole | null
   readonly occurredAt: Date
   readonly pain: PainLevel | null
 }

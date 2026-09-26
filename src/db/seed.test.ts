@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm'
 import { pool, type Db } from '@/db/client'
 import { account, item, judgeAnswer, mention, placement, sentence, source, workspace } from '@/db/schema'
 import type { EvidenceFilter } from '@/domain/evidence'
+import type { MapFilter } from '@/domain/filters'
 import { BALANCED, rank } from '@/domain/rank'
 import {
   loadEvidence,
@@ -15,6 +16,8 @@ import type { AccountId, Confidence, RawText, RedactedText, SourceId, Usd, Works
 import { buildSeed, SEED_WORKSPACE_ID, seedId } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
 import { rollbackAfter } from './testing.ts'
+
+const DEFAULT_FILTER: MapFilter = { since: '90d' }
 
 function problemsOf(map: OpportunityMap): readonly ProblemView[] {
   if (map.kind !== 'ready') throw new Error('expected a ready map')
@@ -82,7 +85,7 @@ describe('pnpm db:seed', () => {
   test('computes the prototype numbers for all 12 problems and its Balanced order', async () => {
     const map = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     const problems = problemsOf(map)
@@ -133,7 +136,7 @@ describe('pnpm db:seed', () => {
   test("shows the top problem's trend, solutions, quotes, and top accounts", async () => {
     const map = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     expect(map.kind === 'ready' && map.window).toEqual({ firstWeek: '2026-06-29', lastWeek: '2026-09-14' })
@@ -205,7 +208,7 @@ describe('pnpm db:seed', () => {
         .returning({ id: account.id })
       if (!otherSource || !otherAccount) throw new Error('no source or account')
       await placeOnTopProblem(tx, { workspaceId: other.id, sourceId: otherSource.id, accountId: otherAccount.id })
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     const problem = byTitle(map, top)
@@ -222,19 +225,91 @@ describe('pnpm db:seed', () => {
     ])
   })
 
+  test('an Enterprise-only filter counts only enterprise accounts and quotes only them', async () => {
+    const map = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      return loadOpportunityMap(tx, { segments: ['enterprise'], since: '90d' }, SEED_WORKSPACE_ID)
+    })
+
+    const top = byTitle(map, "Dashboard totals don't match the source system")
+    expect({ accounts: top.metrics.accounts, arr: top.metrics.arr, mentions: top.metrics.mentions }).toEqual({
+      accounts: 2,
+      arr: 550_000,
+      mentions: 2,
+    })
+    expect(top.quotes.map((q) => [q.account?.name, q.account?.arr])).toEqual([
+      ['Cobalt Insurance', 310_000],
+      ['Halcyon Bank', 240_000],
+    ])
+    expect(problemsOf(map).flatMap((p) => p.quotes.filter((q) => (q.account?.arr ?? 0) < 150_000))).toEqual([])
+    expect(top.solutions).toEqual([])
+    expect(problemsOf(map).flatMap((p) => p.solutions.filter((s) => s.mentions === 0))).toEqual([])
+  })
+
+  test('under an Enterprise-only filter, the accounts list behind a number lists only enterprise accounts', async () => {
+    const enterprise: MapFilter = { segments: ['enterprise'], since: '90d' }
+    const list = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const map = await loadOpportunityMap(tx, enterprise, SEED_WORKSPACE_ID)
+      if (map.kind !== 'ready') throw new Error('expected a ready map')
+      return loadEvidence(
+        tx,
+        enterprise,
+        { subjectId: TOP_PROBLEM_ID, filter: { evidence: 'accounts' }, snapshot: map.snapshot },
+        SEED_WORKSPACE_ID,
+      )
+    })
+
+    if (list.kind !== 'accounts') throw new Error(`expected an accounts list, got ${list.kind}`)
+    expect(list.groups.map((g) => [g.account.name, g.account.arr, g.rows.length])).toEqual([
+      ['Cobalt Insurance', 310_000, 1],
+      ['Halcyon Bank', 240_000, 1],
+    ])
+  })
+
+  test("an outcome's accounts list adds up to its header number, and the header counts its low-confidence mentions", async () => {
+    const result = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const map = await loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
+      if (map.kind !== 'ready') throw new Error('expected a ready map')
+      const outcome = map.outcomes.find((o) => o.title === 'Trust the numbers in reports')
+      if (!outcome) throw new Error('missing seeded outcome')
+      const list = await loadEvidence(
+        tx,
+        DEFAULT_FILTER,
+        { subjectId: outcome.id, filter: { evidence: 'accounts' }, snapshot: map.snapshot },
+        SEED_WORKSPACE_ID,
+      )
+      return { outcome, list }
+    })
+
+    const { metrics } = result.outcome
+    expect({ accounts: metrics.accounts, arr: metrics.arr, needsReview: metrics.needsReview }).toEqual({
+      accounts: 84,
+      arr: 3_780_000,
+      needsReview: 14,
+    })
+    if (result.list.kind !== 'accounts') throw new Error(`expected an accounts list, got ${result.list.kind}`)
+    expect([
+      result.list.subjectTitle,
+      result.list.groups.length,
+      result.list.groups.reduce((sum, g) => sum + g.account.arr, 0),
+    ]).toEqual(['Trust the numbers in reports', 84, 3_780_000])
+  })
+
   test("lists the evidence behind each of the top problem's numbers", async () => {
     const top = "Dashboard totals don't match the source system"
     const lists = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      const map = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      const map = await loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
       const problem = byTitle(map, top)
       const other = byTitle(map, 'Usage-based bill is unpredictable')
       const solution = problem.solutions.find((s) => s.title === 'Reconciliation view vs. source')
       const foreignSolution = other.solutions[0]
       if (!solution || !foreignSolution) throw new Error('missing seeded solution')
       if (map.kind !== 'ready') throw new Error('expected a ready map')
-      const load = (problemId: string, filter: EvidenceFilter) =>
-        loadEvidence(tx, { problemId, filter, snapshot: map.snapshot }, SEED_WORKSPACE_ID)
+      const load = (subjectId: string, filter: EvidenceFilter) =>
+        loadEvidence(tx, DEFAULT_FILTER, { subjectId, filter, snapshot: map.snapshot }, SEED_WORKSPACE_ID)
       const accounts = await load(problem.id, { evidence: 'accounts' })
       const kite = accounts.kind === 'accounts' ? accounts.groups.find((g) => g.account.name === 'Kite Dynamics') : null
       if (!kite) throw new Error('missing seeded account')
@@ -253,7 +328,7 @@ describe('pnpm db:seed', () => {
       return list
     }
     const mentions = rowsOf(lists.mentions)
-    expect([mentions.problemTitle, mentions.scope, mentions.rows.length]).toEqual([top, null, 141])
+    expect([mentions.subjectTitle, mentions.scope, mentions.rows.length]).toEqual([top, null, 141])
     expect(mentions.rows.filter((r) => r.lowConfidence !== null)).toHaveLength(9)
 
     if (lists.accounts.kind !== 'accounts') throw new Error('expected an accounts list')
@@ -283,7 +358,7 @@ describe('pnpm db:seed', () => {
     const result = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
       const snapshotOf = async () => {
-        const map = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+        const map = await loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
         if (map.kind !== 'ready') throw new Error('expected a ready map')
         return map.snapshot
       }
@@ -307,7 +382,7 @@ describe('pnpm db:seed', () => {
       })
       const after = await snapshotOf()
       const load = (snapshot: typeof before) =>
-        loadEvidence(tx, { problemId: TOP_PROBLEM_ID, filter: mentions, snapshot }, SEED_WORKSPACE_ID)
+        loadEvidence(tx, DEFAULT_FILTER, { subjectId: TOP_PROBLEM_ID, filter: mentions, snapshot }, SEED_WORKSPACE_ID)
       return { before, again, after, old: await load(before), fresh: await load(after) }
     })
 
@@ -320,7 +395,7 @@ describe('pnpm db:seed', () => {
   test('an empty database loads as an empty map, not an error', async () => {
     const map = await rollbackAfter(async (tx) => {
       await tx.delete(workspace)
-      return loadOpportunityMap(tx)
+      return loadOpportunityMap(tx, DEFAULT_FILTER)
     })
     expect(map).toEqual({ kind: 'empty' })
   })

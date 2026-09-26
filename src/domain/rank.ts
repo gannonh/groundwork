@@ -4,7 +4,17 @@ export const FACTORS = ['reach', 'revenue', 'pain', 'momentum'] as const
 export type Factor = (typeof FACTORS)[number]
 /** Relative weights. Any non-negative numbers; rank rescales them to sum to 100. */
 export type Weights = Readonly<Record<Factor, number>>
-export const BALANCED: Weights = { reach: 30, revenue: 35, pain: 20, momentum: 15 }
+export const PRESETS = [
+  { name: 'Balanced', weights: { reach: 30, revenue: 35, pain: 20, momentum: 15 } },
+  { name: 'Enterprise', weights: { reach: 10, revenue: 60, pain: 20, momentum: 10 } },
+  { name: 'Breadth', weights: { reach: 50, revenue: 10, pain: 20, momentum: 20 } },
+  { name: 'Heating up', weights: { reach: 15, revenue: 15, pain: 20, momentum: 50 } },
+] as const satisfies readonly { name: string; weights: Weights }[]
+export const BALANCED: Weights = PRESETS[0].weights
+
+export function sameWeights(a: Weights, b: Weights): boolean {
+  return FACTORS.every((f) => a[f] === b[f])
+}
 
 /** The metrics rank reads. OpportunityMetrics satisfies it structurally. */
 export type RankFactors = {
@@ -61,6 +71,24 @@ export function rank<T extends { readonly metrics: RankFactors }>(
     })
     .sort((a, b) => b.score.total - a.score.total || b.item.metrics.arr - a.item.metrics.arr || a.index - b.index)
     .map(({ item, score }, i) => ({ item, position: i + 1, score }))
+}
+
+export function groupRanked<T, K>(
+  ranked: readonly Ranked<T>[],
+  keyOf: (item: T) => K,
+): readonly { readonly key: K; readonly members: NonEmptyArray<Ranked<T>> }[] {
+  const buckets = new Map<K, [Ranked<T>, ...Ranked<T>[]]>()
+  for (const r of ranked) {
+    const key = keyOf(r.item)
+    const members = buckets.get(key)
+    if (members) members.push(r)
+    else buckets.set(key, [r])
+  }
+  const total = (members: readonly Ranked<T>[]) => members.reduce((sum, r) => sum + r.score.total, 0)
+  return [...buckets]
+    .map(([key, members]) => ({ key, members, total: total(members) }))
+    .sort((a, b) => b.total - a.total || a.members[0].position - b.members[0].position)
+    .map(({ key, members }) => ({ key, members }))
 }
 
 function clamp01(value: number): number {
