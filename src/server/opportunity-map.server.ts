@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, inArray } from 'drizzle-orm'
+import { and, asc, desc, eq, sql } from 'drizzle-orm'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
 import {
@@ -298,7 +298,8 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
       ? await db
           .select({ itemId: t.sentence.itemId, text: t.sentence.text })
           .from(t.sentence)
-          .where(inArray(t.sentence.itemId, itemIds))
+          // One array parameter, so a large workspace cannot exceed Postgres's 65,535 bind parameters.
+          .where(sql`${t.sentence.itemId} = any(${sql.param(itemIds)}::uuid[])`)
           .orderBy(asc(t.sentence.itemId), asc(t.sentence.ordinal))
       : []
     const sentencesByItem = new Map<ItemId, RedactedText[]>()
