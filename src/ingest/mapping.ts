@@ -23,8 +23,23 @@ export type ItemDraft = {
   readonly authorRole: SpeakerRole | null
 }
 
+const columnKey = (name: string) => name.trim().toLowerCase()
+
 export function shapeOf(header: readonly string[]): string {
-  return header.map((name) => name.trim().toLowerCase()).join('\u001f')
+  return header.map(columnKey).join('\u001f')
+}
+
+/** A remembered mapping names columns as an earlier upload spelled them. */
+export function rebindMapping(mapping: ColumnMapping, header: readonly string[]): ColumnMapping {
+  const spelled = new Map(header.map((name) => [columnKey(name), name]))
+  const rebind = (column: string) => spelled.get(columnKey(column)) ?? column
+  return {
+    ...mapping,
+    text: rebind(mapping.text),
+    date: rebind(mapping.date),
+    account: mapping.account === null ? null : rebind(mapping.account),
+    author: mapping.author === null ? null : rebind(mapping.author),
+  }
 }
 
 const SAMPLE_ROWS = 20

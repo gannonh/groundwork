@@ -5,7 +5,7 @@ import * as t from '@/db/schema'
 import type { AccountId, ItemKind, SourceId, WorkspaceId } from '@/domain/types'
 import { parseAccounts } from '@/ingest/accounts'
 import { parseCsv } from '@/ingest/csv'
-import { shapeOf, toItemDrafts, type ColumnMapping, type ItemDraft } from '@/ingest/mapping'
+import { rebindMapping, shapeOf, toItemDrafts, type ColumnMapping, type ItemDraft } from '@/ingest/mapping'
 
 export type ItemImportResult =
   | { readonly kind: 'error'; readonly message: string }
@@ -186,7 +186,7 @@ export async function rememberedMapping(
     .select({ name: t.source.name, mapping: t.source.fieldMapping, itemKind: t.source.itemKind })
     .from(t.source)
     .where(and(eq(t.source.workspaceId, workspaceId), eq(t.source.shape, shapeOf(header))))
-  return row?.mapping ? { sourceName: row.name, mapping: row.mapping, itemKind: row.itemKind } : null
+  return row?.mapping ? { sourceName: row.name, mapping: rebindMapping(row.mapping, header), itemKind: row.itemKind } : null
 }
 
 function rowKey(cells: readonly string[]): string {

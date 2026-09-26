@@ -152,7 +152,20 @@ describe('importItems', () => {
       const after = await rememberedMapping(tx, ['ticket id', 'Created At', 'Subject', 'Description', 'Requester Role', 'organization id'], ws)
       return { before, after }
     })
-    expect(result).toEqual({ before: null, after: { sourceName: 'zendesk-500', mapping: ZENDESK_MAPPING, itemKind: 'ticket' } })
+    expect(result).toEqual({
+      before: null,
+      after: {
+        sourceName: 'zendesk-500',
+        mapping: {
+          text: 'Description',
+          date: 'Created At',
+          dateFormat: 'YYYY-MM-DD',
+          account: 'organization id',
+          author: 'Requester Role',
+        },
+        itemKind: 'ticket',
+      },
+    })
   })
 })
 
