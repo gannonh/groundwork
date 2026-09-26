@@ -27,7 +27,7 @@ Preconditions:
 
 ## Gotchas
 
-- Every section except Opportunities renders an empty `main`, so a blank screen below the top bar is expected there until slices land. Use `expect-text` to prove content once a screen has any.
+- Triage and Packs render an empty `main`, so a blank screen below the top bar is expected there until slices land. Opportunities, Sources, and Accounts have content, so prove them with `expect-text`.
 - On the first request, the dev server compiles routes, which can take several seconds. `goto` waits for network idle, so do not add sleeps.
 - `press=Alt+ArrowLeft` does nothing in headless Chromium. Use the `back=` step for the Back button.
 - No link goes to `/nope`. Reaching it with `goto` is a correct test of a user typing the URL.

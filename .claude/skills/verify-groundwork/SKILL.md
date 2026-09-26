@@ -63,6 +63,9 @@ It runs the steps in order in headless Chromium and stops at the first failure. 
 | --- | --- |
 | `goto=/path` | Load a path on the instance and wait for network idle. |
 | `click=role/Name` | Click by ARIA role and exact accessible name, for example `click=link/Triage`. |
+| `click-in-row=Text\|Name` | Click the link named `Name` inside the one table row that contains `Text`, for example `click-in-row=zendesk-500\|500 items`. Row text matches as a case-insensitive substring, and the step fails unless exactly one row matches, even if only one of them holds the link. |
+| `choose-file=Label\|path` | Set the file input whose label contains `Label` to a file, with the path relative to the repo root, for example `choose-file=CSV export\|fixtures/exports/zendesk-500.csv`. |
+| `select=Label\|Option` | Open the Select (combobox) named `Label`, pick `Option`, and wait until the listbox closes and the trigger shows `Option`. |
 | `press=Key` | Press a keyboard key, for example `Tab` or `Enter`. |
 | `back=` | Press the browser Back button. Headless Chromium ignores `press=Alt+ArrowLeft`. |
 | `expect-url=/path` | The pathname plus search equals `/path`. The step retries until it matches or times out. |

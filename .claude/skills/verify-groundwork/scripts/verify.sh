@@ -15,17 +15,21 @@ DB_PASS=groundwork
 
 die() { echo "verify: $*" >&2; exit 1; }
 
-# Absolute path to a Node 22 binary, so setsid can exec it directly.
-node22_bin() {
-  if [[ $(node -v 2>/dev/null) == v22.* ]]; then command -v node
-  elif command -v mise >/dev/null; then mise exec node@22 -- node -e 'console.log(process.execPath)'
-  else die "Node 22 not found. Run 'nvm use' or install Node 22."
+# The Node major version the repo pins in .nvmrc, such as 24.
+NODE_MAJOR=$(tr -d '[:space:]v' <"$ROOT/.nvmrc")
+NODE_MAJOR=${NODE_MAJOR%%.*}
+
+# Absolute path to a Node binary of that major, so setsid can exec it directly.
+node_bin() {
+  if [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]]; then command -v node
+  elif command -v mise >/dev/null; then mise exec "node@$NODE_MAJOR" -- node -e 'console.log(process.execPath)'
+  else die "Node $NODE_MAJOR (from .nvmrc) not found. Run 'nvm use' or install Node $NODE_MAJOR."
   fi
 }
 
 pnpm12() {
-  if [[ $(node -v 2>/dev/null) == v22.* ]]; then COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm "$@"
-  else COREPACK_ENABLE_DOWNLOAD_PROMPT=0 mise exec node@22 -- corepack pnpm "$@"
+  if [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]]; then COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm "$@"
+  else COREPACK_ENABLE_DOWNLOAD_PROMPT=0 mise exec "node@$NODE_MAJOR" -- corepack pnpm "$@"
   fi
 }
 
@@ -92,7 +96,7 @@ cmd_up() {
   docker compose -f "$ROOT/docker-compose.yml" up -d --wait db >/dev/null 2>&1 || die "Postgres did not become healthy (docker compose up -d --wait db)"
 
   local node
-  node=$(node22_bin)
+  node=$(node_bin)
   local db="gw_verify_${id//-/_}"
   local url="postgres://$DB_USER:$DB_PASS@localhost:5432/$db"
   psql_db -d groundwork -c "create database $db" >/dev/null
@@ -121,6 +125,7 @@ URL=http://$host:$port
 PID=$pid
 DB_NAME=$db
 DATABASE_URL=$url
+NODE_VERSION=$("$node" -v)
 GIT_HEAD=$(git rev-parse HEAD)
 GIT_DIRTY=$(git status --porcelain | grep -v '^?? .verify' | grep -c . || true)
 STARTED_AT=$(date -Is)
