@@ -1,0 +1,7 @@
+2026-09-26T22:29:35.808Z run s1-main dev http://127.0.0.1:4103 viewport=1440x900 git=2c525d5
+2026-09-26T22:29:37.901Z ok   goto=/
+2026-09-26T22:29:37.948Z ok   click=link/Sources
+2026-09-26T22:29:38.042Z ok   click=link/New source
+2026-09-26T22:29:38.043Z ok   expect-url=/sources/new
+2026-09-26T22:29:38.043Z FAIL unknown step 'choose-file=CSV export|fixtures/exports/zendesk-500.csv'
+2026-09-26T22:29:38.063Z result FAIL
