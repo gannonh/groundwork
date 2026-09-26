@@ -22,9 +22,9 @@ export function EvidenceSheet({ open, list, onClose, onReload }: EvidenceSheetPr
       }}
     >
       <SheetContent className="w-[480px] max-w-full gap-0 bg-card leading-[normal] sm:max-w-none">
-        <SheetHeader className="gap-1 border-b px-6 pt-[22px] pr-14 pb-4">
-          <SheetTitle className="text-[17px] leading-[1.3] font-bold tracking-[-0.01em]">{heading(list)}</SheetTitle>
-          <SheetDescription className="text-[12px] text-ink-3">
+        <SheetHeader className="gap-1 border-b px-6 pt-5.5 pr-14 pb-4">
+          <SheetTitle className="text-title leading-[1.3] font-bold tracking-[-0.01em]">{heading(list)}</SheetTitle>
+          <SheetDescription className="text-meta text-ink-3">
             {description(list)}
           </SheetDescription>
         </SheetHeader>
@@ -79,7 +79,7 @@ function EvidenceRows({ list, onReload }: { list: EvidenceList; onReload: () => 
         <section key={account.id} aria-label={account.name} className="mb-4">
           <h3 className="mb-2 flex items-baseline gap-3 border-b border-line-2 pb-1.5">
             <span className="flex-1 font-semibold">{account.name}</span>
-            <span className="text-[12px] text-ink-3 tabular-nums">{mentionCount(rows.length)}</span>
+            <span className="text-meta text-ink-3 tabular-nums">{mentionCount(rows.length)}</span>
             <span className="tabular-nums">{formatUsd(account.arr)}</span>
           </h3>
           {rows.map((quote) => (

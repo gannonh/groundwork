@@ -8,7 +8,7 @@ const TONES: Record<TrendTone | 'warn' | 'linked', string> = {
   warn: 'bg-warn-soft text-warn',
   linked: 'bg-primary-soft text-primary',
 }
-const PILL = 'inline-flex items-center gap-1 rounded-[10px] px-[7px] py-0.5 text-[11px] font-semibold whitespace-nowrap'
+const PILL = 'inline-flex items-center gap-1 rounded-[10px] px-1.75 py-0.5 text-caption font-semibold whitespace-nowrap'
 
 export function Pill({ tone, title, children }: { tone: keyof typeof TONES; title?: string; children: ReactNode }) {
   return (

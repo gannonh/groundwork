@@ -8,7 +8,7 @@ export function RedactedText({ text }: { text: Redacted }) {
       <span
         key={i}
         title="Redacted before storage"
-        className="rounded-[4px] bg-line-2 px-1 py-px font-mono text-[11px] text-ink-2"
+        className="rounded-[4px] bg-line-2 px-1 py-px font-mono text-caption text-ink-2"
       >
         {part}
       </span>

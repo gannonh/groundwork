@@ -25,7 +25,7 @@ export function Seg<T extends string>({ label, value, options, onChange, classNa
         <ToggleGroupItem
           key={option.value}
           value={option.value}
-          className="h-auto flex-1 rounded-[5px] px-2.5 py-1 text-[13px] text-ink-2 hover:bg-transparent hover:text-foreground data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-[0_1px_2px_rgba(0,0,0,.08)]"
+          className="h-auto flex-1 rounded-[5px] px-2.5 py-1 text-body text-ink-2 hover:bg-transparent hover:text-foreground data-[state=on]:bg-card data-[state=on]:text-foreground data-[state=on]:shadow-[0_1px_2px_rgba(0,0,0,.08)]"
         >
           {option.label}
         </ToggleGroupItem>

@@ -28,12 +28,12 @@ function SourcePage() {
   const { source, recent } = detail
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
-      <div className="mb-1 text-[12px] text-ink-3">
+      <div className="mb-1 text-meta text-ink-3">
         <Link to="/sources" className="hover:underline">
           Sources
         </Link>
       </div>
-      <h1 className="text-[17px] font-semibold">{source.name}</h1>
+      <h1 className="text-title font-semibold">{source.name}</h1>
       <p className="mb-3 text-ink-2">
         {ITEM_KIND_LABELS[source.itemKind]} · <span className="tabular-nums">{plural(source.items, 'item')}</span> · Created{' '}
         {formatDate(source.createdAt)}
@@ -41,7 +41,7 @@ function SourcePage() {
       {source.mapping && <MappingSummary mapping={source.mapping} />}
 
       <div className="rounded-lg border bg-card">
-        <Table className="text-[13px]">
+        <Table className="text-body">
           <TableHeader>
             <TableRow>
               <TableHead className={`${TABLE_HEAD} w-[110px]`}>Date</TableHead>
@@ -68,7 +68,7 @@ function SourcePage() {
           </TableBody>
         </Table>
       </div>
-      <p className="mt-2 text-[12px] text-ink-3">
+      <p className="mt-2 text-meta text-ink-3">
         Showing {recent.length.toLocaleString('en-US')} of {plural(source.items, 'item')}, newest first.
       </p>
     </main>
@@ -83,7 +83,7 @@ function MappingSummary({ mapping }: { mapping: ColumnMapping }) {
     ['Author', mapping.author ?? 'None'],
   ] as const
   return (
-    <dl className="mb-4 flex flex-wrap gap-x-5 gap-y-1 text-[12px]">
+    <dl className="mb-4 flex flex-wrap gap-x-5 gap-y-1 text-meta">
       {fields.map(([label, value]) => (
         <div key={label} className="flex gap-1.5">
           <dt className="text-ink-3">{label}</dt>
@@ -98,7 +98,7 @@ function Missing() {
   return (
     <main className="grid h-[calc(100dvh-48px)] place-items-center">
       <div className="text-center">
-        <h1 className="mb-2 text-[17px] font-semibold">Source not found</h1>
+        <h1 className="mb-2 text-title font-semibold">Source not found</h1>
         <Link to="/sources" className="font-medium text-primary hover:underline">
           Back to sources
         </Link>

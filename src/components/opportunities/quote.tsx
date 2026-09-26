@@ -8,7 +8,7 @@ export function Quote({ quote }: { quote: QuoteView }) {
     <figure
       className={`mb-3.5 border-l-[3px] py-0.5 pl-3 ${quote.lowConfidence === null ? 'border-l-border' : 'border-l-warn-line'}`}
     >
-      <blockquote className="mb-[5px] text-[13.5px] leading-normal">
+      <blockquote className="mb-1.25 text-body leading-normal">
         “{text.leadingEllipsis && '… '}
         {text.sentences.map((sentence, i) => (
           <span key={i}>
@@ -18,7 +18,7 @@ export function Quote({ quote }: { quote: QuoteView }) {
         ))}
         {text.trailingEllipsis && ' …'}”
       </blockquote>
-      <figcaption className="flex flex-wrap items-center gap-2 text-[11.5px] text-ink-3">
+      <figcaption className="flex flex-wrap items-center gap-2 text-meta text-ink-3">
         {quote.account && (
           <>
             <b className="font-semibold text-ink-2">{quote.account.name}</b>

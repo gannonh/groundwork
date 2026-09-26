@@ -19,7 +19,7 @@ function SourcesPage() {
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
       <div className="mb-3 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-[17px] font-semibold">Sources</h1>
+          <h1 className="text-title font-semibold">Sources</h1>
           <p className="text-ink-2">{plural(sources.length, 'source')}</p>
         </div>
         <Button asChild size="sm">
@@ -36,7 +36,7 @@ function SourcesPage() {
         </div>
       ) : (
         <div className="rounded-lg border bg-card">
-          <Table className="text-[13px]">
+          <Table className="text-body">
             <TableHeader>
               <TableRow>
                 <TableHead className={TABLE_HEAD}>Source</TableHead>

@@ -110,12 +110,12 @@ function NewSourcePage() {
 
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
-      <div className="mb-1 text-[12px] text-ink-3">
+      <div className="mb-1 text-meta text-ink-3">
         <Link to="/sources" className="hover:underline">
           Sources
         </Link>
       </div>
-      <h1 className="mb-3 text-[17px] font-semibold">New source</h1>
+      <h1 className="mb-3 text-title font-semibold">New source</h1>
 
       <div className="mb-4 grid gap-3">
         <CsvFileField
@@ -248,7 +248,7 @@ function Field({
 }) {
   return (
     <div className="grid gap-1.5">
-      <Label className="text-[12px] text-ink-2">{label}</Label>
+      <Label className="text-meta text-ink-2">{label}</Label>
       <Select value={value} onValueChange={onChange} disabled={disabled}>
         <SelectTrigger size="sm" aria-label={label} className="w-full bg-card">
           <SelectValue />
@@ -279,8 +279,8 @@ function Preview({ table, mapping }: { table: CsvTable; mapping: ColumnMapping }
   const mapped = (column: string) => (roleOf(column) ? 'bg-primary-soft/60' : '')
   return (
     <div className="rounded-lg border bg-card">
-      <Table className="text-[12px]">
-        <TableCaption className="mt-0 border-t py-2 text-[12px] text-ink-3">
+      <Table className="text-meta">
+        <TableCaption className="mt-0 border-t py-2 text-meta text-ink-3">
           Showing {Math.min(PREVIEW_ROWS, table.rows.length)} of {plural(table.rows.length, 'row')}
         </TableCaption>
         <TableHeader>
@@ -288,10 +288,10 @@ function Preview({ table, mapping }: { table: CsvTable; mapping: ColumnMapping }
             {table.header.map((column) => (
               <TableHead key={column} className={`h-auto px-2 py-1.5 align-bottom ${mapped(column)}`}>
                 <Cell>
-                  <span className="block min-h-[14px] text-[10px] font-semibold tracking-[0.04em] text-primary uppercase">
+                  <span className="block min-h-[14px] text-micro font-semibold tracking-[0.04em] text-primary uppercase">
                     {roleOf(column)}
                   </span>
-                  <span className="text-[11px] font-semibold text-ink-2">{column}</span>
+                  <span className="text-caption font-semibold text-ink-2">{column}</span>
                 </Cell>
               </TableHead>
             ))}

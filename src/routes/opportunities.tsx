@@ -163,7 +163,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
               onChange={(group) => void update({ group })}
             />
             <div className="flex-1" />
-            <span className="text-[12px] text-ink-3">
+            <span className="text-meta text-ink-3">
               {layout === 'split' ? (
                 <>
                   <Kbd>j</Kbd> <Kbd>k</Kbd> to move
@@ -188,7 +188,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
             <section
               ref={list}
               aria-label="Ranked problems"
-              className={`relative min-w-0 flex-1 overflow-auto pt-4 pb-[90px] ${
+              className={`relative min-w-0 flex-1 overflow-auto pt-4 pb-22.5 ${
                 layout === 'split' ? 'pr-4 pl-5' : 'px-7'
               }`}
             >
@@ -214,7 +214,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
                 <>
                   <div
                     aria-hidden
-                    className={`${RANK_GRID[layout]} px-4 pb-2 text-[11px] font-semibold text-ink-3 [&>span:nth-child(n+4)]:text-right`}
+                    className={`${RANK_GRID[layout]} px-4 pb-2 text-caption font-semibold text-ink-3 [&>span:nth-child(n+4)]:text-right`}
                   >
                     <span>#</span>
                     <span>Problem</span>
@@ -265,14 +265,14 @@ function OutcomeHeader({
   const { metrics } = outcome
   const accounts = { ...CLOSED, selected, outcome: outcome.id, evidence: 'accounts' } as const
   return (
-    <div className={`flex items-center gap-2.5 px-1.5 pb-2.5 ${first ? 'pt-1' : 'pt-[18px]'}`}>
+    <div className={`flex items-center gap-2.5 px-1.5 pb-2.5 ${first ? 'pt-1' : 'pt-4.5'}`}>
       <div className="min-w-0">
         <div className="flex items-center gap-1">
           <button type="button" aria-expanded={open} onClick={onToggle} className="flex items-center gap-2.5 text-left">
             <span aria-hidden className="w-3 text-ink-3">
               {open ? '▾' : '▸'}
             </span>
-            <span className="text-[15px] font-[650] tracking-[-0.01em]">{outcome.title}</span>
+            <span className="text-subhead font-[650] tracking-[-0.01em]">{outcome.title}</span>
           </button>
           {metrics.needsReview > 0 && (
             <Pill tone="warn" title="Low-confidence placements">
@@ -280,7 +280,7 @@ function OutcomeHeader({
             </Pill>
           )}
         </div>
-        <div className="mt-0.5 pl-[22px] text-[12px] text-ink-3">
+        <div className="mt-0.5 pl-5.5 text-meta text-ink-3">
           {problems} {problems === 1 ? 'problem' : 'problems'} ·{' '}
           <MapAnchor
             patch={accounts}
@@ -375,7 +375,7 @@ function toggled<T>(set: ReadonlySet<T>, value: T): ReadonlySet<T> {
 
 function Kbd({ children }: { children: string }) {
   return (
-    <kbd className="rounded-[4px] border border-b-2 bg-card px-1 font-mono text-[10.5px] text-foreground">
+    <kbd className="rounded-[4px] border border-b-2 bg-card px-1 font-mono text-micro text-foreground">
       {children}
     </kbd>
   )
@@ -385,7 +385,7 @@ function EmptyMap() {
   return (
     <main className="grid h-[calc(100dvh-48px)] place-items-center">
       <div className="max-w-sm text-center">
-        <h1 className="mb-2 text-[17px] font-semibold">No opportunities yet</h1>
+        <h1 className="mb-2 text-title font-semibold">No opportunities yet</h1>
         <p className="text-ink-2">
           Groundwork ranks customer problems once it has conversations to read.{' '}
           <Link to="/sources" className="font-medium text-primary hover:underline">

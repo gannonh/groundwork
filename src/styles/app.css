@@ -33,6 +33,20 @@
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* Type scale from prototype D. No line heights, so a size keeps the inherited leading as the prototype does. */
+  --text-micro: 10px;
+  --text-caption: 11px;
+  --text-meta: 12px;
+  --text-body: 13px;
+  --text-lead: 14px;
+  --text-subhead: 15px;
+  --text-title: 17px;
+  --text-numeral: 18px;
+  --text-headline: 19px;
+
+  /* Spacing scale: one step is 4px, in quarter steps, so pt-5.5 is prototype D's 22px. */
+  --spacing: 0.25rem;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -82,7 +96,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background font-sans text-[13px] text-foreground antialiased;
+    @apply bg-background font-sans text-body text-foreground antialiased;
   }
 }
 

@@ -56,7 +56,7 @@ function AccountsPage() {
 
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
-      <h1 className="text-[17px] font-semibold">Accounts</h1>
+      <h1 className="text-title font-semibold">Accounts</h1>
       <p className="mb-3 text-ink-2">{plural(accounts.length, 'account')}</p>
 
       <div className="mb-4 grid gap-3">
@@ -71,7 +71,7 @@ function AccountsPage() {
 
       {accounts.length > 0 && (
         <div className="rounded-lg border bg-card">
-          <Table className="text-[13px]">
+          <Table className="text-body">
             <TableHeader>
               <TableRow>
                 <TableHead className={TABLE_HEAD}>Account ID</TableHead>
@@ -84,7 +84,7 @@ function AccountsPage() {
             <TableBody>
               {accounts.map((account) => (
                 <TableRow key={account.id}>
-                  <TableCell className={`${TABLE_CELL} font-mono text-[12px] text-ink-2`}>{account.externalId}</TableCell>
+                  <TableCell className={`${TABLE_CELL} font-mono text-meta text-ink-2`}>{account.externalId}</TableCell>
                   <TableCell className={`${TABLE_CELL} font-medium`}>{account.name}</TableCell>
                   <TableCell className={`${TABLE_CELL} text-right tabular-nums`}>{formatDollars(account.arr)}</TableCell>
                   <TableCell className={TABLE_CELL}>{account.plan ?? <span className="text-ink-3">—</span>}</TableCell>

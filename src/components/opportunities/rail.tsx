@@ -30,11 +30,11 @@ export const Rail = memo(function Rail({
   return (
     <aside
       aria-label="Ranking and filters"
-      className="rail w-[250px] shrink-0 overflow-auto border-r bg-card px-[18px] pt-5 pb-[90px]"
+      className="rail w-[250px] shrink-0 overflow-auto border-r bg-card px-4.5 pt-5 pb-22.5"
     >
       <RailHeading>Rank by</RailHeading>
       <WeightSliders weights={weights} onInput={onWeightsInput} onCommit={onWeightsCommit} />
-      <RailHeading className="mt-[26px]">Filter</RailHeading>
+      <RailHeading className="mt-6.5">Filter</RailHeading>
       <FilterGroup title="Segment">
         <CheckboxOptions
           options={SEGMENTS}
@@ -70,7 +70,7 @@ export const Rail = memo(function Rail({
               key={speaker.key}
               value={speaker.key}
               variant="outline"
-              className="h-auto rounded-[6px] bg-card px-2 py-[3px] text-[12px] text-ink-2 shadow-none hover:border-ink-3 data-[state=on]:border-ink-2 data-[state=on]:text-foreground"
+              className="h-auto rounded-[6px] bg-card px-2 py-0.75 text-meta text-ink-2 shadow-none hover:border-ink-3 data-[state=on]:border-ink-2 data-[state=on]:text-foreground"
             >
               {speaker.label}
             </ToggleGroupItem>
@@ -94,7 +94,7 @@ export const Rail = memo(function Rail({
 
 function RailHeading({ className = '', children }: { className?: string; children: ReactNode }) {
   return (
-    <h2 className={`mb-3.5 text-[11px] font-bold tracking-[.06em] text-ink-2 uppercase ${className}`}>{children}</h2>
+    <h2 className={`mb-3.5 text-caption font-bold tracking-[.06em] text-ink-2 uppercase ${className}`}>{children}</h2>
   )
 }
 
@@ -136,7 +136,7 @@ export function WeightSliders({ weights, onInput, onCommit }: WeightSlidersProps
             onClick={() => {
               onCommit(preset.weights)
             }}
-            className="rounded-[6px] border bg-card px-2 py-[3px] text-[12px] font-medium text-ink-2 hover:border-ink-3 aria-pressed:border-ink-2 aria-pressed:text-foreground"
+            className="rounded-[6px] border bg-card px-2 py-0.75 text-meta font-medium text-ink-2 hover:border-ink-3 aria-pressed:border-ink-2 aria-pressed:text-foreground"
           >
             {preset.name}
           </button>
@@ -188,7 +188,7 @@ function WeightSlider({
           if (next !== undefined) onCommit(next)
         }}
       />
-      <small id={`${id}-hint`} className="mt-1 block text-[11.5px] text-ink-3">
+      <small id={`${id}-hint`} className="mt-1 block text-meta text-ink-3">
         {hint}
       </small>
     </div>
@@ -218,7 +218,7 @@ function CheckboxOptions<K extends string>({
 }) {
   const isOn = (key: K) => on === undefined || on.includes(key)
   return options.map((option) => (
-    <label key={option.key} className="flex cursor-pointer items-center gap-2 py-[3px] text-ink-2">
+    <label key={option.key} className="flex cursor-pointer items-center gap-2 py-0.75 text-ink-2">
       <Checkbox
         checked={isOn(option.key)}
         onCheckedChange={(checked) => {
