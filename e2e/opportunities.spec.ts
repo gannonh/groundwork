@@ -322,6 +322,9 @@ const stat = (page: Page, label: string) =>
 test("clicking a detail number lists the evidence behind it, and the URL reopens the list", async ({ page }) => {
   await page.goto('/opportunities')
   await hydrated(page)
+  await expect(stat(page, 'Accounts')).toHaveAccessibleName('Show the 44 accounts')
+  await expect(stat(page, 'ARR')).toHaveAccessibleName('Show the accounts behind $2.31M ARR')
+  await expect(stat(page, 'Mentions')).toHaveAccessibleName('Show the 141 mentions')
 
   await stat(page, 'Mentions').click()
   await expect(evidence(page).getByRole('heading', { name: '141 mentions' })).toBeVisible()
