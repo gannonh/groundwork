@@ -5,6 +5,7 @@ const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}
 const CARD = /\b(?:(?:\d{4}[ -]?){3}\d{1,7}|\d{4}[ -]?\d{6}[ -]?\d{4,5})\b/g
 const GROUPED_PHONE = /(?<![\w+])(?:\+\d{1,3}[ .-]?)?(?:\(\d{1,4}\)[ .-]?)?\d{2,4}(?:[ .-]\d{2,4}){1,4}(?![\w:])/g
 const INTERNATIONAL_PHONE = /(?<![\w+])\+\d{10,15}\b/g
+const DOMESTIC_PHONE = /(?<![\w+])1?\d{10}(?!\w)/g
 const IPV4 = /^\d{1,3}(?:\.\d{1,3}){3}$/
 
 export function redact(text: RawText | string): RedactedText {
@@ -15,7 +16,8 @@ export function redact(text: RawText | string): RedactedText {
       const count = digitsOf(match).length
       return count >= 10 && count <= 15 && !IPV4.test(match) ? '[phone]' : match
     })
-    .replace(INTERNATIONAL_PHONE, '[phone]') as RedactedText
+    .replace(INTERNATIONAL_PHONE, '[phone]')
+    .replace(DOMESTIC_PHONE, '[phone]') as RedactedText
 }
 
 function digitsOf(text: string): string {
