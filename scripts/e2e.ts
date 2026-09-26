@@ -10,10 +10,11 @@ const baseUrl = process.env.DATABASE_URL
 if (!baseUrl) throw new Error('DATABASE_URL is not set. Copy .env.example to .env.')
 
 const url = new URL(baseUrl)
-// Postgres caps identifiers at 63 bytes. A fixed name per base database lets
-// the next run clean up after a run that was killed before its drop.
-const database = `${url.pathname.slice(1)}_e2e`.slice(0, 63)
-url.pathname = `/${database}`
+// Postgres caps identifiers at 63 bytes, so the base name gives up room for
+// the suffix. A fixed name per base database lets the next run clean up after
+// a run that was killed before its drop.
+const database = `${decodeURIComponent(url.pathname.slice(1)).slice(0, 59)}_e2e`
+url.pathname = `/${encodeURIComponent(database)}`
 const env = { ...process.env, DATABASE_URL: url.toString() }
 
 async function admin(sql: string): Promise<void> {
