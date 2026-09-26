@@ -85,9 +85,15 @@ const steps = {
     const slash = target.indexOf('/')
     return page.getByRole(target.slice(0, slash), { name: target.slice(slash + 1), exact: true }).click()
   },
-  'click-in-row': (arg) => {
+  'click-in-row': async (arg) => {
     const [text, link] = pair(arg)
-    return page.getByRole('row').filter({ hasText: text }).getByRole('link', { name: link, exact: true }).click()
+    const rows = page.getByRole('row').filter({ hasText: text })
+    try {
+      await expect(rows).toHaveCount(1)
+    } catch {
+      throw new Error(`expected exactly 1 table row containing '${text}', found ${await rows.count()}`)
+    }
+    await rows.getByRole('link', { name: link, exact: true }).click()
   },
   'choose-file': (arg) => {
     const [label, path] = pair(arg)
