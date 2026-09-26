@@ -1,11 +1,12 @@
 import * as NodeFs from 'node:fs'
 import * as NodePath from 'node:path'
 import { describe, expect, it } from 'vitest'
-import { cn, TYPE_SCALE } from './utils'
+import { cn } from 'cn'
+import { TYPE_SCALE } from './utils'
 
 const appCss = NodeFs.readFileSync(NodePath.join(import.meta.dirname, '../styles/app.css'), 'utf8')
 
-describe('cn', () => {
+describe('cn, as the shadcn components import it', () => {
   it('knows every type scale step in app.css', () => {
     expect([...appCss.matchAll(/--text-([a-z]+):/g)].map((m) => m[1])).toEqual([...TYPE_SCALE])
   })

@@ -49,7 +49,7 @@ The app serves on http://localhost:3000.
 - `src/components/`: custom components. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
 - `src/db/`: Postgres pool, Drizzle schema, migrate and seed scripts.
 - `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales.
-- `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale.
+- `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale. `tsconfig.json` and `vite.config.ts` point the bare `cn` import there, so the shadcn components stay as the CLI writes them.
 - `drizzle/`: generated SQL migrations.
 - `e2e/`: Playwright specs.
 - `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `tailwind-scale.ts` rewrites one-off font sizes and spacing onto the scales in `app.css`; `--check` fails if any remain.
