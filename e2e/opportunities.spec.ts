@@ -139,7 +139,9 @@ test('a shared URL with weights, grouping, and a filter restores the same view i
   await page.getByRole('radio', { name: 'By outcome' }).click()
   await rail(page).getByRole('group', { name: 'Segment' }).getByRole('checkbox', { name: 'SMB' }).click()
   await expect(page.getByRole('button', { name: /^Control access and spend/ })).toBeVisible()
-  await expect(detail(page).getByRole('definition').first()).not.toHaveText('44')
+  await expect(cards(page).filter({ hasText: "Dashboard totals don't match the source system" })).not.toContainText(
+    '44 accounts',
+  )
   const order = await titles(page)
   const url = page.url()
   expect(url).toContain('group=outcome')
