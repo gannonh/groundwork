@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { and, asc, desc, eq, sql } from 'drizzle-orm'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
@@ -32,6 +33,7 @@ import {
   type OpportunityId,
   type Placement,
   type RedactedText,
+  type SnapshotId,
   type SpeakerRole,
   type Usd,
   type WorkspaceId,
@@ -42,6 +44,7 @@ export type OpportunityMap =
   | {
       readonly kind: 'ready'
       readonly workspaceName: string
+      readonly snapshot: SnapshotId
       readonly window: TrendWindow
       readonly problems: NonEmptyArray<ProblemView>
     }
@@ -83,6 +86,8 @@ export type QuoteView = {
 
 export type EvidenceList =
   | { readonly kind: 'missing' }
+  /** The workspace changed since the client's snapshot, so the list may not add up to the number it clicked. */
+  | { readonly kind: 'stale' }
   | {
       readonly kind: 'mentions'
       readonly problemTitle: string
@@ -102,6 +107,7 @@ export type EvidenceList =
 
 const TOP_ACCOUNTS = 5
 const MISSING: EvidenceList = { kind: 'missing' }
+const STALE: EvidenceList = { kind: 'stale' }
 
 /**
  * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack.
@@ -110,7 +116,7 @@ const MISSING: EvidenceList = { kind: 'missing' }
 export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Promise<OpportunityMap> {
   const read = await readWorkspace(db, workspaceId)
   if (!read) return { kind: 'empty' }
-  const { workspace, window, opportunities, accountsById } = read
+  const { workspace, snapshot, window, opportunities, accountsById } = read
 
   const linkRows = await db
     .select({ opportunityId: t.link.opportunityId, identifier: t.link.identifier, url: t.link.url })
@@ -150,20 +156,29 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     }
   })
 
-  return isNonEmpty(views) ? { kind: 'ready', workspaceName: workspace.name, window, problems: views } : { kind: 'empty' }
+  return isNonEmpty(views)
+    ? { kind: 'ready', workspaceName: workspace.name, snapshot, window, problems: views }
+    : { kind: 'empty' }
+}
+
+export type EvidenceRequest = {
+  readonly problemId: string
+  readonly filter: EvidenceFilter
+  /** The snapshot of the map the client clicked a number on. */
+  readonly snapshot: SnapshotId
 }
 
 /**
  * The counted mentions behind one number on a problem's detail, as quotes. Every list is a slice of computeMetrics'
- * evidence, so its length is the number the detail shows.
+ * evidence, so its length is the number the detail shows, or `stale` when that number has changed since.
  */
 export async function loadEvidence(
   db: Db,
-  problemId: string,
-  filter: EvidenceFilter,
+  { problemId, filter, snapshot }: EvidenceRequest,
   workspaceId?: WorkspaceId,
 ): Promise<EvidenceList> {
   const read = await readWorkspace(db, workspaceId)
+  if (read && read.snapshot !== snapshot) return STALE
   const problem = read?.opportunities.find((o) => o.kind === 'problem' && o.id === problemId)
   if (!read || !problem) return MISSING
   const mentionsOf = async (scope: string | null, mentions: readonly CountedMention[]): Promise<EvidenceList> => {
@@ -202,6 +217,7 @@ export async function loadEvidence(
 
 type WorkspaceRead = {
   readonly workspace: { readonly id: WorkspaceId; readonly name: string }
+  readonly snapshot: SnapshotId
   readonly window: TrendWindow
   readonly opportunities: readonly Measured[]
   readonly accountsById: ReadonlyMap<AccountId, Account>
@@ -289,6 +305,19 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
     },
     { asOf: evidenceAsOf([...items.values()], new Date()) },
   )
+  // Rows start with their id and sort as strings, so SQL row order cannot change the digest.
+  const rows = (values: readonly (readonly unknown[])[]) => values.map((v) => JSON.stringify(v)).sort()
+  const snapshot = createHash('sha256')
+    .update(
+      JSON.stringify({
+        pack: [pack.id, pack.placeThreshold],
+        tree: rows(treeRows.map((o) => [o.id, o.kind, o.parentId])),
+        placements: rows(placements.map((p) => [p.mentionId, p.opportunityId, p.confidence, p.itemId])),
+        items: rows([...items.values()].map((i) => [i.id, i.accountId, i.occurredAt.toISOString(), i.pain])),
+        accounts: rows(accounts.map((a) => [a.id, a.arr])),
+      }),
+    )
+    .digest('hex') as SnapshotId
   const accountsById = new Map(accounts.map((a) => [a.id, a]))
   const sourceLabel = new Map(sources.map((s) => [s.id, itemLabel(s.name, s.itemKind)]))
 
@@ -326,7 +355,7 @@ async function readWorkspace(db: Db, workspaceId: WorkspaceId | undefined): Prom
     }
   }
 
-  return { workspace: ws, window, opportunities, accountsById, loadQuotes }
+  return { workspace: ws, snapshot, window, opportunities, accountsById, loadQuotes }
 }
 
 function toOpportunity(row: {

@@ -1,6 +1,8 @@
 import { afterAll, describe, expect, test } from 'vitest'
-import { pool } from '@/db/client'
+import { eq } from 'drizzle-orm'
+import { pool, type Db } from '@/db/client'
 import { account, item, judgeAnswer, mention, placement, sentence, source, workspace } from '@/db/schema'
+import type { EvidenceFilter } from '@/domain/evidence'
 import { BALANCED, rank } from '@/domain/rank'
 import {
   loadEvidence,
@@ -9,7 +11,7 @@ import {
   type OpportunityMap,
   type ProblemView,
 } from '@/server/opportunity-map.server'
-import type { Confidence, RawText, RedactedText, Usd } from '@/domain/types'
+import type { AccountId, Confidence, RawText, RedactedText, SourceId, Usd, WorkspaceId } from '@/domain/types'
 import { buildSeed, SEED_WORKSPACE_ID, seedId } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
 import { rollbackAfter } from './testing.ts'
@@ -23,6 +25,55 @@ function byTitle(map: OpportunityMap, title: string): ProblemView {
   const problem = problemsOf(map).find((p) => p.title === title)
   if (!problem) throw new Error(`no problem titled ${title}`)
   return problem
+}
+
+const TOP_PROBLEM_ID = seedId('opportunity', 'p4')
+
+/** Places one new confident mention on the top seeded problem, through the seeded pack. */
+async function placeOnTopProblem(
+  tx: Db,
+  { workspaceId, sourceId, accountId }: { workspaceId: WorkspaceId; sourceId: SourceId; accountId: AccountId },
+) {
+  const text = 'Our totals are wrong as well.'
+  const [newItem] = await tx
+    .insert(item)
+    .values({
+      workspaceId,
+      sourceId,
+      externalId: 'extra-1',
+      body: text as RawText,
+      occurredAt: new Date('2026-09-19T15:00:00Z'),
+      accountId,
+    })
+    .returning({ id: item.id })
+  if (!newItem) throw new Error('no item')
+  await tx.insert(sentence).values({ itemId: newItem.id, ordinal: 0, text: text as RedactedText })
+  const packId = seedId('pack', 'product-insights/0.3.0')
+  const [answer] = await tx
+    .insert(judgeAnswer)
+    .values({
+      packId,
+      itemId: newItem.id,
+      questionKey: 'place',
+      subject: 'm0',
+      value: { type: 'choice', option: TOP_PROBLEM_ID },
+      probabilities: { [TOP_PROBLEM_ID]: 0.95, none: 0.05 },
+      confidence: 0.95 as Confidence,
+      backend: 'recorded',
+      modelVersion: 'recorded-1.0.0',
+    })
+    .returning({ id: judgeAnswer.id })
+  const [newMention] = await tx
+    .insert(mention)
+    .values({ packId, itemId: newItem.id, ordinal: 0, sentenceStart: 0, sentenceEnd: 0 })
+    .returning({ id: mention.id })
+  if (!answer || !newMention) throw new Error('no answer or mention')
+  await tx.insert(placement).values({
+    mentionId: newMention.id,
+    opportunityId: TOP_PROBLEM_ID,
+    judgeAnswerId: answer.id,
+    confidence: 0.95 as Confidence,
+  })
 }
 
 describe('pnpm db:seed', () => {
@@ -153,47 +204,7 @@ describe('pnpm db:seed', () => {
         .values({ workspaceId: other.id, externalId: 'foreign', name: 'Foreign Corp', arr: 9_000_000 as Usd })
         .returning({ id: account.id })
       if (!otherSource || !otherAccount) throw new Error('no source or account')
-      const text = 'Our totals are wrong as well.'
-      const [foreign] = await tx
-        .insert(item)
-        .values({
-          workspaceId: other.id,
-          sourceId: otherSource.id,
-          externalId: 'foreign-1',
-          body: text as RawText,
-          occurredAt: new Date('2026-09-19T15:00:00Z'),
-          accountId: otherAccount.id,
-        })
-        .returning({ id: item.id })
-      if (!foreign) throw new Error('no item')
-      await tx.insert(sentence).values({ itemId: foreign.id, ordinal: 0, text: text as RedactedText })
-      const packId = seedId('pack', 'product-insights/0.3.0')
-      const problemId = seedId('opportunity', 'p4')
-      const [answer] = await tx
-        .insert(judgeAnswer)
-        .values({
-          packId,
-          itemId: foreign.id,
-          questionKey: 'place',
-          subject: 'm0',
-          value: { type: 'choice', option: problemId },
-          probabilities: { [problemId]: 0.95, none: 0.05 },
-          confidence: 0.95 as Confidence,
-          backend: 'recorded',
-          modelVersion: 'recorded-1.0.0',
-        })
-        .returning({ id: judgeAnswer.id })
-      const [foreignMention] = await tx
-        .insert(mention)
-        .values({ packId, itemId: foreign.id, ordinal: 0, sentenceStart: 0, sentenceEnd: 0 })
-        .returning({ id: mention.id })
-      if (!answer || !foreignMention) throw new Error('no answer or mention')
-      await tx.insert(placement).values({
-        mentionId: foreignMention.id,
-        opportunityId: problemId,
-        judgeAnswerId: answer.id,
-        confidence: 0.95 as Confidence,
-      })
+      await placeOnTopProblem(tx, { workspaceId: other.id, sourceId: otherSource.id, accountId: otherAccount.id })
       return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
     })
 
@@ -221,8 +232,9 @@ describe('pnpm db:seed', () => {
       const solution = problem.solutions.find((s) => s.title === 'Reconciliation view vs. source')
       const foreignSolution = other.solutions[0]
       if (!solution || !foreignSolution) throw new Error('missing seeded solution')
-      const load = (id: string, filter: Parameters<typeof loadEvidence>[2]) =>
-        loadEvidence(tx, id, filter, SEED_WORKSPACE_ID)
+      if (map.kind !== 'ready') throw new Error('expected a ready map')
+      const load = (problemId: string, filter: EvidenceFilter) =>
+        loadEvidence(tx, { problemId, filter, snapshot: map.snapshot }, SEED_WORKSPACE_ID)
       const accounts = await load(problem.id, { evidence: 'accounts' })
       const kite = accounts.kind === 'accounts' ? accounts.groups.find((g) => g.account.name === 'Kite Dynamics') : null
       if (!kite) throw new Error('missing seeded account')
@@ -264,6 +276,45 @@ describe('pnpm db:seed', () => {
 
     expect(lists.unknownProblem).toEqual({ kind: 'missing' })
     expect(lists.foreignSolution).toEqual({ kind: 'missing' })
+  })
+
+  test('a list opened from an older map is stale, and the reloaded map lists the new mention', async () => {
+    const mentions: EvidenceFilter = { evidence: 'mentions' }
+    const result = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const snapshotOf = async () => {
+        const map = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+        if (map.kind !== 'ready') throw new Error('expected a ready map')
+        return map.snapshot
+      }
+      const before = await snapshotOf()
+      const again = await snapshotOf()
+      const [seedSource] = await tx
+        .select({ id: source.id })
+        .from(source)
+        .where(eq(source.workspaceId, SEED_WORKSPACE_ID))
+        .limit(1)
+      const [seedAccount] = await tx
+        .select({ id: account.id })
+        .from(account)
+        .where(eq(account.workspaceId, SEED_WORKSPACE_ID))
+        .limit(1)
+      if (!seedSource || !seedAccount) throw new Error('no seeded source or account')
+      await placeOnTopProblem(tx, {
+        workspaceId: SEED_WORKSPACE_ID,
+        sourceId: seedSource.id,
+        accountId: seedAccount.id,
+      })
+      const after = await snapshotOf()
+      const load = (snapshot: typeof before) =>
+        loadEvidence(tx, { problemId: TOP_PROBLEM_ID, filter: mentions, snapshot }, SEED_WORKSPACE_ID)
+      return { before, again, after, old: await load(before), fresh: await load(after) }
+    })
+
+    expect(result.again).toBe(result.before)
+    expect(result.after).not.toBe(result.before)
+    expect(result.old).toEqual({ kind: 'stale' })
+    expect(result.fresh.kind === 'mentions' && result.fresh.rows.length).toBe(142)
   })
 
   test('an empty database loads as an empty map, not an error', async () => {

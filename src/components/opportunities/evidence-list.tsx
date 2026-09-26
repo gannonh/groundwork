@@ -1,12 +1,19 @@
+import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import type { EvidenceList } from '@/server/opportunity-map.server'
 import { formatUsd, mentionCount } from './format'
 import { Quote } from './quote'
 
-export type EvidenceSheetProps = { readonly open: boolean; readonly list: EvidenceList; readonly onClose: () => void }
+export type EvidenceSheetProps = {
+  readonly open: boolean
+  readonly list: EvidenceList
+  readonly onClose: () => void
+  /** Reloads the map and this list together. */
+  readonly onReload: () => void
+}
 
 /** The quotes behind one number on the detail, in prototype D's 480px drawer. */
-export function EvidenceSheet({ open, list, onClose }: EvidenceSheetProps) {
+export function EvidenceSheet({ open, list, onClose, onReload }: EvidenceSheetProps) {
   return (
     <Sheet
       open={open}
@@ -18,13 +25,11 @@ export function EvidenceSheet({ open, list, onClose }: EvidenceSheetProps) {
         <SheetHeader className="gap-1 border-b px-6 pt-[22px] pr-14 pb-4">
           <SheetTitle className="text-[17px] leading-[1.3] font-bold tracking-[-0.01em]">{heading(list)}</SheetTitle>
           <SheetDescription className="text-[12px] text-ink-3">
-            {list.kind === 'missing'
-              ? 'The problem, solution, or account is not on this map.'
-              : list.problemTitle}
+            {description(list)}
           </SheetDescription>
         </SheetHeader>
         <div className="min-h-0 flex-1 overflow-auto px-6 pt-4 pb-10">
-          <EvidenceRows list={list} />
+          <EvidenceRows list={list} onReload={onReload} />
         </div>
       </SheetContent>
     </Sheet>
@@ -35,6 +40,8 @@ function heading(list: EvidenceList): string {
   switch (list.kind) {
     case 'missing':
       return 'Evidence not found'
+    case 'stale':
+      return 'The numbers changed'
     case 'mentions': {
       const count = mentionCount(list.rows.length)
       return list.scope === null ? count : `${list.scope} · ${count}`
@@ -47,10 +54,24 @@ function heading(list: EvidenceList): string {
   }
 }
 
-function EvidenceRows({ list }: { list: EvidenceList }) {
+function description(list: EvidenceList): string {
+  switch (list.kind) {
+    case 'missing':
+      return 'The problem, solution, or account is not on this map.'
+    case 'stale':
+      return 'New evidence arrived after this page loaded, so this list may not match the number you clicked.'
+    case 'mentions':
+    case 'accounts':
+      return list.problemTitle
+  }
+}
+
+function EvidenceRows({ list, onReload }: { list: EvidenceList; onReload: () => void }) {
   switch (list.kind) {
     case 'missing':
       return <p className="text-ink-2">Pick a number on the detail to see the quotes behind it.</p>
+    case 'stale':
+      return <Button onClick={onReload}>Reload</Button>
     case 'mentions':
       return list.rows.map((quote) => <Quote key={quote.mentionId} quote={quote} />)
     case 'accounts':
