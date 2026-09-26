@@ -46,8 +46,8 @@ The app serves on http://localhost:3000.
 ### Layout
 
 - `src/routes/`: file routes. `src/routes/api/` holds server routes.
-- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, and trend bars. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
-- `src/domain/`: pure domain code: branded types, `computeMetrics`, `rank`, quote selection, and sentence splitting. No database or React imports.
+- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, rail, sparklines, and trend bars, and `search.ts`, the zod schema for the map's URL search params. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
+- `src/domain/`: pure domain code: branded types, `computeMetrics`, `rank` and its presets, `filterEvidence`, quote selection, and sentence splitting. No database or React imports.
 - `src/server/`: server-only screen loaders (`*.server.ts`) that query the database and build view models for a route's server function.
 - `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/` and `src/domain/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
