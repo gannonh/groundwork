@@ -36,7 +36,8 @@ The app serves on http://localhost:3000.
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |
-| `pnpm e2e` | Playwright against `pnpm start` on a fresh, seeded database that it drops afterward. Extra arguments go to `playwright test`. Run `pnpm build` first. |
+| `pnpm e2e` | Playwright against the production build on a fresh, seeded database (port 3000) and a fresh, empty one (port 3001), both dropped afterward. Extra arguments go to `playwright test`. Run `pnpm build` first. Skips the screenshot tests. |
+| `pnpm e2e:docker` | `pnpm e2e` inside the Playwright image that CI uses, screenshot tests included. Needs Docker with host networking. |
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |
 | `pnpm db:seed` | Seeds the database. |
@@ -51,10 +52,21 @@ The app serves on http://localhost:3000.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
 - `drizzle/`: generated SQL migrations.
 - `e2e/`: Playwright specs. `axe.ts` holds `expectAccessible`, the WCAG 2.2 AA scan each spec runs at its key states, and the list of rules it skips with the reason for each.
-- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on throwaway databases, and `e2e-docker.ts` runs it in the Playwright image. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
+
+### Screenshot baselines
+
+`e2e/visual.spec.ts` compares `/opportunities` against the PNGs in `e2e/visual.spec.ts-snapshots/`. Baselines come only from the official Playwright image (`mcr.microsoft.com/playwright:v<installed @playwright/test>-noble`), because a host browser renders fonts differently. CI runs the same image. After an intended visual change, regenerate the baselines, look at every changed PNG, and commit them with the change:
+
+```sh
+pnpm build
+pnpm e2e:docker e2e/visual.spec.ts --update-snapshots
+```
+
+When CI fails on a screenshot, the `playwright-report` artifact holds the expected, actual, and diff images. Do not raise the diff threshold to get a run to pass.
 
 ## Rules for the code
 

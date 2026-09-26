@@ -37,9 +37,9 @@ jobs:
       - run: pnpm db:migrate
       - run: pnpm db:seed
       - run: pnpm test
-      - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm build
-      - run: pnpm e2e
+      # In the Playwright image, so screenshots render as they did when the baselines were made.
+      - run: pnpm e2e:docker
       - if: failure()
         uses: actions/upload-artifact@v7
         with:

@@ -1,7 +1,8 @@
 /**
- * Runs Playwright against a throwaway database: creates it next to the
- * `DATABASE_URL` database, migrates and seeds it, points the web server at it,
- * and drops it when the run ends. Extra arguments go to `playwright test`.
+ * Runs Playwright against two throwaway databases next to the `DATABASE_URL`
+ * database: a seeded one for most specs, and a migrated but empty one for the
+ * map's empty state. Drops both when the run ends. Extra arguments go to
+ * `playwright test`.
  */
 import * as NodeChildProcess from 'node:child_process'
 import pg from 'pg'
@@ -9,19 +10,24 @@ import pg from 'pg'
 const baseUrl = process.env.DATABASE_URL
 if (!baseUrl) throw new Error('DATABASE_URL is not set. Copy .env.example to .env.')
 
-const url = new URL(baseUrl)
-// Postgres caps identifiers at 63 bytes, so the base name keeps at most 59
-// UTF-8 bytes of whole characters to leave room for the suffix. A fixed name
+// Postgres caps identifiers at 63 bytes, so the base name keeps only as many
+// UTF-8 bytes of whole characters as leave room for the suffix. A fixed name
 // per base database lets the next run clean up after a run that was killed
 // before its drop.
-let base = ''
-for (const char of decodeURIComponent(url.pathname.slice(1))) {
-  if (Buffer.byteLength(base + char) > 59) break
-  base += char
+function throwaway(suffix: string): { database: string; url: string } {
+  const url = new URL(baseUrl ?? '')
+  let base = ''
+  for (const char of decodeURIComponent(url.pathname.slice(1))) {
+    if (Buffer.byteLength(base + char + suffix) > 63) break
+    base += char
+  }
+  const database = base + suffix
+  url.pathname = `/${encodeURIComponent(database)}`
+  return { database, url: url.toString() }
 }
-const database = `${base}_e2e`
-url.pathname = `/${encodeURIComponent(database)}`
-const env = { ...process.env, DATABASE_URL: url.toString() }
+const seeded = throwaway('_e2e')
+const empty = throwaway('_e2e_empty')
+const env = { ...process.env, DATABASE_URL: seeded.url, E2E_EMPTY_DATABASE_URL: empty.url }
 
 async function admin(sql: string): Promise<void> {
   const client = new pg.Client({ connectionString: baseUrl })
@@ -33,25 +39,33 @@ async function admin(sql: string): Promise<void> {
   }
 }
 
-function run(command: string, args: string[]): number {
-  return NodeChildProcess.spawnSync(command, args, { env, stdio: 'inherit' }).status ?? 1
+function run(args: string[], databaseUrl = seeded.url): number {
+  return (
+    NodeChildProcess.spawnSync('node', args, { env: { ...env, DATABASE_URL: databaseUrl }, stdio: 'inherit' })
+      .status ?? 1
+  )
+}
+
+async function dropAll(): Promise<void> {
+  for (const { database } of [seeded, empty]) await admin(`drop database if exists "${database}" with (force)`)
 }
 
 // Ctrl-C also reaches Playwright. Let it exit so the drop below still runs.
 process.on('SIGINT', () => undefined)
 
-const drop = `drop database if exists "${database}" with (force)`
-await admin(drop)
-await admin(`create database "${database}"`)
-console.log(`Created ${database}.`)
+await dropAll()
+for (const { database } of [seeded, empty]) await admin(`create database "${database}"`)
+console.log(`Created ${seeded.database} and ${empty.database}.`)
 let status: number
 try {
   status =
-    run('node', ['src/db/migrate.ts']) ||
-    run('node', ['src/db/seed.ts']) ||
-    run('playwright', ['test', ...process.argv.slice(2)])
+    run(['src/db/migrate.ts']) ||
+    run(['src/db/migrate.ts'], empty.url) ||
+    run(['src/db/seed.ts']) ||
+    // By path, not `playwright` on PATH, so it also runs outside pnpm in the Playwright image.
+    run(['node_modules/@playwright/test/cli.js', 'test', ...process.argv.slice(2)])
 } finally {
-  await admin(drop)
-  console.log(`Dropped ${database}.`)
+  await dropAll()
+  console.log(`Dropped ${seeded.database} and ${empty.database}.`)
 }
 process.exit(status)
