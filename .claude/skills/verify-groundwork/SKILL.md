@@ -21,7 +21,7 @@ $S/verify.sh up --id main-s1           # choose the run ID (default: timestamp)
 
 What `up` does:
 
-1. Installs deps if `node_modules` is missing. It uses Node 22 from `PATH` or `mise exec node@22`, and pnpm 12 through corepack. The global `pnpm` on this host is too old for the lockfile and fails with `packages field missing or empty`.
+1. Installs deps if `node_modules` is missing. It reads the Node major from `.nvmrc` (24 today) and uses that Node from `PATH` or through `mise exec node@<major>`, with pnpm 12 through corepack. The global `pnpm` on this host is too old for the lockfile and fails with `packages field missing or empty`.
 2. Starts `docker compose up -d --wait db`. The compose project is `groundwork` in every worktree, so all worktrees share one Postgres container on `127.0.0.1:5432`. `up` never stops it.
 3. Creates a fresh database `gw_verify_<id>`, then runs `src/db/migrate.ts` and `src/db/seed.ts` against it. Your run never touches the `groundwork` database that `pnpm dev` uses.
 4. Picks the first free port in 4100-4199 and starts the server under `setsid`, so the whole process group can be killed later.
@@ -104,7 +104,9 @@ docker compose exec -T db psql -U groundwork -d "$DB_NAME" -At -c '<read-only SQ
 
 ## Evidence
 
-Evidence for a run goes to `.verify/evidence/<id>/`. Each `drive.mjs --name NAME` writes to its own subfolder, so give each scenario its own `--name`. `.verify/` is gitignored. Attach to the PR or Linear issue only what the reviewer needs.
+Evidence for a run goes to `.verify/evidence/<id>/`. Each `drive.mjs --name NAME` writes to its own subfolder, so give each scenario its own `--name`. `.verify/` is gitignored.
+
+Put the evidence the reviewer needs in the PR body, not only on the Linear issue. Commit the screenshots and videos under `<issue-id>/` on an orphan branch named `assets/<issue-id>`, with the id in lowercase (for example `assets/kat-3483`), and push it. In the PR body, embed each screenshot as `![what it shows](https://github.com/gannonh/groundwork/raw/assets/<issue-id>/<issue-id>/<file>)` and link each video with the same URL form. PR #1 and PR #6 follow this convention.
 
 Proof standards:
 
