@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useState } from 'react'
 import { createServerFn } from '@tanstack/react-start'
 import { EvidenceSheet } from '@/components/opportunities/evidence-list'
 import { db } from '@/db/client'
@@ -29,10 +30,14 @@ function EvidenceRoute() {
   const list = Route.useLoaderData()
   const { id } = Route.useParams()
   const navigate = useNavigate()
-  if (!list) return null
+  // Closing clears the list from the URL at once; keeping the last one mounted lets the sheet animate out.
+  const [shown, setShown] = useState(list)
+  if (list && list !== shown) setShown(list)
+  if (!shown) return null
   return (
     <EvidenceSheet
-      list={list}
+      open={list !== null}
+      list={shown}
       onClose={() => void navigate({ to: '/opportunities/$id', params: { id }, resetScroll: false })}
     />
   )

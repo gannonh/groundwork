@@ -3,13 +3,13 @@ import type { EvidenceList } from '@/server/opportunity-map.server'
 import { formatUsd, mentionCount } from './format'
 import { Quote } from './quote'
 
-export type EvidenceSheetProps = { readonly list: EvidenceList; readonly onClose: () => void }
+export type EvidenceSheetProps = { readonly open: boolean; readonly list: EvidenceList; readonly onClose: () => void }
 
 /** The quotes behind one number on the detail, in prototype D's 480px drawer. */
-export function EvidenceSheet({ list, onClose }: EvidenceSheetProps) {
+export function EvidenceSheet({ open, list, onClose }: EvidenceSheetProps) {
   return (
     <Sheet
-      open
+      open={open}
       onOpenChange={(open) => {
         if (!open) onClose()
       }}
