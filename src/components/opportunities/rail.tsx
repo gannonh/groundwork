@@ -12,12 +12,16 @@ export type RailProps = {
   readonly weights: Weights
   /** Every slider step, for a live re-rank. */
   readonly onWeightsInput: (weights: Weights) => void
-  /** A released slider or a preset. */
-  readonly onWeightsCommit: (weights: Weights) => void
+  /** A released slider (its own factor only) or a preset. */
+  readonly onWeightsCommit: (weights: Partial<Weights>) => void
   readonly filter: MapFilter
   readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
-  readonly onFilterChange: (patch: Partial<MapFilter>) => void
+  /** Computes the change from the latest filter, which is ahead of `filter` while a refetch is pending. */
+  readonly onFilterChange: (change: (latest: MapFilter) => Partial<MapFilter>) => void
 }
+
+const SEGMENT_KEYS = SEGMENTS.map((s) => s.key)
+const SPEAKER_KEYS = SPEAKERS.map((s) => s.key)
 
 export const Rail = memo(function Rail({
   weights,
@@ -39,8 +43,8 @@ export const Rail = memo(function Rail({
         <CheckboxOptions
           options={SEGMENTS}
           on={filter.segments}
-          onChange={(segments) => {
-            onFilterChange({ segments })
+          onToggle={(key) => {
+            onFilterChange((latest) => ({ segments: toggledSubset(SEGMENT_KEYS, latest.segments, key) }))
           }}
         />
       </FilterGroup>
@@ -48,8 +52,9 @@ export const Rail = memo(function Rail({
         <CheckboxOptions
           options={sources.map((s) => ({ key: s.id, label: s.name }))}
           on={filter.sources}
-          onChange={(next) => {
-            onFilterChange({ sources: next })
+          onToggle={(key) => {
+            const keys = sources.map((s) => s.id)
+            onFilterChange((latest) => ({ sources: toggledSubset(keys, latest.sources, key) }))
           }}
         />
       </FilterGroup>
@@ -58,10 +63,6 @@ export const Rail = memo(function Rail({
           type="multiple"
           aria-label="Speaker"
           value={filter.speakers ? [...filter.speakers] : []}
-          onValueChange={(values) => {
-            const speakers = SPEAKERS.filter((s) => values.includes(s.key)).map((s) => s.key)
-            onFilterChange({ speakers: isNonEmpty(speakers) ? speakers : undefined })
-          }}
           spacing={1.25}
           className="flex-wrap"
         >
@@ -69,6 +70,12 @@ export const Rail = memo(function Rail({
             <ToggleGroupItem
               key={speaker.key}
               value={speaker.key}
+              onClick={() => {
+                onFilterChange((latest) => {
+                  const speakers = toggled(SPEAKER_KEYS, latest.speakers ?? [], speaker.key)
+                  return { speakers: isNonEmpty(speakers) ? speakers : undefined }
+                })
+              }}
               variant="outline"
               className="h-auto rounded-[6px] bg-card px-2 py-0.75 text-meta text-ink-2 shadow-none hover:border-ink-3 data-[state=on]:border-ink-2 data-[state=on]:text-foreground"
             >
@@ -83,7 +90,7 @@ export const Rail = memo(function Rail({
           value={filter.since}
           options={DATE_RANGES.map((r) => ({ value: r.key, label: r.key }))}
           onChange={(since) => {
-            onFilterChange({ since })
+            onFilterChange(() => ({ since }))
           }}
           className="w-full"
         />
@@ -108,7 +115,7 @@ const FACTOR_LABELS: Record<Factor, { readonly label: string; readonly hint: str
 export type WeightSlidersProps = {
   readonly weights: Weights
   readonly onInput: (weights: Weights) => void
-  readonly onCommit: (weights: Weights) => void
+  readonly onCommit: (weights: Partial<Weights>) => void
 }
 
 export function WeightSliders({ weights, onInput, onCommit }: WeightSlidersProps) {
@@ -123,7 +130,7 @@ export function WeightSliders({ weights, onInput, onCommit }: WeightSlidersProps
             onInput({ ...weights, [factor]: value })
           }}
           onCommit={(value) => {
-            onCommit({ ...weights, [factor]: value })
+            onCommit({ [factor]: value })
           }}
         />
       ))}
@@ -210,24 +217,37 @@ export function FilterGroup({ title, children }: { title: string; children: Reac
 function CheckboxOptions<K extends string>({
   options,
   on,
-  onChange,
+  onToggle,
 }: {
   options: readonly { readonly key: K; readonly label: string }[]
   on: readonly K[] | undefined
-  onChange: (next: NonEmptyArray<K> | undefined) => void
+  onToggle: (key: K) => void
 }) {
-  const isOn = (key: K) => on === undefined || on.includes(key)
   return options.map((option) => (
     <label key={option.key} className="flex cursor-pointer items-center gap-2 py-0.75 text-ink-2">
       <Checkbox
-        checked={isOn(option.key)}
-        onCheckedChange={(checked) => {
-          const next = options.filter((o) => (o.key === option.key ? checked === true : isOn(o.key))).map((o) => o.key)
-          if (!isNonEmpty(next)) return
-          onChange(next.length === options.length ? undefined : next)
+        checked={on === undefined || on.includes(option.key)}
+        onCheckedChange={() => {
+          onToggle(option.key)
         }}
       />
       {option.label}
     </label>
   ))
+}
+
+/** `on` with `key` flipped, in `keys` order. */
+function toggled<K extends string>(keys: readonly K[], on: readonly K[], key: K): K[] {
+  return keys.filter((k) => (k === key) !== on.includes(k))
+}
+
+/** Flips `key` in a list where absent means every key is on. Refuses to turn the last key off. */
+function toggledSubset<K extends string>(
+  keys: readonly K[],
+  on: NonEmptyArray<K> | undefined,
+  key: K,
+): NonEmptyArray<K> | undefined {
+  const next = toggled(keys, on ?? keys, key)
+  if (!isNonEmpty(next)) return on
+  return next.length === keys.length ? undefined : next
 }

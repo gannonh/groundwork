@@ -129,6 +129,85 @@ test('unticking Mid-market and SMB counts only the enterprise accounts', async (
   await expect(segment.getByRole('checkbox', { name: 'Enterprise' })).toBeChecked()
 })
 
+/** Holds every map fetch until the returned function is called, so later clicks land while a refetch is pending. */
+async function holdMapFetches(page: Page): Promise<() => void> {
+  let release = () => {}
+  const held = new Promise<void>((resolve) => {
+    release = resolve
+  })
+  await page.route('**/_serverFn/**', async (route) => {
+    await held
+    await route.continue()
+  })
+  return release
+}
+
+test('two segment clicks during a pending refetch both apply', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const segment = rail(page).getByRole('group', { name: 'Segment' })
+  const release = await holdMapFetches(page)
+  await segment.getByRole('checkbox', { name: 'Mid-market' }).click()
+  await segment.getByRole('checkbox', { name: 'SMB' }).click()
+  release()
+
+  await expect(detail(page).getByRole('definition')).toHaveText(['2', '$550k', '2', 'Deal breaker'])
+  await expect(segment.getByRole('checkbox', { name: 'Enterprise' })).toBeChecked()
+  await expect(segment.getByRole('checkbox', { name: 'Mid-market' })).not.toBeChecked()
+  await expect(segment.getByRole('checkbox', { name: 'SMB' })).not.toBeChecked()
+})
+
+test('two source clicks during a pending refetch both apply', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const source = rail(page).getByRole('group', { name: 'Source' })
+  const release = await holdMapFetches(page)
+  await source.getByRole('checkbox', { name: 'Interviews' }).click()
+  await source.getByRole('checkbox', { name: 'NPS' }).click()
+  release()
+
+  await expect(source.getByRole('checkbox', { name: 'Interviews' })).not.toBeChecked()
+  await expect(source.getByRole('checkbox', { name: 'NPS' })).not.toBeChecked()
+  for (const name of ['G2', 'Gong', 'Zendesk']) {
+    await expect(source.getByRole('checkbox', { name })).toBeChecked()
+  }
+})
+
+test('two speaker clicks during a pending refetch both apply', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const speaker = rail(page).getByRole('group', { name: 'Speaker' })
+  const release = await holdMapFetches(page)
+  await speaker.getByRole('button', { name: 'End user' }).click()
+  await speaker.getByRole('button', { name: 'Admin' }).click()
+  release()
+
+  await expect(speaker.getByRole('button', { name: 'End user' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(speaker.getByRole('button', { name: 'Admin' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(speaker.getByRole('button', { name: 'Buyer' })).toHaveAttribute('aria-pressed', 'false')
+  await expect(speaker.getByRole('button', { name: 'Exec' })).toHaveAttribute('aria-pressed', 'false')
+})
+
+test('a preset and a slider step during a pending refetch both apply', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const release = await holdMapFetches(page)
+  await rail(page).getByRole('group', { name: 'Segment' }).getByRole('checkbox', { name: 'SMB' }).click()
+  await rail(page).getByRole('button', { name: 'Enterprise' }).click()
+  await rail(page).getByRole('slider', { name: 'Pain' }).press('ArrowRight')
+  release()
+
+  await expect(page).toHaveURL(/&pain=21$/)
+  for (const [name, value] of [
+    ['Reach', '10'],
+    ['Revenue', '60'],
+    ['Pain', '21'],
+    ['Momentum', '10'],
+  ] as const) {
+    await expect(rail(page).getByRole('slider', { name })).toHaveAttribute('aria-valuenow', value)
+  }
+})
+
 test('a shared URL with weights, grouping, and a filter restores the same view in a new page', async ({
   page,
   context,
