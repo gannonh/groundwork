@@ -7,7 +7,6 @@ import { LinkedPill, Pill, TrendPill } from './pill'
 import { ScoreBar } from './score-bar'
 import type { Layout } from './search'
 
-/** Shared by the cards and their column header so the columns line up. Stack adds an Accounts column. */
 export const RANK_GRID: Record<Layout, string> = {
   split: 'grid grid-cols-[30px_minmax(0,1fr)_110px_64px_70px] items-center gap-3',
   stack: 'grid grid-cols-[34px_minmax(0,1fr)_200px_70px_80px_76px] items-center gap-[14px]',
@@ -23,15 +22,13 @@ export type RankCardProps = {
   readonly href: string
   /** Called for a plain click, with the selection `href` names. */
   readonly onSelect: (id: OpportunityId | undefined) => void
-  /** The line under the title. */
   readonly subtitle: string
-  /** The inline detail, when the card is expanded in Stack. */
   readonly children?: ReactNode
 }
 
 /**
- * Memoized: a selection change re-renders only the cards it selects or deselects. A plain anchor rather than a router
- * Link, because every Link rebuilds its location on each navigation, and that cost 12 rebuilds per click.
+ * A plain anchor rather than a router Link, because every Link rebuilds its location on each navigation, and that
+ * cost 12 rebuilds per click.
  */
 export const RankCard = memo(function RankCard({
   problem,
@@ -121,8 +118,8 @@ function describe(problem: ProblemView, score: Score): string {
 }
 
 /**
- * Scrolls the nearest scrolling ancestor just enough to show `el`, or its top when it is taller than the view. Not scrollIntoView: Chromium moves the Tab
- * starting point to the scrolled element, so the first Tab on a direct load would skip the top bar.
+ * Not scrollIntoView: Chromium moves the Tab starting point to the scrolled element, so the first Tab on a direct load
+ * would skip the top bar.
  */
 function reveal(el: HTMLElement) {
   let scroller = el.parentElement

@@ -8,10 +8,8 @@ const uuid = <T extends string>() => z.custom<T>((value) => typeof value === 'st
 const list = <T extends z.ZodType>(item: T) => z.tuple([item], item).readonly().optional().catch(undefined)
 const weight = (fallback: number) => z.int().min(0).max(60).default(fallback).catch(fallback)
 
-/** Values the URL leaves out. */
 export const DEFAULT_VIEW = { ...BALANCED, group: 'ranked', layout: 'split', since: '90d' } as const
 
-/** The map's filters. The server function parses its input with this too. */
 export const filterSearch = z.object({
   segments: list(z.literal(SEGMENTS.map((s) => s.key))),
   sources: list(uuid<SourceId>()),
@@ -22,7 +20,6 @@ export const filterSearch = z.object({
     .catch(DEFAULT_VIEW.since),
 })
 
-/** The saved view: /opportunities search params. Invalid values fall back to their defaults. */
 export const mapSearch = filterSearch.extend({
   reach: weight(DEFAULT_VIEW.reach),
   revenue: weight(DEFAULT_VIEW.revenue),

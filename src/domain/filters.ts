@@ -1,7 +1,6 @@
 import type { Evidence } from './metrics.ts'
 import type { NonEmptyArray, SourceId, SpeakerRole, Usd } from './types.ts'
 
-/** Highest threshold first, so the first row an ARR reaches is its segment. */
 export const SEGMENTS = [
   { key: 'enterprise', label: 'Enterprise', minArr: 150_000 },
   { key: 'mid_market', label: 'Mid-market', minArr: 80_000 },
@@ -10,10 +9,9 @@ export const SEGMENTS = [
 export type Segment = (typeof SEGMENTS)[number]['key']
 
 export function segmentOf(arr: Usd): Segment {
-  return (SEGMENTS.find((s) => arr >= s.minArr) ?? SEGMENTS[2]).key
+  return SEGMENTS.filter((s) => arr >= s.minArr).reduce((a, b) => (b.minArr > a.minArr ? b : a)).key
 }
 
-/** The roles a speaker filter can pick. An item with any other role, or none, fails an active speaker filter. */
 export const SPEAKERS = [
   { key: 'end_user', label: 'End user' },
   { key: 'admin', label: 'Admin' },
@@ -39,10 +37,6 @@ export type EvidenceFilter = {
 
 const DAY_MS = 86_400_000
 
-/**
- * Pure. Keeps the placements whose item passes every active filter, and only the items they reference. Items on or
- * after `asOf` minus the range's days pass the date filter.
- */
 export function filterEvidence(evidence: Evidence, filter: EvidenceFilter, asOf: Date): Evidence {
   const days = DATE_RANGES.find((r) => r.key === filter.since)?.days ?? 0
   const cutoff = asOf.getTime() - days * DAY_MS

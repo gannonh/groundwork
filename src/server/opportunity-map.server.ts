@@ -35,10 +35,8 @@ export type OpportunityMap =
       readonly kind: 'ready'
       readonly workspaceName: string
       readonly window: TrendWindow
-      /** Every source in the workspace, whatever the filter. */
       readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
       readonly outcomes: readonly OutcomeView[]
-      /** Problems with at least one mention that passes the filter. Empty when the filter hides every one. */
       readonly problems: readonly ProblemView[]
     }
 
@@ -86,8 +84,8 @@ export type QuoteView = {
 const TOP_ACCOUNTS = 5
 
 /**
- * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack,
- * counting only the evidence that passes `filter`. Queries run one at a time, so this also works inside a transaction.
+ * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack.
+ * Queries run one at a time, so this also works inside a transaction.
  */
 export async function loadOpportunityMap(
   db: Db,
@@ -172,7 +170,6 @@ export async function loadOpportunityMap(
     spans.set(row.mentionId, row)
   }
 
-  // Taken before filtering, so the trend window and the date cutoff hold still while filters change.
   const asOf = evidenceAsOf([...items.values()], new Date())
   const evidence = filterEvidence(
     {

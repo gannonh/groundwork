@@ -8,7 +8,6 @@ import { TrendBars } from './trend-bars'
 
 export type OpportunityDetailProps = { readonly problem: ProblemView; readonly window: TrendWindow }
 
-/** The Split layout's detail pane. */
 export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
   return (
     <div className="px-6 pt-[22px] pb-[90px]">
@@ -24,7 +23,6 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
   )
 }
 
-/** The Stack layout's detail, inside the expanded card. Its title is the card's. */
 export function InlineDetail({ problem, window }: OpportunityDetailProps) {
   return (
     <div className="grid grid-cols-[1.4fr_1fr] gap-7 border-t px-5 pt-4 pb-5">

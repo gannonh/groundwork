@@ -12,7 +12,6 @@ const DASHBOARD = "Dashboard totals don't match the source system"
 const CSV = 'CSV imports fail silently on malformed rows'
 const ADMINS = "Admins can't restrict access by team"
 
-/** The thumbs get their names in an effect, so a named slider means the page has hydrated. */
 const hydrated = (page: Page) => expect(rail(page).getByRole('slider', { name: 'Reach' })).toBeVisible()
 
 function titleTexts(links: Element[]): string[] {

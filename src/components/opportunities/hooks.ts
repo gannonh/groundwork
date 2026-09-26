@@ -1,6 +1,5 @@
 import { useCallback, useLayoutEffect, useRef, useSyncExternalStore, type RefObject } from 'react'
 
-/** Whether `query` matches. The server, which has no viewport, reports `serverValue`. */
 export function useMediaQuery(query: string, serverValue: boolean): boolean {
   const subscribe = useCallback(
     (onChange: () => void) => {

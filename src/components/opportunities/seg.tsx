@@ -9,7 +9,6 @@ export type SegProps<T extends string> = {
   readonly className?: string
 }
 
-/** Prototype D's segmented control: exactly one option is on. */
 export function Seg<T extends string>({ label, value, options, onChange, className = '' }: SegProps<T>) {
   return (
     <ToggleGroup

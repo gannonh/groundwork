@@ -19,7 +19,6 @@ export type RailProps = {
   readonly onFilterChange: (patch: Partial<EvidenceFilter>) => void
 }
 
-/** Memoized: selection, grouping, and layout changes do not re-render the rail's controls. */
 export const Rail = memo(function Rail({
   weights,
   onWeightsInput,
@@ -208,7 +207,6 @@ export function FilterGroup({ title, children }: { title: string; children: Reac
   )
 }
 
-/** All ticked is no restriction. Unticking the last box is refused, so a filter never hides everything by itself. */
 function CheckboxOptions<K extends string>({
   options,
   on,

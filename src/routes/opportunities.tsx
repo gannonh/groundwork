@@ -30,7 +30,6 @@ const getOpportunityMap = createServerFn({ method: 'GET' })
 export const Route = createFileRoute('/opportunities')({
   validateSearch: mapSearch,
   search: { middlewares: [stripSearchParams(DEFAULT_VIEW)] },
-  // Only filters change the data. Weights, grouping, layout, and selection re-rank and re-render on the client.
   loaderDeps: ({ search }) => filterOf(search),
   loader: ({ deps }) => getOpportunityMap({ data: deps }),
   shouldReload: false,
@@ -45,12 +44,13 @@ function OpportunitiesPage() {
   return <OpportunityMapScreen map={map} />
 }
 
-// Below this, a 250 px rail and a 460 px detail pane leave the Split list too narrow for a card title.
-const WIDE = '(min-width: 1280px)'
+const RAIL_PX = 250
+const DETAIL_PX = 460
+const MIN_SPLIT_LIST_PX = 570
+const WIDE = `(min-width: ${String(RAIL_PX + DETAIL_PX + MIN_SPLIT_LIST_PX)}px)`
 
 function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const search = Route.useSearch()
-  // Kept by value, so the memoized Rail gets the same props while only the selection changes.
   const filter = useEqualValue(filterOf(search))
   const urlWeights = useEqualValue(weightsOf(search))
   const navigate = useNavigate({ from: Route.fullPath })
@@ -241,10 +241,6 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   )
 }
 
-/**
- * The weights the list ranks by. A slider drag re-ranks from a local draft on every step and writes the URL only
- * when released. Any change to the URL's weights, such as a preset, Back, or a shared link, replaces the draft.
- */
 function useDraftWeights(url: Weights) {
   const key = FACTORS.map((f) => url[f]).join()
   const [draft, setDraft] = useState({ key, weights: url })
@@ -255,7 +251,6 @@ function useDraftWeights(url: Weights) {
   return { value: draft.key === key ? draft.weights : url, setDraft: setWeights }
 }
 
-/** `value`, or the previous render's value while the two are deep-equal. */
 function useEqualValue<T>(value: T): T {
   const [kept, setKept] = useState(value)
   if (kept === value || deepEqual(kept, value)) return kept
@@ -263,7 +258,6 @@ function useEqualValue<T>(value: T): T {
   return value
 }
 
-/** j/ArrowDown and k/ArrowUp move the selection through `cards` in display order. */
 function useCardKeys(
   enabled: boolean,
   cards: readonly Ranked<ProblemView>[],

@@ -5,7 +5,6 @@ export type SparklineProps = {
   readonly label: string
 }
 
-/** A line over `series`, scaled between its own min and max, with a dot on the newest value. */
 export function Sparkline({ series, width = 72, height = 20, label }: SparklineProps) {
   const max = Math.max(...series)
   const min = Math.min(...series)

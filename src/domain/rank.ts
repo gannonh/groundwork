@@ -73,10 +73,6 @@ export function rank<T extends { readonly metrics: RankFactors }>(
     .map(({ item, score }, i) => ({ item, position: i + 1, score }))
 }
 
-/**
- * Pure. Buckets ranked items by `keyOf`, keeping ranked order and positions inside each bucket. Buckets are ordered
- * by the sum of their members' scores desc, then by their best position.
- */
 export function groupRanked<T, K>(
   ranked: readonly Ranked<T>[],
   keyOf: (item: T) => K,
