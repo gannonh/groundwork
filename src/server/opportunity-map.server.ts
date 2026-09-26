@@ -2,14 +2,15 @@ import { and, asc, desc, eq, inArray } from 'drizzle-orm'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
 import { excerpt, selectQuotes, topAccounts, type QuoteText } from '@/domain/evidence'
+import { filterEvidence, type EvidenceFilter } from '@/domain/filters'
 import {
   computeMetrics,
   evidenceAsOf,
   type OpportunityMetrics,
   type TrendWindow,
+  type WeeklyCounts,
 } from '@/domain/metrics'
 import {
-  isNonEmpty,
   toPainLevel,
   type Account,
   type AccountId,
@@ -18,11 +19,11 @@ import {
   type Item,
   type ItemId,
   type MentionId,
-  type NonEmptyArray,
   type Opportunity,
   type OpportunityId,
   type Placement,
   type RedactedText,
+  type SourceId,
   type SpeakerRole,
   type Usd,
   type WorkspaceId,
@@ -34,8 +35,18 @@ export type OpportunityMap =
       readonly kind: 'ready'
       readonly workspaceName: string
       readonly window: TrendWindow
-      readonly problems: NonEmptyArray<ProblemView>
+      /** Every source in the workspace, whatever the filter. */
+      readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
+      readonly outcomes: readonly OutcomeView[]
+      /** Problems with at least one mention that passes the filter. Empty when the filter hides every one. */
+      readonly problems: readonly ProblemView[]
     }
+
+export type OutcomeView = {
+  readonly id: OpportunityId
+  readonly title: string
+  readonly metrics: Pick<OpportunityMetrics, 'accounts' | 'arr' | 'mentions'> & { readonly weekly: WeeklyCounts }
+}
 
 export type MetricsView = Omit<OpportunityMetrics, 'evidence'>
 export type ProblemView = {
@@ -75,10 +86,14 @@ export type QuoteView = {
 const TOP_ACCOUNTS = 5
 
 /**
- * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack.
- * Queries run one at a time, so this also works inside a transaction.
+ * The whole /opportunities screen in one call: the given workspace, else the oldest, read through its newest pack,
+ * counting only the evidence that passes `filter`. Queries run one at a time, so this also works inside a transaction.
  */
-export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Promise<OpportunityMap> {
+export async function loadOpportunityMap(
+  db: Db,
+  filter: EvidenceFilter,
+  workspaceId?: WorkspaceId,
+): Promise<OpportunityMap> {
   const [ws] = await db
     .select({ id: t.workspace.id, name: t.workspace.name })
     .from(t.workspace)
@@ -99,6 +114,7 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     .from(t.opportunity)
     .where(eq(t.opportunity.workspaceId, ws.id))
     .orderBy(asc(t.opportunity.createdAt), asc(t.opportunity.id))
+  if (!treeRows.some((r) => r.kind === 'problem')) return { kind: 'empty' }
   const placementRows = await db
     .select({
       mentionId: t.placement.mentionId,
@@ -135,6 +151,7 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     .select({ id: t.source.id, name: t.source.name, itemKind: t.source.itemKind })
     .from(t.source)
     .where(eq(t.source.workspaceId, ws.id))
+    .orderBy(asc(t.source.name), asc(t.source.id))
 
   const painByItem = new Map(
     painRows.map((r) => [r.itemId, r.value.type === 'score' ? toPainLevel(r.value.level) : null] as const),
@@ -145,7 +162,9 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
   for (const row of placementRows) {
     items.set(row.itemId, {
       id: row.itemId,
+      sourceId: row.sourceId,
       accountId: row.accountId,
+      role: row.authorRole,
       occurredAt: row.occurredAt,
       pain: painByItem.get(row.itemId) ?? null,
     })
@@ -153,7 +172,9 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     spans.set(row.mentionId, row)
   }
 
-  const { window, opportunities } = computeMetrics(
+  // Taken before filtering, so the trend window and the date cutoff hold still while filters change.
+  const asOf = evidenceAsOf([...items.values()], new Date())
+  const evidence = filterEvidence(
     {
       opportunities: treeRows.map(toOpportunity),
       placements,
@@ -161,12 +182,14 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
       accounts,
       placeThreshold: pack.placeThreshold,
     },
-    { asOf: evidenceAsOf([...items.values()], new Date()) },
+    filter,
+    asOf,
   )
+  const { window, opportunities } = computeMetrics(evidence, { asOf })
 
   const accountsById = new Map(accounts.map((a) => [a.id, a]))
   const byId = new Map(opportunities.map((o) => [o.id, o]))
-  const problems = opportunities.filter((o) => o.kind === 'problem')
+  const problems = opportunities.filter((o) => o.kind === 'problem' && o.metrics.mentions > 0)
   const quotesByProblem = new Map(problems.map((p) => [p.id, selectQuotes(p.metrics.evidence, accountsById)]))
 
   const quoteItemIds = [...new Set([...quotesByProblem.values()].flatMap((qs) => qs.map((q) => q.itemId)))]
@@ -226,7 +249,20 @@ export async function loadOpportunityMap(db: Db, workspaceId?: WorkspaceId): Pro
     }
   })
 
-  return isNonEmpty(views) ? { kind: 'ready', workspaceName: ws.name, window, problems: views } : { kind: 'empty' }
+  return {
+    kind: 'ready',
+    workspaceName: ws.name,
+    window,
+    sources: sources.map((s) => ({ id: s.id, name: s.name })),
+    outcomes: opportunities
+      .filter((o) => o.kind === 'outcome')
+      .map(({ id, title, metrics }) => ({
+        id,
+        title,
+        metrics: { accounts: metrics.accounts, arr: metrics.arr, mentions: metrics.mentions, weekly: metrics.weekly },
+      })),
+    problems: views,
+  }
 }
 
 function toOpportunity(row: {

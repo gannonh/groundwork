@@ -1,12 +1,15 @@
 import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import { account, item, judgeAnswer, mention, placement, sentence, source, workspace } from '@/db/schema'
+import type { EvidenceFilter } from '@/domain/filters'
 import { BALANCED, rank } from '@/domain/rank'
 import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
 import type { Confidence, RawText, RedactedText, Usd } from '@/domain/types'
 import { buildSeed, SEED_WORKSPACE_ID, seedId } from './seed/build.ts'
 import { writeSeed } from './seed/write.ts'
 import { rollbackAfter } from './testing.ts'
+
+const DEFAULT_FILTER: EvidenceFilter = { since: '90d' }
 
 function problemsOf(map: OpportunityMap): readonly ProblemView[] {
   if (map.kind !== 'ready') throw new Error('expected a ready map')
@@ -25,7 +28,7 @@ describe('pnpm db:seed', () => {
   test('computes the prototype numbers for all 12 problems and its Balanced order', async () => {
     const map = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     const problems = problemsOf(map)
@@ -76,7 +79,7 @@ describe('pnpm db:seed', () => {
   test("shows the top problem's trend, solutions, quotes, and top accounts", async () => {
     const map = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     expect(map.kind === 'ready' && map.window).toEqual({ firstWeek: '2026-06-29', lastWeek: '2026-09-14' })
@@ -188,7 +191,7 @@ describe('pnpm db:seed', () => {
         judgeAnswerId: answer.id,
         confidence: 0.95 as Confidence,
       })
-      return loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      return loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
     })
 
     const problem = byTitle(map, top)
@@ -205,10 +208,29 @@ describe('pnpm db:seed', () => {
     ])
   })
 
+  test('an Enterprise-only filter counts only enterprise accounts and quotes only them', async () => {
+    const map = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      return loadOpportunityMap(tx, { segments: ['enterprise'], since: '90d' }, SEED_WORKSPACE_ID)
+    })
+
+    const top = byTitle(map, "Dashboard totals don't match the source system")
+    expect({ accounts: top.metrics.accounts, arr: top.metrics.arr, mentions: top.metrics.mentions }).toEqual({
+      accounts: 2,
+      arr: 550_000,
+      mentions: 2,
+    })
+    expect(top.quotes.map((q) => [q.account?.name, q.account?.arr])).toEqual([
+      ['Cobalt Insurance', 310_000],
+      ['Halcyon Bank', 240_000],
+    ])
+    expect(problemsOf(map).flatMap((p) => p.quotes.filter((q) => (q.account?.arr ?? 0) < 150_000))).toEqual([])
+  })
+
   test('an empty database loads as an empty map, not an error', async () => {
     const map = await rollbackAfter(async (tx) => {
       await tx.delete(workspace)
-      return loadOpportunityMap(tx)
+      return loadOpportunityMap(tx, DEFAULT_FILTER)
     })
     expect(map).toEqual({ kind: 'empty' })
   })
