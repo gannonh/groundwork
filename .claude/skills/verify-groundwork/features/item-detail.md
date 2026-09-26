@@ -21,7 +21,7 @@ Preconditions:
 - The zendesk import in [sources-new.md](./sources-new.md) has run.
 
 - **Redacted sentences.** Run `node $S/drive.mjs --name item-detail goto=/sources click-in-row="zendesk-500|500 items" click-in-row="Jane from Acme|Sep 11, 2026" expect-text="Ticket from Sep 11, 2026" expect-text="Please email me at [email] or call [phone]" snap=item`. Exit code 0. `item.aria.yml` shows `list "Sentences"` with three list items and `definition: No account`.
-- **Account appears after an account import.** After [accounts.md](./accounts.md) has run, run `node $S/drive.mjs --name item-account goto=/sources click-in-row="zendesk-500|500 items" click-in-row="Jane from Acme|Sep 11, 2026" expect-text="Driftwood Analytics" snap=item`. Exit code 0. Ticket 1001 belongs to ACC-004, so `item.aria.yml` shows `definition: Driftwood Analytics $384k`.
+- **Account appears after an account import.** This needs the [accounts.md](./accounts.md) import. Run `node $S/drive.mjs --name item-account goto=/sources click-in-row="zendesk-500|500 items" click-in-row="Jane from Acme|Sep 11, 2026" expect-text="Driftwood Analytics" snap=item`. Exit code 0. Ticket 1001 belongs to ACC-004, so `item.aria.yml` shows `definition: Driftwood Analytics $384k`.
 - **Data proof.** Save the output of `select se.ordinal, se.text from sentence se join item i on i.id = se.item_id where i.body like 'Hi, I''m Jane from Acme%' order by 1` to `item-detail/db.txt`. The stored sentences already carry `[email]` and `[phone]`.
 - **Missing.** Run `node $S/drive.mjs --name item-missing goto=/items/not-a-uuid expect-text="Item not found"`. Exit code 0.
 
