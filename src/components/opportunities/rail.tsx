@@ -224,7 +224,7 @@ function CheckboxOptions<K extends string>({
   onToggle: (key: K) => void
 }) {
   return options.map((option) => (
-    <label key={option.key} className="flex cursor-pointer items-center gap-2 py-0.75 text-ink-2">
+    <label key={option.key} className="flex cursor-pointer items-center gap-2 py-1.25 text-ink-2">
       <Checkbox
         checked={on === undefined || on.includes(option.key)}
         onCheckedChange={() => {

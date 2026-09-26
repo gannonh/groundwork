@@ -50,7 +50,7 @@ The app serves on http://localhost:3000.
 - `src/db/`: Postgres pool, Drizzle schema, migrate and seed scripts.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
 - `drizzle/`: generated SQL migrations.
-- `e2e/`: Playwright specs.
+- `e2e/`: Playwright specs. `axe.ts` holds `expectAccessible`, the WCAG 2.2 AA scan each spec runs at its key states, and the list of rules it skips with the reason for each.
 - `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
