@@ -69,8 +69,12 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
     [navigate],
   )
   const select = useCallback((id: OpportunityId | undefined) => void update({ ...CLOSED, selected: id }), [update])
-  const commitWeights = useCallback((next: Weights) => void update(next, true), [update])
-  const changeFilter = useCallback((patch: Partial<MapFilter>) => void update(patch), [update])
+  const commitWeights = useCallback((next: Partial<Weights>) => void update(next, true), [update])
+  const changeFilter = useCallback(
+    (change: (latest: MapFilter) => Partial<MapFilter>) =>
+      void navigate({ search: (prev) => ({ ...prev, ...change(filterOf(prev)) }), resetScroll: false }),
+    [navigate],
+  )
 
   const weights = useDraftWeights(urlWeights)
   const wide = useMediaQuery(WIDE, true)
