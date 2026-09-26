@@ -12,7 +12,9 @@ test('importing zendesk-500 lists 500 items and shows the jane ticket redacted',
   await expect(page.getByRole('combobox', { name: 'Date format' })).toHaveText('YYYY-MM-DD')
   await expect(page.getByText('Showing 20 of 500 rows')).toBeVisible()
   await page.getByRole('button', { name: 'Import 500 rows' }).click()
-  await expect(page.getByRole('status').filter({ hasText: 'Imported' })).toContainText(/Imported (500 items\. 0|0 items\. 500) duplicates skipped\./)
+  await expect(page.getByRole('status').filter({ hasText: 'Imported' })).toHaveText(
+    'Imported 500 items. 0 duplicates skipped. Open zendesk-500',
+  )
 
   await page.goto('/sources')
   const row = page.getByRole('row').filter({ hasText: 'zendesk-500' })
@@ -62,7 +64,9 @@ test('an empty file and a PNG renamed to .csv show an error and create no source
 test('importing accounts-60 lists the accounts with ARR, plan, and segment', async ({ page }) => {
   await page.goto('/accounts')
   await page.getByLabel(/^Account CSV/).setInputFiles('fixtures/exports/accounts-60.csv')
-  await expect(page.getByRole('status')).toContainText(/Imported 60 accounts \((60 new, 0|0 new, 60) updated\)\./)
+  await expect(page.getByRole('status')).toHaveText(
+    'Imported 60 accounts (60 new, 0 updated). Linked 450 items to their accounts.',
+  )
   await expect(page.getByRole('row').filter({ hasText: 'ACC-002' })).toHaveText(
     'ACC-002Brightline Analytics$114,000EnterpriseMid-market',
   )
