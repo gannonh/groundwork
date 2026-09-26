@@ -4,6 +4,9 @@
 // Steps run in order; the first failure snaps `failure` and exits 1:
 //   goto=/path             navigate to a path on the instance
 //   click=role/Name        click the element with that ARIA role and accessible name
+//   click-in-row=Text|Name click the link named Name inside the one table row that contains Text
+//   choose-file=Label|path set the file input labelled Label to a file (path relative to the repo root)
+//   select=Label|Option    open the Select (combobox) labelled Label and pick Option
 //   press=Key              press a key on the focused element (Tab, Enter, /)
 //   back=                  press the browser Back button
 //   expect-url=/path       assert the current path (and search) equals /path
@@ -15,7 +18,7 @@
 //   snap=label             write label.png and label.aria.yml to the evidence dir
 import { readFileSync, mkdirSync, appendFileSync, renameSync, rmSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { chromium, expect } from '@playwright/test'
 
 const root = execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd: import.meta.dirname, encoding: 'utf8' }).trim()
@@ -70,11 +73,34 @@ const snap = async (label) => {
   log(`snap ${label} -> ${join(out, label)}.{png,aria.yml}`)
 }
 
+const pair = (arg) => {
+  const bar = arg.indexOf('|')
+  if (bar === -1) throw new Error(`expected 'first|second', got '${arg}'`)
+  return [arg.slice(0, bar), arg.slice(bar + 1)]
+}
+
 const steps = {
   goto: (path) => page.goto(new URL(path, state.URL).href, { waitUntil: 'networkidle' }),
   click: (target) => {
     const slash = target.indexOf('/')
     return page.getByRole(target.slice(0, slash), { name: target.slice(slash + 1), exact: true }).click()
+  },
+  'click-in-row': (arg) => {
+    const [text, link] = pair(arg)
+    return page.getByRole('row').filter({ hasText: text }).getByRole('link', { name: link, exact: true }).click()
+  },
+  'choose-file': (arg) => {
+    const [label, path] = pair(arg)
+    return page.getByLabel(label).setInputFiles(resolve(root, path))
+  },
+  select: async (arg) => {
+    const [label, option] = pair(arg)
+    const select = page.getByRole('combobox', { name: label, exact: true })
+    await select.click()
+    await page.getByRole('option', { name: option, exact: true }).click()
+    // While the listbox is open, Radix hides the rest of the page from the accessibility tree.
+    await expect(page.getByRole('listbox')).toBeHidden()
+    await expect(select).toHaveText(option)
   },
   press: (key) => page.keyboard.press(key),
   back: () => page.goBack(),
