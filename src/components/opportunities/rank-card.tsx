@@ -1,6 +1,6 @@
-import { Link } from '@tanstack/react-router'
-import { useEffect, useId, useRef, type ReactNode } from 'react'
+import { memo, useEffect, useId, useRef, type ReactNode } from 'react'
 import type { Score } from '@/domain/rank'
+import type { OpportunityId } from '@/domain/types'
 import type { ProblemView } from '@/server/opportunity-map.server'
 import { formatDelta, formatUsd } from './format'
 import { LinkedPill, Pill, TrendPill } from './pill'
@@ -19,13 +19,31 @@ export type RankCardProps = {
   readonly score: Score
   readonly layout: Layout
   readonly selected: boolean
+  /** Where the card links: this problem selected, or in Stack, the expanded card closed. */
+  readonly href: string
+  /** Called for a plain click, with the selection `href` names. */
+  readonly onSelect: (id: OpportunityId | undefined) => void
   /** The line under the title. */
   readonly subtitle: string
   /** The inline detail, when the card is expanded in Stack. */
   readonly children?: ReactNode
 }
 
-export function RankCard({ problem, position, score, layout, selected, subtitle, children }: RankCardProps) {
+/**
+ * Memoized: a selection change re-renders only the cards it selects or deselects. A plain anchor rather than a router
+ * Link, because every Link rebuilds its location on each navigation, and that cost 12 rebuilds per click.
+ */
+export const RankCard = memo(function RankCard({
+  problem,
+  position,
+  score,
+  layout,
+  selected,
+  href,
+  onSelect,
+  subtitle,
+  children,
+}: RankCardProps) {
   const ref = useRef<HTMLDivElement>(null)
   const id = useId()
   useEffect(() => {
@@ -45,10 +63,13 @@ export function RankCard({ problem, position, score, layout, selected, subtitle,
             : 'border-primary shadow-[0_0_0_1px_var(--primary),0_4px_18px_rgba(79,70,229,.10)]'
       }`}
     >
-      <Link
-        to="/opportunities"
-        search={(prev) => ({ ...prev, selected: stack && selected ? undefined : problem.id })}
-        resetScroll={false}
+      <a
+        href={href}
+        onClick={(event) => {
+          if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+          event.preventDefault()
+          onSelect(stack && selected ? undefined : problem.id)
+        }}
         aria-current={selected && !stack ? 'page' : undefined}
         aria-expanded={stack ? selected : undefined}
         aria-labelledby={`${id}-title`}
@@ -81,11 +102,11 @@ export function RankCard({ problem, position, score, layout, selected, subtitle,
         <div className="text-right">
           <TrendPill delta={problem.metrics.delta} />
         </div>
-      </Link>
+      </a>
       {children}
     </div>
   )
-}
+})
 
 function describe(problem: ProblemView, score: Score): string {
   const { metrics } = problem

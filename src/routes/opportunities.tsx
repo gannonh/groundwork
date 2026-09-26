@@ -1,6 +1,6 @@
-import { Link, createFileRoute, stripSearchParams, useNavigate } from '@tanstack/react-router'
+import { Link, createFileRoute, deepEqual, stripSearchParams, useNavigate, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InlineDetail, MissingOpportunity, OpportunityDetail } from '@/components/opportunities/opportunity-detail'
 import { formatUsd } from '@/components/opportunities/format'
 import { useFlip, useMediaQuery } from '@/components/opportunities/hooks'
@@ -50,27 +50,48 @@ const WIDE = '(min-width: 1280px)'
 
 function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const search = Route.useSearch()
+  // Kept by value, so the memoized Rail gets the same props while only the selection changes.
+  const filter = useEqualValue(filterOf(search))
+  const urlWeights = useEqualValue(weightsOf(search))
   const navigate = useNavigate({ from: Route.fullPath })
-  const update = (patch: Partial<MapSearch>, replace = false) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }), replace, resetScroll: false })
+  const update = useCallback(
+    (patch: Partial<MapSearch>, replace = false) =>
+      navigate({ search: (prev) => ({ ...prev, ...patch }), replace, resetScroll: false }),
+    [navigate],
+  )
+  const select = useCallback((id: OpportunityId | undefined) => void update({ selected: id }), [update])
+  const commitWeights = useCallback((next: Weights) => void update(next, true), [update])
+  const changeFilter = useCallback((patch: Partial<EvidenceFilter>) => void update(patch), [update])
 
-  const weights = useDraftWeights(weightsOf(search))
+  const weights = useDraftWeights(urlWeights)
   const wide = useMediaQuery(WIDE, true)
   const layout: Layout = wide ? search.layout : 'stack'
   const [collapsed, setCollapsed] = useState<ReadonlySet<OpportunityId>>(new Set())
 
-  const ranked = rank(map.problems, weights.value)
-  const groups =
-    search.group === 'outcome'
-      ? groupRanked(ranked, (p) => p.outcome.id).flatMap(({ key, members }) => {
-          const outcome = map.outcomes.find((o) => o.id === key)
-          return outcome ? [{ outcome, members, open: !collapsed.has(key) }] : []
-        })
-      : null
+  const ranked = useMemo(() => rank(map.problems, weights.value), [map.problems, weights.value])
+  const groups = useMemo(
+    () =>
+      search.group === 'outcome'
+        ? groupRanked(ranked, (p) => p.outcome.id).flatMap(({ key, members }) => {
+            const outcome = map.outcomes.find((o) => o.id === key)
+            return outcome ? [{ outcome, members, open: !collapsed.has(key) }] : []
+          })
+        : null,
+    [ranked, search.group, map.outcomes, collapsed],
+  )
   const inDisplayOrder = groups ? groups.flatMap((g) => g.members) : ranked
   const visible = groups ? groups.flatMap((g) => (g.open ? g.members : [])) : ranked
   const selectedId = layout === 'split' ? (search.selected ?? inDisplayOrder[0]?.item.id) : search.selected
   const selected = ranked.find((r) => r.item.id === selectedId)
+
+  const router = useRouter()
+  const view = useEqualValue({ ...search, selected: undefined })
+  const hrefOf = useCallback(
+    (id: OpportunityId | undefined) =>
+      router.buildLocation({ to: '/opportunities', search: { ...view, selected: id } }).href,
+    [router, view],
+  )
+  const hrefs = useMemo(() => new Map(map.problems.map((p) => [p.id, hrefOf(p.id)])), [map.problems, hrefOf])
 
   const list = useRef<HTMLElement>(null)
   useFlip(list, ranked.map((r) => r.item.id).join(), `${search.group} ${layout}`)
@@ -88,6 +109,8 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
           score={r.score}
           layout={layout}
           selected={isSelected}
+          href={(layout === 'stack' && isSelected ? hrefOf(undefined) : hrefs.get(r.item.id)) ?? hrefOf(r.item.id)}
+          onSelect={select}
           subtitle={
             groups
               ? `${String(r.item.metrics.accounts)} accounts · ${String(r.item.metrics.mentions)} mentions`
@@ -106,10 +129,10 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
       <Rail
         weights={weights.value}
         onWeightsInput={weights.setDraft}
-        onWeightsCommit={(next) => void update(next, true)}
-        filter={filterOf(search)}
+        onWeightsCommit={commitWeights}
+        filter={filter}
         sources={map.sources}
-        onFilterChange={(patch: Partial<EvidenceFilter>) => void update(patch)}
+        onFilterChange={changeFilter}
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="flex items-center gap-3 border-b px-7 py-3">
@@ -226,12 +249,18 @@ function useDraftWeights(url: Weights) {
   const key = FACTORS.map((f) => url[f]).join()
   const [draft, setDraft] = useState({ key, weights: url })
   if (draft.key !== key) setDraft({ key, weights: url })
-  return {
-    value: draft.key === key ? draft.weights : url,
-    setDraft: (weights: Weights) => {
-      setDraft({ key, weights })
-    },
-  }
+  const setWeights = useCallback((weights: Weights) => {
+    setDraft((prev) => ({ key: prev.key, weights }))
+  }, [])
+  return { value: draft.key === key ? draft.weights : url, setDraft: setWeights }
+}
+
+/** `value`, or the previous render's value while the two are deep-equal. */
+function useEqualValue<T>(value: T): T {
+  const [kept, setKept] = useState(value)
+  if (kept === value || deepEqual(kept, value)) return kept
+  setKept(value)
+  return value
 }
 
 /** j/ArrowDown and k/ArrowUp move the selection through `cards` in display order. */

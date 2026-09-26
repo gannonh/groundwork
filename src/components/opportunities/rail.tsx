@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, type ReactNode } from 'react'
+import { memo, useEffect, useId, useRef, type ReactNode } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
@@ -19,7 +19,15 @@ export type RailProps = {
   readonly onFilterChange: (patch: Partial<EvidenceFilter>) => void
 }
 
-export function Rail({ weights, onWeightsInput, onWeightsCommit, filter, sources, onFilterChange }: RailProps) {
+/** Memoized: selection, grouping, and layout changes do not re-render the rail's controls. */
+export const Rail = memo(function Rail({
+  weights,
+  onWeightsInput,
+  onWeightsCommit,
+  filter,
+  sources,
+  onFilterChange,
+}: RailProps) {
   return (
     <aside
       aria-label="Ranking and filters"
@@ -83,7 +91,7 @@ export function Rail({ weights, onWeightsInput, onWeightsCommit, filter, sources
       </FilterGroup>
     </aside>
   )
-}
+})
 
 function RailHeading({ className = '', children }: { className?: string; children: ReactNode }) {
   return (
