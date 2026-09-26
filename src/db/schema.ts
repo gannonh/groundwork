@@ -15,19 +15,21 @@ import {
   unique,
   uuid,
 } from 'drizzle-orm/pg-core'
-import type {
-  AccountId,
-  Confidence,
-  ItemId,
-  MentionId,
-  OpportunityId,
-  PackId,
-  RawText,
-  RedactedText,
-  SourceId,
-  Usd,
-  WorkspaceId,
+import {
+  ITEM_KINDS,
+  type AccountId,
+  type Confidence,
+  type ItemId,
+  type MentionId,
+  type OpportunityId,
+  type PackId,
+  type RawText,
+  type RedactedText,
+  type SourceId,
+  type Usd,
+  type WorkspaceId,
 } from '../domain/types.ts'
+import type { ColumnMapping } from '../ingest/mapping.ts'
 
 const tz = { withTimezone: true } as const
 const pk = <T extends string>() => uuid('id').$type<T>().primaryKey().default(sql`uuidv7()`)
@@ -36,7 +38,7 @@ const createdAt = () => timestamp('created_at', tz).notNull().defaultNow()
 const PINNED_MODEL = String.raw`'^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'`
 
 export const opportunityKind = pgEnum('opportunity_kind', ['outcome', 'problem', 'solution'])
-export const itemKind = pgEnum('item_kind', ['ticket', 'call', 'survey_response', 'review', 'interview'])
+export const itemKind = pgEnum('item_kind', ITEM_KINDS)
 export const sourceKind = pgEnum('source_kind', ['upload'])
 export const speakerRole = pgEnum('speaker_role', ['end_user', 'admin', 'buyer', 'executive', 'unknown'])
 export const judgeBackend = pgEnum('judge_backend', ['recorded', 'jev', 'llm'])
@@ -107,19 +109,24 @@ export const account = pgTable(
   ],
 )
 
-export const source = pgTable('source', {
-  id: pk<SourceId>(),
-  workspaceId: uuid('workspace_id')
-    .$type<WorkspaceId>()
-    .notNull()
-    .references(() => workspace.id, { onDelete: 'cascade' }),
-  kind: sourceKind('kind').notNull(),
-  name: text('name').notNull(),
-  itemKind: itemKind('item_kind').notNull(),
-  fieldMapping: jsonb('field_mapping').$type<Readonly<Record<string, string>>>().notNull().default({}),
-  cursor: text('cursor'),
-  createdAt: createdAt(),
-})
+export const source = pgTable(
+  'source',
+  {
+    id: pk<SourceId>(),
+    workspaceId: uuid('workspace_id')
+      .$type<WorkspaceId>()
+      .notNull()
+      .references(() => workspace.id, { onDelete: 'cascade' }),
+    kind: sourceKind('kind').notNull(),
+    name: text('name').notNull(),
+    itemKind: itemKind('item_kind').notNull(),
+    shape: text('shape'),
+    fieldMapping: jsonb('field_mapping').$type<ColumnMapping>(),
+    cursor: text('cursor'),
+    createdAt: createdAt(),
+  },
+  (t) => [unique('source_shape_key').on(t.workspaceId, t.shape)],
+)
 
 export const item = pgTable(
   'item',
@@ -137,6 +144,7 @@ export const item = pgTable(
     externalId: text('external_id').notNull(),
     body: text('body').$type<RawText>().notNull(),
     occurredAt: timestamp('occurred_at', tz).notNull(),
+    accountRef: text('account_ref'),
     accountId: uuid('account_id')
       .$type<AccountId>()
       .references(() => account.id, { onDelete: 'set null' }),

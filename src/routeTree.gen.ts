@@ -13,10 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountsRouteImport } from './routes/accounts'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
 import { Route as PacksRouteImport } from './routes/packs'
-import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as TriageRouteImport } from './routes/triage'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as ItemsIdRouteImport } from './routes/items.$id'
 import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
+import { Route as SourcesIndexRouteImport } from './routes/sources.index'
+import { Route as SourcesIdRouteImport } from './routes/sources.$id'
+import { Route as SourcesNewRouteImport } from './routes/sources.new'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,11 +41,6 @@ const PacksRoute = PacksRouteImport.update({
   path: '/packs',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SourcesRoute = SourcesRouteImport.update({
-  id: '/sources',
-  path: '/sources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TriageRoute = TriageRouteImport.update({
   id: '/triage',
   path: '/triage',
@@ -53,10 +51,30 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ItemsIdRoute = ItemsIdRouteImport.update({
+  id: '/items/$id',
+  path: '/items/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => OpportunitiesRoute,
+} as any)
+const SourcesIndexRoute = SourcesIndexRouteImport.update({
+  id: '/sources/',
+  path: '/sources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourcesIdRoute = SourcesIdRouteImport.update({
+  id: '/sources/$id',
+  path: '/sources/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourcesNewRoute = SourcesNewRouteImport.update({
+  id: '/sources/new',
+  path: '/sources/new',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -64,19 +82,25 @@ export interface FileRoutesByFullPath {
   '/accounts': typeof AccountsRoute
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/packs': typeof PacksRoute
-  '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/sources/$id': typeof SourcesIdRoute
+  '/sources/new': typeof SourcesNewRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
+  '/sources/': typeof SourcesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
   '/packs': typeof PacksRoute
-  '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/sources/$id': typeof SourcesIdRoute
+  '/sources/new': typeof SourcesNewRoute
   '/opportunities': typeof OpportunitiesIndexRoute
+  '/sources': typeof SourcesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -84,10 +108,13 @@ export interface FileRoutesById {
   '/accounts': typeof AccountsRoute
   '/opportunities': typeof OpportunitiesRouteWithChildren
   '/packs': typeof PacksRoute
-  '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/items/$id': typeof ItemsIdRoute
+  '/sources/$id': typeof SourcesIdRoute
+  '/sources/new': typeof SourcesNewRoute
   '/opportunities/': typeof OpportunitiesIndexRoute
+  '/sources/': typeof SourcesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,29 +123,38 @@ export interface FileRouteTypes {
     | '/accounts'
     | '/opportunities'
     | '/packs'
-    | '/sources'
     | '/triage'
     | '/api/health'
+    | '/items/$id'
+    | '/sources/$id'
+    | '/sources/new'
     | '/opportunities/'
+    | '/sources/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/accounts'
     | '/packs'
-    | '/sources'
     | '/triage'
     | '/api/health'
+    | '/items/$id'
+    | '/sources/$id'
+    | '/sources/new'
     | '/opportunities'
+    | '/sources'
   id:
     | '__root__'
     | '/'
     | '/accounts'
     | '/opportunities'
     | '/packs'
-    | '/sources'
     | '/triage'
     | '/api/health'
+    | '/items/$id'
+    | '/sources/$id'
+    | '/sources/new'
     | '/opportunities/'
+    | '/sources/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -126,9 +162,12 @@ export interface RootRouteChildren {
   AccountsRoute: typeof AccountsRoute
   OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
   PacksRoute: typeof PacksRoute
-  SourcesRoute: typeof SourcesRoute
   TriageRoute: typeof TriageRoute
   ApiHealthRoute: typeof ApiHealthRoute
+  ItemsIdRoute: typeof ItemsIdRoute
+  SourcesIdRoute: typeof SourcesIdRoute
+  SourcesNewRoute: typeof SourcesNewRoute
+  SourcesIndexRoute: typeof SourcesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -161,13 +200,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PacksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sources': {
-      id: '/sources'
-      path: '/sources'
-      fullPath: '/sources'
-      preLoaderRoute: typeof SourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/triage': {
       id: '/triage'
       path: '/triage'
@@ -182,12 +214,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/items/$id': {
+      id: '/items/$id'
+      path: '/items/$id'
+      fullPath: '/items/$id'
+      preLoaderRoute: typeof ItemsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/opportunities/': {
       id: '/opportunities/'
       path: '/'
       fullPath: '/opportunities/'
       preLoaderRoute: typeof OpportunitiesIndexRouteImport
       parentRoute: typeof OpportunitiesRoute
+    }
+    '/sources/': {
+      id: '/sources/'
+      path: '/sources'
+      fullPath: '/sources/'
+      preLoaderRoute: typeof SourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sources/$id': {
+      id: '/sources/$id'
+      path: '/sources/$id'
+      fullPath: '/sources/$id'
+      preLoaderRoute: typeof SourcesIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sources/new': {
+      id: '/sources/new'
+      path: '/sources/new'
+      fullPath: '/sources/new'
+      preLoaderRoute: typeof SourcesNewRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -209,9 +269,12 @@ const rootRouteChildren: RootRouteChildren = {
   AccountsRoute: AccountsRoute,
   OpportunitiesRoute: OpportunitiesRouteWithChildren,
   PacksRoute: PacksRoute,
-  SourcesRoute: SourcesRoute,
   TriageRoute: TriageRoute,
   ApiHealthRoute: ApiHealthRoute,
+  ItemsIdRoute: ItemsIdRoute,
+  SourcesIdRoute: SourcesIdRoute,
+  SourcesNewRoute: SourcesNewRoute,
+  SourcesIndexRoute: SourcesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

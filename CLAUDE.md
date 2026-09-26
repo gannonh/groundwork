@@ -40,20 +40,23 @@ The app serves on http://localhost:3000.
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |
 | `pnpm db:seed` | Replaces the Acme Analytics demo workspace with prototype D's data. Safe to rerun. |
+| `pnpm fixtures:generate` | Rewrites the import fixtures in `fixtures/exports/`. `node scripts/generate-fixtures.ts --rows N --out path` writes an N-row Zendesk-shaped file for perf runs. |
 
 `dev`, `start`, `test`, `db:migrate`, and `db:seed` read `.env` when it exists.
 
 ### Layout
 
 - `src/routes/`: file routes. `opportunities.tsx` is the map, and its index child route `opportunities.index.tsx` owns the evidence sheet. `src/routes/api/` holds server routes.
-- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, evidence sheet, rail, sparklines, and trend bars, `map-links.tsx` (plain anchors to the current map view), and `search.ts`, the zod schema for the map's URL search params. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
-- `src/domain/`: pure domain code: branded types, `computeMetrics`, `rank` and its presets, `filterEvidence`, quote selection, and sentence splitting. No database or React imports.
-- `src/server/`: server-only screen loaders (`*.server.ts`) that query the database and build view models for a route's server function.
-- `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/` and `src/domain/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
+- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, evidence sheet, rail, sparklines, and trend bars, `map-links.tsx` (plain anchors to the current map view), and `search.ts`, the zod schema for the map's URL search params. `src/components/sources/` holds the import screens' file field, notices, redaction pills, and formatters. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
+- `src/domain/`: pure domain code: branded types, `computeMetrics`, `rank` and its presets, `filterEvidence`, and quote selection. No database or React imports.
+- `src/ingest/`: pure import code shared by the browser preview and the server import: CSV parsing, column mapping and date parsing, account parsing, redaction, and sentence splitting. No database, React, or `node:` imports.
+- `src/server/`: server-only code (`*.server.ts`): screen loaders that query the database and build view models for a route's server function, and `ingest.server.ts`, which writes item and account imports.
+- `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/`, `src/domain/`, and `src/ingest/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
 - `drizzle/`: generated SQL migrations.
+- `fixtures/exports/`: generated CSV exports for tests and live checks: `zendesk-500.csv`, `nps-300.csv` (DD/MM/YYYY dates), and `accounts-60.csv`.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
+- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.

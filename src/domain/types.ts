@@ -27,6 +27,8 @@ export type RawText = Brand<string, 'RawText'>
 export type PainLevel = 0 | 1 | 2 | 3
 export const PAIN_LEVELS: readonly PainLevel[] = [0, 1, 2, 3]
 export type SpeakerRole = 'end_user' | 'admin' | 'buyer' | 'executive' | 'unknown'
+export const ITEM_KINDS = ['ticket', 'call', 'survey_response', 'review', 'interview'] as const
+export type ItemKind = (typeof ITEM_KINDS)[number]
 export type NonEmptyArray<T> = readonly [T, ...T[]]
 
 export type Opportunity =

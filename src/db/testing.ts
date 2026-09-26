@@ -1,6 +1,9 @@
+import { randomUUID } from 'node:crypto'
 import { DrizzleQueryError, TransactionRollbackError } from 'drizzle-orm'
 import pg from 'pg'
+import type { WorkspaceId } from '../domain/types.ts'
 import { db, type Db } from './client.ts'
+import { workspace } from './schema.ts'
 
 /** Runs `work` in a transaction that is always rolled back, and returns its result. */
 export async function rollbackAfter<T>(work: (tx: Db) => Promise<T>): Promise<T> {
@@ -29,4 +32,10 @@ export async function violatedConstraint(tx: Db, work: (savepoint: Db) => Promis
     if (cause instanceof pg.DatabaseError && cause.constraint) return cause.constraint
     throw error
   }
+}
+
+export async function insertWorkspace(tx: Db): Promise<WorkspaceId> {
+  const [row] = await tx.insert(workspace).values({ slug: `test-${randomUUID()}`, name: 'Test workspace' }).returning({ id: workspace.id })
+  if (!row) throw new Error('the workspace insert returned no row')
+  return row.id
 }
