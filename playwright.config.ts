@@ -9,7 +9,8 @@ export default defineConfig({
   webServer: {
     command: 'pnpm start',
     url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
+    // `pnpm e2e` points the server at its own database, so a server already on the port would test the wrong one.
+    reuseExistingServer: false,
     // pnpm starts the server in its own process group, so the default SIGKILL orphans it and Playwright hangs on its open pipe.
     gracefulShutdown: { signal: 'SIGTERM', timeout: 5000 },
   },

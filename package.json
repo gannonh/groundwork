@@ -12,7 +12,7 @@
     "start": "node --env-file-if-exists=.env .output/server/index.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "e2e": "playwright test",
+    "e2e": "node --env-file-if-exists=.env scripts/e2e.ts",
     "test": "node --env-file-if-exists=.env node_modules/vitest/vitest.mjs run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "node --env-file-if-exists=.env src/db/migrate.ts",

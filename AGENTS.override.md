@@ -36,7 +36,7 @@ The app serves on http://localhost:3000.
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |
-| `pnpm e2e` | Playwright against `pnpm start`. Run `pnpm build` first. |
+| `pnpm e2e` | Playwright against `pnpm start` on a fresh, seeded database that it drops afterward. Extra arguments go to `playwright test`. Run `pnpm build` first. |
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |
 | `pnpm db:seed` | Seeds the database. |
@@ -51,7 +51,7 @@ The app serves on http://localhost:3000.
 - `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
 - `drizzle/`: generated SQL migrations.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.

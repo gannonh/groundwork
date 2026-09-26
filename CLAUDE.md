@@ -36,7 +36,7 @@ The app serves on http://localhost:3000.
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |
-| `pnpm e2e` | Playwright against `pnpm start`. Run `pnpm build` first. |
+| `pnpm e2e` | Playwright against `pnpm start` on a fresh, seeded database that it drops afterward. Extra arguments go to `playwright test`. Run `pnpm build` first. |
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |
 | `pnpm db:seed` | Replaces the Acme Analytics demo workspace with prototype D's data. Safe to rerun. |
@@ -56,7 +56,7 @@ The app serves on http://localhost:3000.
 - `drizzle/`: generated SQL migrations.
 - `fixtures/exports/`: generated CSV exports for tests and live checks: `zendesk-500.csv`, `nps-300.csv` (DD/MM/YYYY dates), and `accounts-60.csv`.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
