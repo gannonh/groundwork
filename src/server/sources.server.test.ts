@@ -4,7 +4,7 @@ import { and, eq, like } from 'drizzle-orm'
 import { afterAll, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import * as t from '@/db/schema'
-import { rollbackAfter } from '@/db/testing'
+import { insertWorkspace, rollbackAfter } from '@/db/testing'
 import { importAccounts, importItems } from './ingest.server'
 import { loadAccounts, loadItem, loadSource, loadSources } from './sources.server'
 
@@ -14,13 +14,14 @@ afterAll(() => pool.end())
 
 test('the sources, source, item, and accounts screens read imported data without the raw text', async () => {
   const result = await rollbackAfter(async (tx) => {
-    await importAccounts(tx, fixture('accounts-60.csv'))
+    const ws = await insertWorkspace(tx)
+    await importAccounts(tx, fixture('accounts-60.csv'), ws)
     const imported = await importItems(tx, {
       fileName: 'zendesk-500.csv',
       bytes: fixture('zendesk-500.csv'),
       mapping: { text: 'Description', date: 'Created at', dateFormat: 'YYYY-MM-DD', account: 'Organization ID', author: 'Requester role' },
       itemKind: 'ticket',
-    })
+    }, ws)
     if (imported.kind !== 'imported') throw new Error(imported.message)
     const [jane] = await tx
       .select({ id: t.item.id })
@@ -28,29 +29,23 @@ test('the sources, source, item, and accounts screens read imported data without
       .where(and(eq(t.item.sourceId, imported.sourceId), like(t.item.body, '%jane@acme.com%')))
     if (!jane) throw new Error('no jane item')
 
-    const sources = await loadSources(tx)
-    const source = await loadSource(tx, imported.sourceId)
-    const item = await loadItem(tx, jane.id)
-    const accounts = await loadAccounts(tx)
+    const sources = await loadSources(tx, ws)
+    const source = await loadSource(tx, imported.sourceId, ws)
+    const item = await loadItem(tx, jane.id, ws)
+    const accounts = await loadAccounts(tx, ws)
     return {
       sources: sources.map(({ name, itemKind, items }) => ({ name, itemKind, items })),
       source: source.kind === 'ready' ? { items: source.source.items, recent: source.recent.length, mapping: source.source.mapping } : source,
       item: item.kind === 'ready' ? { ...item.item, id: undefined, source: item.item.source.name } : item,
       acc002: accounts.find((a) => a.externalId === 'ACC-002'),
-      imported60: accounts.filter((a) => a.externalId.startsWith('ACC-')).length,
+      accounts: accounts.length,
       leaks: JSON.stringify({ sources, source, item }).includes('jane@acme.com'),
-      missing: await loadItem(tx, '00000000-0000-0000-0000-000000000000' as typeof jane.id),
+      missing: await loadItem(tx, '00000000-0000-0000-0000-000000000000' as typeof jane.id, ws),
+      otherWorkspace: (await loadItem(tx, jane.id)).kind,
     }
   })
 
-  expect(result.sources).toEqual([
-    { name: 'zendesk-500', itemKind: 'ticket', items: 500 },
-    { name: 'G2', itemKind: 'review', items: expect.any(Number) as unknown },
-    { name: 'Gong', itemKind: 'call', items: expect.any(Number) as unknown },
-    { name: 'Interviews', itemKind: 'interview', items: expect.any(Number) as unknown },
-    { name: 'NPS', itemKind: 'survey_response', items: expect.any(Number) as unknown },
-    { name: 'Zendesk', itemKind: 'ticket', items: expect.any(Number) as unknown },
-  ])
+  expect(result.sources).toEqual([{ name: 'zendesk-500', itemKind: 'ticket', items: 500 }])
   expect(result.source).toEqual({
     items: 500,
     recent: 100,
@@ -69,7 +64,8 @@ test('the sources, source, item, and accounts screens read imported data without
     ],
   })
   expect(result.acc002).toMatchObject({ name: 'Brightline Analytics', arr: 114000, plan: 'Enterprise', segment: 'Mid-market' })
-  expect(result.imported60).toBe(60)
+  expect(result.accounts).toBe(60)
+  expect(result.otherWorkspace).toBe('missing')
   expect(result.leaks).toBe(false)
   expect(result.missing).toEqual({ kind: 'missing' })
 })

@@ -4,8 +4,10 @@ import { and, count, eq, isNotNull, like, or } from 'drizzle-orm'
 import { afterAll, describe, expect, test } from 'vitest'
 import { pool, type Db } from '@/db/client'
 import * as t from '@/db/schema'
-import { rollbackAfter } from '@/db/testing'
-import type { SourceId } from '@/domain/types'
+import { buildSeed, SEED_WORKSPACE_ID } from '@/db/seed/build'
+import { writeSeed } from '@/db/seed/write'
+import { insertWorkspace, rollbackAfter } from '@/db/testing'
+import type { SourceId, WorkspaceId } from '@/domain/types'
 import type { ColumnMapping } from '@/ingest/mapping'
 import { loadOpportunityMap } from './opportunity-map.server'
 import { importAccounts, importItems, rememberedMapping } from './ingest.server'
@@ -23,15 +25,17 @@ const ZENDESK_MAPPING: ColumnMapping = {
 }
 const NPS_MAPPING: ColumnMapping = { text: 'Comment', date: 'Submitted', dateFormat: 'DD/MM/YYYY', account: 'Account', author: null }
 
-const importZendesk = (db: Db) =>
-  importItems(db, { fileName: 'zendesk-500.csv', bytes: ZENDESK, mapping: ZENDESK_MAPPING, itemKind: 'ticket' })
+const importZendesk = (db: Db, ws: WorkspaceId) =>
+  importItems(db, { fileName: 'zendesk-500.csv', bytes: ZENDESK, mapping: ZENDESK_MAPPING, itemKind: 'ticket' }, ws)
+const importNps = (db: Db, ws: WorkspaceId, mapping = NPS_MAPPING) =>
+  importItems(db, { fileName: 'nps-300.csv', bytes: NPS, mapping, itemKind: 'survey_response' }, ws)
 
 async function itemCount(db: Db, sourceId: SourceId, where = eq(t.item.sourceId, sourceId)) {
   const [row] = await db.select({ n: count() }).from(t.item).where(where)
   return row?.n
 }
-async function sourceCount(db: Db) {
-  const [row] = await db.select({ n: count() }).from(t.source)
+async function sourceCount(db: Db, ws: WorkspaceId) {
+  const [row] = await db.select({ n: count() }).from(t.source).where(eq(t.source.workspaceId, ws))
   return row?.n
 }
 function imported<R extends { kind: string }>(result: R): Extract<R, { kind: 'imported' }> {
@@ -44,8 +48,9 @@ afterAll(() => pool.end())
 describe('importItems', () => {
   test('imports 500 tickets, then skips all 500 as duplicates on a second upload', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const first = imported(await importZendesk(tx))
-      const second = imported(await importZendesk(tx))
+      const ws = await insertWorkspace(tx)
+      const first = imported(await importZendesk(tx, ws))
+      const second = imported(await importZendesk(tx, ws))
       return { first, second, sameSource: first.sourceId === second.sourceId, items: await itemCount(tx, first.sourceId) }
     })
     expect(result).toMatchObject({
@@ -58,7 +63,8 @@ describe('importItems', () => {
 
   test('stores redacted sentences and keeps the address only in the raw body', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const { sourceId } = imported(await importZendesk(tx))
+      const ws = await insertWorkspace(tx)
+      const { sourceId } = imported(await importZendesk(tx, ws))
       const [jane] = await tx
         .select({ id: t.item.id, role: t.item.authorRole, accountRef: t.item.accountRef })
         .from(t.item)
@@ -103,24 +109,21 @@ describe('importItems', () => {
     ],
   ])('%s is an error and creates no source', async (_name, bytes, message) => {
     const result = await rollbackAfter(async (tx) => {
-      const before = await sourceCount(tx)
-      const outcome = await importItems(tx, { fileName: 'bad.csv', bytes, mapping: ZENDESK_MAPPING, itemKind: 'ticket' })
-      return { outcome, added: (await sourceCount(tx) ?? 0) - (before ?? 0) }
+      const ws = await insertWorkspace(tx)
+      const before = await sourceCount(tx, ws)
+      const outcome = await importItems(tx, { fileName: 'bad.csv', bytes, mapping: ZENDESK_MAPPING, itemKind: 'ticket' }, ws)
+      return { outcome, added: (await sourceCount(tx, ws) ?? 0) - (before ?? 0) }
     })
     expect(result).toEqual({ outcome: { kind: 'error', message }, added: 0 })
   })
 
   test('reads DD/MM/YYYY NPS dates, and refuses the file when told they are MM/DD/YYYY', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const before = await sourceCount(tx)
-      const wrong = await importItems(tx, {
-        fileName: 'nps-300.csv',
-        bytes: NPS,
-        mapping: { ...NPS_MAPPING, dateFormat: 'MM/DD/YYYY' },
-        itemKind: 'survey_response',
-      })
-      const afterWrong = await sourceCount(tx)
-      const right = imported(await importItems(tx, { fileName: 'nps-300.csv', bytes: NPS, mapping: NPS_MAPPING, itemKind: 'survey_response' }))
+      const ws = await insertWorkspace(tx)
+      const before = await sourceCount(tx, ws)
+      const wrong = await importNps(tx, ws, { ...NPS_MAPPING, dateFormat: 'MM/DD/YYYY' })
+      const afterWrong = await sourceCount(tx, ws)
+      const right = imported(await importNps(tx, ws))
       const [first] = await tx
         .select({ occurredAt: t.item.occurredAt })
         .from(t.item)
@@ -143,9 +146,10 @@ describe('importItems', () => {
 
   test('remembers the mapping for a file with the same columns', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const before = await rememberedMapping(tx, ['Ticket ID', 'Created at', 'Subject', 'Description', 'Requester role', 'Organization ID'])
-      await importZendesk(tx)
-      const after = await rememberedMapping(tx, ['ticket id', 'Created At', 'Subject', 'Description', 'Requester Role', 'organization id'])
+      const ws = await insertWorkspace(tx)
+      const before = await rememberedMapping(tx, ['Ticket ID', 'Created at', 'Subject', 'Description', 'Requester role', 'Organization ID'], ws)
+      await importZendesk(tx, ws)
+      const after = await rememberedMapping(tx, ['ticket id', 'Created At', 'Subject', 'Description', 'Requester Role', 'organization id'], ws)
       return { before, after }
     })
     expect(result).toEqual({ before: null, after: { sourceName: 'zendesk-500', mapping: ZENDESK_MAPPING, itemKind: 'ticket' } })
@@ -155,16 +159,17 @@ describe('importItems', () => {
 describe('importAccounts', () => {
   test('creates 60 accounts, links earlier items by account ID, and updates on a second upload', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const { sourceId } = imported(await importZendesk(tx))
-      const first = await importAccounts(tx, ACCOUNTS)
-      const second = await importAccounts(tx, ACCOUNTS)
+      const ws = await insertWorkspace(tx)
+      const { sourceId } = imported(await importZendesk(tx, ws))
+      const first = await importAccounts(tx, ACCOUNTS, ws)
+      const second = await importAccounts(tx, ACCOUNTS, ws)
       const linked = await itemCount(tx, sourceId, and(eq(t.item.sourceId, sourceId), isNotNull(t.item.accountId)))
-      const nps = imported(await importItems(tx, { fileName: 'nps-300.csv', bytes: NPS, mapping: NPS_MAPPING, itemKind: 'survey_response' }))
+      const nps = imported(await importNps(tx, ws))
       const npsLinked = await itemCount(tx, nps.sourceId, and(eq(t.item.sourceId, nps.sourceId), isNotNull(t.item.accountId)))
       const [acme] = await tx
         .select({ name: t.account.name, arr: t.account.arr, plan: t.account.plan, segment: t.account.segment })
         .from(t.account)
-        .where(eq(t.account.externalId, 'ACC-002'))
+        .where(and(eq(t.account.workspaceId, ws), eq(t.account.externalId, 'ACC-002')))
       return { first, second, linked, npsLinked, acme }
     })
     expect(result).toEqual({
@@ -178,11 +183,13 @@ describe('importAccounts', () => {
 
   test('leaves the seeded opportunity map unchanged', async () => {
     const result = await rollbackAfter(async (tx) => {
-      const before = await loadOpportunityMap(tx)
-      await importZendesk(tx)
-      await importAccounts(tx, ACCOUNTS)
-      await importItems(tx, { fileName: 'nps-300.csv', bytes: NPS, mapping: NPS_MAPPING, itemKind: 'survey_response' })
-      return { before, after: await loadOpportunityMap(tx) }
+      // Rewriting the seed first locks its workspace row, which serializes this test with seed.test.ts.
+      await writeSeed(tx, buildSeed())
+      const before = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      await importZendesk(tx, SEED_WORKSPACE_ID)
+      await importAccounts(tx, ACCOUNTS, SEED_WORKSPACE_ID)
+      await importNps(tx, SEED_WORKSPACE_ID)
+      return { before, after: await loadOpportunityMap(tx, SEED_WORKSPACE_ID) }
     })
     expect(result.after).toEqual(result.before)
     expect(result.before.kind).toBe('ready')

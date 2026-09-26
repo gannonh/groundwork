@@ -1,11 +1,12 @@
 import { and, asc, count, desc, eq } from 'drizzle-orm'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
-import type { AccountId, IsoDate, ItemId, ItemKind, RedactedText, SourceId, SpeakerRole, Usd } from '@/domain/types'
+import type { AccountId, IsoDate, ItemId, ItemKind, RedactedText, SourceId, SpeakerRole, Usd, WorkspaceId } from '@/domain/types'
 import type { ColumnMapping } from '@/ingest/mapping'
 import { findWorkspace } from './ingest.server'
 
-// These loaders never select item.body: only redacted sentence text leaves the server.
+// These loaders read the given workspace, else the oldest. They never select item.body: only redacted sentence text
+// leaves the server.
 
 export type SourceRow = {
   readonly id: SourceId
@@ -67,8 +68,8 @@ const sourceColumns = {
 }
 
 /** Every source in the workspace with its item count, newest first. */
-export async function loadSources(db: Db): Promise<readonly SourceRow[]> {
-  const workspaceId = await findWorkspace(db)
+export async function loadSources(db: Db, workspace?: WorkspaceId): Promise<readonly SourceRow[]> {
+  const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return []
   const rows = await db
     .select(sourceColumns)
@@ -80,8 +81,8 @@ export async function loadSources(db: Db): Promise<readonly SourceRow[]> {
   return rows.map((row) => ({ ...row, createdAt: isoDate(row.createdAt) }))
 }
 
-export async function loadSource(db: Db, id: SourceId): Promise<SourceDetail> {
-  const workspaceId = await findWorkspace(db)
+export async function loadSource(db: Db, id: SourceId, workspace?: WorkspaceId): Promise<SourceDetail> {
+  const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return { kind: 'missing' }
   const [source] = await db
     .select({ ...sourceColumns, mapping: t.source.fieldMapping })
@@ -111,8 +112,8 @@ export async function loadSource(db: Db, id: SourceId): Promise<SourceDetail> {
   }
 }
 
-export async function loadItem(db: Db, id: ItemId): Promise<ItemDetail> {
-  const workspaceId = await findWorkspace(db)
+export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Promise<ItemDetail> {
+  const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return { kind: 'missing' }
   const [row] = await db
     .select({
@@ -149,8 +150,8 @@ export async function loadItem(db: Db, id: ItemId): Promise<ItemDetail> {
 }
 
 /** Highest ARR first. */
-export async function loadAccounts(db: Db): Promise<readonly AccountRow[]> {
-  const workspaceId = await findWorkspace(db)
+export async function loadAccounts(db: Db, workspace?: WorkspaceId): Promise<readonly AccountRow[]> {
+  const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return []
   return db
     .select({

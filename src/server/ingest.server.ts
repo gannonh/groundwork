@@ -39,7 +39,7 @@ export async function findWorkspace(db: Db): Promise<WorkspaceId | null> {
   return ws?.id ?? null
 }
 
-/** The workspace imports write to, created on the first import. */
+/** The workspace imports write to when the caller names none, created on the first import. */
 export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
   const found = await findWorkspace(db)
   if (found) return found
@@ -61,6 +61,7 @@ export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
 export async function importItems(
   db: Db,
   input: { readonly fileName: string; readonly bytes: Uint8Array; readonly mapping: ColumnMapping; readonly itemKind: ItemKind },
+  workspace?: WorkspaceId,
 ): Promise<ItemImportResult> {
   const table = parseCsv(input.bytes)
   if (!table.ok) return { kind: 'error', message: table.error }
@@ -70,7 +71,7 @@ export async function importItems(
   const byKey = new Map<string, ItemDraft>(drafts.map((draft) => [rowKey(draft.cells), draft]))
 
   return db.transaction(async (tx) => {
-    const workspaceId = await currentWorkspace(tx)
+    const workspaceId = workspace ?? (await currentWorkspace(tx))
     const [source] = await tx
       .insert(t.source)
       .values({
@@ -138,7 +139,7 @@ export async function importItems(
 }
 
 /** Creates or updates accounts by ID, then links items that named those IDs before the accounts existed. */
-export async function importAccounts(db: Db, bytes: Uint8Array): Promise<AccountImportResult> {
+export async function importAccounts(db: Db, bytes: Uint8Array, workspace?: WorkspaceId): Promise<AccountImportResult> {
   const table = parseCsv(bytes)
   if (!table.ok) return { kind: 'error', message: table.error }
   const parsed = parseAccounts(table.value)
@@ -146,7 +147,7 @@ export async function importAccounts(db: Db, bytes: Uint8Array): Promise<Account
   const drafts = parsed.value
 
   return db.transaction(async (tx) => {
-    const workspaceId = await currentWorkspace(tx)
+    const workspaceId = workspace ?? (await currentWorkspace(tx))
     const existing = new Set(
       (
         await tx
@@ -183,8 +184,12 @@ export async function importAccounts(db: Db, bytes: Uint8Array): Promise<Account
 }
 
 /** The mapping last used for a file with these columns, so a repeat upload only needs a click on Import. */
-export async function rememberedMapping(db: Db, header: readonly string[]): Promise<RememberedMapping | null> {
-  const workspaceId = await findWorkspace(db)
+export async function rememberedMapping(
+  db: Db,
+  header: readonly string[],
+  workspace?: WorkspaceId,
+): Promise<RememberedMapping | null> {
+  const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return null
   const [row] = await db
     .select({ name: t.source.name, mapping: t.source.fieldMapping, itemKind: t.source.itemKind })
