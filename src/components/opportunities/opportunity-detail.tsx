@@ -8,50 +8,115 @@ import { TrendBars } from './trend-bars'
 
 export type OpportunityDetailProps = { readonly problem: ProblemView; readonly window: TrendWindow }
 
+/** The Split layout's detail pane. */
 export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
-  const { metrics } = problem
   return (
     <div className="px-6 pt-[22px] pb-[90px]">
       <div className="mb-1.5 text-[12px] text-ink-3">{problem.outcome.title}</div>
       <h2 className="mb-3 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">{problem.title}</h2>
-      {problem.link && (
-        <div className="mb-[18px]">
-          <LinkedPill identifier={`Linked ${problem.link.identifier}`} url={problem.link.url} />
-        </div>
-      )}
+      <LinkedIssue problem={problem} />
+      <DetailStats problem={problem} />
+      <DetailTrend problem={problem} window={window} />
+      <DetailQuotes problem={problem} />
+      <DetailSolutions problem={problem} />
+      <DetailAccounts problem={problem} />
+    </div>
+  )
+}
 
-      <dl className="mb-[18px] grid grid-cols-4 rounded-[10px] border">
-        <Stat label="Accounts">{metrics.accounts}</Stat>
-        <Stat label="ARR">{formatUsd(metrics.arr)}</Stat>
-        <Stat label="Mentions">{metrics.mentions}</Stat>
-        <Stat label="Pain">
-          <span className="block pt-1 text-[13px]">
-            {metrics.pain === null ? (
-              <span className="font-medium text-ink-3">Not scored</span>
-            ) : (
-              <>
-                <PainMeter level={metrics.pain} />{' '}
-                <span className="font-medium text-ink-3">{PAIN_LABELS[metrics.pain]}</span>
-              </>
-            )}
-          </span>
-        </Stat>
-      </dl>
+/** The Stack layout's detail, inside the expanded card. Its title is the card's. */
+export function InlineDetail({ problem, window }: OpportunityDetailProps) {
+  return (
+    <div className="grid grid-cols-[1.4fr_1fr] gap-7 border-t px-5 pt-4 pb-5">
+      <div>
+        <LinkedIssue problem={problem} />
+        <DetailStats problem={problem} />
+        <DetailQuotes problem={problem} />
+      </div>
+      <div>
+        <DetailTrend problem={problem} window={window} first />
+        <DetailSolutions problem={problem} />
+        <DetailAccounts problem={problem} />
+      </div>
+    </div>
+  )
+}
 
-      <SectionHeading title="Mentions per week">
-        <TrendPill delta={metrics.delta} />
+export function MissingOpportunity() {
+  return (
+    <div className="px-6 pt-[22px] pb-[90px]">
+      <h2 className="mb-2 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">Opportunity not found</h2>
+      <p className="text-ink-2">
+        It may have been merged or deleted, or the filters hide it. Pick a problem from the list.
+      </p>
+    </div>
+  )
+}
+
+type SectionProps = { readonly problem: ProblemView }
+
+function LinkedIssue({ problem }: SectionProps) {
+  if (!problem.link) return null
+  return (
+    <div className="mb-[18px]">
+      <LinkedPill identifier={`Linked ${problem.link.identifier}`} url={problem.link.url} />
+    </div>
+  )
+}
+
+function DetailStats({ problem }: SectionProps) {
+  const { metrics } = problem
+  return (
+    <dl className="mb-[18px] grid grid-cols-4 rounded-[10px] border">
+      <Stat label="Accounts">{metrics.accounts}</Stat>
+      <Stat label="ARR">{formatUsd(metrics.arr)}</Stat>
+      <Stat label="Mentions">{metrics.mentions}</Stat>
+      <Stat label="Pain">
+        <span className="block pt-1 text-[13px]">
+          {metrics.pain === null ? (
+            <span className="font-medium text-ink-3">Not scored</span>
+          ) : (
+            <>
+              <PainMeter level={metrics.pain} />{' '}
+              <span className="font-medium text-ink-3">{PAIN_LABELS[metrics.pain]}</span>
+            </>
+          )}
+        </span>
+      </Stat>
+    </dl>
+  )
+}
+
+function DetailTrend({ problem, window, first = false }: OpportunityDetailProps & { readonly first?: boolean }) {
+  return (
+    <>
+      <SectionHeading title="Mentions per week" first={first}>
+        <TrendPill delta={problem.metrics.delta} />
       </SectionHeading>
       <div className="rounded-[10px] border px-3 py-2.5">
-        <TrendBars weekly={metrics.weekly} window={window} />
+        <TrendBars weekly={problem.metrics.weekly} window={window} />
       </div>
+    </>
+  )
+}
 
+function DetailQuotes({ problem }: SectionProps) {
+  const { needsReview } = problem.metrics
+  return (
+    <>
       <SectionHeading title="What customers said">
-        {metrics.needsReview > 0 && <Pill tone="warn">{metrics.needsReview} need review</Pill>}
+        {needsReview > 0 && <Pill tone="warn">{needsReview} need review</Pill>}
       </SectionHeading>
       {problem.quotes.map((quote) => (
         <Quote key={quote.mentionId} quote={quote} />
       ))}
+    </>
+  )
+}
 
+function DetailSolutions({ problem }: SectionProps) {
+  return (
+    <>
       <SectionHeading title="Requested solutions">mentions</SectionHeading>
       {problem.solutions.map((solution) => (
         <div key={solution.id} className="mb-1.5 flex justify-between gap-3 rounded-[8px] border px-2.5 py-2">
@@ -66,7 +131,13 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
           </span>
         </div>
       ))}
+    </>
+  )
+}
 
+function DetailAccounts({ problem }: SectionProps) {
+  return (
+    <>
       <SectionHeading title="Top accounts">ARR</SectionHeading>
       <ul>
         {problem.topAccounts.map((account) => (
@@ -82,16 +153,7 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
           </li>
         ))}
       </ul>
-    </div>
-  )
-}
-
-export function MissingOpportunity() {
-  return (
-    <div className="px-6 pt-[22px] pb-[90px]">
-      <h2 className="mb-2 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">Opportunity not found</h2>
-      <p className="text-ink-2">It may have been merged or deleted. Pick a problem from the list.</p>
-    </div>
+    </>
   )
 }
 
@@ -104,9 +166,9 @@ function Stat({ label, children }: { label: string; children: ReactNode }) {
   )
 }
 
-function SectionHeading({ title, children }: { title: string; children?: ReactNode }) {
+function SectionHeading({ title, first = false, children }: { title: string; first?: boolean; children?: ReactNode }) {
   return (
-    <div className="mt-5 mb-2 flex items-center justify-between text-[11px] font-semibold tracking-[.06em] text-ink-3 uppercase">
+    <div className={`${first ? '' : 'mt-5'} mb-2 flex items-center justify-between text-[11px] font-semibold tracking-[.06em] text-ink-3 uppercase`}>
       <h3>{title}</h3>
       {children}
     </div>

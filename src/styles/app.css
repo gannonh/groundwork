@@ -61,6 +61,7 @@
   --color-ink-3: #a1a1aa;
   --color-line-2: #f1f0ee;
   --color-primary-soft: #eef2ff;
+  --color-primary-line: #c7d2fe;
   --color-up: #c2410c;
   --color-up-soft: #fff1e6;
   --color-down: #0f766e;
@@ -83,4 +84,10 @@
   body {
     @apply bg-background font-sans text-[13px] text-foreground antialiased;
   }
+}
+
+/* Prototype D draws the rail's sliders and checkboxes in ink rather than the accent. */
+.rail {
+  --primary: var(--foreground);
+  --primary-foreground: var(--card);
 }
