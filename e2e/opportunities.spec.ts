@@ -118,3 +118,11 @@ test('the Accounts stat lists 44 accounts, and a solution count lists only that 
   await expect(evidence(page).getByRole('figure')).toHaveCount(36)
   expect(new URL(page.url()).searchParams.get('evidence')).toBe('solution')
 })
+
+test("a top account's ARR lists that account's quotes", async ({ page }) => {
+  await page.goto('/opportunities')
+  await detail(page).getByRole('link', { name: "Show the quotes behind Kite Dynamics's $52k ARR" }).click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('Kite Dynamics · 4 mentions')
+  await expect(evidence(page).getByRole('figure')).toHaveCount(4)
+  expect(new URL(page.url()).searchParams.get('evidence')).toBe('account')
+})

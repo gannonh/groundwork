@@ -106,7 +106,13 @@ export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
                 mentionCount(account.mentions),
               )}
             </span>
-            <span className="tabular-nums">{formatUsd(account.arr)}</span>
+            <span className="tabular-nums">
+              {evidence(
+                { evidence: 'account', account: account.id },
+                `Show the quotes behind ${account.name}'s ${formatUsd(account.arr)} ARR`,
+                formatUsd(account.arr),
+              )}
+            </span>
           </li>
         ))}
       </ul>
