@@ -82,6 +82,7 @@ function NewSourcePage() {
       setUpload({ kind: 'invalid', error: parsed.error })
       return
     }
+    setUpload({ kind: 'none' })
     const remembered = await getRememberedMapping({ data: { header: [...parsed.value.header] } })
     if (latestFile.current !== file) return
     setUpload({
