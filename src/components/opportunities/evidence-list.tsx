@@ -28,7 +28,7 @@ export function EvidenceSheet({ open, list, onClose, onReload }: EvidenceSheetPr
             {description(list)}
           </SheetDescription>
         </SheetHeader>
-        <div className="min-h-0 flex-1 overflow-auto px-6 pt-4 pb-10">
+        <div tabIndex={0} className="min-h-0 flex-1 overflow-auto px-6 pt-4 pb-10">
           <EvidenceRows list={list} onReload={onReload} />
         </div>
       </SheetContent>

@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { expectAccessible } from './axe'
 
 // Runs against `pnpm db:seed` data: prototype D's 12 problems.
 const list = (page: Page) => page.getByRole('region', { name: 'Ranked problems' })
@@ -32,6 +33,7 @@ test('/opportunities ranks 12 problems and details the top one', async ({ page }
   await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(DASHBOARD)
   await expect(detail(page).getByRole('term')).toHaveText(['Accounts', 'ARR', 'Mentions', 'Pain'])
   await expect(detail(page).getByRole('definition')).toHaveText(['44', '$2.31M', '141', 'Deal breaker'])
+  await expectAccessible(page)
 })
 
 test('clicking a card shows its detail and changes the URL, and Back returns to the previous card', async ({
@@ -54,6 +56,7 @@ test('clicking a card shows its detail and changes the URL, and Back returns to 
   await expect(detail(page).getByRole('img', { name: /^Mentions per week/ })).toBeVisible()
   await expect(detail(page).getByRole('figure').first()).toContainText('Halcyon Bank')
   await expect(detail(page)).toContainText('Team-scoped permissions')
+  await expectAccessible(page)
 
   await page.goBack()
   await expect(page).toHaveURL(/\/opportunities$/)
@@ -86,6 +89,7 @@ test('an unknown opportunity id shows a not-found pane beside the list', async (
   await page.goto('/opportunities?selected=00000000-0000-0000-0000-000000000000')
   await expect(cards(page)).toHaveCount(12)
   await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText('Opportunity not found')
+  await expectAccessible(page)
 })
 
 test('the Enterprise preset moves Admins above CSV', async ({ page }) => {
@@ -284,6 +288,7 @@ test('at 1000 px wide the map stacks, and clicking a card expands it inline', as
     'Requested solutions',
     'Top accounts',
   ])
+  await expectAccessible(page)
 
   await admins.getByRole('link').first().click()
   await expect(admins.getByRole('link').first()).toHaveAttribute('aria-expanded', 'false')
@@ -317,6 +322,9 @@ const stat = (page: Page, label: string) =>
 test("clicking a detail number lists the evidence behind it, and the URL reopens the list", async ({ page }) => {
   await page.goto('/opportunities')
   await hydrated(page)
+  await expect(stat(page, 'Accounts')).toHaveAccessibleName('Show the 44 accounts')
+  await expect(stat(page, 'ARR')).toHaveAccessibleName('Show the accounts behind $2.31M ARR')
+  await expect(stat(page, 'Mentions')).toHaveAccessibleName('Show the 141 mentions')
 
   await stat(page, 'Mentions').click()
   await expect(evidence(page).getByRole('heading', { name: '141 mentions' })).toBeVisible()
@@ -324,6 +332,7 @@ test("clicking a detail number lists the evidence behind it, and the URL reopens
   await expect(evidence(page).getByRole('figure')).toHaveCount(141)
   await expect(evidence(page).getByRole('figure').filter({ hasText: '% confident' })).toHaveCount(9)
   expect(new URL(page.url()).searchParams.get('evidence')).toBe('mentions')
+  await expectAccessible(page)
   expect(new URL(page.url()).searchParams.get('selected')).toBe(TOP_ID)
 
   await page.reload()
@@ -343,6 +352,7 @@ test('the Accounts stat lists 44 accounts, and a solution count lists only that 
   await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('44 accounts · $2.31M ARR')
   await expect(evidence(page).getByRole('region')).toHaveCount(44)
   await expect(evidence(page).getByRole('region').first()).toHaveAccessibleName('Cobalt Insurance')
+  await expectAccessible(page)
   await page.keyboard.press('Escape')
   await expect(evidence(page)).toHaveCount(0)
 
@@ -407,11 +417,13 @@ test("in By outcome, a header's accounts number lists that outcome's accounts wi
   await expect(trust.getByTitle('Low-confidence placements').first()).toHaveText('14')
   await expect(trust.getByRole('img', { name: /, 14 need review$/ })).toBeVisible()
   await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(CSV)
+  await expectAccessible(page)
 
   await trust.getByRole('link', { name: 'Show the 84 accounts of Trust the numbers in reports' }).click()
   await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('84 accounts · $3.78M ARR')
   await expect(evidence(page).getByRole('region')).toHaveCount(84)
   await expect(evidence(page)).toContainText('Trust the numbers in reports')
+  await expectAccessible(page)
   const url = new URL(page.url())
   expect([url.searchParams.get('evidence'), url.searchParams.has('outcome'), url.searchParams.get('selected')]).toEqual([
     'accounts',

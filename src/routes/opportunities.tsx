@@ -272,7 +272,7 @@ function OutcomeHeader({
     <div className={`flex items-center gap-2.5 px-1.5 pb-2.5 ${first ? 'pt-1' : 'pt-4.5'}`}>
       <div className="min-w-0">
         <div className="flex items-center gap-1">
-          <button type="button" aria-expanded={open} onClick={onToggle} className="flex items-center gap-2.5 text-left">
+          <button type="button" aria-expanded={open} onClick={onToggle} className="flex min-h-6 items-center gap-2.5 text-left">
             <span aria-hidden className="w-3 text-ink-3">
               {open ? '▾' : '▸'}
             </span>
