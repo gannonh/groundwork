@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InlineDetail, MissingOpportunity, OpportunityDetail } from '@/components/opportunities/opportunity-detail'
 import { formatUsd } from '@/components/opportunities/format'
 import { useFlip, useMediaQuery } from '@/components/opportunities/hooks'
+import { MapLinksContext, type MapLinks } from '@/components/opportunities/map-links'
 import { Rail } from '@/components/opportunities/rail'
 import { RANK_GRID, RankCard } from '@/components/opportunities/rank-card'
 import {
@@ -94,6 +95,13 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
     [router, view],
   )
   const hrefs = useMemo(() => new Map(map.problems.map((p) => [p.id, hrefOf(p.id)])), [map.problems, hrefOf])
+  const links = useMemo<MapLinks>(
+    () => ({
+      href: (patch) => router.buildLocation({ to: '/opportunities', search: { ...view, ...patch } }).href,
+      go: (patch) => void navigate({ to: '/opportunities', search: { ...view, ...patch }, resetScroll: false }),
+    }),
+    [router, navigate, view],
+  )
 
   const list = useRef<HTMLElement>(null)
   useFlip(list, ranked.map((r) => r.item.id).join(), `${search.group} ${layout}`)
@@ -126,121 +134,123 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   }
 
   return (
-    // Prototype D keeps the browser's normal line height; Tailwind's preflight sets 1.5.
-    <main className="flex h-[calc(100dvh-48px)] leading-[normal]">
-      <Rail
-        weights={weights.value}
-        onWeightsInput={weights.setDraft}
-        onWeightsCommit={commitWeights}
-        filter={filter}
-        sources={map.sources}
-        onFilterChange={changeFilter}
-      />
-      <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex items-center gap-3 border-b px-7 py-3">
-          <Seg
-            label="Grouping"
-            value={search.group}
-            options={[
-              { value: 'ranked', label: 'Ranked' },
-              { value: 'outcome', label: 'By outcome' },
-            ]}
-            onChange={(group) => void update({ group })}
-          />
-          <div className="flex-1" />
-          <span className="text-[12px] text-ink-3">
-            {layout === 'split' ? (
-              <>
-                <Kbd>j</Kbd> <Kbd>k</Kbd> to move
-              </>
-            ) : (
-              'Click a row to expand'
-            )}
-          </span>
-          {wide && (
+    <MapLinksContext value={links}>
+      {/* Prototype D keeps the browser's normal line height; Tailwind's preflight sets 1.5. */}
+      <main className="flex h-[calc(100dvh-48px)] leading-[normal]">
+        <Rail
+          weights={weights.value}
+          onWeightsInput={weights.setDraft}
+          onWeightsCommit={commitWeights}
+          filter={filter}
+          sources={map.sources}
+          onFilterChange={changeFilter}
+        />
+        <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex items-center gap-3 border-b px-7 py-3">
             <Seg
-              label="Detail layout"
-              value={search.layout}
+              label="Grouping"
+              value={search.group}
               options={[
-                { value: 'stack', label: '▤ Stack' },
-                { value: 'split', label: '◧ Split' },
+                { value: 'ranked', label: 'Ranked' },
+                { value: 'outcome', label: 'By outcome' },
               ]}
-              onChange={(next) => void update(next === 'stack' ? { layout: next, ...CLOSED, selected: undefined } : { layout: next })}
+              onChange={(group) => void update({ group })}
             />
-          )}
-        </div>
-        <div className="flex min-h-0 flex-1">
-          <section
-            ref={list}
-            aria-label="Ranked problems"
-            className={`relative min-w-0 flex-1 overflow-auto pt-4 pb-[90px] ${
-              layout === 'split' ? 'pr-4 pl-5' : 'px-7'
-            }`}
-          >
-            {ranked.length === 0 ? (
-              <p className="px-1.5 pt-1 text-ink-2">No problems match these filters.</p>
-            ) : groups ? (
-              groups.map(({ outcome, members, open }, i) => (
-                <div key={outcome.id} role="group" aria-label={outcome.title}>
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    onClick={() => {
-                      setCollapsed((prev) => toggled(prev, outcome.id))
-                    }}
-                    className={`flex w-full items-center gap-2.5 px-1.5 pb-2.5 text-left ${i === 0 ? 'pt-1' : 'pt-[18px]'}`}
-                  >
-                    <span aria-hidden className="w-3 text-ink-3">
-                      {open ? '▾' : '▸'}
-                    </span>
-                    <span>
-                      <span className="block text-[15px] font-[650] tracking-[-0.01em]">{outcome.title}</span>
-                      <span className="mt-0.5 block text-[12px] text-ink-3">
-                        {members.length} {members.length === 1 ? 'problem' : 'problems'} ·{' '}
-                        {outcome.metrics.accounts} accounts · {formatUsd(outcome.metrics.arr)} ARR
-                      </span>
-                    </span>
-                    <span className="flex-1" />
-                    <Sparkline
-                      series={outcome.metrics.weekly}
-                      width={90}
-                      height={24}
-                      label={`Mentions per week: ${outcome.metrics.weekly.join(', ')}`}
-                    />
-                  </button>
-                  {open && <ol>{members.map(card)}</ol>}
-                </div>
-              ))
-            ) : (
-              <>
-                <div
-                  aria-hidden
-                  className={`${RANK_GRID[layout]} px-4 pb-2 text-[11px] font-semibold text-ink-3 [&>span:nth-child(n+4)]:text-right`}
-                >
-                  <span>#</span>
-                  <span>Problem</span>
-                  <span>Score</span>
-                  {layout === 'stack' && <span>Accounts</span>}
-                  <span>ARR</span>
-                  <span>Trend</span>
-                </div>
-                <ol>{ranked.map(card)}</ol>
-              </>
+            <div className="flex-1" />
+            <span className="text-[12px] text-ink-3">
+              {layout === 'split' ? (
+                <>
+                  <Kbd>j</Kbd> <Kbd>k</Kbd> to move
+                </>
+              ) : (
+                'Click a row to expand'
+              )}
+            </span>
+            {wide && (
+              <Seg
+                label="Detail layout"
+                value={search.layout}
+                options={[
+                  { value: 'stack', label: '▤ Stack' },
+                  { value: 'split', label: '◧ Split' },
+                ]}
+                onChange={(next) => void update(next === 'stack' ? { layout: next, ...CLOSED, selected: undefined } : { layout: next })}
+              />
             )}
-          </section>
-          {layout === 'split' && (selected || search.selected) && (
-            <aside
-              key={selected?.item.id ?? 'missing'}
-              aria-label="Opportunity detail"
-              className="w-[460px] shrink-0 overflow-auto border-l bg-card"
+          </div>
+          <div className="flex min-h-0 flex-1">
+            <section
+              ref={list}
+              aria-label="Ranked problems"
+              className={`relative min-w-0 flex-1 overflow-auto pt-4 pb-[90px] ${
+                layout === 'split' ? 'pr-4 pl-5' : 'px-7'
+              }`}
             >
-              {selected ? <OpportunityDetail problem={selected.item} window={map.window} /> : <MissingOpportunity />}
-            </aside>
-          )}
+              {ranked.length === 0 ? (
+                <p className="px-1.5 pt-1 text-ink-2">No problems match these filters.</p>
+              ) : groups ? (
+                groups.map(({ outcome, members, open }, i) => (
+                  <div key={outcome.id} role="group" aria-label={outcome.title}>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      onClick={() => {
+                        setCollapsed((prev) => toggled(prev, outcome.id))
+                      }}
+                      className={`flex w-full items-center gap-2.5 px-1.5 pb-2.5 text-left ${i === 0 ? 'pt-1' : 'pt-[18px]'}`}
+                    >
+                      <span aria-hidden className="w-3 text-ink-3">
+                        {open ? '▾' : '▸'}
+                      </span>
+                      <span>
+                        <span className="block text-[15px] font-[650] tracking-[-0.01em]">{outcome.title}</span>
+                        <span className="mt-0.5 block text-[12px] text-ink-3">
+                          {members.length} {members.length === 1 ? 'problem' : 'problems'} ·{' '}
+                          {outcome.metrics.accounts} accounts · {formatUsd(outcome.metrics.arr)} ARR
+                        </span>
+                      </span>
+                      <span className="flex-1" />
+                      <Sparkline
+                        series={outcome.metrics.weekly}
+                        width={90}
+                        height={24}
+                        label={`Mentions per week: ${outcome.metrics.weekly.join(', ')}`}
+                      />
+                    </button>
+                    {open && <ol>{members.map(card)}</ol>}
+                  </div>
+                ))
+              ) : (
+                <>
+                  <div
+                    aria-hidden
+                    className={`${RANK_GRID[layout]} px-4 pb-2 text-[11px] font-semibold text-ink-3 [&>span:nth-child(n+4)]:text-right`}
+                  >
+                    <span>#</span>
+                    <span>Problem</span>
+                    <span>Score</span>
+                    {layout === 'stack' && <span>Accounts</span>}
+                    <span>ARR</span>
+                    <span>Trend</span>
+                  </div>
+                  <ol>{ranked.map(card)}</ol>
+                </>
+              )}
+            </section>
+            {layout === 'split' && (selected || search.selected) && (
+              <aside
+                key={selected?.item.id ?? 'missing'}
+                aria-label="Opportunity detail"
+                className="w-[460px] shrink-0 overflow-auto border-l bg-card"
+              >
+                {selected ? <OpportunityDetail problem={selected.item} window={map.window} /> : <MissingOpportunity />}
+              </aside>
+            )}
+          </div>
         </div>
-      </div>
-      <Outlet />
-    </main>
+        <Outlet />
+      </main>
+    </MapLinksContext>
   )
 }
 

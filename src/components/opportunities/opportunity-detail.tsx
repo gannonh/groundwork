@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
-import { Link } from '@tanstack/react-router'
 import type { EvidenceFilter } from '@/domain/evidence'
 import type { TrendWindow } from '@/domain/metrics'
 import type { OpportunityId, PainLevel } from '@/domain/types'
 import type { ProblemView } from '@/server/opportunity-map.server'
 import { PAIN_LABELS, formatUsd, mentionCount } from './format'
 import { CLOSED } from './search'
+import { MapAnchor } from './map-links'
 import { LinkedPill, Pill, TrendPill } from './pill'
 import { Quote } from './quote'
 import { TrendBars } from './trend-bars'
@@ -213,15 +213,13 @@ function EvidenceLink({
   children: ReactNode
 }) {
   return (
-    <Link
-      to="/opportunities"
-      search={(prev) => ({ ...prev, ...CLOSED, selected: problemId, ...filter })}
-      resetScroll={false}
-      aria-label={label}
+    <MapAnchor
+      patch={{ ...CLOSED, selected: problemId, ...filter }}
+      label={label}
       className="rounded-[3px] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       {children}
-    </Link>
+    </MapAnchor>
   )
 }
 
