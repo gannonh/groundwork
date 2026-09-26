@@ -1,9 +1,3 @@
-/**
- * Writes the import fixtures in fixtures/exports/. Deterministic: the same seed writes the same bytes.
- *
- *   node scripts/generate-fixtures.ts                          # zendesk-500.csv, nps-300.csv, accounts-60.csv
- *   node scripts/generate-fixtures.ts --rows 10000 --out x.csv # one Zendesk-shaped file of N rows
- */
 import * as NodeFs from 'node:fs'
 import * as NodePath from 'node:path'
 import { parseArgs } from 'node:util'
@@ -12,7 +6,6 @@ const OUT_DIR = NodePath.join(import.meta.dirname, '..', 'fixtures', 'exports')
 const ACCOUNTS = 60
 
 type Rng = () => number
-/** mulberry32. */
 function rng(seed: number): Rng {
   let a = seed
   return () => {
@@ -149,7 +142,6 @@ function description(r: Rng, theme: Theme, i: number): string {
   if (i % 41 === 7) body.push(pick(r, CONTACTS))
   const text = [pick(r, OPENERS), ...body, pick(r, CLOSERS)].filter((s) => s !== '').join(' ')
   if (i % 9 !== 4) return text
-  // Some tickets carry steps on separate lines, so the cell spans several lines.
   return `${text}\n\nSteps to reproduce:\n1. Open the ${pick(r, DASHBOARDS)} dashboard.\n2. Set the range to "Last 30 days".\n3. Compare the total with the source system.`
 }
 

@@ -5,9 +5,6 @@ import type { AccountId, IsoDate, ItemId, ItemKind, RedactedText, SourceId, Spea
 import type { ColumnMapping } from '@/ingest/mapping'
 import { findWorkspace } from './ingest.server'
 
-// These loaders read the given workspace, else the oldest. They never select item.body: only redacted sentence text
-// leaves the server.
-
 export type SourceRow = {
   readonly id: SourceId
   readonly name: string
@@ -29,7 +26,6 @@ export type SourceDetail =
   | {
       readonly kind: 'ready'
       readonly source: SourceRow & { readonly mapping: ColumnMapping | null }
-      /** Newest first. */
       readonly recent: readonly ItemRow[]
     }
 
@@ -67,7 +63,6 @@ const sourceColumns = {
   items: count(t.item.id),
 }
 
-/** Every source in the workspace with its item count, newest first. */
 export async function loadSources(db: Db, workspace?: WorkspaceId): Promise<readonly SourceRow[]> {
   const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return []
@@ -149,7 +144,6 @@ export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Pro
   }
 }
 
-/** Highest ARR first. */
 export async function loadAccounts(db: Db, workspace?: WorkspaceId): Promise<readonly AccountRow[]> {
   const workspaceId = workspace ?? (await findWorkspace(db))
   if (!workspaceId) return []

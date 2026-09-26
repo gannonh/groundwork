@@ -22,7 +22,6 @@ type Column = keyof typeof COLUMNS
 const normalize = (name: string) => name.trim().toLowerCase().replace(/[\s_]+/g, ' ')
 const ARR = /^\$?\s*(\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?$/
 
-/** An account file needs Account ID, Name, and ARR columns. Plan and Segment are optional. */
 export function parseAccounts(table: CsvTable): Parsed<readonly AccountDraft[]> {
   const header = table.header.map(normalize)
   const indexOf = (c: Column) => header.findIndex((h) => COLUMNS[c].aliases.some((a) => a === h))
@@ -49,7 +48,6 @@ export function parseAccounts(table: CsvTable): Parsed<readonly AccountDraft[]> 
   let duplicate: string | null = null
   for (const [i, row] of table.rows.entries()) {
     if (row.every((value) => value.trim() === '')) continue
-    // Row 1 is the header, as in a spreadsheet.
     const rowNumber = i + 2
     const externalId = cell(row, 'externalId')
     const name = cell(row, 'name')

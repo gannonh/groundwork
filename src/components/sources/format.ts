@@ -8,18 +8,15 @@ export const ITEM_KIND_LABELS: Record<ItemKind, string> = {
   interview: 'Interview',
 }
 
-/** '1 item', '500 items'. */
 export function plural(n: number, noun: string): string {
   return `${n.toLocaleString('en-US')} ${n === 1 ? noun : `${noun}s`}`
 }
 
 const DATE = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })
-/** 'Sep 11, 2026'. */
 export function formatDate(date: IsoDate): string {
   return DATE.format(new Date(`${date}T00:00:00Z`))
 }
 
-/** '$114,000'. */
 export function formatDollars(value: number): string {
   return `$${value.toLocaleString('en-US')}`
 }

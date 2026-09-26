@@ -6,7 +6,6 @@ import { splitSentences } from './sentences.ts'
 export const DATE_FORMATS = ['YYYY-MM-DD', 'MM/DD/YYYY', 'DD/MM/YYYY'] as const
 export type DateFormat = (typeof DATE_FORMATS)[number]
 
-/** Column names from the header. account and author are optional. */
 export type ColumnMapping = {
   readonly text: string
   readonly date: string
@@ -20,12 +19,10 @@ export type ItemDraft = {
   readonly raw: RawText
   readonly sentences: NonEmptyArray<RedactedText>
   readonly occurredAt: Date
-  /** The account ID as written in the upload. */
   readonly accountRef: string | null
   readonly authorRole: SpeakerRole | null
 }
 
-/** Uploads with the same columns, in any case or spacing, belong to the same source. */
 export function shapeOf(header: readonly string[]): string {
   return header.map((name) => name.trim().toLowerCase()).join('\u001f')
 }
@@ -36,7 +33,6 @@ const DATE_NAMES = [/created/, /submitted/, /date/, /occurred/, /timestamp/, /ti
 const ACCOUNT_NAMES = [/organi[sz]ation/, /account/, /company/, /customer id/, /\borg\b/]
 const AUTHOR_NAMES = [/role/, /persona/, /user type/, /requester/, /author/]
 
-/** A first guess from header names and the first rows' values. The user confirms or changes it before import. */
 export function guessMapping(table: CsvTable): ColumnMapping {
   const names = table.header.map((name) => name.toLowerCase())
   const sample = table.rows.slice(0, SAMPLE_ROWS)
@@ -76,7 +72,6 @@ export function guessMapping(table: CsvTable): ColumnMapping {
 const ISO = /^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T ](\d{1,2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?)?\s*(Z|[+-]\d{2}:?\d{2})?$/i
 const SLASHED = /^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ T](\d{1,2}):(\d{2})(?::(\d{2}))?)?$/
 
-/** A date in the given format, with an optional time. A value with no zone is read as UTC. */
 export function parseDate(value: string, format: DateFormat): Date | null {
   const m = (format === 'YYYY-MM-DD' ? ISO : SLASHED).exec(value.trim())
   if (!m) return null
@@ -108,7 +103,6 @@ const ROLE_ALIASES: Readonly<Record<string, SpeakerRole>> = {
   unknown: 'unknown',
 }
 
-/** Blank is no role. A value outside the alias table is 'unknown'. */
 export function parseSpeakerRole(value: string): SpeakerRole | null {
   const key = value.trim().toLowerCase().replace(/[\s_-]+/g, ' ')
   if (key === '') return null
@@ -117,10 +111,6 @@ export function parseSpeakerRole(value: string): SpeakerRole | null {
 
 const ROWS_NAMED = 3
 
-/**
- * Redacts and splits each row's text. Blank text skips the row. Any date that does not parse fails the whole import,
- * because a partial import with wrong dates is worse than a clear stop.
- */
 export function toItemDrafts(
   table: CsvTable,
   mapping: ColumnMapping,
@@ -140,7 +130,6 @@ export function toItemDrafts(
   let skippedEmpty = 0
   table.rows.forEach((cells, i) => {
     const raw = (cells[textAt] ?? '').trim()
-    // Redact before splitting: the dots in an email would split it. A slice of redacted text stays redacted.
     const sentences = splitSentences(redact(raw)).map((s) => s.text as RedactedText)
     if (!isNonEmpty(sentences)) {
       skippedEmpty++
@@ -148,7 +137,6 @@ export function toItemDrafts(
     }
     const occurredAt = parseDate(cells[dateAt] ?? '', mapping.dateFormat)
     if (!occurredAt) {
-      // Row 1 is the header, as in a spreadsheet.
       badDateRows.push(i + 2)
       return
     }
@@ -173,7 +161,6 @@ export function toItemDrafts(
   return ok({ drafts, skippedEmpty })
 }
 
-/** 'row 4', 'rows 4, 9, 12', 'rows 4, 9, 12, and 40 more'. */
 export function rowList(rows: readonly number[]): string {
   const named = rows.slice(0, ROWS_NAMED).map(String).join(', ')
   const more = rows.length - ROWS_NAMED

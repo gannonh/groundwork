@@ -14,7 +14,6 @@ export type ItemImportResult =
       readonly sourceId: SourceId
       readonly sourceName: string
       readonly imported: number
-      /** Rows already imported into this source, including repeats within the file. */
       readonly duplicates: number
       readonly skippedEmpty: number
     }
@@ -29,7 +28,6 @@ const ITEM_CHUNK = 1000
 const SENTENCE_CHUNK = 5000
 const ACCOUNT_CHUNK = 1000
 
-/** The oldest workspace, as the opportunity map reads it, or null before anything exists. */
 export async function findWorkspace(db: Db): Promise<WorkspaceId | null> {
   const [ws] = await db
     .select({ id: t.workspace.id })
@@ -39,7 +37,6 @@ export async function findWorkspace(db: Db): Promise<WorkspaceId | null> {
   return ws?.id ?? null
 }
 
-/** The workspace imports write to when the caller names none, created on the first import. */
 export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
   const found = await findWorkspace(db)
   if (found) return found
@@ -54,10 +51,6 @@ export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
   return raced
 }
 
-/**
- * Parses and validates the whole file before writing, so a bad file creates nothing. Then, in one transaction, finds
- * or creates the source for the file's columns and inserts rows it has not seen. A rerun inserts nothing.
- */
 export async function importItems(
   db: Db,
   input: { readonly fileName: string; readonly bytes: Uint8Array; readonly mapping: ColumnMapping; readonly itemKind: ItemKind },
@@ -138,7 +131,6 @@ export async function importItems(
   })
 }
 
-/** Creates or updates accounts by ID, then links items that named those IDs before the accounts existed. */
 export async function importAccounts(db: Db, bytes: Uint8Array, workspace?: WorkspaceId): Promise<AccountImportResult> {
   const table = parseCsv(bytes)
   if (!table.ok) return { kind: 'error', message: table.error }
@@ -183,7 +175,6 @@ export async function importAccounts(db: Db, bytes: Uint8Array, workspace?: Work
   })
 }
 
-/** The mapping last used for a file with these columns, so a repeat upload only needs a click on Import. */
 export async function rememberedMapping(
   db: Db,
   header: readonly string[],
@@ -198,7 +189,6 @@ export async function rememberedMapping(
   return row?.mapping ? { sourceName: row.name, mapping: row.mapping, itemKind: row.itemKind } : null
 }
 
-/** Identical rows get the same key, so a re-upload skips them. */
 function rowKey(cells: readonly string[]): string {
   return createHash('sha256').update(JSON.stringify(cells)).digest('hex')
 }

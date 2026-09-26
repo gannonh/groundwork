@@ -1,5 +1,3 @@
-// src/ingest runs in the browser (preview) and on the server (import), and the seed imports it under plain Node, so
-// it uses relative .ts imports, erasable syntax, and no node: modules.
 import { isNonEmpty, type NonEmptyArray } from '../domain/types.ts'
 
 export type Parsed<T> = { readonly ok: true; readonly value: T } | { readonly ok: false; readonly error: string }
@@ -10,7 +8,6 @@ export const fail = <T>(error: string): Parsed<T> => ({ ok: false, error })
 
 const NOT_TEXT = 'This file is not a text CSV.'
 
-/** RFC 4180 with quoted multi-line cells, CRLF or LF line ends, and an optional BOM. Blank lines are skipped. */
 export function parseCsv(bytes: Uint8Array): Parsed<CsvTable> {
   if (bytes.length === 0) return fail('The file is empty.')
   let text: string

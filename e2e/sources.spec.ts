@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test'
 
-// Imports write to the database e2e runs against, so every assertion holds on a first run and on a rerun.
 const ZENDESK = 'fixtures/exports/zendesk-500.csv'
 const upload = (page: import('@playwright/test').Page) => page.getByLabel('CSV export')
 

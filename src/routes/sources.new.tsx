@@ -59,7 +59,6 @@ type Upload =
       readonly table: CsvTable
       readonly mapping: ColumnMapping
       readonly itemKind: ItemKind
-      /** The source whose mapping prefilled the form. */
       readonly rememberedFrom: string | null
     }
 type Submission =

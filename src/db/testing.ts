@@ -34,7 +34,6 @@ export async function violatedConstraint(tx: Db, work: (savepoint: Db) => Promis
   }
 }
 
-/** A fresh workspace, so concurrent test files never lock or read each other's rows or the seed's. */
 export async function insertWorkspace(tx: Db): Promise<WorkspaceId> {
   const [row] = await tx.insert(workspace).values({ slug: `test-${randomUUID()}`, name: 'Test workspace' }).returning({ id: workspace.id })
   if (!row) throw new Error('the workspace insert returned no row')

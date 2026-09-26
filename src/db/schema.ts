@@ -120,9 +120,7 @@ export const source = pgTable(
     kind: sourceKind('kind').notNull(),
     name: text('name').notNull(),
     itemKind: itemKind('item_kind').notNull(),
-    /** The upload's normalized header (`shapeOf`). An upload with the same columns lands in the same source. */
     shape: text('shape'),
-    /** Written only by the importer, from a parsed mapping. Null for sources that were never uploaded, like the seed's. */
     fieldMapping: jsonb('field_mapping').$type<ColumnMapping>(),
     cursor: text('cursor'),
     createdAt: createdAt(),
@@ -146,7 +144,6 @@ export const item = pgTable(
     externalId: text('external_id').notNull(),
     body: text('body').$type<RawText>().notNull(),
     occurredAt: timestamp('occurred_at', tz).notNull(),
-    /** The account ID as written in the upload. account_id resolves from it whenever that account is imported. */
     accountRef: text('account_ref'),
     accountId: uuid('account_id')
       .$type<AccountId>()

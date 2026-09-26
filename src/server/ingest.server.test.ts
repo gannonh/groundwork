@@ -183,7 +183,6 @@ describe('importAccounts', () => {
 
   test('leaves the seeded opportunity map unchanged', async () => {
     const result = await rollbackAfter(async (tx) => {
-      // Rewriting the seed first locks its workspace row, which serializes this test with seed.test.ts.
       await writeSeed(tx, buildSeed())
       const before = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
       await importZendesk(tx, SEED_WORKSPACE_ID)
