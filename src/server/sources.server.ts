@@ -3,7 +3,7 @@ import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
 import type { AccountId, IsoDate, ItemId, ItemKind, RedactedText, SourceId, SpeakerRole, Usd, WorkspaceId } from '@/domain/types'
 import type { ColumnMapping } from '@/ingest/mapping'
-import { findWorkspace } from './ingest.server'
+import { oldestWorkspace } from './ingest.server'
 
 export type SourceRow = {
   readonly id: SourceId
@@ -64,7 +64,7 @@ const sourceColumns = {
 }
 
 export async function loadSources(db: Db, workspace?: WorkspaceId): Promise<readonly SourceRow[]> {
-  const workspaceId = workspace ?? (await findWorkspace(db))
+  const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return []
   const rows = await db
     .select(sourceColumns)
@@ -77,7 +77,7 @@ export async function loadSources(db: Db, workspace?: WorkspaceId): Promise<read
 }
 
 export async function loadSource(db: Db, id: SourceId, workspace?: WorkspaceId): Promise<SourceDetail> {
-  const workspaceId = workspace ?? (await findWorkspace(db))
+  const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return { kind: 'missing' }
   const [source] = await db
     .select({ ...sourceColumns, mapping: t.source.fieldMapping })
@@ -108,7 +108,7 @@ export async function loadSource(db: Db, id: SourceId, workspace?: WorkspaceId):
 }
 
 export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Promise<ItemDetail> {
-  const workspaceId = workspace ?? (await findWorkspace(db))
+  const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return { kind: 'missing' }
   const [row] = await db
     .select({
@@ -145,7 +145,7 @@ export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Pro
 }
 
 export async function loadAccounts(db: Db, workspace?: WorkspaceId): Promise<readonly AccountRow[]> {
-  const workspaceId = workspace ?? (await findWorkspace(db))
+  const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return []
   return db
     .select({

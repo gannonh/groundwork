@@ -22,5 +22,15 @@ export default defineConfig(
       ],
     },
   },
+  {
+    // src/ingest runs in the browser for the upload preview, and the seed imports it under plain Node.
+    files: ['src/ingest/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { patterns: [{ regex: '^(node:|@/)', message: 'src/ingest uses relative .ts imports and no node: modules.' }] },
+      ],
+    },
+  },
   { files: ['**/*.js'], extends: [tseslint.configs.disableTypeChecked] },
 )

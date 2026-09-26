@@ -1,5 +1,5 @@
 import type { Usd } from '../domain/types.ts'
-import { fail, ok, type CsvTable, type Parsed } from './csv.ts'
+import { fail, ok, spreadsheetRow, type CsvTable, type Parsed } from './csv.ts'
 import { rowList } from './mapping.ts'
 
 export type AccountDraft = {
@@ -48,7 +48,7 @@ export function parseAccounts(table: CsvTable): Parsed<readonly AccountDraft[]> 
   let duplicate: string | null = null
   for (const [i, row] of table.rows.entries()) {
     if (row.every((value) => value.trim() === '')) continue
-    const rowNumber = i + 2
+    const rowNumber = spreadsheetRow(i)
     const externalId = cell(row, 'externalId')
     const name = cell(row, 'name')
     const arr = cell(row, 'arr')

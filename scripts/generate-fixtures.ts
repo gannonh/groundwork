@@ -6,7 +6,7 @@ const OUT_DIR = NodePath.join(import.meta.dirname, '..', 'fixtures', 'exports')
 const ACCOUNTS = 60
 
 type Rng = () => number
-function rng(seed: number): Rng {
+function mulberry32(seed: number): Rng {
   let a = seed
   return () => {
     a = (a + 0x6d2b79f5) | 0
@@ -150,7 +150,7 @@ const START = Date.UTC(2026, 5, 1)
 const SPAN_DAYS = 112
 
 function zendesk(rows: number): string {
-  const r = rng(3465)
+  const r = mulberry32(3465)
   const out: string[][] = [['Ticket ID', 'Created at', 'Subject', 'Description', 'Requester role', 'Organization ID']]
   for (let i = 0; i < rows; i++) {
     const at = new Date(START + Math.floor(r() * SPAN_DAYS * DAY_MS))
@@ -184,7 +184,7 @@ const NPS_COMMENTS = [
 ]
 
 function nps(rows: number): string {
-  const r = rng(300)
+  const r = mulberry32(300)
   const out: string[][] = [['Response ID', 'Submitted', 'Score', 'Comment', 'Account']]
   for (let i = 0; i < rows; i++) {
     const at = new Date(START + Math.floor(r() * SPAN_DAYS) * DAY_MS)
@@ -200,7 +200,7 @@ const NAME_A = ['Acme', 'Brightline', 'Cobalt', 'Driftwood', 'Evergreen', 'Fatho
 const NAME_B = ['Analytics', 'Health', 'Logistics', 'Retail', 'Bank', 'Labs']
 
 function accounts(): string {
-  const r = rng(60)
+  const r = mulberry32(60)
   const out: string[][] = [['Account ID', 'Name', 'ARR', 'Plan', 'Segment']]
   for (let i = 0; i < ACCOUNTS; i++) {
     const segment = pick(r, ['SMB', 'Mid-market', 'Enterprise'] as const)

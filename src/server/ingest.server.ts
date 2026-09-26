@@ -28,7 +28,7 @@ const ITEM_CHUNK = 1000
 const SENTENCE_CHUNK = 5000
 const ACCOUNT_CHUNK = 1000
 
-export async function findWorkspace(db: Db): Promise<WorkspaceId | null> {
+export async function oldestWorkspace(db: Db): Promise<WorkspaceId | null> {
   const [ws] = await db
     .select({ id: t.workspace.id })
     .from(t.workspace)
@@ -37,8 +37,8 @@ export async function findWorkspace(db: Db): Promise<WorkspaceId | null> {
   return ws?.id ?? null
 }
 
-export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
-  const found = await findWorkspace(db)
+export async function ensureWorkspace(db: Db): Promise<WorkspaceId> {
+  const found = await oldestWorkspace(db)
   if (found) return found
   const [created] = await db
     .insert(t.workspace)
@@ -46,7 +46,7 @@ export async function currentWorkspace(db: Db): Promise<WorkspaceId> {
     .onConflictDoNothing()
     .returning({ id: t.workspace.id })
   if (created) return created.id
-  const raced = await findWorkspace(db)
+  const raced = await oldestWorkspace(db)
   if (!raced) throw new Error('no workspace after creating one')
   return raced
 }
@@ -64,7 +64,7 @@ export async function importItems(
   const byKey = new Map<string, ItemDraft>(drafts.map((draft) => [rowKey(draft.cells), draft]))
 
   return db.transaction(async (tx) => {
-    const workspaceId = workspace ?? (await currentWorkspace(tx))
+    const workspaceId = workspace ?? (await ensureWorkspace(tx))
     const [source] = await tx
       .insert(t.source)
       .values({
@@ -139,7 +139,7 @@ export async function importAccounts(db: Db, bytes: Uint8Array, workspace?: Work
   const drafts = parsed.value
 
   return db.transaction(async (tx) => {
-    const workspaceId = workspace ?? (await currentWorkspace(tx))
+    const workspaceId = workspace ?? (await ensureWorkspace(tx))
     const existing = new Set(
       (
         await tx
@@ -180,7 +180,7 @@ export async function rememberedMapping(
   header: readonly string[],
   workspace?: WorkspaceId,
 ): Promise<RememberedMapping | null> {
-  const workspaceId = workspace ?? (await findWorkspace(db))
+  const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return null
   const [row] = await db
     .select({ name: t.source.name, mapping: t.source.fieldMapping, itemKind: t.source.itemKind })

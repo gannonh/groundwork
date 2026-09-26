@@ -6,6 +6,9 @@ export type CsvTable = { readonly header: NonEmptyArray<string>; readonly rows: 
 export const ok = <T>(value: T): Parsed<T> => ({ ok: true, value })
 export const fail = <T>(error: string): Parsed<T> => ({ ok: false, error })
 
+/** The 1-based row a spreadsheet shows for data row `index`, counting the header as row 1. */
+export const spreadsheetRow = (index: number) => index + 2
+
 const NOT_TEXT = 'This file is not a text CSV.'
 
 export function parseCsv(bytes: Uint8Array): Parsed<CsvTable> {

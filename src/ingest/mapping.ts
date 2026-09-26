@@ -1,5 +1,5 @@
 import { isNonEmpty, type NonEmptyArray, type RawText, type RedactedText, type SpeakerRole } from '../domain/types.ts'
-import { fail, ok, type CsvTable, type Parsed } from './csv.ts'
+import { fail, ok, spreadsheetRow, type CsvTable, type Parsed } from './csv.ts'
 import { redact } from './redact.ts'
 import { splitSentences } from './sentences.ts'
 
@@ -130,14 +130,14 @@ export function toItemDrafts(
   let skippedEmpty = 0
   table.rows.forEach((cells, i) => {
     const raw = (cells[textAt] ?? '').trim()
-    const sentences = splitSentences(redact(raw)).map((s) => s.text as RedactedText)
+    const sentences = splitSentences(redact(raw)).map((s) => s.text)
     if (!isNonEmpty(sentences)) {
       skippedEmpty++
       return
     }
     const occurredAt = parseDate(cells[dateAt] ?? '', mapping.dateFormat)
     if (!occurredAt) {
-      badDateRows.push(i + 2)
+      badDateRows.push(spreadsheetRow(i))
       return
     }
     const accountRef = accountAt < 0 ? '' : (cells[accountAt] ?? '').trim()
