@@ -16,6 +16,7 @@ import { Route as PacksRouteImport } from './routes/packs'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as TriageRouteImport } from './routes/triage'
 import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as OpportunitiesIndexRouteImport } from './routes/opportunities.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,34 +53,41 @@ const ApiHealthRoute = ApiHealthRouteImport.update({
   path: '/api/health',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OpportunitiesIndexRoute = OpportunitiesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OpportunitiesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/opportunities': typeof OpportunitiesRoute
+  '/opportunities': typeof OpportunitiesRouteWithChildren
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/opportunities/': typeof OpportunitiesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/opportunities': typeof OpportunitiesRoute
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/opportunities': typeof OpportunitiesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/accounts': typeof AccountsRoute
-  '/opportunities': typeof OpportunitiesRoute
+  '/opportunities': typeof OpportunitiesRouteWithChildren
   '/packs': typeof PacksRoute
   '/sources': typeof SourcesRoute
   '/triage': typeof TriageRoute
   '/api/health': typeof ApiHealthRoute
+  '/opportunities/': typeof OpportunitiesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,15 +99,16 @@ export interface FileRouteTypes {
     | '/sources'
     | '/triage'
     | '/api/health'
+    | '/opportunities/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/accounts'
-    | '/opportunities'
     | '/packs'
     | '/sources'
     | '/triage'
     | '/api/health'
+    | '/opportunities'
   id:
     | '__root__'
     | '/'
@@ -109,12 +118,13 @@ export interface FileRouteTypes {
     | '/sources'
     | '/triage'
     | '/api/health'
+    | '/opportunities/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountsRoute: typeof AccountsRoute
-  OpportunitiesRoute: typeof OpportunitiesRoute
+  OpportunitiesRoute: typeof OpportunitiesRouteWithChildren
   PacksRoute: typeof PacksRoute
   SourcesRoute: typeof SourcesRoute
   TriageRoute: typeof TriageRoute
@@ -172,13 +182,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHealthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/opportunities/': {
+      id: '/opportunities/'
+      path: '/'
+      fullPath: '/opportunities/'
+      preLoaderRoute: typeof OpportunitiesIndexRouteImport
+      parentRoute: typeof OpportunitiesRoute
+    }
   }
 }
+
+interface OpportunitiesRouteChildren {
+  OpportunitiesIndexRoute: typeof OpportunitiesIndexRoute
+}
+
+const OpportunitiesRouteChildren: OpportunitiesRouteChildren = {
+  OpportunitiesIndexRoute: OpportunitiesIndexRoute,
+}
+
+const OpportunitiesRouteWithChildren = OpportunitiesRoute._addFileChildren(
+  OpportunitiesRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountsRoute: AccountsRoute,
-  OpportunitiesRoute: OpportunitiesRoute,
+  OpportunitiesRoute: OpportunitiesRouteWithChildren,
   PacksRoute: PacksRoute,
   SourcesRoute: SourcesRoute,
   TriageRoute: TriageRoute,

@@ -10,6 +10,8 @@ export type OpportunityId = Brand<string, 'OpportunityId'>
 export type AccountId = Brand<string, 'AccountId'>
 export type ItemId = Brand<string, 'ItemId'>
 export type MentionId = Brand<string, 'MentionId'>
+/** A digest of every stored input behind a workspace's numbers. Equal snapshots show equal numbers. */
+export type SnapshotId = Brand<string, 'SnapshotId'>
 /** Whole US dollars. */
 export type Usd = Brand<number, 'Usd'>
 /** A probability in [0, 1]. */

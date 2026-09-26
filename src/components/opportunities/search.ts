@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { DATE_RANGES, SEGMENTS, SPEAKERS, type EvidenceFilter } from '@/domain/filters'
+import { parseEvidenceFilter, type EvidenceFilter } from '@/domain/evidence'
+import { DATE_RANGES, SEGMENTS, SPEAKERS, type MapFilter } from '@/domain/filters'
 import { BALANCED, type Weights } from '@/domain/rank'
 import type { OpportunityId, SourceId } from '@/domain/types'
 
@@ -20,19 +21,43 @@ export const filterSearch = z.object({
     .catch(DEFAULT_VIEW.since),
 })
 
-export const mapSearch = filterSearch.extend({
-  reach: weight(DEFAULT_VIEW.reach),
-  revenue: weight(DEFAULT_VIEW.revenue),
-  pain: weight(DEFAULT_VIEW.pain),
-  momentum: weight(DEFAULT_VIEW.momentum),
-  group: z.enum(['ranked', 'outcome']).default(DEFAULT_VIEW.group).catch(DEFAULT_VIEW.group),
-  layout: z.enum(['split', 'stack']).default(DEFAULT_VIEW.layout).catch(DEFAULT_VIEW.layout),
-  selected: uuid<OpportunityId>().optional().catch(undefined),
-})
+const optionalText = z.string().optional().catch(undefined)
+
+/** Search values that close the evidence list. */
+export const CLOSED = { evidence: undefined, solution: undefined, account: undefined } as const
+
+export const mapSearch = filterSearch
+  .extend({
+    reach: weight(DEFAULT_VIEW.reach),
+    revenue: weight(DEFAULT_VIEW.revenue),
+    pain: weight(DEFAULT_VIEW.pain),
+    momentum: weight(DEFAULT_VIEW.momentum),
+    group: z.enum(['ranked', 'outcome']).default(DEFAULT_VIEW.group).catch(DEFAULT_VIEW.group),
+    layout: z.enum(['split', 'stack']).default(DEFAULT_VIEW.layout).catch(DEFAULT_VIEW.layout),
+    selected: uuid<OpportunityId>().optional().catch(undefined),
+    evidence: optionalText,
+    solution: optionalText,
+    account: optionalText,
+  })
+  // A combination parseEvidenceFilter rejects, such as a solution list with no solution, reads as closed.
+  .transform(({ evidence, solution, account, ...view }) => {
+    const open = parseEvidenceFilter({ evidence, solution, account })
+    return {
+      ...view,
+      evidence: open?.evidence,
+      solution: open?.evidence === 'solution' ? open.solution : undefined,
+      account: open?.evidence === 'account' ? open.account : undefined,
+    }
+  })
 export type MapSearch = z.output<typeof mapSearch>
 export type Layout = MapSearch['layout']
 
-export function filterOf(search: MapSearch): EvidenceFilter {
+/** The open evidence list, or null when it is closed. */
+export function evidenceOf(search: MapSearch): EvidenceFilter | null {
+  return parseEvidenceFilter(search)
+}
+
+export function filterOf(search: MapSearch): MapFilter {
   const { segments, sources, speakers, since } = search
   return { segments, sources, speakers, since }
 }

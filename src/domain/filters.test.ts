@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { filterEvidence, segmentOf, type EvidenceFilter } from './filters.ts'
+import { filterEvidence, segmentOf, type MapFilter } from './filters.ts'
 import { computeMetrics, type Evidence } from './metrics.ts'
 import type {
   Account,
@@ -53,7 +53,7 @@ const EVIDENCE: Evidence = {
   placeThreshold: 0.7 as Confidence,
 }
 
-const kept = (filter: EvidenceFilter) => {
+const kept = (filter: MapFilter) => {
   const evidence = filterEvidence(EVIDENCE, filter, asOf)
   return { items: evidence.items.map((i) => i.id), mentions: evidence.placements.map((p) => p.mentionId) }
 }

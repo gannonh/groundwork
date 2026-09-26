@@ -2,7 +2,7 @@ import { memo, useEffect, useId, useRef, type ReactNode } from 'react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
-import { DATE_RANGES, SEGMENTS, SPEAKERS, type EvidenceFilter } from '@/domain/filters'
+import { DATE_RANGES, SEGMENTS, SPEAKERS, type MapFilter } from '@/domain/filters'
 import { FACTORS, PRESETS, sameWeights, type Factor, type Weights } from '@/domain/rank'
 import { isNonEmpty, type NonEmptyArray, type SourceId } from '@/domain/types'
 import { FACTOR_COLORS } from './score-bar'
@@ -14,9 +14,9 @@ export type RailProps = {
   readonly onWeightsInput: (weights: Weights) => void
   /** A released slider or a preset. */
   readonly onWeightsCommit: (weights: Weights) => void
-  readonly filter: EvidenceFilter
+  readonly filter: MapFilter
   readonly sources: readonly { readonly id: SourceId; readonly name: string }[]
-  readonly onFilterChange: (patch: Partial<EvidenceFilter>) => void
+  readonly onFilterChange: (patch: Partial<MapFilter>) => void
 }
 
 export const Rail = memo(function Rail({

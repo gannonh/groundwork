@@ -1,4 +1,4 @@
-import { Link, createFileRoute, deepEqual, stripSearchParams, useNavigate, useRouter } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, deepEqual, stripSearchParams, useNavigate, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InlineDetail, MissingOpportunity, OpportunityDetail } from '@/components/opportunities/opportunity-detail'
@@ -7,6 +7,7 @@ import { useFlip, useMediaQuery } from '@/components/opportunities/hooks'
 import { Rail } from '@/components/opportunities/rail'
 import { RANK_GRID, RankCard } from '@/components/opportunities/rank-card'
 import {
+  CLOSED,
   DEFAULT_VIEW,
   filterOf,
   filterSearch,
@@ -18,7 +19,7 @@ import {
 import { Seg } from '@/components/opportunities/seg'
 import { Sparkline } from '@/components/opportunities/sparkline'
 import { db } from '@/db/client'
-import type { EvidenceFilter } from '@/domain/filters'
+import type { MapFilter } from '@/domain/filters'
 import { FACTORS, groupRanked, rank, type Ranked, type Weights } from '@/domain/rank'
 import type { OpportunityId } from '@/domain/types'
 import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
@@ -32,6 +33,7 @@ export const Route = createFileRoute('/opportunities')({
   search: { middlewares: [stripSearchParams(DEFAULT_VIEW)] },
   loaderDeps: ({ search }) => filterOf(search),
   loader: ({ deps }) => getOpportunityMap({ data: deps }),
+  // The evidence list lives in the index child route, so opening it, closing it, or going Back never refetches the map.
   shouldReload: false,
   component: OpportunitiesPage,
 })
@@ -59,9 +61,9 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
       navigate({ search: (prev) => ({ ...prev, ...patch }), replace, resetScroll: false }),
     [navigate],
   )
-  const select = useCallback((id: OpportunityId | undefined) => void update({ selected: id }), [update])
+  const select = useCallback((id: OpportunityId | undefined) => void update({ ...CLOSED, selected: id }), [update])
   const commitWeights = useCallback((next: Weights) => void update(next, true), [update])
-  const changeFilter = useCallback((patch: Partial<EvidenceFilter>) => void update(patch), [update])
+  const changeFilter = useCallback((patch: Partial<MapFilter>) => void update(patch), [update])
 
   const weights = useDraftWeights(urlWeights)
   const wide = useMediaQuery(WIDE, true)
@@ -85,7 +87,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const selected = ranked.find((r) => r.item.id === selectedId)
 
   const router = useRouter()
-  const view = useEqualValue({ ...search, selected: undefined })
+  const view = useEqualValue({ ...search, ...CLOSED, selected: undefined })
   const hrefOf = useCallback(
     (id: OpportunityId | undefined) =>
       router.buildLocation({ to: '/opportunities', search: { ...view, selected: id } }).href,
@@ -96,7 +98,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const list = useRef<HTMLElement>(null)
   useFlip(list, ranked.map((r) => r.item.id).join(), `${search.group} ${layout}`)
   useCardKeys(layout === 'split', visible, selectedId, (id) => {
-    void update({ selected: id }, true)
+    void update({ ...CLOSED, selected: id }, true)
   })
 
   const card = (r: Ranked<ProblemView>) => {
@@ -163,7 +165,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
                 { value: 'stack', label: '▤ Stack' },
                 { value: 'split', label: '◧ Split' },
               ]}
-              onChange={(next) => void update(next === 'stack' ? { layout: next, selected: undefined } : { layout: next })}
+              onChange={(next) => void update(next === 'stack' ? { layout: next, ...CLOSED, selected: undefined } : { layout: next })}
             />
           )}
         </div>
@@ -237,6 +239,7 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
           )}
         </div>
       </div>
+      <Outlet />
     </main>
   )
 }
@@ -293,7 +296,7 @@ function isTyping(event: KeyboardEvent): boolean {
   if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return true
   const target = event.target
   if (!(target instanceof HTMLElement)) return false
-  return target.isContentEditable || target.closest('input, textarea, select, [role=slider]') !== null
+  return target.isContentEditable || target.closest('input, textarea, select, [role=slider], [role=dialog]') !== null
 }
 
 function toggled<T>(set: ReadonlySet<T>, value: T): ReadonlySet<T> {

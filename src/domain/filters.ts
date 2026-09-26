@@ -28,7 +28,7 @@ export const DATE_RANGES = [
 export type DateRange = (typeof DATE_RANGES)[number]['key']
 
 /** An absent list means no restriction. */
-export type EvidenceFilter = {
+export type MapFilter = {
   readonly segments?: NonEmptyArray<Segment>
   readonly sources?: NonEmptyArray<SourceId>
   readonly speakers?: NonEmptyArray<Speaker>
@@ -37,7 +37,7 @@ export type EvidenceFilter = {
 
 const DAY_MS = 86_400_000
 
-export function filterEvidence(evidence: Evidence, filter: EvidenceFilter, asOf: Date): Evidence {
+export function filterEvidence(evidence: Evidence, filter: MapFilter, asOf: Date): Evidence {
   const days = DATE_RANGES.find((r) => r.key === filter.since)?.days ?? 0
   const cutoff = asOf.getTime() - days * DAY_MS
   const arrById = new Map(evidence.accounts.map((a) => [a.id, a.arr]))

@@ -9,6 +9,7 @@ const rail = (page: Page) => page.getByRole('complementary', { name: 'Ranking an
 const SELECTED_URL = /\/opportunities\?selected=[0-9a-f-]{36}$/
 
 const DASHBOARD = "Dashboard totals don't match the source system"
+const TOP_ID = '0e64ff74-d1e2-8d47-8251-6935c4e2e378'
 const CSV = 'CSV imports fail silently on malformed rows'
 const ADMINS = "Admins can't restrict access by team"
 
@@ -189,11 +190,11 @@ test('at 1000 px wide the map stacks, and clicking a card expands it inline', as
   await expect(page.getByText('Click a row to expand')).toBeVisible()
   await expect(page.getByRole('group', { name: 'Detail layout' })).toHaveCount(0)
   await expect(detail(page)).toHaveCount(0)
-  await expect(cards(page).first().getByRole('link')).toHaveAttribute('aria-expanded', 'false')
+  await expect(cards(page).first().getByRole('link').first()).toHaveAttribute('aria-expanded', 'false')
 
   const admins = cards(page).nth(3)
-  await admins.getByRole('link').click()
-  await expect(admins.getByRole('link')).toHaveAttribute('aria-expanded', 'true')
+  await admins.getByRole('link').first().click()
+  await expect(admins.getByRole('link').first()).toHaveAttribute('aria-expanded', 'true')
   await expect(page).toHaveURL(SELECTED_URL)
   await expect(admins.getByRole('definition')).toHaveText(['19', '$1.64M', '47', 'Deal breaker'])
   await expect(admins.getByRole('heading', { level: 3 })).toHaveText([
@@ -203,8 +204,8 @@ test('at 1000 px wide the map stacks, and clicking a card expands it inline', as
     'Top accounts',
   ])
 
-  await admins.getByRole('link').click()
-  await expect(admins.getByRole('link')).toHaveAttribute('aria-expanded', 'false')
+  await admins.getByRole('link').first().click()
+  await expect(admins.getByRole('link').first()).toHaveAttribute('aria-expanded', 'false')
   await expect(admins.getByRole('definition')).toHaveCount(0)
 })
 
@@ -220,10 +221,98 @@ test('only a filter change refetches the map', async ({ page }) => {
   await rail(page).getByRole('button', { name: 'Breadth' }).click()
   await page.getByRole('radio', { name: 'By outcome' }).click()
   await page.getByRole('radio', { name: 'Stack' }).click()
-  await cards(page).nth(2).getByRole('link').click()
-  await expect(cards(page).nth(2).getByRole('link')).toHaveAttribute('aria-expanded', 'true')
+  await cards(page).nth(2).getByRole('link').first().click()
+  await expect(cards(page).nth(2).getByRole('link').first()).toHaveAttribute('aria-expanded', 'true')
   expect(fetches).toEqual([])
 
   await rail(page).getByRole('radio', { name: '30d' }).click()
   await expect.poll(() => fetches.length).toBe(1)
+})
+
+const evidence = (page: Page) => page.getByRole('dialog')
+const stat = (page: Page, label: string) =>
+  detail(page).getByRole('definition').nth(['Accounts', 'ARR', 'Mentions'].indexOf(label)).getByRole('link').first()
+
+test("clicking a detail number lists the evidence behind it, and the URL reopens the list", async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+
+  await stat(page, 'Mentions').click()
+  await expect(evidence(page).getByRole('heading', { name: '141 mentions' })).toBeVisible()
+  await expect(evidence(page)).toContainText("Dashboard totals don't match the source system")
+  await expect(evidence(page).getByRole('figure')).toHaveCount(141)
+  await expect(evidence(page).getByRole('figure').filter({ hasText: '% confident' })).toHaveCount(9)
+  expect(new URL(page.url()).searchParams.get('evidence')).toBe('mentions')
+  expect(new URL(page.url()).searchParams.get('selected')).toBe(TOP_ID)
+
+  await page.reload()
+  await expect(evidence(page).getByRole('figure')).toHaveCount(141)
+  await expect(evidence(page).getByRole('figure').filter({ hasText: '% confident' })).toHaveCount(9)
+
+  await evidence(page).getByRole('button', { name: 'Close' }).click()
+  await expect(evidence(page)).toHaveCount(0)
+  await expect(page).toHaveURL(`/opportunities?selected=${TOP_ID}`)
+  await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(DASHBOARD)
+})
+
+test('the Accounts stat lists 44 accounts, and a solution count lists only that solution', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  await stat(page, 'Accounts').click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('44 accounts · $2.31M ARR')
+  await expect(evidence(page).getByRole('region')).toHaveCount(44)
+  await expect(evidence(page).getByRole('region').first()).toHaveAccessibleName('Cobalt Insurance')
+  await page.keyboard.press('Escape')
+  await expect(evidence(page)).toHaveCount(0)
+
+  await detail(page).getByRole('link', { name: 'Show the 36 mentions of Reconciliation view vs. source' }).click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText(
+    'Reconciliation view vs. source · 36 mentions',
+  )
+  await expect(evidence(page).getByRole('figure')).toHaveCount(36)
+  expect(new URL(page.url()).searchParams.get('evidence')).toBe('solution')
+})
+
+test("a top account's ARR lists that account's quotes", async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  await detail(page).getByRole('link', { name: "Show the quotes behind Kite Dynamics's $52k ARR" }).click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('Kite Dynamics · 4 mentions')
+  await expect(evidence(page).getByRole('figure')).toHaveCount(4)
+  expect(new URL(page.url()).searchParams.get('evidence')).toBe('account')
+})
+
+test('with only Enterprise ticked, the Accounts number lists the 2 enterprise accounts', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const segment = rail(page).getByRole('group', { name: 'Segment' })
+  await segment.getByRole('checkbox', { name: 'Mid-market' }).click()
+  await segment.getByRole('checkbox', { name: 'SMB' }).click()
+  await expect(detail(page).getByRole('definition').first()).toHaveText('2')
+
+  await stat(page, 'Accounts').click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('2 accounts · $550k ARR')
+  await expect(evidence(page).getByRole('region')).toHaveCount(2)
+  await expect(evidence(page).getByRole('region').first()).toHaveAccessibleName('Cobalt Insurance')
+  await expect(evidence(page).getByRole('region').nth(1)).toHaveAccessibleName('Halcyon Bank')
+})
+
+test('opening and closing evidence lists fetches only the lists, and j does nothing while one is open', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const fetches: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/_serverFn/')) fetches.push(request.url())
+  })
+
+  await stat(page, 'Mentions').click()
+  await expect(evidence(page).getByRole('figure')).toHaveCount(141)
+  await page.keyboard.press('Escape')
+  await expect(evidence(page)).toHaveCount(0)
+  await stat(page, 'Accounts').click()
+  await expect(evidence(page).getByRole('region')).toHaveCount(44)
+  await page.keyboard.press('j')
+  await expect(evidence(page).getByRole('region')).toHaveCount(44)
+  expect(new URL(page.url()).searchParams.get('selected')).toBe(TOP_ID)
+  expect(fetches).toHaveLength(2)
 })
