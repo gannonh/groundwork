@@ -1,4 +1,4 @@
-import { Link, createFileRoute, useParams } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, useParams } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { OpportunityDetail, MissingOpportunity } from '@/components/opportunities/opportunity-detail'
 import { RANK_GRID, RankCard } from '@/components/opportunities/rank-card'
@@ -10,7 +10,8 @@ const getOpportunityMap = createServerFn({ method: 'GET' }).handler(() => loadOp
 
 export const Route = createFileRoute('/opportunities')({
   loader: () => getOpportunityMap(),
-  // Selection is the child $id param, so choosing a card or going Back never refetches the map.
+  // Selection and the evidence list live in the child route, so choosing a card, opening a list, or going Back never
+  // refetches the map.
   shouldReload: false,
   component: OpportunitiesPage,
 })
@@ -57,6 +58,7 @@ function OpportunitiesPage() {
       >
         {selected ? <OpportunityDetail problem={selected.item} window={map.window} /> : <MissingOpportunity />}
       </aside>
+      <Outlet />
     </main>
   )
 }

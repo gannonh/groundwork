@@ -1,5 +1,5 @@
 import type { CountedMention } from './metrics.ts'
-import type { Account, AccountId, RedactedText } from './types.ts'
+import type { Account, AccountId, OpportunityId, RedactedText } from './types.ts'
 
 export const CONFIDENT_QUOTES = 3
 export const MAX_QUOTES = 4
@@ -33,30 +33,73 @@ export function selectQuotes(
   return [...confident, ...low.slice(0, 1)]
 }
 
+export type AccountMentions = { readonly account: Account; readonly mentions: readonly CountedMention[] }
+
+/** Distinct accounts by ARR desc, then name. Mentions keep evidence order. Mentions with no known account drop out. */
+export function groupByAccount(
+  evidence: readonly CountedMention[],
+  accounts: ReadonlyMap<AccountId, Account>,
+): readonly AccountMentions[] {
+  const groups = new Map<AccountId, { account: Account; mentions: CountedMention[] }>()
+  for (const mention of evidence) {
+    const account = mention.accountId ? accounts.get(mention.accountId) : undefined
+    if (!account) continue
+    const group = groups.get(account.id)
+    if (group) group.mentions.push(mention)
+    else groups.set(account.id, { account, mentions: [mention] })
+  }
+  return [...groups.values()]
+    .sort((a, b) => b.account.arr - a.account.arr || a.account.name.localeCompare(b.account.name))
+}
+
 export type TopAccount = { readonly account: Account; readonly mentions: number; readonly allNeedReview: boolean }
 
-/** Distinct accounts by ARR desc, then name. */
+/** The first `limit` of groupByAccount, tallied. */
 export function topAccounts(
   evidence: readonly CountedMention[],
   accounts: ReadonlyMap<AccountId, Account>,
   limit: number,
 ): readonly TopAccount[] {
-  const tally = new Map<AccountId, { mentions: number; allNeedReview: boolean }>()
-  for (const mention of evidence) {
-    if (!mention.accountId) continue
-    const seen = tally.get(mention.accountId) ?? { mentions: 0, allNeedReview: true }
-    tally.set(mention.accountId, {
-      mentions: seen.mentions + 1,
-      allNeedReview: seen.allNeedReview && mention.lowConfidence !== null,
-    })
-  }
-  return [...tally]
-    .flatMap(([id, t]) => {
-      const account = accounts.get(id)
-      return account ? [{ account, ...t }] : []
-    })
-    .sort((a, b) => b.account.arr - a.account.arr || a.account.name.localeCompare(b.account.name))
+  return groupByAccount(evidence, accounts)
     .slice(0, limit)
+    .map(({ account, mentions }) => ({
+      account,
+      mentions: mentions.length,
+      allNeedReview: mentions.every((m) => m.lowConfidence !== null),
+    }))
+}
+
+/** Which counted mentions an evidence list shows. Also the opportunity detail's URL search shape. */
+export type EvidenceFilter =
+  | { readonly evidence: 'mentions' }
+  | { readonly evidence: 'accounts' }
+  | { readonly evidence: 'solution'; readonly solution: OpportunityId }
+  | { readonly evidence: 'account'; readonly account: AccountId }
+
+/** Null for anything that is not a filter. Ids are only matched in memory, so any non-empty string passes. */
+export function parseEvidenceFilter(raw: unknown): EvidenceFilter | null {
+  if (typeof raw !== 'object' || raw === null) return null
+  const fields = raw as Record<string, unknown>
+  const id = (key: string) => {
+    const value = fields[key]
+    return typeof value === 'string' && value !== '' ? value : null
+  }
+  switch (fields.evidence) {
+    case 'mentions':
+      return { evidence: 'mentions' }
+    case 'accounts':
+      return { evidence: 'accounts' }
+    case 'solution': {
+      const solution = id('solution')
+      return solution === null ? null : { evidence: 'solution', solution: solution as OpportunityId }
+    }
+    case 'account': {
+      const account = id('account')
+      return account === null ? null : { evidence: 'account', account: account as AccountId }
+    }
+    default:
+      return null
+  }
 }
 
 /** Inclusive sentence ordinals, start <= end. */
