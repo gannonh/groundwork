@@ -345,6 +345,10 @@ async function readWorkspace(
     spans.set(row.mentionId, row)
   }
 
+  // Only evidence moves a number, so an import with no placements yet changes neither the digest nor the filters.
+  const placedAccounts = new Set([...items.values()].map((i) => i.accountId))
+  const placedSources = new Set([...items.values()].map((i) => i.sourceId))
+
   // Taken before filtering, so the trend window and the date cutoff hold still while filters change.
   const asOf = evidenceAsOf([...items.values()], new Date())
   const evidence = filterEvidence(
@@ -370,7 +374,7 @@ async function readWorkspace(
         items: rows(
           [...items.values()].map((i) => [i.id, i.accountId, i.occurredAt.toISOString(), i.pain, i.sourceId, i.role]),
         ),
-        accounts: rows(accounts.map((a) => [a.id, a.arr])),
+        accounts: rows(accounts.filter((a) => placedAccounts.has(a.id)).map((a) => [a.id, a.arr])),
       }),
     )
     .digest('hex') as SnapshotId
@@ -417,7 +421,7 @@ async function readWorkspace(
     window,
     opportunities,
     accountsById,
-    sources: sources.map((s) => ({ id: s.id, name: s.name })),
+    sources: sources.filter((s) => placedSources.has(s.id)).map((s) => ({ id: s.id, name: s.name })),
     loadQuotes,
   }
 }

@@ -184,11 +184,11 @@ describe('importAccounts', () => {
   test('leaves the seeded opportunity map unchanged', async () => {
     const result = await rollbackAfter(async (tx) => {
       await writeSeed(tx, buildSeed())
-      const before = await loadOpportunityMap(tx, SEED_WORKSPACE_ID)
+      const before = await loadOpportunityMap(tx, { since: '90d' }, SEED_WORKSPACE_ID)
       await importZendesk(tx, SEED_WORKSPACE_ID)
       await importAccounts(tx, ACCOUNTS, SEED_WORKSPACE_ID)
       await importNps(tx, SEED_WORKSPACE_ID)
-      return { before, after: await loadOpportunityMap(tx, SEED_WORKSPACE_ID) }
+      return { before, after: await loadOpportunityMap(tx, { since: '90d' }, SEED_WORKSPACE_ID) }
     })
     expect(result.after).toEqual(result.before)
     expect(result.before.kind).toBe('ready')
