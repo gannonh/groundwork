@@ -10,10 +10,16 @@ const baseUrl = process.env.DATABASE_URL
 if (!baseUrl) throw new Error('DATABASE_URL is not set. Copy .env.example to .env.')
 
 const url = new URL(baseUrl)
-// Postgres caps identifiers at 63 bytes, so the base name gives up room for
-// the suffix. A fixed name per base database lets the next run clean up after
-// a run that was killed before its drop.
-const database = `${decodeURIComponent(url.pathname.slice(1)).slice(0, 59)}_e2e`
+// Postgres caps identifiers at 63 bytes, so the base name keeps at most 59
+// UTF-8 bytes of whole characters to leave room for the suffix. A fixed name
+// per base database lets the next run clean up after a run that was killed
+// before its drop.
+let base = ''
+for (const char of decodeURIComponent(url.pathname.slice(1))) {
+  if (Buffer.byteLength(base + char) > 59) break
+  base += char
+}
+const database = `${base}_e2e`
 url.pathname = `/${encodeURIComponent(database)}`
 const env = { ...process.env, DATABASE_URL: url.toString() }
 
