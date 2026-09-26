@@ -255,7 +255,7 @@ describe('pnpm db:seed', () => {
       return loadEvidence(
         tx,
         enterprise,
-        { problemId: TOP_PROBLEM_ID, filter: { evidence: 'accounts' }, snapshot: map.snapshot },
+        { subjectId: TOP_PROBLEM_ID, filter: { evidence: 'accounts' }, snapshot: map.snapshot },
         SEED_WORKSPACE_ID,
       )
     })
@@ -265,6 +265,36 @@ describe('pnpm db:seed', () => {
       ['Cobalt Insurance', 310_000, 1],
       ['Halcyon Bank', 240_000, 1],
     ])
+  })
+
+  test("an outcome's accounts list adds up to its header number, and the header counts its low-confidence mentions", async () => {
+    const result = await rollbackAfter(async (tx) => {
+      await writeSeed(tx, buildSeed())
+      const map = await loadOpportunityMap(tx, DEFAULT_FILTER, SEED_WORKSPACE_ID)
+      if (map.kind !== 'ready') throw new Error('expected a ready map')
+      const outcome = map.outcomes.find((o) => o.title === 'Trust the numbers in reports')
+      if (!outcome) throw new Error('missing seeded outcome')
+      const list = await loadEvidence(
+        tx,
+        DEFAULT_FILTER,
+        { subjectId: outcome.id, filter: { evidence: 'accounts' }, snapshot: map.snapshot },
+        SEED_WORKSPACE_ID,
+      )
+      return { outcome, list }
+    })
+
+    const { metrics } = result.outcome
+    expect({ accounts: metrics.accounts, arr: metrics.arr, needsReview: metrics.needsReview }).toEqual({
+      accounts: 84,
+      arr: 3_780_000,
+      needsReview: 14,
+    })
+    if (result.list.kind !== 'accounts') throw new Error(`expected an accounts list, got ${result.list.kind}`)
+    expect([
+      result.list.subjectTitle,
+      result.list.groups.length,
+      result.list.groups.reduce((sum, g) => sum + g.account.arr, 0),
+    ]).toEqual(['Trust the numbers in reports', 84, 3_780_000])
   })
 
   test("lists the evidence behind each of the top problem's numbers", async () => {
@@ -278,8 +308,8 @@ describe('pnpm db:seed', () => {
       const foreignSolution = other.solutions[0]
       if (!solution || !foreignSolution) throw new Error('missing seeded solution')
       if (map.kind !== 'ready') throw new Error('expected a ready map')
-      const load = (problemId: string, filter: EvidenceFilter) =>
-        loadEvidence(tx, DEFAULT_FILTER, { problemId, filter, snapshot: map.snapshot }, SEED_WORKSPACE_ID)
+      const load = (subjectId: string, filter: EvidenceFilter) =>
+        loadEvidence(tx, DEFAULT_FILTER, { subjectId, filter, snapshot: map.snapshot }, SEED_WORKSPACE_ID)
       const accounts = await load(problem.id, { evidence: 'accounts' })
       const kite = accounts.kind === 'accounts' ? accounts.groups.find((g) => g.account.name === 'Kite Dynamics') : null
       if (!kite) throw new Error('missing seeded account')
@@ -298,7 +328,7 @@ describe('pnpm db:seed', () => {
       return list
     }
     const mentions = rowsOf(lists.mentions)
-    expect([mentions.problemTitle, mentions.scope, mentions.rows.length]).toEqual([top, null, 141])
+    expect([mentions.subjectTitle, mentions.scope, mentions.rows.length]).toEqual([top, null, 141])
     expect(mentions.rows.filter((r) => r.lowConfidence !== null)).toHaveLength(9)
 
     if (lists.accounts.kind !== 'accounts') throw new Error('expected an accounts list')
@@ -352,7 +382,7 @@ describe('pnpm db:seed', () => {
       })
       const after = await snapshotOf()
       const load = (snapshot: typeof before) =>
-        loadEvidence(tx, DEFAULT_FILTER, { problemId: TOP_PROBLEM_ID, filter: mentions, snapshot }, SEED_WORKSPACE_ID)
+        loadEvidence(tx, DEFAULT_FILTER, { subjectId: TOP_PROBLEM_ID, filter: mentions, snapshot }, SEED_WORKSPACE_ID)
       return { before, again, after, old: await load(before), fresh: await load(after) }
     })
 

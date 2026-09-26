@@ -316,3 +316,30 @@ test('opening and closing evidence lists fetches only the lists, and j does noth
   expect(new URL(page.url()).searchParams.get('selected')).toBe(TOP_ID)
   expect(fetches).toHaveLength(2)
 })
+
+test("in By outcome, a header's accounts number lists that outcome's accounts without changing the selection", async ({
+  page,
+}) => {
+  await page.goto('/opportunities?group=outcome')
+  await hydrated(page)
+  const trust = list(page).getByRole('group', { name: 'Trust the numbers in reports' })
+  await expect(trust.getByTitle('Low-confidence placements').first()).toHaveText('14')
+  await expect(trust.getByRole('img', { name: /, 14 need review$/ })).toBeVisible()
+  await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(CSV)
+
+  await trust.getByRole('link', { name: 'Show the 84 accounts of Trust the numbers in reports' }).click()
+  await expect(evidence(page).getByRole('heading', { level: 2 })).toHaveText('84 accounts · $3.78M ARR')
+  await expect(evidence(page).getByRole('region')).toHaveCount(84)
+  await expect(evidence(page)).toContainText('Trust the numbers in reports')
+  const url = new URL(page.url())
+  expect([url.searchParams.get('evidence'), url.searchParams.has('outcome'), url.searchParams.get('selected')]).toEqual([
+    'accounts',
+    true,
+    null,
+  ])
+
+  await page.keyboard.press('Escape')
+  await expect(evidence(page)).toHaveCount(0)
+  await expect(page).toHaveURL(/\/opportunities\?group=outcome$/)
+  await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(CSV)
+})

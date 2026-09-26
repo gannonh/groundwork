@@ -62,7 +62,7 @@ function description(list: EvidenceList): string {
       return 'New evidence arrived after this page loaded, so this list may not match the number you clicked.'
     case 'mentions':
     case 'accounts':
-      return list.problemTitle
+      return list.subjectTitle
   }
 }
 

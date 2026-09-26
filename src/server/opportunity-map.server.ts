@@ -57,7 +57,9 @@ export type OpportunityMap =
 export type OutcomeView = {
   readonly id: OpportunityId
   readonly title: string
-  readonly metrics: Pick<OpportunityMetrics, 'accounts' | 'arr' | 'mentions'> & { readonly weekly: WeeklyCounts }
+  readonly metrics: Pick<OpportunityMetrics, 'accounts' | 'arr' | 'mentions' | 'needsReview'> & {
+    readonly weekly: WeeklyCounts
+  }
 }
 
 export type MetricsView = Omit<OpportunityMetrics, 'evidence'>
@@ -101,14 +103,15 @@ export type EvidenceList =
   | { readonly kind: 'stale' }
   | {
       readonly kind: 'mentions'
-      readonly problemTitle: string
-      /** A solution title or an account name. Null when the list is every mention of the problem. */
+      /** The problem or outcome the list belongs to. */
+      readonly subjectTitle: string
+      /** A solution title or an account name. Null when the list is every mention of the subject. */
       readonly scope: string | null
       readonly rows: readonly QuoteView[]
     }
   | {
       readonly kind: 'accounts'
-      readonly problemTitle: string
+      readonly subjectTitle: string
       /** ARR desc, then name. */
       readonly groups: readonly {
         readonly account: { readonly id: AccountId; readonly name: string; readonly arr: Usd }
@@ -182,59 +185,66 @@ export async function loadOpportunityMap(
       .map(({ id, title, metrics }) => ({
         id,
         title,
-        metrics: { accounts: metrics.accounts, arr: metrics.arr, mentions: metrics.mentions, weekly: metrics.weekly },
+        metrics: {
+          accounts: metrics.accounts,
+          arr: metrics.arr,
+          mentions: metrics.mentions,
+          needsReview: metrics.needsReview,
+          weekly: metrics.weekly,
+        },
       })),
     problems: views,
   }
 }
 
 export type EvidenceRequest = {
-  readonly problemId: string
+  /** A problem or an outcome. */
+  readonly subjectId: string
   readonly filter: EvidenceFilter
   /** The snapshot of the map the client clicked a number on. */
   readonly snapshot: SnapshotId
 }
 
 /**
- * The counted mentions behind one number on a problem's detail, as quotes. Every list is a slice of computeMetrics'
+ * The counted mentions behind one number on a problem's detail or an outcome's header, as quotes. Every list is a slice of computeMetrics'
  * evidence under the same map filter, so its length is the number the detail shows, or `stale` when that number has
  * changed since.
  */
 export async function loadEvidence(
   db: Db,
   mapFilter: MapFilter,
-  { problemId, filter, snapshot }: EvidenceRequest,
+  { subjectId, filter, snapshot }: EvidenceRequest,
   workspaceId?: WorkspaceId,
 ): Promise<EvidenceList> {
   const read = await readWorkspace(db, mapFilter, workspaceId)
   if (read && read.snapshot !== snapshot) return STALE
-  const problem = read?.opportunities.find((o) => o.kind === 'problem' && o.id === problemId)
-  if (!read || !problem) return MISSING
+  const subject = read?.opportunities.find((o) => o.kind !== 'solution' && o.id === subjectId)
+  if (!read || !subject) return MISSING
   const mentionsOf = async (scope: string | null, mentions: readonly CountedMention[]): Promise<EvidenceList> => {
     const toQuoteView = await read.loadQuotes(mentions)
-    return { kind: 'mentions', problemTitle: problem.title, scope, rows: mentions.map(toQuoteView) }
+    return { kind: 'mentions', subjectTitle: subject.title, scope, rows: mentions.map(toQuoteView) }
   }
 
   switch (filter.evidence) {
     case 'mentions':
-      return mentionsOf(null, problem.metrics.evidence)
+      return mentionsOf(null, subject.metrics.evidence)
     case 'solution': {
       const solution = read.opportunities.find(
-        (o) => o.kind === 'solution' && o.id === filter.solution && o.parentId === problem.id,
+        (o) => o.kind === 'solution' && o.id === filter.solution && o.parentId === subject.id,
       )
       return solution ? mentionsOf(solution.title, solution.metrics.evidence) : MISSING
     }
     case 'account': {
       const account = read.accountsById.get(filter.account)
-      const mentions = problem.metrics.evidence.filter((m) => m.accountId === filter.account)
+      const mentions = subject.metrics.evidence.filter((m) => m.accountId === filter.account)
       return account && mentions.length > 0 ? mentionsOf(account.name, mentions) : MISSING
     }
     case 'accounts': {
-      const groups = groupByAccount(problem.metrics.evidence, read.accountsById)
+      const groups = groupByAccount(subject.metrics.evidence, read.accountsById)
       const toQuoteView = await read.loadQuotes(groups.flatMap((g) => g.mentions))
       return {
         kind: 'accounts',
-        problemTitle: problem.title,
+        subjectTitle: subject.title,
         groups: groups.map(({ account, mentions }) => ({
           account: { id: account.id, name: account.name, arr: account.arr },
           rows: mentions.map(toQuoteView),

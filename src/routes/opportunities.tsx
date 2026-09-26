@@ -4,7 +4,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InlineDetail, MissingOpportunity, OpportunityDetail } from '@/components/opportunities/opportunity-detail'
 import { formatUsd } from '@/components/opportunities/format'
 import { useFlip, useMediaQuery } from '@/components/opportunities/hooks'
-import { MapLinksContext, type MapLinks } from '@/components/opportunities/map-links'
+import { MapAnchor, MapLinksContext, type MapLinks } from '@/components/opportunities/map-links'
+import { Pill } from '@/components/opportunities/pill'
 import { Rail } from '@/components/opportunities/rail'
 import { RANK_GRID, RankCard } from '@/components/opportunities/rank-card'
 import {
@@ -23,7 +24,12 @@ import { db } from '@/db/client'
 import type { MapFilter } from '@/domain/filters'
 import { FACTORS, groupRanked, rank, type Ranked, type Weights } from '@/domain/rank'
 import type { OpportunityId } from '@/domain/types'
-import { loadOpportunityMap, type OpportunityMap, type ProblemView } from '@/server/opportunity-map.server'
+import {
+  loadOpportunityMap,
+  type OpportunityMap,
+  type OutcomeView,
+  type ProblemView,
+} from '@/server/opportunity-map.server'
 
 const getOpportunityMap = createServerFn({ method: 'GET' })
   .validator(filterSearch)
@@ -191,32 +197,16 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
               ) : groups ? (
                 groups.map(({ outcome, members, open }, i) => (
                   <div key={outcome.id} role="group" aria-label={outcome.title}>
-                    <button
-                      type="button"
-                      aria-expanded={open}
-                      onClick={() => {
+                    <OutcomeHeader
+                      outcome={outcome}
+                      problems={members.length}
+                      open={open}
+                      first={i === 0}
+                      selected={search.selected}
+                      onToggle={() => {
                         setCollapsed((prev) => toggled(prev, outcome.id))
                       }}
-                      className={`flex w-full items-center gap-2.5 px-1.5 pb-2.5 text-left ${i === 0 ? 'pt-1' : 'pt-[18px]'}`}
-                    >
-                      <span aria-hidden className="w-3 text-ink-3">
-                        {open ? '▾' : '▸'}
-                      </span>
-                      <span>
-                        <span className="block text-[15px] font-[650] tracking-[-0.01em]">{outcome.title}</span>
-                        <span className="mt-0.5 block text-[12px] text-ink-3">
-                          {members.length} {members.length === 1 ? 'problem' : 'problems'} ·{' '}
-                          {outcome.metrics.accounts} accounts · {formatUsd(outcome.metrics.arr)} ARR
-                        </span>
-                      </span>
-                      <span className="flex-1" />
-                      <Sparkline
-                        series={outcome.metrics.weekly}
-                        width={90}
-                        height={24}
-                        label={`Mentions per week: ${outcome.metrics.weekly.join(', ')}`}
-                      />
-                    </button>
+                    />
                     {open && <ol>{members.map(card)}</ol>}
                   </div>
                 ))
@@ -251,6 +241,74 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
         <Outlet />
       </main>
     </MapLinksContext>
+  )
+}
+
+const OUTCOME_LINK =
+  'rounded-[3px] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
+
+function OutcomeHeader({
+  outcome,
+  problems,
+  open,
+  first,
+  selected,
+  onToggle,
+}: {
+  outcome: OutcomeView
+  problems: number
+  open: boolean
+  first: boolean
+  selected: OpportunityId | undefined
+  onToggle: () => void
+}) {
+  const { metrics } = outcome
+  const accounts = { ...CLOSED, selected, outcome: outcome.id, evidence: 'accounts' } as const
+  return (
+    <div className={`flex items-center gap-2.5 px-1.5 pb-2.5 ${first ? 'pt-1' : 'pt-[18px]'}`}>
+      <div className="min-w-0">
+        <div className="flex items-center gap-1">
+          <button type="button" aria-expanded={open} onClick={onToggle} className="flex items-center gap-2.5 text-left">
+            <span aria-hidden className="w-3 text-ink-3">
+              {open ? '▾' : '▸'}
+            </span>
+            <span className="text-[15px] font-[650] tracking-[-0.01em]">{outcome.title}</span>
+          </button>
+          {metrics.needsReview > 0 && (
+            <Pill tone="warn" title="Low-confidence placements">
+              {metrics.needsReview}
+            </Pill>
+          )}
+        </div>
+        <div className="mt-0.5 pl-[22px] text-[12px] text-ink-3">
+          {problems} {problems === 1 ? 'problem' : 'problems'} ·{' '}
+          <MapAnchor
+            patch={accounts}
+            label={`Show the ${String(metrics.accounts)} accounts of ${outcome.title}`}
+            className={OUTCOME_LINK}
+          >
+            {metrics.accounts} accounts
+          </MapAnchor>{' '}
+          ·{' '}
+          <MapAnchor
+            patch={accounts}
+            label={`Show the accounts behind ${formatUsd(metrics.arr)} ARR of ${outcome.title}`}
+            className={OUTCOME_LINK}
+          >
+            {formatUsd(metrics.arr)} ARR
+          </MapAnchor>
+        </div>
+      </div>
+      <span className="flex-1" />
+      <Sparkline
+        series={metrics.weekly}
+        width={90}
+        height={24}
+        label={`Mentions per week: ${metrics.weekly.join(', ')}${
+          metrics.needsReview > 0 ? `, ${String(metrics.needsReview)} need review` : ''
+        }`}
+      />
+    </div>
   )
 }
 
