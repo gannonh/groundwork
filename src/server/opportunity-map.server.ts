@@ -236,7 +236,7 @@ export async function loadOpportunityMap(
         }
       }),
       solutions: opportunities
-        .filter((o) => o.kind === 'solution' && o.parentId === problem.id)
+        .filter((o) => o.kind === 'solution' && o.parentId === problem.id && o.metrics.mentions > 0)
         .map((s) => ({ id: s.id, title: s.title, mentions: s.metrics.mentions, needsReview: s.metrics.needsReview }))
         .sort((a, b) => b.mentions - a.mentions),
       topAccounts: topAccounts(evidence, accountsById, TOP_ACCOUNTS).map((a) => ({

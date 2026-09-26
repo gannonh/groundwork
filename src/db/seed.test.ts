@@ -225,6 +225,8 @@ describe('pnpm db:seed', () => {
       ['Halcyon Bank', 240_000],
     ])
     expect(problemsOf(map).flatMap((p) => p.quotes.filter((q) => (q.account?.arr ?? 0) < 150_000))).toEqual([])
+    expect(top.solutions).toEqual([])
+    expect(problemsOf(map).flatMap((p) => p.solutions.filter((s) => s.mentions === 0))).toEqual([])
   })
 
   test('an empty database loads as an empty map, not an error', async () => {

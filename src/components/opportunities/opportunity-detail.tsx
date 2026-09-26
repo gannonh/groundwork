@@ -118,6 +118,7 @@ function DetailSolutions({ problem }: SectionProps) {
   return (
     <>
       <SectionHeading title="Requested solutions">mentions</SectionHeading>
+      {problem.solutions.length === 0 && <p className="text-ink-3">No requested solutions in this view.</p>}
       {problem.solutions.map((solution) => (
         <div key={solution.id} className="mb-1.5 flex justify-between gap-3 rounded-[8px] border px-2.5 py-2">
           <span>{solution.title}</span>
