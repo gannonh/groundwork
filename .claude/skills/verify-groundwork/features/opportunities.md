@@ -1,6 +1,6 @@
 # Opportunity map
 
-The Opportunities screen has a left rail, a toolbar, and the ranked problem cards. The rail holds four weight sliders (Reach, Revenue, Pain, Momentum), four preset chips (Balanced, Enterprise, Breadth, Heating up), and the Segment, Source, Speaker, and Date filters. The toolbar switches between Ranked and By outcome, and between Stack and Split. In Split, the selected problem's evidence shows on the right: stats, mentions per week, quotes, requested solutions, and top accounts. In Stack, clicking a card expands that evidence inline. Below 1100 px wide the map is always Stack and the Stack/Split toggle is hidden.
+The Opportunities screen has a left rail, a toolbar, and the ranked problem cards. The rail holds four weight sliders (Reach, Revenue, Pain, Momentum), four preset chips (Balanced, Enterprise, Breadth, Heating up), and the Segment, Source, Speaker, and Date filters. The toolbar switches between Ranked and By outcome, and between Stack and Split. In Split, the selected problem's evidence shows on the right: stats, mentions per week, quotes, requested solutions, and top accounts. In Stack, clicking a card expands that evidence inline. Below 1280 px wide the map is always Stack and the Stack/Split toggle is hidden.
 
 The URL is the saved view. Weights, grouping, layout, selection, and filters are search params on `/opportunities`, and values equal to the defaults are left out, so a plain `/opportunities` is Balanced, Ranked, Split, all segments and sources, any speaker, 90d. A reload, a pasted link, or the Back button shows the same view. With no data, the screen shows an empty state instead.
 
@@ -42,7 +42,7 @@ The URL is the saved view. Weights, grouping, layout, selection, and filters are
 - `map-keys`: in Split, `j` or ArrowDown selects the next card in display order and `k` or ArrowUp the previous one, skipping collapsed groups, and keeps the card in view. The URL is replaced, not pushed. Keys typed into a control, such as a focused slider, do not move the selection.
 - `map-stack`: at 1000x800 the toolbar reads `Click a row to expand`, there is no detail pane, and cards gain an Accounts column. Clicking card 4 expands it inline with its stats and quotes on the left and its trend, solutions, and top accounts on the right. Clicking it again collapses it.
 - `map-empty`: with no workspace, `/opportunities` shows `No opportunities yet` with an `Import a source` link to `/sources`.
-- `map-width`: at 1100x800 the page has no horizontal scroll. The Split list is narrow at this width, so card titles wrap a word per line.
+- `map-width`: at 1280x800 the page is Split, has no horizontal scroll, and card titles wrap to at most three lines.
 
 Seeded ids are deterministic, so these paths hold on every run:
 
@@ -69,7 +69,7 @@ Seeded ids are deterministic, so these paths hold on every run:
 - Press the browser Back button after choosing cards.
 - Drag a weight slider or click a preset chip in the rail.
 - Tick or untick a filter in the rail.
-- Choose By outcome or Stack in the toolbar, or narrow the window below 1100 px.
+- Choose By outcome or Stack in the toolbar, or narrow the window below 1280 px.
 - Press `j` and `k` in Split.
 
 ## Driving it with drive.mjs
@@ -89,7 +89,7 @@ Preconditions:
 - **Group.** Run `node $S/drive.mjs --name map-group goto=/opportunities "click=radio/By outcome" expect-url=/opportunities?group=outcome "expect-text=3 problems · 84 accounts · \$3.78M ARR" snap=grouped`. Exit code 0. Compare `grouped.png` with prototype D's By outcome view.
 - **Keys.** Run `node $S/drive.mjs --name map-keys goto=/opportunities press=j press=j expect-url=/opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96 press=k expect-url=/opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27 snap=keys`. Exit code 0.
 - **Stack.** Run `node $S/drive.mjs --name map-stack --viewport 1000x800 goto=/opportunities "expect-text=Click a row to expand" "click=link/Admins can't restrict access by team" expect-url=/opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa "expect-text=Team-scoped permissions" snap=stack`. Exit code 0. `stack.png` shows card 4 expanded inline in two columns.
-- **Width.** Run `node $S/drive.mjs --name map-width --viewport 1100x800 goto=/opportunities snap=narrow`. `narrow.png` shows no horizontal scrollbar. In the integrated browser, `preview_evaluate` with `document.documentElement.scrollWidth <= innerWidth` returns `true`.
+- **Width.** Run `node $S/drive.mjs --name map-width --viewport 1280x800 goto=/opportunities snap=narrow`. `narrow.png` shows no horizontal scrollbar. In the integrated browser, `preview_evaluate` with `document.documentElement.scrollWidth <= innerWidth` returns `true`.
 - **Empty state.** Only on your own instance: run `docker compose exec -T db psql -U groundwork -d $DB_NAME -c 'delete from workspace'`, then `node $S/drive.mjs --name map-empty goto=/opportunities "expect-text=No opportunities yet" snap=empty`. Exit code 0. Restore the data with `DATABASE_URL=postgres://groundwork:groundwork@localhost:5432/$DB_NAME node src/db/seed.ts`.
 - **Data.** Run `docker compose exec -T db psql -U groundwork -d $DB_NAME -c 'select (select count(*) from opportunity) opportunities, (select count(*) from account) accounts, (select count(*) from placement) placements' | tee "$EVIDENCE_DIR/map-data.txt"`. It prints `36 | 277 | 767`.
 

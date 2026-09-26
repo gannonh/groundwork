@@ -45,7 +45,8 @@ function OpportunitiesPage() {
   return <OpportunityMapScreen map={map} />
 }
 
-const WIDE = '(min-width: 1100px)'
+// Below this, a 250 px rail and a 460 px detail pane leave the Split list too narrow for a card title.
+const WIDE = '(min-width: 1280px)'
 
 function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const search = Route.useSearch()
