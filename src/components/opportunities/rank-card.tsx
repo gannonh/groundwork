@@ -9,7 +9,7 @@ import type { Layout } from './search'
 
 export const RANK_GRID: Record<Layout, string> = {
   split: 'grid grid-cols-[30px_minmax(0,1fr)_110px_64px_70px] items-center gap-3',
-  stack: 'grid grid-cols-[34px_minmax(0,1fr)_200px_70px_80px_76px] items-center gap-[14px]',
+  stack: 'grid grid-cols-[34px_minmax(0,1fr)_200px_70px_80px_76px] items-center gap-3.5',
 }
 
 export type RankCardProps = {
@@ -73,8 +73,8 @@ export const RankCard = memo(function RankCard({
         aria-describedby={`${id}-description`}
         className={`${RANK_GRID[layout]} rounded-[12px] px-4 py-3`}
       >
-        <div className="text-[18px] font-bold text-ink-3">{position}</div>
-        <div className="text-[14px] font-semibold">
+        <div className="text-numeral font-bold text-ink-3">{position}</div>
+        <div className="text-lead font-semibold">
           <span id={`${id}-title`}>{problem.title}</span>
           <span id={`${id}-description`} className="sr-only">
             {describe(problem, score)}
@@ -91,7 +91,7 @@ export const RankCard = memo(function RankCard({
               </Pill>
             </span>
           )}
-          <span className="mt-0.5 block text-[11.5px] font-medium text-ink-3">{subtitle}</span>
+          <span className="mt-0.5 block text-meta font-medium text-ink-3">{subtitle}</span>
         </div>
         <ScoreBar score={score} />
         {stack && <div className="text-right tabular-nums">{problem.metrics.accounts}</div>}

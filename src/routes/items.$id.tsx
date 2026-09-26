@@ -27,7 +27,7 @@ function ItemPage() {
     return (
       <main className="grid h-[calc(100dvh-48px)] place-items-center">
         <div className="text-center">
-          <h1 className="mb-2 text-[17px] font-semibold">Item not found</h1>
+          <h1 className="mb-2 text-title font-semibold">Item not found</h1>
           <Link to="/sources" className="font-medium text-primary hover:underline">
             Back to sources
           </Link>
@@ -39,7 +39,7 @@ function ItemPage() {
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
       <div className="mx-auto max-w-[760px]">
-        <div className="mb-1 text-[12px] text-ink-3">
+        <div className="mb-1 text-meta text-ink-3">
           <Link to="/sources" className="hover:underline">
             Sources
           </Link>{' '}
@@ -48,7 +48,7 @@ function ItemPage() {
             {item.source.name}
           </Link>
         </div>
-        <h1 className="mb-3 text-[17px] font-semibold">
+        <h1 className="mb-3 text-title font-semibold">
           {ITEM_KIND_LABELS[item.source.itemKind]} from {formatDate(item.date)}
         </h1>
 
@@ -71,11 +71,11 @@ function ItemPage() {
           <Meta label="Author">{item.role ? formatRole(item.role) : <span className="text-ink-3">Not given</span>}</Meta>
         </dl>
 
-        <h2 className="mb-2 text-[11px] font-semibold tracking-[0.04em] text-ink-3 uppercase">Sentences</h2>
+        <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Sentences</h2>
         <ol aria-label="Sentences" className="rounded-[10px] border bg-card py-1.5">
           {item.sentences.map((s) => (
             <li key={s.ordinal} className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]">
-              <span aria-hidden className="text-right font-mono text-[11px] leading-[20px] text-ink-3 tabular-nums">
+              <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">
                 {s.ordinal + 1}
               </span>
               <span>
@@ -92,7 +92,7 @@ function ItemPage() {
 function Meta({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="min-w-0 border-r px-3.5 py-2.5 last:border-r-0">
-      <dt className="text-[11px] font-semibold text-ink-3">{label}</dt>
+      <dt className="text-caption font-semibold text-ink-3">{label}</dt>
       <dd className="truncate pt-0.5 font-medium">{children}</dd>
     </div>
   )

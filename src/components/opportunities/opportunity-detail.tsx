@@ -14,9 +14,9 @@ export type OpportunityDetailProps = { readonly problem: ProblemView; readonly w
 
 export function OpportunityDetail({ problem, window }: OpportunityDetailProps) {
   return (
-    <div className="px-6 pt-[22px] pb-[90px]">
-      <div className="mb-1.5 text-[12px] text-ink-3">{problem.outcome.title}</div>
-      <h2 className="mb-3 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">{problem.title}</h2>
+    <div className="px-6 pt-5.5 pb-22.5">
+      <div className="mb-1.5 text-meta text-ink-3">{problem.outcome.title}</div>
+      <h2 className="mb-3 text-headline leading-[1.3] font-bold tracking-[-0.01em]">{problem.title}</h2>
       <LinkedIssue problem={problem} />
       <DetailStats problem={problem} />
       <DetailTrend problem={problem} window={window} />
@@ -46,8 +46,8 @@ export function InlineDetail({ problem, window }: OpportunityDetailProps) {
 
 export function MissingOpportunity() {
   return (
-    <div className="px-6 pt-[22px] pb-[90px]">
-      <h2 className="mb-2 text-[19px] leading-[1.3] font-bold tracking-[-0.01em]">Opportunity not found</h2>
+    <div className="px-6 pt-5.5 pb-22.5">
+      <h2 className="mb-2 text-headline leading-[1.3] font-bold tracking-[-0.01em]">Opportunity not found</h2>
       <p className="text-ink-2">
         It may have been merged or deleted, or the filters hide it. Pick a problem from the list.
       </p>
@@ -63,7 +63,7 @@ const MENTIONS: EvidenceFilter = { evidence: 'mentions' }
 function LinkedIssue({ problem }: SectionProps) {
   if (!problem.link) return null
   return (
-    <div className="mb-[18px]">
+    <div className="mb-4.5">
       <LinkedPill identifier={`Linked ${problem.link.identifier}`} url={problem.link.url} />
     </div>
   )
@@ -72,7 +72,7 @@ function LinkedIssue({ problem }: SectionProps) {
 function DetailStats({ problem }: SectionProps) {
   const { metrics } = problem
   return (
-    <dl className="mb-[18px] grid grid-cols-4 rounded-[10px] border">
+    <dl className="mb-4.5 grid grid-cols-4 rounded-[10px] border">
       <Stat label="Accounts">
         <EvidenceLink problemId={problem.id} filter={ACCOUNTS} label={`Show the ${String(metrics.accounts)} accounts`}>
           {metrics.accounts}
@@ -93,7 +93,7 @@ function DetailStats({ problem }: SectionProps) {
         </EvidenceLink>
       </Stat>
       <Stat label="Pain">
-        <span className="block pt-1 text-[13px]">
+        <span className="block pt-1 text-body">
           {metrics.pain === null ? (
             <span className="font-medium text-ink-3">Not scored</span>
           ) : (
@@ -226,15 +226,15 @@ function EvidenceLink({
 function Stat({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="border-r px-3 py-2.5 last:border-r-0">
-      <dt className="mb-[3px] text-[11px] font-medium text-ink-3">{label}</dt>
-      <dd className="text-[17px] font-[650] tabular-nums">{children}</dd>
+      <dt className="mb-0.75 text-caption font-medium text-ink-3">{label}</dt>
+      <dd className="text-title font-[650] tabular-nums">{children}</dd>
     </div>
   )
 }
 
 function SectionHeading({ title, first = false, children }: { title: string; first?: boolean; children?: ReactNode }) {
   return (
-    <div className={`${first ? '' : 'mt-5'} mb-2 flex items-center justify-between text-[11px] font-semibold tracking-[.06em] text-ink-3 uppercase`}>
+    <div className={`${first ? '' : 'mt-5'} mb-2 flex items-center justify-between text-caption font-semibold tracking-[.06em] text-ink-3 uppercase`}>
       <h3>{title}</h3>
       {children}
     </div>

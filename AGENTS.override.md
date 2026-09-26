@@ -48,10 +48,11 @@ The app serves on http://localhost:3000.
 - `src/routes/`: file routes. `src/routes/api/` holds server routes.
 - `src/components/`: custom components. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
 - `src/db/`: Postgres pool, Drizzle schema, migrate and seed scripts.
-- `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
+- `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales.
+- `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale. `tsconfig.json` and `vite.config.ts` point the bare `cn` import there, so the shadcn components stay as the CLI writes them.
 - `drizzle/`: generated SQL migrations.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `tailwind-scale.ts` rewrites one-off font sizes and spacing onto the scales in `app.css`; `--check` fails if any remain.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
@@ -72,6 +73,7 @@ The app serves on http://localhost:3000.
 
 - Prototype D is the visual spec. Match its density, card style, and tokens.
 - Use shadcn/ui for standard controls. Restyle them through the theme variables in `src/styles/app.css`, not per-component overrides.
+- Size text with the type scale (`text-meta`, `text-body`, ...) and space with Tailwind's spacing steps (`pt-5.5` is 22px). `pnpm lint` rejects a one-off value such as `text-[13px]` outside `src/components/ui/`. A real exception takes `// eslint-disable-next-line no-restricted-syntax -- <reason>`.
 - Rank cards, score bars, sparklines, trend bars, and quotes are custom components.
 - Prototype each new UI route, such as `/triage`. Also prototype a major panel or workflow within a route when it has its own layout or interaction model. Build three variants behind one switcher under `prototypes/<screen>/`, get Gannon's pick, then cut slices.
 - A standard shadcn/ui control (sheet, dialog, popover, or menu) inside an existing screen needs no prototype when styled only through theme variables. This includes a confirmation dialog and KAT-3483's evidence sheet.

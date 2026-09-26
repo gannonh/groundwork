@@ -52,11 +52,12 @@ The app serves on http://localhost:3000.
 - `src/ingest/`: pure import code shared by the browser preview and the server import: CSV parsing, column mapping and date parsing, account parsing, redaction, and sentence splitting. No database, React, or `node:` imports.
 - `src/server/`: server-only code (`*.server.ts`): screen loaders that query the database and build view models for a route's server function, and `ingest.server.ts`, which writes item and account imports.
 - `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/`, `src/domain/`, and `src/ingest/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
-- `src/styles/`: `app.css`, the Tailwind theme and prototype tokens.
+- `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales.
+- `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale. `tsconfig.json` and `vite.config.ts` point the bare `cn` import there, so the shadcn components stay as the CLI writes them.
 - `drizzle/`: generated SQL migrations.
 - `fixtures/exports/`: generated CSV exports for tests and live checks: `zendesk-500.csv`, `nps-300.csv` (DD/MM/YYYY dates), and `accounts-60.csv`.
 - `e2e/`: Playwright specs.
-- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on a throwaway database. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `tailwind-scale.ts` rewrites one-off font sizes and spacing onto the scales in `app.css`; `--check` fails if any remain. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
@@ -77,6 +78,7 @@ The app serves on http://localhost:3000.
 
 - Prototype D is the visual spec. Match its density, card style, and tokens.
 - Use shadcn/ui for standard controls. Restyle them through the theme variables in `src/styles/app.css`, not per-component overrides.
+- Size text with the type scale (`text-meta`, `text-body`, ...) and space with Tailwind's spacing steps (`pt-5.5` is 22px). `pnpm lint` rejects a one-off value such as `text-[13px]` outside `src/components/ui/`. A real exception takes `// eslint-disable-next-line no-restricted-syntax -- <reason>`.
 - Rank cards, score bars, sparklines, trend bars, and quotes are custom components.
 - Prototype each new UI route, such as `/triage`. Also prototype a major panel or workflow within a route when it has its own layout or interaction model. Build three variants behind one switcher under `prototypes/<screen>/`, get Gannon's pick, then cut slices.
 - A standard shadcn/ui control (sheet, dialog, popover, or menu) inside an existing screen needs no prototype when styled only through theme variables. This includes a confirmation dialog and KAT-3483's evidence sheet.

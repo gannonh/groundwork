@@ -15,7 +15,7 @@ export function ScoreBar({ score }: { score: Score }) {
           <i key={factor} className={`block h-full ${FACTOR_COLORS[factor]}`} style={{ width: `${String(score.parts[factor])}%` }} />
         ))}
       </div>
-      <div className="mt-1 font-mono text-[12px] text-ink-2">{score.total.toFixed(0)}</div>
+      <div className="mt-1 font-mono text-meta text-ink-2">{score.total.toFixed(0)}</div>
     </div>
   )
 }
