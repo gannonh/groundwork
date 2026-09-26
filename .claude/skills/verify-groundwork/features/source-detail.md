@@ -22,7 +22,7 @@ Preconditions:
 - The baseline preconditions in the README are met.
 - The zendesk import in [sources-new.md](./sources-new.md) has run.
 
-- **Open and read.** Run `node $S/drive.mjs --name source-detail goto=/sources click-in-row="zendesk-500|500 items" expect-text="Ticket · 500 items" expect-text="Created at (YYYY-MM-DD)" expect-text="Showing 100 of 500 items, newest first." snap=detail`. Exit code 0.
+- **Open and read.** Run `node $S/drive.mjs --name source-detail goto=/sources click-in-row="zendesk-500|500 items" expect-text="Ticket · 500 items" expect-text="Created at (YYYY-MM-DD)" expect-text="Showing 100 of 500 items, newest first." snap=detail`. Exit code 0. `Created at (YYYY-MM-DD)` is the mapping summary's Date field: the zendesk export's date column is named `Created at`. It is not the source's creation date, which the header line shows as `Created Sep 26, 2026`.
 - **Open an item.** Run `node $S/drive.mjs --name source-item goto=/sources click-in-row="zendesk-500|500 items" click-in-row="Jane from Acme|Sep 11, 2026" expect-text="Ticket from Sep 11, 2026" snap=item`. Exit code 0.
 - **Missing.** Run `node $S/drive.mjs --name source-missing goto=/sources/not-a-uuid expect-text="Source not found" click=link/"Back to sources" expect-url=/sources`. Exit code 0.
 
