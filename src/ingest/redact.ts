@@ -1,7 +1,5 @@
 import type { RawText, RedactedText } from '../domain/types.ts'
 
-export const REDACTION_TOKENS = ['[email]', '[card]', '[phone]'] as const
-
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/g
 // 4-4-4-1..7 covers 13 to 19 digits; 4-6-4..5 covers Amex. Luhn separates cards from order numbers of the same shape.
 const CARD = /\b(?:(?:\d{4}[ -]?){3}\d{1,7}|\d{4}[ -]?\d{6}[ -]?\d{4,5})\b/g
