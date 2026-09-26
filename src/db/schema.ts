@@ -15,18 +15,19 @@ import {
   unique,
   uuid,
 } from 'drizzle-orm/pg-core'
-import type {
-  AccountId,
-  Confidence,
-  ItemId,
-  MentionId,
-  OpportunityId,
-  PackId,
-  RawText,
-  RedactedText,
-  SourceId,
-  Usd,
-  WorkspaceId,
+import {
+  ITEM_KINDS,
+  type AccountId,
+  type Confidence,
+  type ItemId,
+  type MentionId,
+  type OpportunityId,
+  type PackId,
+  type RawText,
+  type RedactedText,
+  type SourceId,
+  type Usd,
+  type WorkspaceId,
 } from '../domain/types.ts'
 import type { ColumnMapping } from '../ingest/mapping.ts'
 
@@ -37,7 +38,7 @@ const createdAt = () => timestamp('created_at', tz).notNull().defaultNow()
 const PINNED_MODEL = String.raw`'^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'`
 
 export const opportunityKind = pgEnum('opportunity_kind', ['outcome', 'problem', 'solution'])
-export const itemKind = pgEnum('item_kind', ['ticket', 'call', 'survey_response', 'review', 'interview'])
+export const itemKind = pgEnum('item_kind', ITEM_KINDS)
 export const sourceKind = pgEnum('source_kind', ['upload'])
 export const speakerRole = pgEnum('speaker_role', ['end_user', 'admin', 'buyer', 'executive', 'unknown'])
 export const judgeBackend = pgEnum('judge_backend', ['recorded', 'jev', 'llm'])
