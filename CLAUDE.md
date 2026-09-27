@@ -36,7 +36,7 @@ The app serves on http://localhost:3000.
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |
-| `pnpm e2e` | Playwright against the production build on a fresh, seeded database (port 3000) and a fresh, empty one (port 3001), both dropped afterward. Extra arguments go to `playwright test`. Run `pnpm build` first. Skips the screenshot tests. |
+| `pnpm e2e` | Playwright against the production build on a fresh, seeded database and a fresh, empty one, both dropped afterward. Its servers run on OS-assigned ports, so concurrent runs in other worktrees don't collide. Extra arguments go to `playwright test`. Run `pnpm build` first. Skips the screenshot tests. |
 | `pnpm e2e:docker` | `pnpm e2e` inside the Playwright image that CI uses, screenshot tests included. Needs Docker with host networking. |
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |

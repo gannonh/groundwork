@@ -39,8 +39,8 @@ test('the evidence sheet open on Mentions', async ({ page }) => {
 })
 
 test('the empty map', async ({ page }) => {
-  // Port 3001 serves the migrated but unseeded database.
-  await page.goto('http://localhost:3001/opportunities')
+  // The second web server in playwright.config.ts serves the migrated but unseeded database.
+  await page.goto(new URL('/opportunities', process.env.E2E_EMPTY_BASE_URL).href)
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('No opportunities yet')
   await expect(page).toHaveScreenshot('empty.png')
 })
