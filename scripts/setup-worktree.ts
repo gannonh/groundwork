@@ -49,10 +49,14 @@ const env = NodeFs.readFileSync(envPath, "utf8")
 NodeFs.writeFileSync(envPath, [...env, `DATABASE_URL=${databaseUrl}`, ""].join("\n"));
 console.log(`Set DATABASE_URL to ${databaseUrl}`);
 
+// A corepack pnpm shim prompts before downloading an uncached pinned version, which hangs this non-interactive hook.
+const childEnv = { ...process.env, COREPACK_ENABLE_DOWNLOAD_PROMPT: "0" };
+
 function run(command: string): void {
   console.log(`$ ${command}`);
   const result = NodeChildProcess.spawnSync(command, {
     cwd: worktree,
+    env: childEnv,
     shell: true,
     stdio: "inherit",
   });
@@ -65,7 +69,7 @@ run("pnpm install --frozen-lockfile");
 run("docker compose up -d --wait db");
 const exists = NodeChildProcess.execSync(
   `${psql} "select 1 from pg_database where datname = '${database}'"`,
-  { cwd: worktree, encoding: "utf8" },
+  { cwd: worktree, env: childEnv, encoding: "utf8" },
 );
 if (exists.trim() !== "1") run(`${psql} "create database ${database}"`);
 run("pnpm db:migrate");
