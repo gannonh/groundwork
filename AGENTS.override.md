@@ -18,6 +18,7 @@ Keep the setup, scripts, and layout below current as slices land.
 ```sh
 mise settings add idiomatic_version_file_enable_tools node
 mise install
+mise use -g pnpm@12
 pnpm install
 cp .env.example .env
 docker compose up -d db
@@ -26,7 +27,7 @@ pnpm db:seed
 pnpm dev
 ```
 
-The app serves on http://localhost:3000. The first line lets mise read `.nvmrc`, which it ignores by default. `mise install` then installs that Node, and pnpm switches itself to the version pinned in `package.json`. On any other Node major, `pnpm install` and `scripts/setup-worktree.ts` stop with an error that names the version.
+The app serves on http://localhost:3000. The first line lets mise read `.nvmrc`, which it ignores by default. `mise install` then installs that Node. `mise use -g pnpm@12` installs pnpm 12 and puts it on your PATH, and pnpm then switches itself to the exact version pinned in `package.json`. On any other Node major, `pnpm install` and `scripts/setup-worktree.ts` stop with an error that names the version.
 
 Machine roles: the Mac Mini is the desk and the Kata Code client.
 Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
