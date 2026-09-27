@@ -26,4 +26,4 @@ Preconditions:
 
 - `allow_connections false` blocks only new connections. The pool keeps the connections it already has open, so the recipe also terminates those backends. Without that step, health keeps answering 200.
 - Postgres refuses the connection straight away, so the 503 comes back in milliseconds. A 503 that takes about 2 seconds means the pool hit its `connectionTimeoutMillis` instead: the host is unreachable, which is a different failure.
-- `e2e/health.spec.ts` covers only `health-ok`, against `pnpm start` on port 3000.
+- `e2e/health.spec.ts` covers only `health-ok`, against the production build on an OS-assigned port.
