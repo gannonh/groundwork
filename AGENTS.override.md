@@ -16,15 +16,19 @@ Keep the setup, scripts, and layout below current as slices land.
 ### Setup
 
 ```sh
-nvm use
+mise install
 pnpm install
 cp .env.example .env
 docker compose up -d db
 pnpm db:migrate
+pnpm db:seed
 pnpm dev
 ```
 
-The app serves on http://localhost:3000.
+The app serves on http://localhost:3000. `mise install` installs the Node in `.nvmrc`, and pnpm switches itself to the version pinned in `package.json`. On any other Node major, `pnpm install` and `scripts/setup-worktree.ts` stop with an error that names the version.
+
+Machine roles: the Mac Mini is the desk and the Kata Code client.
+Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
 
 ### Scripts
 
