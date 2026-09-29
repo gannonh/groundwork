@@ -34,7 +34,10 @@ pnpm12() {
   [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]] || node_run=(mise exec "node@$NODE_MAJOR" --)
   if command -v pnpm >/dev/null; then
     ver=$(cd "$ROOT" && "${node_run[@]+"${node_run[@]}"}" pnpm --version 2>/dev/null) || ver=''
-    [[ ${ver%%.*} == 12 ]] || die "pnpm on PATH ($(command -v pnpm)) reports '${ver:-no version}', need 12. Put mise's pnpm first on PATH, or remove that pnpm to fall back to corepack."
+    [[ ${ver%%.*} == 12 ]] || {
+      echo "verify: pnpm on PATH ($(command -v pnpm)) reports '${ver:-no version}', need 12. Put mise's pnpm first on PATH, or remove that pnpm to fall back to corepack." >&2
+      return 1
+    }
     "${node_run[@]+"${node_run[@]}"}" pnpm "$@"
   else
     COREPACK_ENABLE_DOWNLOAD_PROMPT=0 "${node_run[@]+"${node_run[@]}"}" corepack pnpm "$@"
