@@ -53,8 +53,9 @@ describe('ink contrast in app.css', () => {
 
   it.each(['ink-2', 'ink-3'])('%s measures at least 4.5:1 on every surface', (ink) => {
     const failing = surfaces
-      .map((surface) => ({ surface, ratio: Number(contrast(token(ink), token(surface)).toFixed(2)) }))
+      .map((surface) => ({ surface, ratio: contrast(token(ink), token(surface)) }))
       .filter(({ ratio }) => ratio < 4.5)
+      .map(({ surface, ratio }) => ({ surface, ratio: ratio.toFixed(3) }))
     expect(failing).toEqual([])
   })
 
