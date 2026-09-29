@@ -91,7 +91,10 @@ When CI fails on a screenshot, the `playwright-report` artifact holds the expect
 - Prototype D is the visual spec. Match its density, card style, and tokens.
 - Use shadcn/ui for standard controls. Restyle them through the theme variables in `src/styles/app.css`, not per-component overrides.
 - Rank cards, score bars, sparklines, trend bars, and quotes are custom components.
-- Design a new screen as a throwaway prototype first. Build three variants behind one switcher under `prototypes/<screen>/`, get Gannon's pick, then cut slices.
+- Prototype each new UI route, such as `/triage`. Also prototype a major panel or workflow within a route when it has its own layout or interaction model. Build three variants behind one switcher under `prototypes/<screen>/`, get Gannon's pick, then cut slices.
+- A standard shadcn/ui control (sheet, dialog, popover, or menu) inside an existing screen needs no prototype when styled only through theme variables. This includes a confirmation dialog and KAT-3483's evidence sheet.
+- Only the chosen prototype is the spec. Superseded variants are not references for new work.
+- If it is unclear whether a UI change needs a prototype, ask in the Linear issue before Build.
 
 <!-- begin global rules -->
 ## Subagent delegation
