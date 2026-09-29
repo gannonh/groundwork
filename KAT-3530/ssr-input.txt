@@ -1,0 +1,4 @@
+GET /sources/new (server-rendered HTML, before any JavaScript runs)
+file input disabled attribute present: True
+GET /accounts (server-rendered HTML, before any JavaScript runs)
+file input disabled attribute present: True

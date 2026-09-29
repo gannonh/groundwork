@@ -1,0 +1,2 @@
+nps-300|survey_response|300
+zendesk-500|ticket|500
