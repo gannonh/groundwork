@@ -27,9 +27,17 @@ node_bin() {
   fi
 }
 
+# pnpm 12 comes from mise and reads packageManager. Corepack is only for a host with no pnpm.
+# Any other pnpm major on PATH is an error, so a stale install never runs silently.
 pnpm12() {
-  if [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]]; then COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack pnpm "$@"
-  else COREPACK_ENABLE_DOWNLOAD_PROMPT=0 mise exec "node@$NODE_MAJOR" -- corepack pnpm "$@"
+  local node_run=() ver
+  [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]] || node_run=(mise exec "node@$NODE_MAJOR" --)
+  if command -v pnpm >/dev/null; then
+    ver=$(cd "$ROOT" && "${node_run[@]+"${node_run[@]}"}" pnpm --version 2>/dev/null) || ver=''
+    [[ ${ver%%.*} == 12 ]] || die "pnpm on PATH ($(command -v pnpm)) reports '${ver:-no version}', need 12. Put mise's pnpm first on PATH, or remove that pnpm to fall back to corepack."
+    "${node_run[@]+"${node_run[@]}"}" pnpm "$@"
+  else
+    COREPACK_ENABLE_DOWNLOAD_PROMPT=0 "${node_run[@]+"${node_run[@]}"}" corepack pnpm "$@"
   fi
 }
 
