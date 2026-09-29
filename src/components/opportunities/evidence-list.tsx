@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import type { EvidenceList } from '@/server/opportunity-map.server'
@@ -14,6 +15,8 @@ export type EvidenceSheetProps = {
 
 /** The quotes behind one number on the detail, in prototype D's 480px drawer. */
 export function EvidenceSheet({ open, list, onClose, onReload }: EvidenceSheetProps) {
+  // The sheet opens from plain anchors, not a Dialog.Trigger, so Radix has no trigger to hand focus back to.
+  const opener = useRef<HTMLElement | null>(null)
   return (
     <Sheet
       open={open}
@@ -21,7 +24,16 @@ export function EvidenceSheet({ open, list, onClose, onReload }: EvidenceSheetPr
         if (!open) onClose()
       }}
     >
-      <SheetContent className="w-[480px] max-w-full gap-0 bg-card leading-[normal] sm:max-w-none">
+      <SheetContent
+        className="w-[480px] max-w-full gap-0 bg-card leading-[normal] sm:max-w-none"
+        onOpenAutoFocus={() => {
+          const active = document.activeElement
+          opener.current = active instanceof HTMLElement && active !== document.body ? active : null
+        }}
+        onCloseAutoFocus={() => {
+          if (opener.current?.isConnected) opener.current.focus()
+        }}
+      >
         <SheetHeader className="gap-1 border-b px-6 pt-5.5 pr-14 pb-4">
           <SheetTitle className="text-title leading-[1.3] font-bold tracking-[-0.01em]">{heading(list)}</SheetTitle>
           <SheetDescription className="text-meta text-ink-3">

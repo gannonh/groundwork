@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Locator, type Page } from '@playwright/test'
 import { expectAccessible } from './axe'
 
 // Runs against `pnpm db:seed` data: prototype D's 12 problems.
@@ -458,4 +458,54 @@ test("in By outcome, a header's accounts number lists that outcome's accounts wi
   await expect(evidence(page)).toHaveCount(0)
   await expect(page).toHaveURL(/\/opportunities\?group=outcome$/)
   await expect(detail(page).getByRole('heading', { level: 2 })).toHaveText(CSV)
+})
+
+const openers: { name: string; url: string; link: (page: Page) => Locator }[] = [
+  { name: 'a stat link', url: '/opportunities', link: (page) => stat(page, 'Mentions') },
+  {
+    name: 'an evidence link',
+    url: '/opportunities',
+    link: (page) => detail(page).getByRole('link', { name: "Show the quotes behind Kite Dynamics's $52k ARR" }),
+  },
+  {
+    name: "an outcome header's link",
+    url: '/opportunities?group=outcome',
+    link: (page) =>
+      list(page).getByRole('link', { name: 'Show the 84 accounts of Trust the numbers in reports' }),
+  },
+]
+const closers: { name: string; close: (page: Page) => Promise<void> }[] = [
+  { name: 'Escape', close: (page) => page.keyboard.press('Escape') },
+  { name: 'the Close button', close: (page) => evidence(page).getByRole('button', { name: 'Close' }).click() },
+]
+
+for (const opener of openers) {
+  for (const closer of closers) {
+    test(`closing the evidence sheet opened from ${opener.name} with ${closer.name} returns focus to that link`, async ({
+      page,
+    }) => {
+      await page.goto(opener.url)
+      await hydrated(page)
+      const link = opener.link(page)
+      await link.focus()
+      await page.keyboard.press('Enter')
+      await expect(evidence(page)).toBeVisible()
+
+      await closer.close(page)
+      await expect(evidence(page)).toHaveCount(0)
+      await expect(link).toBeFocused()
+    })
+  }
+}
+
+test('closing an evidence sheet that a URL opened leaves focus on the page without an error', async ({ page }) => {
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.goto(`/opportunities?selected=${TOP_ID}&evidence=mentions`)
+  await expect(evidence(page)).toBeVisible()
+
+  await page.keyboard.press('Escape')
+  await expect(evidence(page)).toHaveCount(0)
+  expect(await page.evaluate(() => document.activeElement === document.body)).toBe(true)
+  expect(errors).toEqual([])
 })
