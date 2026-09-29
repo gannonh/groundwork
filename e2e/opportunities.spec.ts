@@ -192,6 +192,29 @@ test('two speaker clicks during a pending refetch both apply', async ({ page }) 
   await expect(speaker.getByRole('button', { name: 'Exec' })).toHaveAttribute('aria-pressed', 'false')
 })
 
+test('the rail shows a clicked filter while the refetch is pending, then matches the URL', async ({ page }) => {
+  await page.goto('/opportunities')
+  await hydrated(page)
+  const segment = rail(page).getByRole('group', { name: 'Segment' })
+  const speaker = rail(page).getByRole('group', { name: 'Speaker' })
+  const release = await holdMapFetches(page)
+  await segment.getByRole('checkbox', { name: 'SMB' }).click()
+  await speaker.getByRole('button', { name: 'Buyer' }).click()
+
+  await expect(segment.getByRole('checkbox', { name: 'SMB' })).not.toBeChecked()
+  await expect(segment.getByRole('checkbox', { name: 'Enterprise' })).toBeChecked()
+  await expect(speaker.getByRole('button', { name: 'Buyer' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(detail(page).getByRole('definition')).toHaveText(['44', '$2.31M', '141', 'Deal breaker'])
+
+  release()
+  await expect(detail(page).getByRole('definition')).not.toHaveText(['44', '$2.31M', '141', 'Deal breaker'])
+  await expect.poll(() => decodeURIComponent(new URL(page.url()).search)).toBe('?segments=["enterprise","mid_market"]&speakers=["buyer"]')
+  await expect(segment.getByRole('checkbox', { name: 'SMB' })).not.toBeChecked()
+  await expect(segment.getByRole('checkbox', { name: 'Mid-market' })).toBeChecked()
+  await expect(speaker.getByRole('button', { name: 'Buyer' })).toHaveAttribute('aria-pressed', 'true')
+  await expect(speaker.getByRole('button', { name: 'Admin' })).toHaveAttribute('aria-pressed', 'false')
+})
+
 test('a preset and a slider step during a pending refetch both apply', async ({ page }) => {
   await page.goto('/opportunities')
   await hydrated(page)
