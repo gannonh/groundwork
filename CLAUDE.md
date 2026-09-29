@@ -59,7 +59,7 @@ Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
 - `src/ingest/`: pure import code shared by the browser preview and the server import: CSV parsing, column mapping and date parsing, account parsing, redaction, and sentence splitting. No database, React, or `node:` imports.
 - `src/server/`: server-only code (`*.server.ts`): screen loaders that query the database and build view models for a route's server function, and `ingest.server.ts`, which writes item and account imports.
 - `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/`, `src/domain/`, and `src/ingest/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
-- `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales.
+- `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales. `contrast.test.ts` fails when muted text drops under 4.5:1 on a surface token.
 - `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale. `tsconfig.json` and `vite.config.ts` point the bare `cn` import there, so the shadcn components stay as the CLI writes them.
 - `drizzle/`: generated SQL migrations.
 - `fixtures/exports/`: generated CSV exports for tests and live checks: `zendesk-500.csv`, `nps-300.csv` (DD/MM/YYYY dates), and `accounts-60.csv`.

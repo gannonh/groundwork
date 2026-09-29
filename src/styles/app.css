@@ -20,7 +20,7 @@
   --secondary: #f1f0ee;
   --secondary-foreground: #18181b;
   --muted: #f1f0ee;
-  --muted-foreground: #52525b;
+  --muted-foreground: #4b4b53;
   --accent: #f1f0ee;
   --accent-foreground: #18181b;
   --destructive: #c2410c;
@@ -71,8 +71,8 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-ink-2: #52525b;
-  --color-ink-3: #71717a;
+  --color-ink-2: #4b4b53;
+  --color-ink-3: #6b6b74;
   --color-line-2: #f1f0ee;
   --color-primary-soft: #eef2ff;
   --color-primary-line: #c7d2fe;
