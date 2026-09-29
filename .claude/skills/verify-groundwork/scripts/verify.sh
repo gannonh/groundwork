@@ -31,6 +31,7 @@ node_bin() {
 # Any other pnpm major on PATH is an error, so a stale install never runs silently.
 pnpm12() {
   local node_run=() ver
+  export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
   [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]] || node_run=(mise exec "node@$NODE_MAJOR" --)
   if command -v pnpm >/dev/null; then
     ver=$(cd "$ROOT" && "${node_run[@]+"${node_run[@]}"}" pnpm --version 2>/dev/null) || ver=''
@@ -40,7 +41,7 @@ pnpm12() {
     }
     "${node_run[@]+"${node_run[@]}"}" pnpm "$@"
   else
-    COREPACK_ENABLE_DOWNLOAD_PROMPT=0 "${node_run[@]+"${node_run[@]}"}" corepack pnpm "$@"
+    "${node_run[@]+"${node_run[@]}"}" corepack pnpm "$@"
   fi
 }
 
