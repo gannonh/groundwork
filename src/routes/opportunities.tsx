@@ -1,4 +1,4 @@
-import { Link, Outlet, createFileRoute, deepEqual, stripSearchParams, useNavigate, useRouter } from '@tanstack/react-router'
+import { Link, Outlet, createFileRoute, deepEqual, stripSearchParams, useNavigate, useRouter, useRouterState } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { InlineDetail, MissingOpportunity, OpportunityDetail } from '@/components/opportunities/opportunity-detail'
@@ -60,8 +60,9 @@ const WIDE = `(min-width: ${String(RAIL_PX + DETAIL_PX + MIN_SPLIT_LIST_PX)}px)`
 
 function OpportunityMapScreen({ map }: { map: ReadyMap }) {
   const search = Route.useSearch()
-  const filter = useEqualValue(filterOf(search))
-  const urlWeights = useEqualValue(weightsOf(search))
+  const latest = useLatestSearch(search)
+  const filter = useEqualValue(filterOf(latest))
+  const urlWeights = useEqualValue(weightsOf(latest))
   const navigate = useNavigate({ from: Route.fullPath })
   const update = useCallback(
     (patch: Partial<MapSearch>, replace = false) =>
@@ -314,6 +315,12 @@ function OutcomeHeader({
       />
     </div>
   )
+}
+
+/** The search the router is heading to. `search` is the settled one, which stays behind while a refetch is pending. */
+function useLatestSearch(search: MapSearch): MapSearch {
+  const location = useRouterState({ select: (s) => s.location })
+  return location.pathname.replace(/\/$/, '') === Route.fullPath ? mapSearch.parse(location.search) : search
 }
 
 function useDraftWeights(url: Weights) {
