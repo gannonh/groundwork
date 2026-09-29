@@ -1,4 +1,5 @@
 import { useId, useRef } from 'react'
+import { useHydrated } from '@tanstack/react-router'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
@@ -13,6 +14,8 @@ export function CsvFileField({
 }) {
   const id = useId()
   const latest = useRef<File | null>(null)
+  // A file chosen before hydration attaches onChange is never read, so the input stays disabled until then.
+  const hydrated = useHydrated()
   return (
     <div className="grid gap-1.5">
       <Label htmlFor={id}>{label}</Label>
@@ -20,7 +23,7 @@ export function CsvFileField({
         id={id}
         type="file"
         accept=".csv,text/csv"
-        disabled={disabled}
+        disabled={disabled || !hydrated}
         className="max-w-md bg-card"
         onChange={(event) => {
           const file = event.currentTarget.files?.[0]
