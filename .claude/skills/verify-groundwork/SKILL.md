@@ -21,7 +21,7 @@ $S/verify.sh up --id main-s1           # choose the run ID (default: timestamp)
 
 What `up` does:
 
-1. Installs deps if `node_modules` is missing. It reads the Node major from `.nvmrc` (24 today) and uses that Node from `PATH` or through `mise exec node@<major>`, with pnpm 12 through corepack. The global `pnpm` on this host is too old for the lockfile and fails with `packages field missing or empty`.
+1. Installs deps if `node_modules` is missing. mise provides both tools on both machines. `up` reads the Node major from `.nvmrc` (24 today) and uses that Node from `PATH` or through `mise exec node@<major>`. It runs the `pnpm` on `PATH` when it reports major 12; pnpm reads `packageManager` in `package.json` and runs the exact pinned version. It falls back to `corepack pnpm` only when no `pnpm` is on `PATH`. If `PATH` has a `pnpm` of any other major, `up` stops with an error naming it instead of running it or bypassing it with corepack.
 2. Starts `docker compose up -d --wait db`. The compose project is `groundwork` in every worktree, so all worktrees share one Postgres container on `127.0.0.1:5432`. `up` never stops it.
 3. Creates a fresh database `gw_verify_<id>`, then runs `src/db/migrate.ts` and `src/db/seed.ts` against it. Your run never touches the `groundwork` database that `pnpm dev` uses.
 4. Picks the first free port in 4100-4199 and starts the server under `setsid`, so the whole process group can be killed later.
