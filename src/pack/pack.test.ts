@@ -34,6 +34,14 @@ describe('parsePack', () => {
     expect(missing).toEqual({ ok: false, error: 'The pack is invalid. item_questions: workaround must be a noul question' })
   })
 
+  test('pain levels in another order, or with another level, are rejected', () => {
+    const message = 'The pack is invalid. item_questions: pain.levels must be exactly mild_annoyance, slows_work, blocks_work, deal_breaker, in that order'
+    const reordered = parsePack(shipped.replace('[mild_annoyance, slows_work, blocks_work, deal_breaker]', '[slows_work, mild_annoyance, blocks_work, deal_breaker]'))
+    expect(reordered).toEqual({ ok: false, error: message })
+    const extended = parsePack(shipped.replace('deal_breaker]', 'deal_breaker, fatal]'))
+    expect(extended).toEqual({ ok: false, error: message })
+  })
+
   test('a threshold outside (0, 1) is rejected', () => {
     const parsed = parsePack(shipped.replace('place_confidence: 0.7', 'place_confidence: 1.2'))
     expect(parsed.ok).toBe(false)

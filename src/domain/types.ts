@@ -37,7 +37,9 @@ export type JudgeValue =
 /** The option every placement question offers besides the tree's own nodes. */
 export const NONE_OF_THESE = 'none'
 
-/** Index into the pack's pain levels: mild_annoyance, slows_work, blocks_work, deal_breaker. */
+/** The pain scale, mildest first. A pack's pain question must list exactly these. */
+export const PAIN_KEYS = ['mild_annoyance', 'slows_work', 'blocks_work', 'deal_breaker'] as const
+/** Index into PAIN_KEYS. */
 export type PainLevel = 0 | 1 | 2 | 3
 export const PAIN_LEVELS: readonly PainLevel[] = [0, 1, 2, 3]
 export type SpeakerRole = 'end_user' | 'admin' | 'buyer' | 'executive' | 'unknown'

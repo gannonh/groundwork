@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { PINNED_MODEL } from '../domain/types.ts'
+import { PAIN_KEYS, PINNED_MODEL } from '../domain/types.ts'
 import type { Parsed } from '../ingest/csv.ts'
 import type { ChoiceSpec, NoulSpec, ScoreSpec } from '../judge/types.ts'
 import { parseYamlWith } from './parse.ts'
@@ -46,6 +46,11 @@ const itemQuestions = z.record(z.string(), anyQuestion).transform((questions, ct
   }
   for (const [key, type] of Object.entries(REQUIRED)) {
     if (questions[key]?.type !== type) ctx.issues.push({ code: 'custom', message: `${key} must be a ${type} question`, input: questions })
+  }
+  // The map reads a stored level as an index into the domain's scale, so the pack cannot reorder or extend it.
+  const pain = questions.pain
+  if (pain?.type === 'score' && pain.levels.join() !== PAIN_KEYS.join()) {
+    ctx.issues.push({ code: 'custom', message: `pain.levels must be exactly ${PAIN_KEYS.join(', ')}, in that order`, input: questions })
   }
   return questions as unknown as Pack['item_questions']
 })
