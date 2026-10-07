@@ -1,8 +1,10 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { formatRole, formatUsd } from '@/components/opportunities/format'
+import { itemSearch, returnView } from '@/components/opportunities/search'
+import { ItemMentions } from '@/components/sources/item-mentions'
 import { ITEM_KIND_LABELS, formatDate } from '@/components/sources/format'
 import { RedactedText } from '@/components/sources/redacted-text'
 import { db } from '@/db/client'
@@ -17,12 +19,20 @@ const getItem = createServerFn({ method: 'GET' })
   })
 
 export const Route = createFileRoute('/items/$id')({
+  validateSearch: itemSearch,
   loader: ({ params }) => getItem({ data: { id: params.id } }),
   component: ItemPage,
 })
 
 function ItemPage() {
   const detail = Route.useLoaderData()
+  const { mention, from } = Route.useSearch()
+  const firstHighlight = useRef<HTMLLIElement>(null)
+  const itemId = detail.kind === 'ready' ? detail.item.id : null
+  // Once per item, so picking another mention on the page does not move the reader's place.
+  useEffect(() => {
+    firstHighlight.current?.scrollIntoView({ block: 'center' })
+  }, [itemId])
   if (detail.kind === 'missing') {
     return (
       <main className="grid h-[calc(100dvh-48px)] place-items-center">
@@ -36,9 +46,17 @@ function ItemPage() {
     )
   }
   const { item } = detail
+  const view = returnView(from)
+  // A mention id that is not this item's highlights nothing.
+  const selected = item.mentions.find((m) => m.id === mention)
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
       <div className="mx-auto max-w-[760px]">
+        {view && (
+          <Link to="/opportunities" search={view} className="mb-2 inline-block font-medium text-primary hover:underline">
+            ← Back to {view.evidence ? 'the evidence list' : 'opportunities'}
+          </Link>
+        )}
         <div className="mb-1 text-meta text-ink-3">
           <Link to="/sources" className="hover:underline">
             Sources
@@ -71,18 +89,36 @@ function ItemPage() {
           <Meta label="Author">{item.role ? formatRole(item.role) : <span className="text-ink-3">Not given</span>}</Meta>
         </dl>
 
+        <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Mentions</h2>
+        <div className="mb-5">
+          <ItemMentions itemId={item.id} mentions={item.mentions} selected={selected?.id} from={view} />
+        </div>
+
         <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Sentences</h2>
         <ol aria-label="Sentences" className="rounded-[10px] border bg-card py-1.5">
-          {item.sentences.map((s) => (
-            <li key={s.ordinal} className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]">
-              <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">
-                {s.ordinal + 1}
-              </span>
-              <span>
-                <RedactedText text={s.text} />
-              </span>
-            </li>
-          ))}
+          {item.sentences.map((s) => {
+            const highlighted = selected !== undefined && s.ordinal >= selected.span.start && s.ordinal <= selected.span.end
+            return (
+              <li
+                key={s.ordinal}
+                ref={highlighted && s.ordinal === selected.span.start ? firstHighlight : undefined}
+                className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]"
+              >
+                <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">
+                  {s.ordinal + 1}
+                </span>
+                <span>
+                  {highlighted ? (
+                    <mark className="bg-mark px-px">
+                      <RedactedText text={s.text} />
+                    </mark>
+                  ) : (
+                    <RedactedText text={s.text} />
+                  )}
+                </span>
+              </li>
+            )
+          })}
         </ol>
       </div>
     </main>

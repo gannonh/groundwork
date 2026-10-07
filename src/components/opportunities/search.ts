@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { parseEvidenceFilter, type EvidenceFilter } from '@/domain/evidence'
 import { DATE_RANGES, SEGMENTS, SPEAKERS, type MapFilter } from '@/domain/filters'
 import { BALANCED, type Weights } from '@/domain/rank'
-import type { OpportunityId, SourceId } from '@/domain/types'
+import type { MentionId, OpportunityId, SourceId } from '@/domain/types'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const uuid = <T extends string>() => z.custom<T>((value) => typeof value === 'string' && UUID.test(value))
@@ -73,4 +73,25 @@ export function filterOf(search: MapSearch): MapFilter {
 export function weightsOf(search: MapSearch): Weights {
   const { reach, revenue, pain, momentum } = search
   return { reach, revenue, pain, momentum }
+}
+
+/**
+ * The `/items/$id` search: the mention to highlight, and the map view it came from, which `returnView` reads. Either
+ * reads as absent when malformed. The view stays as written, so the URL carries only what the map's URL carried.
+ */
+export const itemSearch = z.object({
+  mention: uuid<MentionId>().optional().catch(undefined),
+  from: z.record(z.string(), z.unknown()).optional().catch(undefined),
+})
+export type ItemSearch = z.output<typeof itemSearch>
+
+/** The map view to return to, with defaults left out, or undefined when the item was not opened from the map. */
+export function returnView(from: ItemSearch['from']): Partial<MapSearch> | undefined {
+  return from && compactView(mapSearch.parse(from))
+}
+
+/** `view` without the keys that hold their default, so another URL can carry it. */
+export function compactView(view: MapSearch): Partial<MapSearch> {
+  const defaults: Partial<Record<string, unknown>> = DEFAULT_VIEW
+  return Object.fromEntries(Object.entries(view).filter(([key, value]) => value !== undefined && value !== defaults[key]))
 }
