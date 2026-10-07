@@ -27,6 +27,7 @@ import {
   type PackId,
   type RawText,
   type RedactedText,
+  type RunId,
   type SourceId,
   type Usd,
   type WorkspaceId,
@@ -44,6 +45,7 @@ export const itemKind = pgEnum('item_kind', ITEM_KINDS)
 export const sourceKind = pgEnum('source_kind', ['upload'])
 export const speakerRole = pgEnum('speaker_role', ['end_user', 'admin', 'buyer', 'executive', 'unknown'])
 export const judgeBackend = pgEnum('judge_backend', ['recorded', 'jev', 'llm'])
+export const runItemStatus = pgEnum('run_item_status', ['judged', 'failed'])
 export const tracker = pgEnum('tracker', ['linear'])
 export const linkTarget = pgEnum('link_target', ['issue', 'project'])
 
@@ -291,6 +293,50 @@ export const placement = pgTable(
     unique('placement_mention_key').on(t.mentionId),
     index('placement_opportunity_idx').on(t.opportunityId),
     check('placement_confidence_unit', sql`${t.confidence} >= 0 and ${t.confidence} <= 1`),
+  ],
+)
+
+/** One processing of a source's items under one pack version. Starting it again changes nothing. */
+export const pipelineRun = pgTable(
+  'pipeline_run',
+  {
+    id: pk<RunId>(),
+    sourceId: uuid('source_id')
+      .$type<SourceId>()
+      .notNull()
+      .references(() => source.id, { onDelete: 'cascade' }),
+    packId: uuid('pack_id')
+      .$type<PackId>()
+      .notNull()
+      .references(() => pack.id, { onDelete: 'cascade' }),
+    createdAt: createdAt(),
+  },
+  (t) => [unique('pipeline_run_key').on(t.sourceId, t.packId)],
+)
+
+/**
+ * The outcome of one item in a run, written in the same transaction as the item's answers, mentions, and placements.
+ * An item with no row here has not finished, so a restarted worker picks up exactly the items that did not.
+ */
+export const pipelineRunItem = pgTable(
+  'pipeline_run_item',
+  {
+    runId: uuid('run_id')
+      .$type<RunId>()
+      .notNull()
+      .references(() => pipelineRun.id, { onDelete: 'cascade' }),
+    itemId: uuid('item_id')
+      .$type<ItemId>()
+      .notNull()
+      .references(() => item.id, { onDelete: 'cascade' }),
+    status: runItemStatus('status').notNull(),
+    // Why the judge could not answer, naming the item. Set exactly when the item failed.
+    error: text('error'),
+    finishedAt: timestamp('finished_at', tz).notNull().defaultNow(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.runId, t.itemId] }),
+    check('pipeline_run_item_error_iff_failed', sql`(${t.status} = 'failed') = (${t.error} is not null)`),
   ],
 )
 

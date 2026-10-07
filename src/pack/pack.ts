@@ -68,3 +68,14 @@ export function packFromDefinition(definition: unknown): Pack {
   if (!parsed.success) throw new Error(`A stored pack definition is invalid: ${parsed.error.message}`)
   return parsed.data
 }
+
+/** Whether two packs say the same thing, whatever order their keys came in. */
+export function samePack(a: Pack, b: Pack): boolean {
+  const canonical = (value: unknown): string =>
+    JSON.stringify(value, (_key, v: unknown) =>
+      v && typeof v === 'object' && !Array.isArray(v)
+        ? Object.fromEntries(Object.entries(v).sort(([x], [y]) => (x < y ? -1 : 1)))
+        : v,
+    )
+  return canonical(a) === canonical(b)
+}
