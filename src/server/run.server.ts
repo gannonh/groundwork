@@ -35,25 +35,26 @@ export async function loadRunPanel(db: Db, sourceId: SourceId): Promise<RunPanel
   }
   const [run] = stored
     ? await db
-        .select({ id: t.pipelineRun.id, createdAt: t.pipelineRun.createdAt })
+        .select({ id: t.pipelineRun.id, startedAt: t.pipelineRun.startedAt })
         .from(t.pipelineRun)
         .where(and(eq(t.pipelineRun.sourceId, sourceId), eq(t.pipelineRun.packId, stored.id)))
     : []
 
-  // A run covers the items that existed when it started. Items imported later wait for the next version.
-  const inScope = and(eq(t.item.sourceId, sourceId), run ? lte(t.item.createdAt, run.createdAt) : undefined)
-  const [items] = await db.select({ n: count() }).from(t.item).where(inScope)
+  const [items] = await db.select({ n: count() }).from(t.item).where(eq(t.item.sourceId, sourceId))
   const [text] = await db
     .select({ characters: sql<number>`coalesce(sum(length(${t.sentence.text})), 0)::int` })
     .from(t.sentence)
     .innerJoin(t.item, eq(t.item.id, t.sentence.itemId))
-    .where(inScope)
+    .where(eq(t.item.sourceId, sourceId))
+  const [started] = run
+    ? await db.select({ n: count() }).from(t.item).where(and(eq(t.item.sourceId, sourceId), lte(t.item.createdAt, run.startedAt)))
+    : []
 
   return describeRun({
     items: items?.n ?? 0,
     characters: text?.characters ?? 0,
     model: pack.judge,
-    run: run ? await loadProgress(db, run.id) : null,
+    run: run ? { started: started?.n ?? 0, ...(await loadProgress(db, run.id)) } : null,
   })
 }
 

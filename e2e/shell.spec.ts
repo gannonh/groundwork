@@ -5,7 +5,8 @@ test('/ opens the opportunity map, and the top bar lists every section with Oppo
   await page.goto('/')
   await expect(page).toHaveURL(/\/opportunities$/)
   const nav = page.getByRole('navigation')
-  await expect(nav.getByRole('link')).toHaveText(['Opportunities', 'Triage', 'Sources', 'Accounts', 'Packs'])
+  // The seeded workspace has placements below the threshold, so Triage carries their count.
+  await expect(nav.getByRole('link')).toHaveText(['Opportunities', /^Triage\d+$/, 'Sources', 'Accounts', 'Packs'])
   await expect(nav.getByRole('link', { name: 'Opportunities' })).toHaveAttribute('aria-current', 'page')
 })
 

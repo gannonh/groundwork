@@ -18,20 +18,24 @@ describe('estimateRun', () => {
 describe('describeRun', () => {
   const failure = { itemId: '0199aaaa-0000-7000-8000-000000000001' as ItemId, message: 'No recorded answer' }
   const base = { items: 500, characters: 200_000, model: 'jev-1.13.0' }
+  const run = (judged: number, failed = 0, started = 500) => ({ started, judged, failed, failures: failed > 0 ? [failure] : [] })
 
   test('before anyone starts, the run is ready with its estimate', () => {
-    expect(describeRun({ ...base, run: null })).toMatchObject({ kind: 'ready', items: 500, requests: 1700 })
+    expect(describeRun({ ...base, run: null })).toMatchObject({ kind: 'ready', fresh: true, items: 500, requests: 1700 })
   })
 
   test('progress counts judged and failed items, and reads 100 only when every item has finished', () => {
-    expect(describeRun({ ...base, run: { judged: 249, failed: 0, failures: [] } })).toMatchObject({ kind: 'running', percent: 49 })
-    expect(describeRun({ ...base, run: { judged: 499, failed: 0, failures: [] } })).toMatchObject({ kind: 'running', percent: 99 })
-    expect(describeRun({ ...base, run: { judged: 499, failed: 1, failures: [failure] } })).toEqual({
-      kind: 'done',
-      items: 500,
-      judged: 499,
-      failed: 1,
-      failures: [failure],
+    expect(describeRun({ ...base, run: run(249) })).toMatchObject({ kind: 'running', percent: 49 })
+    expect(describeRun({ ...base, run: run(499) })).toMatchObject({ kind: 'running', percent: 99 })
+    expect(describeRun({ ...base, run: run(499, 1) })).toEqual({ kind: 'done', items: 500, judged: 499, failed: 1, failures: [failure] })
+  })
+
+  test('items imported after the last start are ready to run, and only they are estimated', () => {
+    expect(describeRun({ ...base, items: 510, characters: 204_000, run: run(500) })).toMatchObject({
+      kind: 'ready',
+      fresh: false,
+      items: 10,
+      requests: 34,
     })
   })
 })

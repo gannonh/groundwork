@@ -71,8 +71,8 @@ async function ensurePack(tx: Db, workspaceId: WorkspaceId, pack: Pack): Promise
 export type StartedRun = { readonly runId: RunId; readonly packId: PackId }
 
 /**
- * Seeds the tree if the workspace has none, records the pack version, and opens the run for this source and pack.
- * A second start finds the run the first opened.
+ * Seeds the tree if the workspace has none, records the pack version, and opens the run for this source and pack, or
+ * reopens it to take in the items imported since its last start.
  */
 export function startRun(db: Db, input: { readonly sourceId: SourceId; readonly pack: Pack; readonly template: Template }): Promise<StartedRun | null> {
   return db.transaction(async (tx) => {
@@ -81,12 +81,12 @@ export function startRun(db: Db, input: { readonly sourceId: SourceId; readonly 
     await lockWorkspace(tx, source.workspaceId)
     await ensureTree(tx, source.workspaceId, input.template)
     const packId = await ensurePack(tx, source.workspaceId, input.pack)
-    await tx.insert(t.pipelineRun).values({ sourceId: input.sourceId, packId }).onConflictDoNothing()
     const [run] = await tx
-      .select({ id: t.pipelineRun.id })
-      .from(t.pipelineRun)
-      .where(and(eq(t.pipelineRun.sourceId, input.sourceId), eq(t.pipelineRun.packId, packId)))
-    if (!run) throw new Error('the run is missing right after it was opened')
+      .insert(t.pipelineRun)
+      .values({ sourceId: input.sourceId, packId })
+      .onConflictDoUpdate({ target: [t.pipelineRun.sourceId, t.pipelineRun.packId], set: { startedAt: sql`now()` } })
+      .returning({ id: t.pipelineRun.id })
+    if (!run) throw new Error('the run upsert returned no row')
     return { runId: run.id, packId }
   })
 }
@@ -96,7 +96,7 @@ export async function pendingItems(db: Db, runId: RunId): Promise<readonly ItemI
   const rows = await db
     .select({ id: t.item.id })
     .from(t.pipelineRun)
-    .innerJoin(t.item, and(eq(t.item.sourceId, t.pipelineRun.sourceId), lte(t.item.createdAt, t.pipelineRun.createdAt)))
+    .innerJoin(t.item, and(eq(t.item.sourceId, t.pipelineRun.sourceId), lte(t.item.createdAt, t.pipelineRun.startedAt)))
     .where(
       and(
         eq(t.pipelineRun.id, runId),

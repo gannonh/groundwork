@@ -296,7 +296,10 @@ export const placement = pgTable(
   ],
 )
 
-/** One processing of a source's items under one pack version. Starting it again changes nothing. */
+/**
+ * One processing of a source's items under one pack version. Starting it again queues only the items that have not
+ * finished, and moves `startedAt` forward so the items imported since count as part of the run.
+ */
 export const pipelineRun = pgTable(
   'pipeline_run',
   {
@@ -309,7 +312,7 @@ export const pipelineRun = pgTable(
       .$type<PackId>()
       .notNull()
       .references(() => pack.id, { onDelete: 'cascade' }),
-    createdAt: createdAt(),
+    startedAt: timestamp('started_at', tz).notNull().defaultNow(),
   },
   (t) => [unique('pipeline_run_key').on(t.sourceId, t.packId)],
 )

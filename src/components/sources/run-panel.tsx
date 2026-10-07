@@ -58,7 +58,7 @@ export function RunPanel({
       {panel.kind === 'ready' && (
         <div className="flex flex-wrap items-end justify-between gap-4">
           <dl className="flex flex-wrap gap-x-6 gap-y-1">
-            <Fact label="Items" value={panel.items.toLocaleString('en-US')} />
+            <Fact label={panel.fresh ? 'Items' : 'New items'} value={panel.items.toLocaleString('en-US')} />
             <Fact label="Judge requests" value={`about ${panel.requests.toLocaleString('en-US')}`} />
             <Fact label="Estimated cost" value={panel.usd === null ? 'Unknown for this model' : formatEstimate(panel.usd)} />
           </dl>

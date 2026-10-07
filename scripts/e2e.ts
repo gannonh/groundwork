@@ -1,7 +1,8 @@
 /**
- * Runs Playwright against two throwaway databases next to the `DATABASE_URL`
- * database: a seeded one for most specs, and a migrated but empty one for the
- * map's empty state. Drops both when the run ends. Extra arguments go to
+ * Runs Playwright against three throwaway databases next to the `DATABASE_URL`
+ * database: a seeded one for most specs, a migrated but empty one for the
+ * map's empty state, and a second empty one where the pipeline run spec imports
+ * a source and runs it. Drops all three when the run ends. Extra arguments go to
  * `playwright test`.
  */
 import * as NodeChildProcess from 'node:child_process'
@@ -27,7 +28,8 @@ function throwaway(suffix: string): { database: string; url: string } {
 }
 const seeded = throwaway('_e2e')
 const empty = throwaway('_e2e_empty')
-const env = { ...process.env, DATABASE_URL: seeded.url, E2E_EMPTY_DATABASE_URL: empty.url }
+const piped = throwaway('_e2e_run')
+const env = { ...process.env, DATABASE_URL: seeded.url, E2E_EMPTY_DATABASE_URL: empty.url, E2E_RUN_DATABASE_URL: piped.url }
 
 async function admin(sql: string): Promise<void> {
   const client = new pg.Client({ connectionString: baseUrl })
@@ -47,25 +49,26 @@ function run(args: string[], databaseUrl = seeded.url): number {
 }
 
 async function dropAll(): Promise<void> {
-  for (const { database } of [seeded, empty]) await admin(`drop database if exists "${database}" with (force)`)
+  for (const { database } of [seeded, empty, piped]) await admin(`drop database if exists "${database}" with (force)`)
 }
 
 // Ctrl-C also reaches Playwright. Let it exit so the drop below still runs.
 process.on('SIGINT', () => undefined)
 
 await dropAll()
-for (const { database } of [seeded, empty]) await admin(`create database "${database}"`)
-console.log(`Created ${seeded.database} and ${empty.database}.`)
+for (const { database } of [seeded, empty, piped]) await admin(`create database "${database}"`)
+console.log(`Created ${seeded.database}, ${empty.database}, and ${piped.database}.`)
 let status: number
 try {
   status =
     run(['src/db/migrate.ts']) ||
     run(['src/db/migrate.ts'], empty.url) ||
+    run(['src/db/migrate.ts'], piped.url) ||
     run(['src/db/seed.ts']) ||
     // By path, not `playwright` on PATH, so it also runs outside pnpm in the Playwright image.
     run(['node_modules/@playwright/test/cli.js', 'test', ...process.argv.slice(2)])
 } finally {
   await dropAll()
-  console.log(`Dropped ${seeded.database} and ${empty.database}.`)
+  console.log(`Dropped ${seeded.database}, ${empty.database}, and ${piped.database}.`)
 }
 process.exit(status)

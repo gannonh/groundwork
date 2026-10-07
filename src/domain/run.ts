@@ -30,22 +30,35 @@ export type RunFailure = { readonly itemId: ItemId; readonly message: string }
 
 /** What the source page knows about a run. `run` is null until someone starts it. */
 export type RunFacts = {
+  /** Every item the source has. */
   readonly items: number
   readonly characters: number
   readonly model: string
-  readonly run: { readonly judged: number; readonly failed: number; readonly failures: readonly RunFailure[] } | null
+  readonly run: {
+    /** Items the latest start covered. Items imported after it wait for the next start. */
+    readonly started: number
+    readonly judged: number
+    readonly failed: number
+    readonly failures: readonly RunFailure[]
+  } | null
 }
 
 export type RunState =
-  | ({ readonly kind: 'ready' } & RunEstimate)
+  /** `fresh` is false when an earlier start finished and the estimate covers only the items imported since. */
+  | ({ readonly kind: 'ready'; readonly fresh: boolean } & RunEstimate)
   | { readonly kind: 'running'; readonly items: number; readonly judged: number; readonly failed: number; readonly percent: number }
   | { readonly kind: 'done'; readonly items: number; readonly judged: number; readonly failed: number; readonly failures: readonly RunFailure[] }
 
 /** A run is done when every item has finished, whether it was judged or failed. */
 export function describeRun(facts: RunFacts): RunState {
   const { run, items } = facts
-  if (!run) return { kind: 'ready', ...estimateRun(facts) }
+  const estimate = (count: number) =>
+    estimateRun({ items: count, characters: items === 0 ? 0 : (facts.characters * count) / items, model: facts.model })
+  if (!run) return { kind: 'ready', fresh: true, ...estimate(items) }
   const finished = run.judged + run.failed
-  if (finished >= items) return { kind: 'done', items, judged: run.judged, failed: run.failed, failures: run.failures }
-  return { kind: 'running', items, judged: run.judged, failed: run.failed, percent: Math.floor((100 * finished) / items) }
+  if (finished < run.started) {
+    return { kind: 'running', items: run.started, judged: run.judged, failed: run.failed, percent: Math.floor((100 * finished) / run.started) }
+  }
+  if (finished < items) return { kind: 'ready', fresh: false, ...estimate(items - finished) }
+  return { kind: 'done', items, judged: run.judged, failed: run.failed, failures: run.failures }
 }

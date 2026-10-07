@@ -20,6 +20,7 @@ export function TopBar({ triage }: { triage: number }) {
           <Link
             key={item.to}
             to={item.to}
+            aria-label={item.to === '/triage' && triage > 0 ? `Triage, ${triage.toLocaleString('en-US')} to review` : undefined}
             className="rounded-md px-2.5 py-1.5 font-medium whitespace-nowrap"
             activeProps={{ className: 'bg-line-2 text-foreground' }}
             inactiveProps={{ className: 'text-ink-2' }}

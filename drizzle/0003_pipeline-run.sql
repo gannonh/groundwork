@@ -3,7 +3,7 @@ CREATE TABLE "pipeline_run" (
 	"id" uuid PRIMARY KEY DEFAULT uuidv7() NOT NULL,
 	"source_id" uuid NOT NULL,
 	"pack_id" uuid NOT NULL,
-	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"started_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "pipeline_run_key" UNIQUE("source_id","pack_id")
 );
 --> statement-breakpoint
