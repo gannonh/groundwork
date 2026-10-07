@@ -21,5 +21,10 @@ export function formatDollars(value: number): string {
   return `$${value.toLocaleString('en-US')}`
 }
 
+/** A cost estimate: tenths of a cent matter for a run that costs cents. */
+export function formatEstimate(usd: number): string {
+  return `$${usd.toFixed(usd < 1 ? 3 : 2)}`
+}
+
 export const TABLE_HEAD = 'h-8 px-3 text-caption font-semibold text-ink-3'
 export const TABLE_CELL = 'px-3 py-2'

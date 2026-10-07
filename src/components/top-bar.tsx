@@ -8,7 +8,7 @@ const navItems = [
   { to: '/packs', label: 'Packs' },
 ] as const
 
-export function TopBar() {
+export function TopBar({ triage }: { triage: number }) {
   return (
     <header className="flex h-12 items-center gap-6 border-b bg-card px-5">
       <div className="flex shrink-0 items-center gap-2 font-bold tracking-[-0.01em]">
@@ -25,6 +25,11 @@ export function TopBar() {
             inactiveProps={{ className: 'text-ink-2' }}
           >
             {item.label}
+            {item.to === '/triage' && triage > 0 && (
+              <span className="ml-1.5 rounded-full bg-primary-soft px-1.5 text-caption font-semibold tabular-nums text-primary">
+                {triage.toLocaleString('en-US')}
+              </span>
+            )}
           </Link>
         ))}
       </nav>

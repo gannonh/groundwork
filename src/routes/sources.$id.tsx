@@ -4,27 +4,54 @@ import { z } from 'zod'
 import { formatRole } from '@/components/opportunities/format'
 import { ITEM_KIND_LABELS, TABLE_CELL, TABLE_HEAD, formatDate, plural } from '@/components/sources/format'
 import { RedactedText } from '@/components/sources/redacted-text'
+import { RunPanel } from '@/components/sources/run-panel'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { db } from '@/db/client'
 import type { SourceId } from '@/domain/types'
 import type { ColumnMapping } from '@/ingest/mapping'
+import { enqueueRunItems } from '@/server/queue.server'
+import { loadRunPanel, startSourceRun, type RunPanel as RunPanelState } from '@/server/run.server'
 import { loadSource, type SourceDetail } from '@/server/sources.server'
 
+const sourceInput = (data: { id: string }) => data
+const parseSourceId = (id: string) => {
+  const parsed = z.guid().safeParse(id)
+  return parsed.success ? (parsed.data as SourceId) : null
+}
+
 const getSource = createServerFn({ method: 'GET' })
-  .validator((data: { id: string }) => data)
+  .validator(sourceInput)
   .handler(({ data }): Promise<SourceDetail> | SourceDetail => {
-    const id = z.guid().safeParse(data.id)
-    return id.success ? loadSource(db, id.data as SourceId) : { kind: 'missing' }
+    const id = parseSourceId(data.id)
+    return id ? loadSource(db, id) : { kind: 'missing' }
+  })
+
+const getRunPanel = createServerFn({ method: 'GET' })
+  .validator(sourceInput)
+  .handler(({ data }): Promise<RunPanelState | null> | null => {
+    const id = parseSourceId(data.id)
+    return id ? loadRunPanel(db, id) : null
+  })
+
+const startRun = createServerFn({ method: 'POST' })
+  .validator(sourceInput)
+  .handler(({ data }): Promise<RunPanelState | null> | null => {
+    const id = parseSourceId(data.id)
+    return id ? startSourceRun(db, enqueueRunItems, id) : null
   })
 
 export const Route = createFileRoute('/sources/$id')({
-  loader: ({ params }) => getSource({ data: { id: params.id } }),
+  loader: async ({ params }) => ({
+    detail: await getSource({ data: { id: params.id } }),
+    run: await getRunPanel({ data: { id: params.id } }),
+  }),
   component: SourcePage,
 })
 
 function SourcePage() {
-  const detail = Route.useLoaderData()
-  if (detail.kind === 'missing') return <Missing />
+  const { detail, run } = Route.useLoaderData()
+  const { id } = Route.useParams()
+  if (detail.kind === 'missing' || !run) return <Missing />
   const { source, recent } = detail
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
@@ -39,6 +66,12 @@ function SourcePage() {
         {formatDate(source.createdAt)}
       </p>
       {source.mapping && <MappingSummary mapping={source.mapping} />}
+      <RunPanel
+        key={source.id}
+        initial={run}
+        onStart={() => startRun({ data: { id } })}
+        onPoll={() => getRunPanel({ data: { id } })}
+      />
 
       <div className="rounded-lg border bg-card">
         <Table className="text-body">
