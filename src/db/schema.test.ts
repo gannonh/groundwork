@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from './client.ts'
 import { opportunity, pack, workspace } from './schema.ts'
+import { PACK_DEFINITION } from './seed/prototype.ts'
 import { rollbackAfter, violatedConstraint } from './testing.ts'
 import type { Confidence, OpportunityId, WorkspaceId } from '../domain/types.ts'
 
@@ -23,7 +24,7 @@ describe('schema constraints', () => {
             judgeModel,
             detectThreshold: 0.6 as Confidence,
             placeThreshold: 0.7 as Confidence,
-            definition: {},
+            definition: PACK_DEFINITION,
           }),
         )
       return {

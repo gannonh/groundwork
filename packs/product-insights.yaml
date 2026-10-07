@@ -1,0 +1,23 @@
+# The PRD's example question pack. The judge answers these five questions about every item.
+pack: product-insights
+version: 0.3.0
+judge: jev-1.13.0
+item_questions:
+  states_problem:
+    type: noul
+    instructions: "Customer describes a problem, limitation or pain with the product"
+  proposes_solution:
+    type: noul
+    instructions: "Customer asks for a specific feature or change"
+  workaround:
+    type: noul
+    instructions: "Customer describes a manual workaround they use today"
+  pain:
+    type: score
+    levels: [mild_annoyance, slows_work, blocks_work, deal_breaker]
+  role:
+    type: choice
+    options: [end_user, admin, buyer, executive, unknown]
+thresholds:
+  detect: 0.6
+  place_confidence: 0.7
