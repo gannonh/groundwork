@@ -4,6 +4,7 @@ import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '../db/client.ts'
 import * as t from '../db/schema.ts'
 import { insertWorkspace, rollbackAfter } from '../db/testing.ts'
+import type { RedactedText } from '../domain/types.ts'
 import { parseCsv, type Parsed } from '../ingest/csv.ts'
 import { guessMapping } from '../ingest/mapping.ts'
 import { createRecordedJudge, parseRecording } from '../judge/backends/recorded.ts'
@@ -72,7 +73,7 @@ describe('processItem', () => {
       const { context, judge, items } = await startedRun(tx)
       const [first, second] = items
       if (!first || !second) throw new Error('need two items')
-      await tx.update(t.sentence).set({ text: 'A sentence nobody recorded an answer for.' as never }).where(eq(t.sentence.itemId, first))
+      await tx.update(t.sentence).set({ text: 'A sentence nobody recorded an answer for.' as RedactedText }).where(eq(t.sentence.itemId, first))
       const outcomes = [await processItem(tx, context, judge, first), await processItem(tx, context, judge, second)]
       return { outcomes, first }
     })

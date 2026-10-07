@@ -91,6 +91,13 @@ export function startRun(db: Db, input: { readonly sourceId: SourceId; readonly 
   })
 }
 
+/** Every run that has an item to judge, with those items. A worker queues them again on start, so a job lost with its queue or never queued cannot strand a run. */
+export async function unfinishedRuns(db: Db): Promise<readonly { readonly runId: RunId; readonly itemIds: readonly ItemId[] }[]> {
+  const runs = await db.select({ id: t.pipelineRun.id }).from(t.pipelineRun)
+  const found = await Promise.all(runs.map(async ({ id }) => ({ runId: id, itemIds: await pendingItems(db, id) })))
+  return found.filter((run) => run.itemIds.length > 0)
+}
+
 /** The run's items that have not finished, in the order they were imported. */
 export async function pendingItems(db: Db, runId: RunId): Promise<readonly ItemId[]> {
   const rows = await db

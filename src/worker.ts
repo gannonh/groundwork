@@ -5,8 +5,8 @@ import { createRecordedJudge, parseRecording } from './judge/backends/recorded.t
 import type { Judge } from './judge/types.ts'
 import type { Pack } from './pack/pack.ts'
 import type { RunId } from './domain/types.ts'
-import { createBoss, ensureQueue, ITEM_QUEUE, parseItemJob } from './pipeline/queue.ts'
-import { loadRunContext, processItem, type RunContext } from './pipeline/run.ts'
+import { createBoss, enqueueItems, ensureQueue, ITEM_QUEUE, parseItemJob } from './pipeline/queue.ts'
+import { loadRunContext, processItem, unfinishedRuns, type RunContext } from './pipeline/run.ts'
 
 const env = z
   .object({
@@ -27,6 +27,10 @@ const judgeFor = (pack: Pack): Judge =>
 const boss = createBoss(env.DATABASE_URL, { superviseIntervalSeconds: 5, monitorIntervalSeconds: 5 })
 await boss.start()
 await ensureQueue(boss)
+for (const { runId, itemIds } of await unfinishedRuns(db)) {
+  await enqueueItems(boss, runId, itemIds)
+  console.log(`Queued the ${String(itemIds.length)} unfinished items of run ${runId}.`)
+}
 
 await boss.work(ITEM_QUEUE, { batchSize: 10, localConcurrency: 2, pollingIntervalSeconds: 0.5 }, async (jobs) => {
   const contexts = new Map<RunId, RunContext | null>()
