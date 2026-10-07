@@ -339,7 +339,7 @@ const ui = { picker: null, inboxFilter: '', inboxIdx: 0 };
 
 const fmtArr = v => v >= 1e6 ? `$${(v / 1e6).toFixed(2)}M` : `$${Math.round(v / 1000)}k`;
 const pct = p => `${Math.round(p * 100)}%`;
-const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 const quoteHTML = q => esc(q).replace(/\[(email|phone|card)\]/g, '<span class="redact" title="Redacted before judging">[$1]</span>');
 const confPill = c => `<span class="pill warn" title="Below the ${THRESHOLD} place threshold">⚠ ${pct(c)} confident</span>`;
 const sourceMeta = s => `<div class="quote-meta"><b>${s.account}</b><span>${fmtArr(s.arr)} ARR</span><span>${SOURCE_LABEL[s.kind]} ${s.ref} · ${s.date}</span></div>`;
