@@ -488,7 +488,9 @@ function dispatch(action, toast) {
 }
 
 function scrollSelectedIntoView() {
-  document.querySelector(`#v-${current} .lrow.sel, #v-${current} .ii.sel`)?.scrollIntoView({ block: 'nearest' });
+  // The stacked mobile Inbox puts the detail above the list, so the detail holds the next decision.
+  const sel = current === 'inbox' && matchMedia('(max-width: 760px)').matches ? '#v-inbox .idetail' : `#v-${current} .lrow.sel, #v-${current} .ii.sel`;
+  document.querySelector(sel)?.scrollIntoView({ block: 'nearest' });
 }
 
 let toastTimer;
@@ -515,7 +517,9 @@ function openPicker() {
   ui.picker = { filter: '', idx: 0 };
   document.getElementById('scrim').classList.add('on');
   renderPicker();
-  document.getElementById('picker-input').focus();
+  const input = document.getElementById('picker-input');
+  input.value = '';
+  input.focus();
 }
 function closePicker() {
   ui.picker = null;
