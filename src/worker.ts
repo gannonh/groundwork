@@ -5,7 +5,8 @@ import { createRecordedJudge, parseRecording } from './judge/backends/recorded.t
 import type { Judge } from './judge/types.ts'
 import type { Pack } from './pack/pack.ts'
 import { createBoss, enqueueItems, ensureQueue, ITEM_QUEUE, parseItemJob } from './pipeline/queue.ts'
-import { loadRunContext, processItem, unfinishedRuns } from './pipeline/run.ts'
+import type { ItemId, RunId } from './domain/types.ts'
+import { loadRunContext, processItem, requeueUnfinished } from './pipeline/run.ts'
 
 const env = z
   .object({
@@ -15,6 +16,7 @@ const env = z
     JUDGE_FIXTURE: z.string().default('fixtures/judge/zendesk-500.jsonl'),
     // Makes a recorded run take the time a live one would, for checks that interrupt a run.
     RECORDED_JUDGE_DELAY_MS: z.coerce.number().int().min(0).default(0),
+    RECONCILE_INTERVAL_MS: z.coerce.number().int().min(100).default(30_000),
   })
   .parse(process.env)
 
@@ -26,10 +28,22 @@ const judgeFor = (pack: Pack): Judge =>
 const boss = createBoss(env.DATABASE_URL, { superviseIntervalSeconds: 5, monitorIntervalSeconds: 5 })
 await boss.start()
 await ensureQueue(boss)
-for (const { runId, itemIds } of await unfinishedRuns(db)) {
-  await enqueueItems(boss, runId, itemIds)
-  console.log(`Queued the ${String(itemIds.length)} unfinished items of run ${runId}.`)
-}
+const enqueue = (runId: RunId, itemIds: readonly ItemId[]) => enqueueItems(boss, runId, itemIds)
+console.log(`Queued the ${String(await requeueUnfinished(db, enqueue))} unfinished items of every run.`)
+// The web process publishes a run's jobs after the start commits, and can die between the two. Queueing the unfinished
+// items again every interval finishes such a run without a restart.
+let reconciling = false
+const reconciler = setInterval(() => {
+  if (reconciling) return
+  reconciling = true
+  requeueUnfinished(db, enqueue)
+    .catch((error: unknown) => {
+      console.error('Reconcile failed:', error instanceof Error ? error.message : error)
+    })
+    .finally(() => {
+      reconciling = false
+    })
+}, env.RECONCILE_INTERVAL_MS)
 
 // One job per handler call: pg-boss starts a job's expiry clock when it fetches the job, so a batch would expire its
 // later jobs while the earlier ones ran, and one thrown error would fail the whole batch. localConcurrency gives the parallelism.
@@ -48,6 +62,7 @@ let stopping = false
 async function stop(): Promise<void> {
   if (stopping) return
   stopping = true
+  clearInterval(reconciler)
   await boss.stop({ graceful: true, timeout: 10_000 })
   await pool.end()
   process.exit(0)

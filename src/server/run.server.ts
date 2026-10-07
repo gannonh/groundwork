@@ -2,9 +2,9 @@ import { and, count, desc, eq, lte, sql } from 'drizzle-orm'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
 import { describeRun, type RunFailure, type RunState } from '@/domain/run'
-import type { ItemId, RunId, SourceId } from '@/domain/types'
+import type { RunId, SourceId } from '@/domain/types'
 import { loadPackFile, loadTemplateFile } from '@/pipeline/files'
-import { PackConflictError, pendingItems, startRun } from '@/pipeline/run'
+import { PackConflictError, pendingItems, startRun, type Enqueue } from '@/pipeline/run'
 import { packFromDefinition, samePack, type Pack } from '@/pack/pack'
 
 /** The run panel on a source's page. `unavailable` explains why a run cannot start. */
@@ -80,8 +80,6 @@ async function loadProgress(db: Db, runId: RunId) {
   const n = (status: 'judged' | 'failed') => byStatus.find((row) => row.status === status)?.n ?? 0
   return { judged: n('judged'), failed: n('failed'), failures }
 }
-
-export type Enqueue = (runId: RunId, itemIds: readonly ItemId[]) => Promise<void>
 
 /**
  * Opens the run for this source under the current pack file and queues every item that has not finished. Starting a

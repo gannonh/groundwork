@@ -4,14 +4,14 @@ import { afterAll, describe, expect, test } from 'vitest'
 import { pool } from '../db/client.ts'
 import * as t from '../db/schema.ts'
 import { insertWorkspace, rollbackAfter } from '../db/testing.ts'
-import type { RedactedText } from '../domain/types.ts'
+import type { ItemId, RawText, RedactedText, RunId } from '../domain/types.ts'
 import { parseCsv, type Parsed } from '../ingest/csv.ts'
 import { guessMapping } from '../ingest/mapping.ts'
 import { createRecordedJudge, parseRecording } from '../judge/backends/recorded.ts'
 import type { Judge } from '../judge/types.ts'
 import { importItems } from '../server/ingest.server.ts'
 import { loadPackFile, loadTemplateFile } from './files.ts'
-import { loadRunContext, pendingItems, processItem, startRun } from './run.ts'
+import { loadRunContext, pendingItems, processItem, requeueUnfinished, startRun } from './run.ts'
 
 const bytes = NodeFs.readFileSync('fixtures/exports/zendesk-500.csv')
 const recording = parseRecording(NodeFs.readFileSync('fixtures/judge/zendesk-500.jsonl', 'utf8'))
@@ -40,9 +40,9 @@ async function startedRun(tx: Parameters<Parameters<typeof rollbackAfter>[0]>[0]
   return { started, context, judge, items: await pendingItems(tx, started.runId) }
 }
 
-describe('processItem', () => {
-  afterAll(() => pool.end())
+afterAll(() => pool.end())
 
+describe('processItem', () => {
   test('running the same item twice creates one placement', async () => {
     const rows = await rollbackAfter(async (tx) => {
       const { context, judge, items } = await startedRun(tx)
@@ -100,5 +100,45 @@ describe('processItem', () => {
     expect(rows.last).toEqual({ kind: 'failed', message: `Item ${rows.first} failed after its last retry: connection reset` })
     expect(rows.stillPending).toBe(false)
     expect(rows.stored).toEqual({ status: 'failed', error: `Item ${rows.first} failed after its last retry: connection reset` })
+  })
+})
+
+describe('requeueUnfinished', () => {
+  test('a run started with no jobs queued is queued in full, judged to the end, and queues nothing once finished', async () => {
+    const rows = await rollbackAfter(async (tx) => {
+      const { context, judge, items } = await startedRun(tx)
+      const queued: ItemId[] = []
+      // Stands in for a worker: it judges whatever the reconcile queues.
+      const enqueue = async (_runId: RunId, itemIds: readonly ItemId[]) => {
+        queued.push(...itemIds)
+        for (const itemId of itemIds) await processItem(tx, context, judge, itemId)
+      }
+      const first = await requeueUnfinished(tx, enqueue)
+      const second = await requeueUnfinished(tx, enqueue)
+      const [done] = await tx.select({ n: count() }).from(t.pipelineRunItem).where(eq(t.pipelineRunItem.runId, context.runId))
+      return { first, second, queuedAll: queued.length === items.length && queued.every((id, i) => id === items[i]), done: done?.n, pending: (await pendingItems(tx, context.runId)).length }
+    })
+    expect(rows).toEqual({ first: 500, second: 0, queuedAll: true, done: 500, pending: 0 })
+  })
+
+  test('an item that committed after the run read its items, with a created_at before the start, is queued on the next pass', async () => {
+    const rows = await rollbackAfter(async (tx) => {
+      const { started, context, judge, items } = await startedRun(tx)
+      for (const itemId of items) await processItem(tx, context, judge, itemId)
+      const [source] = await tx
+        .select({ id: t.source.id, workspaceId: t.source.workspaceId })
+        .from(t.pipelineRun)
+        .innerJoin(t.source, eq(t.source.id, t.pipelineRun.sourceId))
+        .where(eq(t.pipelineRun.id, started.runId))
+      if (!source) throw new Error('the source is missing')
+      const [late] = await tx
+        .insert(t.item)
+        .values({ workspaceId: source.workspaceId, sourceId: source.id, externalId: 'late', body: 'Late.' as RawText, occurredAt: new Date(), createdAt: new Date(Date.now() - 60_000) })
+        .returning({ id: t.item.id })
+      const queued: ItemId[] = []
+      await requeueUnfinished(tx, (_runId, itemIds) => Promise.resolve(void queued.push(...itemIds)))
+      return { queued, late: late?.id }
+    })
+    expect(rows.queued).toEqual([rows.late])
   })
 })

@@ -40,7 +40,7 @@ Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
 | `pnpm dev` | Vite dev server on port 3000. |
 | `pnpm build` | Production build into `.output/`. |
 | `pnpm start` | Runs the production build on port 3000. |
-| `pnpm worker` | Runs the pg-boss worker (`src/worker.ts`) that judges the items of a started run. It replays `fixtures/judge/zendesk-500.jsonl` (`JUDGE_FIXTURE` picks another file), and `RECORDED_JUDGE_DELAY_MS` slows each request to the time a live backend takes. Killing it mid-run loses nothing: a restart finishes the run. |
+| `pnpm worker` | Runs the pg-boss worker (`src/worker.ts`) that judges the items of a started run. It replays `fixtures/judge/zendesk-500.jsonl` (`JUDGE_FIXTURE` picks another file), and `RECORDED_JUDGE_DELAY_MS` slows each request to the time a live backend takes. Killing it mid-run loses nothing: a restart finishes the run. Every `RECONCILE_INTERVAL_MS` (30 s) it queues the unfinished items of every run again, so a run whose jobs were never published finishes without a restart. |
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |

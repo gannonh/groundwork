@@ -91,11 +91,23 @@ export function startRun(db: Db, input: { readonly sourceId: SourceId; readonly 
   })
 }
 
-/** Every run that has an item to judge, with those items. A worker queues them again on start, so a job lost with its queue or never queued cannot strand a run. */
-export async function unfinishedRuns(db: Db): Promise<readonly { readonly runId: RunId; readonly itemIds: readonly ItemId[] }[]> {
-  const runs = await db.select({ id: t.pipelineRun.id }).from(t.pipelineRun)
-  const found = await Promise.all(runs.map(async ({ id }) => ({ runId: id, itemIds: await pendingItems(db, id) })))
-  return found.filter((run) => run.itemIds.length > 0)
+export type Enqueue = (runId: RunId, itemIds: readonly ItemId[]) => Promise<void>
+
+/**
+ * Queues the unfinished items of every run, and returns how many it queued. A running worker calls this on a timer
+ * as well as at start, so a run whose jobs were never published (the web process died after the start committed),
+ * were lost with the queue, or belong to an item that committed after the start read the run's items, still finishes.
+ * Safe to repeat: the queue holds one job per run and item, and an item already finished is skipped.
+ */
+export async function requeueUnfinished(db: Db, enqueue: Enqueue): Promise<number> {
+  let queued = 0
+  for (const { id } of await db.select({ id: t.pipelineRun.id }).from(t.pipelineRun)) {
+    const itemIds = await pendingItems(db, id)
+    if (itemIds.length === 0) continue
+    await enqueue(id, itemIds)
+    queued += itemIds.length
+  }
+  return queued
 }
 
 /** The run's items that have not finished, in the order they were imported. */
