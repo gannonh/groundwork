@@ -10,6 +10,7 @@
  */
 import { createHash } from 'node:crypto'
 import * as NodeFs from 'node:fs'
+import * as NodePath from 'node:path'
 import { parseArgs } from 'node:util'
 import { NONE_OF_THESE, type ItemId, type NonEmptyArray, type OpportunityId } from '../src/domain/types.ts'
 import { parseCsv } from '../src/ingest/csv.ts'
@@ -218,7 +219,7 @@ function main(): void {
     }
   }
   void run().then(() => {
-    NodeFs.mkdirSync(values.out.slice(0, values.out.lastIndexOf('/')), { recursive: true })
+    NodeFs.mkdirSync(NodePath.dirname(values.out), { recursive: true })
     NodeFs.writeFileSync(values.out, [...lines.values()].join('\n') + '\n')
     const share = ((100 * stats.triage) / Math.max(1, stats.placed + stats.triage)).toFixed(1)
     console.log(`Wrote ${String(lines.size)} answers for ${String(stats.items)} items to ${values.out}.`)
