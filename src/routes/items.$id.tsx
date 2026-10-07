@@ -8,19 +8,20 @@ import { ItemMentions } from '@/components/sources/item-mentions'
 import { ITEM_KIND_LABELS, formatDate } from '@/components/sources/format'
 import { RedactedText } from '@/components/sources/redacted-text'
 import { db } from '@/db/client'
-import type { ItemId } from '@/domain/types'
+import type { ItemId, MentionId } from '@/domain/types'
 import { loadItem, type ItemDetail } from '@/server/sources.server'
 
 const getItem = createServerFn({ method: 'GET' })
-  .validator((data: { id: string }) => data)
+  .validator((data: { id: string; mention?: MentionId }) => data)
   .handler(({ data }): Promise<ItemDetail> | ItemDetail => {
     const id = z.guid().safeParse(data.id)
-    return id.success ? loadItem(db, id.data as ItemId) : { kind: 'missing' }
+    return id.success ? loadItem(db, id.data as ItemId, undefined, data.mention) : { kind: 'missing' }
   })
 
 export const Route = createFileRoute('/items/$id')({
   validateSearch: itemSearch,
-  loader: ({ params }) => getItem({ data: { id: params.id } }),
+  loaderDeps: ({ search }) => ({ mention: search.mention }),
+  loader: ({ params, deps }) => getItem({ data: { id: params.id, mention: deps.mention } }),
   component: ItemPage,
 })
 
@@ -47,8 +48,9 @@ function ItemPage() {
   }
   const { item } = detail
   const view = returnView(from)
-  // A mention id that is not this item's highlights nothing.
   const selected = item.mentions.find((m) => m.id === mention)
+  // A mention id that is not this item's highlights nothing.
+  const { highlight } = item
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
       <div className="mx-auto max-w-[760px]">
@@ -97,11 +99,11 @@ function ItemPage() {
         <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Sentences</h2>
         <ol aria-label="Sentences" className="rounded-[10px] border bg-card py-1.5">
           {item.sentences.map((s) => {
-            const highlighted = selected !== undefined && s.ordinal >= selected.span.start && s.ordinal <= selected.span.end
+            const highlighted = highlight !== null && s.ordinal >= highlight.start && s.ordinal <= highlight.end
             return (
               <li
                 key={s.ordinal}
-                ref={highlighted && s.ordinal === selected.span.start ? firstHighlight : undefined}
+                ref={highlighted && s.ordinal === highlight.start ? firstHighlight : undefined}
                 className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]"
               >
                 <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">

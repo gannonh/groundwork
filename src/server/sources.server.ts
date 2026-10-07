@@ -77,6 +77,8 @@ export type ItemDetail =
         readonly sentences: readonly { readonly ordinal: number; readonly text: RedactedText }[]
         /** By first sentence. */
         readonly mentions: readonly ItemMention[]
+        /** The requested mention's sentences when it is this item's, in any pack, so an older link still finds its quote. */
+        readonly highlight: SentenceSpan | null
       }
     }
 
@@ -144,7 +146,7 @@ export async function loadSource(db: Db, id: SourceId, workspace?: WorkspaceId):
   }
 }
 
-export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Promise<ItemDetail> {
+export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId, mention?: MentionId): Promise<ItemDetail> {
   const workspaceId = workspace ?? (await oldestWorkspace(db))
   if (!workspaceId) return { kind: 'missing' }
   const [row] = await db
@@ -169,6 +171,12 @@ export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Pro
     .where(eq(t.sentence.itemId, id))
     .orderBy(asc(t.sentence.ordinal))
   const mentions = await loadItemMentions(db, id, workspaceId)
+  const [linked] = mention
+    ? await db
+        .select({ start: t.mention.sentenceStart, end: t.mention.sentenceEnd })
+        .from(t.mention)
+        .where(and(eq(t.mention.id, mention), eq(t.mention.itemId, id)))
+    : []
   return {
     kind: 'ready',
     item: {
@@ -179,6 +187,7 @@ export async function loadItem(db: Db, id: ItemId, workspace?: WorkspaceId): Pro
       account: row.accountName !== null && row.accountArr !== null ? { name: row.accountName, arr: row.accountArr } : null,
       sentences,
       mentions,
+      highlight: linked ? { start: linked.start, end: linked.end } : null,
     },
   }
 }

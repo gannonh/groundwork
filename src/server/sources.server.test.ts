@@ -1,13 +1,13 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { and, eq, like } from 'drizzle-orm'
+import { and, eq, like, ne } from 'drizzle-orm'
 import { afterAll, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import * as t from '@/db/schema'
 import { buildSeed, SEED_WORKSPACE_ID, seedId } from '@/db/seed/build'
 import { writeSeed } from '@/db/seed/write'
 import { insertWorkspace, rollbackAfter } from '@/db/testing'
-import type { Confidence, ItemId, RawText, RedactedText } from '@/domain/types'
+import type { Confidence, ItemId, MentionId, RawText, RedactedText } from '@/domain/types'
 import { importAccounts, importItems } from './ingest.server'
 import { loadAccounts, loadItem, loadSource, loadSources } from './sources.server'
 
@@ -66,6 +66,7 @@ test('the sources, source, item, and accounts screens read imported data without
       { ordinal: 2, text: 'Our totals are 8% lower than Salesforce, and my CFO noticed.' },
     ],
     mentions: [],
+    highlight: null,
   })
   expect(result.acc002).toMatchObject({ name: 'Brightline Analytics', arr: 114000, plan: 'Enterprise', segment: 'Mid-market' })
   expect(result.accounts).toBe(60)
@@ -163,4 +164,27 @@ test('an item lists its mentions by first sentence with the opportunity, confide
     },
     { span: { start: 3, end: 3 }, placement: null },
   ])
+})
+
+test('a quote link still highlights its sentences after a newer pack becomes the newest', async () => {
+  const lumenId = '0a58b63a-5af8-8375-8d7c-d91d9dfda0d3' as ItemId
+  const result = await rollbackAfter(async (tx) => {
+    await writeSeed(tx, buildSeed())
+    const [linked] = await tx.select({ id: t.mention.id }).from(t.mention).where(eq(t.mention.itemId, lumenId))
+    const [other] = await tx.select({ id: t.mention.id }).from(t.mention).where(ne(t.mention.itemId, lumenId)).limit(1)
+    if (!linked || !other) throw new Error('no mentions')
+    const [seeded] = await tx.select().from(t.pack).where(eq(t.pack.id, seedId('pack', 'product-insights/0.3.0')))
+    if (!seeded) throw new Error('no pack')
+    await tx.insert(t.pack).values({ ...seeded, id: undefined, version: '0.4.0', createdAt: new Date('2099-01-01T00:00:00Z') })
+    const read = async (mention: MentionId) => {
+      const detail = await loadItem(tx, lumenId, SEED_WORKSPACE_ID, mention)
+      if (detail.kind !== 'ready') throw new Error('item missing')
+      return { highlight: detail.item.highlight, listed: detail.item.mentions.length }
+    }
+    return { linked: await read(linked.id), other: await read(other.id) }
+  })
+
+  // The newest pack has no mentions, so the Mentions section is empty, but the old link keeps its span.
+  expect(result.linked).toEqual({ highlight: { start: 0, end: 0 }, listed: 0 })
+  expect(result.other).toEqual({ highlight: null, listed: 0 })
 })
