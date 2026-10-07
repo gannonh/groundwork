@@ -72,6 +72,7 @@ It runs the steps in order in headless Chromium and stops at the first failure. 
 | `expect-title=Text` | Assert `document.title`. |
 | `expect-current=Name` | `Name` is the only top-bar link with `aria-current="page"`. |
 | `expect-text=Text` | Some visible element contains `Text`. |
+| `expect-text-within=Text\|Seconds` | Like `expect-text`, but waits up to that many seconds, for a run that takes a while. |
 | `expect-focus=Name` | The focused element's `aria-label`, or else its text, equals `Name`. |
 | `expect-eval=JS` | A JavaScript expression evaluated in the page is truthy, for example `expect-eval=document.documentElement.scrollWidth<=innerWidth`. The step retries until it holds or times out. |
 | `snap=label` | Write `label.png` (full page) and `label.aria.yml`, whose first line is the URL. |

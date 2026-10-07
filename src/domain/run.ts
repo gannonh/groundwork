@@ -34,6 +34,8 @@ export type RunFacts = {
   readonly items: number
   readonly characters: number
   readonly model: string
+  /** The outcomes a start would add, when the workspace has no tree yet. Empty when it has one. */
+  readonly seedOutcomes: readonly string[]
   readonly run: {
     /** Items the latest start covered. Items imported after it wait for the next start. */
     readonly started: number
@@ -45,7 +47,7 @@ export type RunFacts = {
 
 export type RunState =
   /** `fresh` is false when an earlier start finished and the estimate covers only the items imported since. */
-  | ({ readonly kind: 'ready'; readonly fresh: boolean } & RunEstimate)
+  | ({ readonly kind: 'ready'; readonly fresh: boolean; readonly seedOutcomes: readonly string[] } & RunEstimate)
   | { readonly kind: 'running'; readonly items: number; readonly judged: number; readonly failed: number; readonly percent: number }
   | { readonly kind: 'done'; readonly items: number; readonly judged: number; readonly failed: number; readonly failures: readonly RunFailure[] }
 
@@ -54,11 +56,11 @@ export function describeRun(facts: RunFacts): RunState {
   const { run, items } = facts
   const estimate = (count: number) =>
     estimateRun({ items: count, characters: items === 0 ? 0 : (facts.characters * count) / items, model: facts.model })
-  if (!run) return { kind: 'ready', fresh: true, ...estimate(items) }
+  if (!run) return { kind: 'ready', fresh: true, seedOutcomes: facts.seedOutcomes, ...estimate(items) }
   const finished = run.judged + run.failed
   if (finished < run.started) {
     return { kind: 'running', items: run.started, judged: run.judged, failed: run.failed, percent: Math.floor((100 * finished) / run.started) }
   }
-  if (finished < items) return { kind: 'ready', fresh: false, ...estimate(items - finished) }
+  if (finished < items) return { kind: 'ready', fresh: false, seedOutcomes: [], ...estimate(items - finished) }
   return { kind: 'done', items, judged: run.judged, failed: run.failed, failures: run.failures }
 }

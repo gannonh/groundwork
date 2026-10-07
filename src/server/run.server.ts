@@ -40,6 +40,10 @@ export async function loadRunPanel(db: Db, sourceId: SourceId): Promise<RunPanel
         .where(and(eq(t.pipelineRun.sourceId, sourceId), eq(t.pipelineRun.packId, stored.id)))
     : []
 
+  const template = loadTemplateFile()
+  if (!template.ok) return { kind: 'unavailable', message: template.error }
+  const [anyNode] = await db.select({ id: t.opportunity.id }).from(t.opportunity).where(eq(t.opportunity.workspaceId, source.workspaceId)).limit(1)
+
   const [items] = await db.select({ n: count() }).from(t.item).where(eq(t.item.sourceId, sourceId))
   const [text] = await db
     .select({ characters: sql<number>`coalesce(sum(length(${t.sentence.text})), 0)::int` })
@@ -54,6 +58,7 @@ export async function loadRunPanel(db: Db, sourceId: SourceId): Promise<RunPanel
     items: items?.n ?? 0,
     characters: text?.characters ?? 0,
     model: pack.judge,
+    seedOutcomes: anyNode ? [] : template.value.outcomes.map((o) => o.title),
     run: run ? { started: started?.n ?? 0, ...(await loadProgress(db, run.id)) } : null,
   })
 }

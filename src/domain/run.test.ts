@@ -17,11 +17,18 @@ describe('estimateRun', () => {
 
 describe('describeRun', () => {
   const failure = { itemId: '0199aaaa-0000-7000-8000-000000000001' as ItemId, message: 'No recorded answer' }
-  const base = { items: 500, characters: 200_000, model: 'jev-1.13.0' }
+  const base = { items: 500, characters: 200_000, model: 'jev-1.13.0', seedOutcomes: [] }
   const run = (judged: number, failed = 0, started = 500) => ({ started, judged, failed, failures: failed > 0 ? [failure] : [] })
 
   test('before anyone starts, the run is ready with its estimate', () => {
     expect(describeRun({ ...base, run: null })).toMatchObject({ kind: 'ready', fresh: true, items: 500, requests: 1700 })
+  })
+
+  test('a workspace with no tree is told which outcomes the run adds', () => {
+    expect(describeRun({ ...base, seedOutcomes: ['Trust the numbers in reports'], run: null })).toMatchObject({
+      kind: 'ready',
+      seedOutcomes: ['Trust the numbers in reports'],
+    })
   })
 
   test('progress counts judged and failed items, and reads 100 only when every item has finished', () => {

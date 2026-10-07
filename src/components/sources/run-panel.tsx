@@ -81,6 +81,11 @@ export function RunPanel({
           </Button>
         </div>
       )}
+      {panel.kind === 'ready' && panel.seedOutcomes.length > 0 && (
+        <p className="mt-2 text-ink-2">
+          This workspace has no opportunity tree, so the run starts one from the B2B SaaS template. Its outcomes: {panel.seedOutcomes.join(', ')}.
+        </p>
+      )}
       {startError && <Notice tone="error">{startError}</Notice>}
       {panel.kind === 'running' && (
         <div className="grid gap-1.5">

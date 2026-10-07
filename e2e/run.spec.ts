@@ -21,6 +21,7 @@ test('a fresh workspace imports zendesk-500, runs it on the recorded judge, and 
   const panel = page.getByRole('region', { name: 'Run the pipeline' })
   await expect(panel.getByText('Items')).toBeVisible()
   await expect(panel.locator('dd')).toHaveText(['500', 'about 1,700', /^\$0\.0\d\d$/])
+  await expect(panel.getByText('This workspace has no opportunity tree')).toContainText('Trust the numbers in reports')
   // No run has started, so nothing is queued and the nav has nothing in triage.
   await expect(page.getByRole('navigation').getByRole('link', { name: /^Triage/ })).toHaveText('Triage')
   await expectAccessible(page)

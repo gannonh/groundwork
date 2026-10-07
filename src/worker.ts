@@ -23,7 +23,8 @@ const recording = parseRecording(NodeFs.readFileSync(env.JUDGE_FIXTURE, 'utf8'))
 const judgeFor = (pack: Pack): Judge =>
   createRecordedJudge(recording, { packVersion: pack.version, model: pack.judge, delayMs: env.RECORDED_JUDGE_DELAY_MS })
 
-const boss = createBoss(env.DATABASE_URL)
+// The monitor expires the jobs of a killed worker so they return to the queue, so short intervals shorten the wait after a restart.
+const boss = createBoss(env.DATABASE_URL, { superviseIntervalSeconds: 5, monitorIntervalSeconds: 5 })
 await boss.start()
 await ensureQueue(boss)
 

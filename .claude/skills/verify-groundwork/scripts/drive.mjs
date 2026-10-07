@@ -13,6 +13,7 @@
 //   expect-title=Text      assert document.title
 //   expect-current=Name    assert Name is the one and only nav link with aria-current="page"
 //   expect-text=Text       assert Text is visible on the page
+//   expect-text-within=Text|Seconds  like expect-text, but waits up to that many seconds (for a run that takes a while)
 //   expect-focus=Name      assert the focused element's accessible name (text or aria-label)
 //   expect-eval=JS         assert a JavaScript expression evaluated in the page is truthy
 //   snap=label             write label.png and label.aria.yml to the evidence dir
@@ -114,6 +115,10 @@ const steps = {
   'expect-title': (title) => expect(page).toHaveTitle(title),
   'expect-current': (label) => expect(page.getByRole('navigation').locator('a[aria-current="page"]')).toHaveText([label]),
   'expect-text': (text) => expect(page.getByText(text, { exact: false }).first()).toBeVisible(),
+  'expect-text-within': (arg) => {
+    const [text, seconds] = pair(arg)
+    return expect(page.getByText(text, { exact: false }).first()).toBeVisible({ timeout: Number(seconds) * 1000 })
+  },
   'expect-focus': (label) =>
     expect
       .poll(() => page.evaluate(() => document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.textContent?.trim()))
