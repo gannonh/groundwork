@@ -1,0 +1,5 @@
+ raw_body_has_email |                                                                          stored_sentences                                                                          | sentences_with_raw 
+--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------
+ t                  | Hi, I'm Jane from Acme. / Please email me at [email] or call [phone] about the "Revenue" dashboard. / Our totals are 8% lower than Salesforce, and my CFO noticed. |                  0
+(1 row)
+
