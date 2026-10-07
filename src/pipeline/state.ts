@@ -1,4 +1,4 @@
-import type { NonEmptyArray, RedactedText } from '../domain/types.ts'
+import { isNonEmpty, type NonEmptyArray, type RedactedText } from '../domain/types.ts'
 
 /** ADR 0004: a Jev request carries at most 32k tokens of state. */
 export const STATE_TOKEN_LIMIT = 32_000
@@ -50,4 +50,22 @@ function splitToFit(sentence: Sentence, limitChars: number): Sentence[] {
     pieces.push({ ...sentence, text: sentence.text.slice(start, start + room) as RedactedText })
   }
   return pieces
+}
+
+/**
+ * The states that place the sentence numbered `ordinal`: that sentence with `context` neighbours on each side when
+ * they fit in one request, else the sentence alone, split into pieces when it alone is too long. Neighbours go first
+ * because they only help read the quote.
+ */
+export function placementStates(
+  sentences: NonEmptyArray<Sentence>,
+  ordinal: number,
+  context: number,
+  limitTokens = STATE_TOKEN_LIMIT,
+): NonEmptyArray<NonEmptyArray<Sentence>> {
+  const around = sentences.filter((s) => Math.abs(s.ordinal - ordinal) <= context)
+  if (isNonEmpty(around) && estimateTokens(renderState(around)) <= limitTokens) return [around]
+  const quoted = sentences.filter((s) => s.ordinal === ordinal)
+  if (!isNonEmpty(quoted)) throw new Error(`Sentence ${String(ordinal)} is not in the item`)
+  return chunkSentences(quoted, limitTokens)
 }

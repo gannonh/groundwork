@@ -2,9 +2,9 @@ import type { ItemId, NonEmptyArray, OpportunityId, Confidence } from '../domain
 import type { Judge, JudgeAnswer } from '../judge/types.ts'
 import type { Pack } from '../pack/pack.ts'
 import { detect } from './detect.ts'
-import { placeMention, type PlaceTree } from './place.ts'
+import { bestPlacement, placeMention, type PlaceTree } from './place.ts'
 import { quote, QUOTE_KEY } from './quote.ts'
-import { renderState, type Sentence } from './state.ts'
+import { placementStates, renderState, type Sentence } from './state.ts'
 
 export type PipelineItem = { readonly id: ItemId; readonly sentences: NonEmptyArray<Sentence> }
 
@@ -43,8 +43,10 @@ export async function judgeItem(judge: Judge, pack: Pack, tree: PlaceTree, item:
   const quoted = await quote(judge, item.id, item.sentences)
   answers.push({ questionKey: QUOTE_KEY, subject: MENTION, answer: quoted.answer })
 
-  const around = item.sentences.filter((s) => Math.abs(s.ordinal - quoted.ordinal) <= CONTEXT_SENTENCES)
-  const placed = await placeMention(judge, { itemId: item.id, text: renderState(around) }, tree, pack.thresholds.place_confidence)
+  const states = placementStates(item.sentences, quoted.ordinal, CONTEXT_SENTENCES)
+  const placed = bestPlacement(
+    await Promise.all(states.map((state) => placeMention(judge, { itemId: item.id, text: renderState(state) }, tree, pack.thresholds.place_confidence))),
+  )
   for (const { questionKey, answer } of placed.answers) answers.push({ questionKey, subject: MENTION, answer })
 
   return {

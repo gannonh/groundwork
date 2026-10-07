@@ -103,3 +103,10 @@ export async function placeMention(
     answers,
   }
 }
+
+/** The most confident placement of a quote that was placed in pieces, else the first result. Only its answers are stored. */
+export function bestPlacement(results: readonly PlaceResult[]): PlaceResult {
+  const [first, ...rest] = results
+  if (!first) throw new Error('No placements to choose from')
+  return rest.reduce((best, result) => (result.kind === 'placed' && (best.kind === 'unplaced' || result.confidence > best.confidence) ? result : best), first)
+}

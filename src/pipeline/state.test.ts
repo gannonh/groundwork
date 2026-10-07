@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import type { NonEmptyArray, RedactedText } from '../domain/types.ts'
-import { chunkSentences, renderState, type Sentence } from './state.ts'
+import { chunkSentences, placementStates, renderState, type Sentence } from './state.ts'
 
 const sentence = (ordinal: number, text: string): Sentence => ({ ordinal, text: text as RedactedText })
 
@@ -34,5 +34,24 @@ describe('chunkSentences', () => {
 
   test('the state numbers each sentence', () => {
     expect(renderState([sentence(3, 'Hello.'), sentence(4, 'Bye.')])).toBe('3: Hello.\n4: Bye.')
+  })
+})
+
+describe('placementStates', () => {
+  const four: NonEmptyArray<Sentence> = [0, 1, 2, 3].map((i) => sentence(i, 'x'.repeat(30))) as unknown as NonEmptyArray<Sentence>
+
+  test('the quoted sentence keeps one neighbour on each side when they fit', () => {
+    expect(placementStates(four, 2, 1, 1000).map((state) => state.map((s) => s.ordinal))).toEqual([[1, 2, 3]])
+  })
+
+  test('the neighbours go first when the three do not fit in one request', () => {
+    // 25 tokens is 100 characters, and the three sentences render as 3 x 33 + 2 newlines = 101.
+    expect(placementStates(four, 2, 1, 25).map((state) => state.map((s) => s.ordinal))).toEqual([[2]])
+  })
+
+  test('a quoted sentence that alone is too long is split into pieces', () => {
+    const long: NonEmptyArray<Sentence> = [sentence(0, 'x'.repeat(10)), sentence(1, 'y'.repeat(100))]
+    // 12 tokens is 48 characters; 44 characters of text fit beside "1: " and a newline.
+    expect(placementStates(long, 1, 1, 12).map((state) => state.map((s) => [s.ordinal, s.text.length]))).toEqual([[[1, 44]], [[1, 44]], [[1, 12]]])
   })
 })
