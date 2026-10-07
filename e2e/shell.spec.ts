@@ -14,6 +14,8 @@ for (const section of ['Triage', 'Sources', 'Accounts', 'Packs']) {
   test(`the ${section} section passes WCAG 2.2 AA checks`, async ({ page }) => {
     await page.goto(`/${section.toLowerCase()}`)
     await expect(page.getByRole('navigation').getByRole('link', { name: section })).toHaveAttribute('aria-current', 'page')
+    // A CSV input stays disabled until hydration, and before then a long page's scrollable main has nothing focusable.
+    for (const input of await page.locator('input[type=file]').all()) await expect(input).toBeEnabled()
     await expectAccessible(page)
   })
 }
