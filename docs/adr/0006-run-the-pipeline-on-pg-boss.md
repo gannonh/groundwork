@@ -20,5 +20,5 @@ KAT-3466 runs imported items through detect, quote, and place on the recorded ju
 
 - Killing the worker loses at most the jobs in flight, which return to the queue and finish on restart.
 - The worker and the web server are two processes. A run started with no worker running waits.
-- Items import with the source's own item count as the run's total, so a reimport into a finished source shows its new items as ready to run.
+- A run's total is the items its latest start covered, so a reimport into a finished source shows its new items as ready to run.
 - One mention per item for now. A pack that asks for several mentions per item needs its own question to count them.
