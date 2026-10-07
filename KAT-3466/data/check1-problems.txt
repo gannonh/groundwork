@@ -1,0 +1,14 @@
+-- check 1: problems with at least one placement from the zendesk-500 import
+                     title                      | placements 
+------------------------------------------------+------------
+ CSV imports fail silently on malformed rows    |         66
+ Can't tell when data was last refreshed        |         62
+ Usage-based bill is unpredictable              |         60
+ Admins can't restrict access by team           |         55
+ Exported charts lose formatting in slides      |         54
+ Dashboard totals don't match the source system |         50
+ SSO setup requires contacting support          |         48
+ Field mapping must be redone for every import  |         44
+ Viewers need a paid seat to see a dashboard    |          2
+(9 rows)
+

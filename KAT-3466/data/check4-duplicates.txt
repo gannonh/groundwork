@@ -1,0 +1,7 @@
+-- check 4: duplicates after kill -9 at 250/500 and a restart
+run_items|500|500
+mentions|465|465
+placements|441|441
+judge_answers|4312|4312
+mentions with more than one placement|0
+failed run items|0

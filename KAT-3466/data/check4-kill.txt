@@ -1,0 +1,3 @@
+killed at 250 of 500 judged
+after 4 s with no worker: 250 judged
+restart to completion: 35 s, 500 judged

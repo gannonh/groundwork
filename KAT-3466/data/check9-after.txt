@@ -1,0 +1,18 @@
+-- check 9 after: zendesk-500 placements per pack version
+ version | place_threshold | triage | placed 
+---------+-----------------+--------+--------
+ 0.3.0   |             0.7 |     77 |    364
+ 0.3.1   |             0.9 |    337 |    104
+(2 rows)
+
+ run_items_0_3_1 
+-----------------
+             500
+(1 row)
+
+-- the same 0.3.0 placements read at threshold 0.9 (rerun without re-judging)
+ triage | placed 
+--------+--------
+    337 |    104
+(1 row)
+

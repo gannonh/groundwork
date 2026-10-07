@@ -1,0 +1,6 @@
+-- check 10: two Starts at once, two workers
+runs: 1, run_items: 500, distinct items: 500
+judge_answers: 4312 distinct keys: 4312
+placements: 441, distinct mentions: 441
+outcomes: 4
+worker log lines 'judged': 500, distinct item ids: 500, 'skipped': 0

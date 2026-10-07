@@ -1,0 +1,16 @@
+-- check 6: placements below the pack's place threshold (newest pack of the workspace)
+ below_threshold 
+-----------------
+             121
+(1 row)
+
+ below_0_7 
+-----------
+       121
+(1 row)
+
+ at_or_above 
+-------------
+        1087
+(1 row)
+

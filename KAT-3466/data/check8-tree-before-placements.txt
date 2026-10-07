@@ -1,0 +1,6 @@
+-- check 8: after Start, before any worker has run
+outcomes: 4, problems: 12, placements: 0
+Control access and spend|3
+Get customer data in without engineering help|3
+Share findings with stakeholders|3
+Trust the numbers in reports|3

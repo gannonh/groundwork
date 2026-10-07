@@ -1,0 +1,7 @@
+-- check 8: tree and placements after two simultaneous Starts, with no worker running yet
+outcomes: 4, problems: 12, placements: 0, runs: 1, run_items: 0
+Control access and spend
+Get customer data in without engineering help
+Share findings with stakeholders
+Trust the numbers in reports
+queued jobs: 500, distinct singleton keys: 500

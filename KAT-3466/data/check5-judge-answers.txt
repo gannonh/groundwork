@@ -1,0 +1,19 @@
+-- check 5: the judge_answer rows behind the quote 'Rolling out to 70 new seats is on hold until SSO works.' (admin, Sep 18)
+                question_key                | subject | backend  | model_version | pack_version |       pack       | confidence 
+--------------------------------------------+---------+----------+---------------+--------------+------------------+------------
+ pain                                       |         | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.652
+ proposes_solution                          |         | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.880
+ role                                       |         | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.502
+ states_problem                             |         | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.816
+ workaround                                 |         | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.834
+ place_outcome                              | m0      | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.954
+ place_problem:Control access and spend     | m0      | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.914
+ place_problem:Trust the numbers in reports | m0      | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.739
+ quote                                      | m0      | recorded | jev-1.13.0    | 0.3.0        | product-insights |      0.627
+(9 rows)
+
+ confidence |                 title                 
+------------+---------------------------------------
+   0.873825 | SSO setup requires contacting support
+(1 row)
+

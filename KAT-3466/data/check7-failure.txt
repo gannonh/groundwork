@@ -1,0 +1,16 @@
+-- check 7: run_item rows of the partial-5 source
+               item_id                | status |                                                              error                                                               
+--------------------------------------+--------+----------------------------------------------------------------------------------------------------------------------------------
+ 01a117c4-8027-774a-9abc-e564a6f1c8dd | judged | 
+ 01a117c4-8027-7937-acce-23f5773483f0 | judged | 
+ 01a117c4-8027-7972-b835-ad9376ae0563 | judged | 
+ 01a117c4-8027-7997-9e32-ab9ea841f0c4 | judged | 
+ 01a117c4-8027-79bb-a731-91332c0729c1 | failed | No recorded answer for item 01a117c4-8027-79bb-a731-91332c0729c1, question "states_problem" (key bbd408b5477d) under pack 0.3.0.
+(5 rows)
+
+           unrecorded_item            |                           external_id                            
+--------------------------------------+------------------------------------------------------------------
+ 01a117c4-8027-79bb-a731-91332c0729c1 | 9a47adcbe82863532ad173d5be59bdfb5ded5bf883b62485813ecd90e39543bd
+(1 row)
+
+Item 01a117c4-8027-79bb-a731-91332c0729c1 failed: No recorded answer for item 01a117c4-8027-79bb-a731-91332c0729c1, question "states_problem" (key bbd408b5477d) under pack 0.3.0.

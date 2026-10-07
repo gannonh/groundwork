@@ -1,0 +1,2 @@
+-- perf: 1,000 items on the recorded backend, one worker process (batch 10, 2 concurrent batches)
+2026-10-07 19:19:53.266978+00|2026-10-07 19:20:17.967851+00|24.7|1000

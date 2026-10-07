@@ -1,0 +1,6 @@
+-- check 9 before: zendesk-500 placements under pack 0.3.0 (threshold 0.7)
+ version | place_threshold | triage | placed 
+---------+-----------------+--------+--------
+ 0.3.0   |             0.7 |     77 |    364
+(1 row)
+
