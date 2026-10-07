@@ -12,10 +12,13 @@ import type { ItemId, MentionId } from '@/domain/types'
 import { loadItem, type ItemDetail } from '@/server/sources.server'
 
 const getItem = createServerFn({ method: 'GET' })
-  .validator((data: { id: string; mention?: MentionId }) => data)
+  .validator((data: { id: string; mention?: string }) => data)
   .handler(({ data }): Promise<ItemDetail> | ItemDetail => {
     const id = z.guid().safeParse(data.id)
-    return id.success ? loadItem(db, id.data as ItemId, undefined, data.mention) : { kind: 'missing' }
+    const mention = z.guid().safeParse(data.mention)
+    return id.success
+      ? loadItem(db, id.data as ItemId, undefined, mention.success ? (mention.data as MentionId) : undefined)
+      : { kind: 'missing' }
   })
 
 export const Route = createFileRoute('/items/$id')({
