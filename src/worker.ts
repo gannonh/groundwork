@@ -33,7 +33,7 @@ for (const { runId, itemIds } of await unfinishedRuns(db)) {
 
 // One job per handler call: pg-boss starts a job's expiry clock when it fetches the job, so a batch would expire its
 // later jobs while the earlier ones ran, and one thrown error would fail the whole batch. localConcurrency gives the parallelism.
-await boss.work(ITEM_QUEUE, { batchSize: 1, localConcurrency: 4, pollingIntervalSeconds: 0.5, includeMetadata: true }, async ([job]) => {
+await boss.work(ITEM_QUEUE, { batchSize: 1, localConcurrency: 20, pollingIntervalSeconds: 0.5, includeMetadata: true }, async ([job]) => {
   if (!job) return
   const { runId, itemId } = parseItemJob(job.data)
   const context = await loadRunContext(db, runId)
