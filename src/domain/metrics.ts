@@ -64,6 +64,11 @@ export type OpportunityMetrics = {
   readonly evidence: readonly CountedMention[]
 }
 
+/** The confidence when a placement sits below the pack's place threshold and needs review, else null. */
+export function lowConfidenceOf(confidence: Confidence, placeThreshold: Confidence): Confidence | null {
+  return isLowConfidence(confidence, placeThreshold) ? confidence : null
+}
+
 export type Measured = Opportunity & { readonly metrics: OpportunityMetrics }
 
 /**
@@ -87,7 +92,7 @@ export function computeMetrics(
       itemId: item.id,
       accountId: item.accountId,
       occurredAt: item.occurredAt,
-      lowConfidence: isLowConfidence(placement.confidence, evidence.placeThreshold) ? placement.confidence : null,
+      lowConfidence: lowConfidenceOf(placement.confidence, evidence.placeThreshold),
     }
     for (let node: OpportunityId | null | undefined = placement.opportunityId; node; node = parentOf.get(node)) {
       let mentions = byNode.get(node)

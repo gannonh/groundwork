@@ -1,28 +1,42 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { z } from 'zod'
 import { formatRole, formatUsd } from '@/components/opportunities/format'
+import { itemSearch, returnView } from '@/components/opportunities/search'
+import { ItemMentions } from '@/components/sources/item-mentions'
 import { ITEM_KIND_LABELS, formatDate } from '@/components/sources/format'
 import { RedactedText } from '@/components/sources/redacted-text'
 import { db } from '@/db/client'
-import type { ItemId } from '@/domain/types'
+import type { ItemId, MentionId } from '@/domain/types'
 import { loadItem, type ItemDetail } from '@/server/sources.server'
 
 const getItem = createServerFn({ method: 'GET' })
-  .validator((data: { id: string }) => data)
+  .validator((data: { id: string; mention?: string }) => data)
   .handler(({ data }): Promise<ItemDetail> | ItemDetail => {
     const id = z.guid().safeParse(data.id)
-    return id.success ? loadItem(db, id.data as ItemId) : { kind: 'missing' }
+    const mention = z.guid().safeParse(data.mention)
+    return id.success
+      ? loadItem(db, id.data as ItemId, undefined, mention.success ? (mention.data as MentionId) : undefined)
+      : { kind: 'missing' }
   })
 
 export const Route = createFileRoute('/items/$id')({
-  loader: ({ params }) => getItem({ data: { id: params.id } }),
+  validateSearch: itemSearch,
+  loaderDeps: ({ search }) => ({ mention: search.mention }),
+  loader: ({ params, deps }) => getItem({ data: { id: params.id, mention: deps.mention } }),
   component: ItemPage,
 })
 
 function ItemPage() {
   const detail = Route.useLoaderData()
+  const { mention, from } = Route.useSearch()
+  const firstHighlight = useRef<HTMLLIElement>(null)
+  const itemId = detail.kind === 'ready' ? detail.item.id : null
+  // Once per item, so picking another mention on the page does not move the reader's place.
+  useEffect(() => {
+    firstHighlight.current?.scrollIntoView({ block: 'center' })
+  }, [itemId])
   if (detail.kind === 'missing') {
     return (
       <main className="grid h-[calc(100dvh-48px)] place-items-center">
@@ -36,9 +50,18 @@ function ItemPage() {
     )
   }
   const { item } = detail
+  const view = returnView(from)
+  const selected = item.mentions.find((m) => m.id === mention)
+  // A mention id that is not this item's highlights nothing.
+  const { highlight } = item
   return (
     <main className="h-[calc(100dvh-48px)] overflow-auto px-5 py-4">
       <div className="mx-auto max-w-[760px]">
+        {view && (
+          <Link to="/opportunities" search={view} className="mb-2 inline-block font-medium text-primary hover:underline">
+            ← Back to {view.evidence ? 'the evidence list' : 'opportunities'}
+          </Link>
+        )}
         <div className="mb-1 text-meta text-ink-3">
           <Link to="/sources" className="hover:underline">
             Sources
@@ -71,18 +94,36 @@ function ItemPage() {
           <Meta label="Author">{item.role ? formatRole(item.role) : <span className="text-ink-3">Not given</span>}</Meta>
         </dl>
 
+        <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Mentions</h2>
+        <div className="mb-5">
+          <ItemMentions itemId={item.id} mentions={item.mentions} selected={selected?.id} from={view} />
+        </div>
+
         <h2 className="mb-2 text-caption font-semibold tracking-[0.04em] text-ink-3 uppercase">Sentences</h2>
         <ol aria-label="Sentences" className="rounded-[10px] border bg-card py-1.5">
-          {item.sentences.map((s) => (
-            <li key={s.ordinal} className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]">
-              <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">
-                {s.ordinal + 1}
-              </span>
-              <span>
-                <RedactedText text={s.text} />
-              </span>
-            </li>
-          ))}
+          {item.sentences.map((s) => {
+            const highlighted = highlight !== null && s.ordinal >= highlight.start && s.ordinal <= highlight.end
+            return (
+              <li
+                key={s.ordinal}
+                ref={highlighted && s.ordinal === highlight.start ? firstHighlight : undefined}
+                className="grid grid-cols-[36px_1fr] gap-2 px-3 py-1 leading-[1.5]"
+              >
+                <span aria-hidden className="text-right font-mono text-caption leading-[20px] text-ink-3 tabular-nums">
+                  {s.ordinal + 1}
+                </span>
+                <span>
+                  {highlighted ? (
+                    <mark className="bg-mark px-px">
+                      <RedactedText text={s.text} />
+                    </mark>
+                  ) : (
+                    <RedactedText text={s.text} />
+                  )}
+                </span>
+              </li>
+            )
+          })}
         </ol>
       </div>
     </main>

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import { computeMetrics, evidenceAsOf, type Measured } from './metrics.ts'
+import { computeMetrics, evidenceAsOf, lowConfidenceOf, type Measured } from './metrics.ts'
 import type {
   Account,
   AccountId,
@@ -156,5 +156,12 @@ describe('evidenceAsOf', () => {
       new Date('2026-09-18T15:00:00Z'),
     )
     expect(evidenceAsOf([], now)).toEqual(now)
+  })
+})
+
+describe('lowConfidenceOf', () => {
+  test('flags only a confidence below the threshold, and returns it', () => {
+    const threshold = 0.7 as Confidence
+    expect([0.62, 0.69, 0.7, 0.95].map((c) => lowConfidenceOf(c as Confidence, threshold))).toEqual([0.62, 0.69, null, null])
   })
 })

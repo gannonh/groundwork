@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { and, eq, like } from 'drizzle-orm'
+import { and, eq, like, ne } from 'drizzle-orm'
 import { afterAll, expect, test } from 'vitest'
 import { pool } from '@/db/client'
 import * as t from '@/db/schema'
+import { buildSeed, SEED_WORKSPACE_ID, seedId } from '@/db/seed/build'
+import { writeSeed } from '@/db/seed/write'
 import { insertWorkspace, rollbackAfter } from '@/db/testing'
+import type { Confidence, ItemId, MentionId, RawText, RedactedText } from '@/domain/types'
 import { importAccounts, importItems } from './ingest.server'
 import { loadAccounts, loadItem, loadSource, loadSources } from './sources.server'
 
@@ -62,10 +65,126 @@ test('the sources, source, item, and accounts screens read imported data without
       { ordinal: 1, text: 'Please email me at [email] or call [phone] about the "Revenue" dashboard.' },
       { ordinal: 2, text: 'Our totals are 8% lower than Salesforce, and my CFO noticed.' },
     ],
+    mentions: [],
+    highlight: null,
   })
   expect(result.acc002).toMatchObject({ name: 'Brightline Analytics', arr: 114000, plan: 'Enterprise', segment: 'Mid-market' })
   expect(result.accounts).toBe(60)
   expect(result.otherWorkspace).toBe('missing')
   expect(result.leaks).toBe(false)
   expect(result.missing).toEqual({ kind: 'missing' })
+})
+
+test('an item lists its mentions by first sentence with the opportunity, confidence, and low-confidence flag', async () => {
+  const { lumen, multi } = await rollbackAfter(async (tx) => {
+    await writeSeed(tx, buildSeed())
+    const [source] = await tx.select({ id: t.source.id }).from(t.source).limit(1)
+    if (!source) throw new Error('no source')
+    const [added] = await tx
+      .insert(t.item)
+      .values({
+        workspaceId: SEED_WORKSPACE_ID,
+        sourceId: source.id,
+        externalId: 'two-mentions',
+        body: 'unused' as RawText,
+        occurredAt: new Date('2026-09-19T15:00:00Z'),
+      })
+      .returning({ id: t.item.id })
+    if (!added) throw new Error('no item')
+    await tx.insert(t.sentence).values(
+      ['Hello.', 'The totals are wrong.', 'Please add a lineage view.', 'Thanks.'].map((text, ordinal) => ({
+        itemId: added.id,
+        ordinal,
+        text: text as RedactedText,
+      })),
+    )
+    const packId = seedId('pack', 'product-insights/0.3.0')
+    const place = async (ordinal: number, start: number, end: number, to: 'p4' | 'p4/s1' | null, confidence: number) => {
+      const [created] = await tx
+        .insert(t.mention)
+        .values({ packId, itemId: added.id, ordinal, sentenceStart: start, sentenceEnd: end })
+        .returning({ id: t.mention.id })
+      if (!created || to === null) return
+      const opportunityId = seedId('opportunity', to)
+      const [answer] = await tx
+        .insert(t.judgeAnswer)
+        .values({
+          packId,
+          itemId: added.id,
+          questionKey: 'place',
+          subject: `m${String(ordinal)}`,
+          value: { type: 'choice', option: opportunityId },
+          probabilities: { [opportunityId]: confidence },
+          confidence: confidence as Confidence,
+          backend: 'recorded',
+          modelVersion: 'recorded-1.0.0',
+        })
+        .returning({ id: t.judgeAnswer.id })
+      if (!answer) throw new Error('no answer')
+      await tx
+        .insert(t.placement)
+        .values({ mentionId: created.id, opportunityId, judgeAnswerId: answer.id, confidence: confidence as Confidence })
+    }
+    // Inserted out of order, so the read has to sort.
+    await place(0, 2, 2, 'p4/s1', 0.55)
+    await place(1, 1, 1, 'p4', 0.9)
+    await place(2, 3, 3, null, 0)
+    const strip = (detail: Awaited<ReturnType<typeof loadItem>>) =>
+      detail.kind === 'ready' ? detail.item.mentions.map(({ span, placement }) => ({ span, placement })) : detail
+    return {
+      lumen: strip(await loadItem(tx, '0a58b63a-5af8-8375-8d7c-d91d9dfda0d3' as ItemId, SEED_WORKSPACE_ID)),
+      multi: strip(await loadItem(tx, added.id, SEED_WORKSPACE_ID)),
+    }
+  })
+
+  const problem = { kind: 'problem', title: "Dashboard totals don't match the source system", within: 'Trust the numbers in reports' }
+  expect(lumen).toEqual([
+    {
+      span: { start: 0, end: 0 },
+      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.62, lowConfidence: 0.62 },
+    },
+  ])
+  expect(multi).toEqual([
+    {
+      span: { start: 1, end: 1 },
+      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.9, lowConfidence: null },
+    },
+    {
+      span: { start: 2, end: 2 },
+      placement: {
+        opportunity: {
+          id: seedId('opportunity', 'p4/s1'),
+          kind: 'solution',
+          title: 'Show calculation lineage per metric',
+          within: "Dashboard totals don't match the source system",
+        },
+        confidence: 0.55,
+        lowConfidence: 0.55,
+      },
+    },
+    { span: { start: 3, end: 3 }, placement: null },
+  ])
+})
+
+test('a quote link still highlights its sentences after a newer pack becomes the newest', async () => {
+  const lumenId = '0a58b63a-5af8-8375-8d7c-d91d9dfda0d3' as ItemId
+  const result = await rollbackAfter(async (tx) => {
+    await writeSeed(tx, buildSeed())
+    const [linked] = await tx.select({ id: t.mention.id }).from(t.mention).where(eq(t.mention.itemId, lumenId))
+    const [other] = await tx.select({ id: t.mention.id }).from(t.mention).where(ne(t.mention.itemId, lumenId)).limit(1)
+    if (!linked || !other) throw new Error('no mentions')
+    const [seeded] = await tx.select().from(t.pack).where(eq(t.pack.id, seedId('pack', 'product-insights/0.3.0')))
+    if (!seeded) throw new Error('no pack')
+    await tx.insert(t.pack).values({ ...seeded, id: undefined, version: '0.4.0', createdAt: new Date('2099-01-01T00:00:00Z') })
+    const read = async (mention: MentionId) => {
+      const detail = await loadItem(tx, lumenId, SEED_WORKSPACE_ID, mention)
+      if (detail.kind !== 'ready') throw new Error('item missing')
+      return { highlight: detail.item.highlight, listed: detail.item.mentions.length }
+    }
+    return { linked: await read(linked.id), other: await read(other.id) }
+  })
+
+  // The newest pack has no mentions, so the Mentions section is empty, but the old link keeps its span.
+  expect(result.linked).toEqual({ highlight: { start: 0, end: 0 }, listed: 0 })
+  expect(result.other).toEqual({ highlight: null, listed: 0 })
 })
