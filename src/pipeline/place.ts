@@ -35,7 +35,8 @@ type Path = { readonly score: number; readonly problem: { readonly id: Opportuni
 
 /**
  * Places one mention: a Choice over the outcomes plus "none", then a Choice over each of the top BEAM outcomes'
- * problems plus "none". The mention lands on the highest-probability path, and on no node when a "none" path wins.
+ * problems plus "none". The mention lands on the highest-probability path, and on no node when a "none" path or an
+ * outcome with no problems wins.
  */
 export async function placeMention(
   judge: Judge,
@@ -59,10 +60,12 @@ export async function placeMention(
     .sort((a, b) => p1(b.outcome.title) - p1(a.outcome.title) || a.order - b.order)
     .slice(0, BEAM)
     .map(({ outcome }) => outcome)
+  // An outcome with no problems has nowhere to place a mention, so its probability counts as doubt, like "none".
+  const doubt = Math.max(outcomeAnswer.probabilities[NONE_OF_THESE] ?? 0, ...tree.filter((o) => o.problems.length === 0).map((o) => p1(o.title)))
 
-  // Every placed path scores at most P(its outcome), so a "none" at least that likely settles it without a second request.
+  // Every placed path scores at most P(its outcome), so doubt at least that likely settles it without a second request.
   const top = kept[0]
-  if (!top || (outcomeAnswer.probabilities[NONE_OF_THESE] ?? 0) >= p1(top.title)) return { kind: 'unplaced', answers }
+  if (!top || doubt >= p1(top.title)) return { kind: 'unplaced', answers }
 
   const problemQuestions = kept.map(
     (outcome): Question<ChoiceSpec> => ({
@@ -75,7 +78,7 @@ export async function placeMention(
   if (!isNonEmpty(problemQuestions)) return { kind: 'unplaced', answers }
   const problemAnswers = await judge.answer(state, problemQuestions)
 
-  const paths: Path[] = [{ score: outcomeAnswer.probabilities[NONE_OF_THESE] ?? 0, problem: null, leaf: PLACE_OUTCOME_KEY }]
+  const paths: Path[] = [{ score: doubt, problem: null, leaf: PLACE_OUTCOME_KEY }]
   kept.forEach((outcome, i) => {
     const question = problemQuestions[i]
     const answer = problemAnswers[i]

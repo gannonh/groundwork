@@ -98,4 +98,33 @@ describe('placeMention with place_confidence 0.7', () => {
     )
     expect(asked).toEqual(['place_outcome', 'place_problem:Trust the numbers,place_problem:Share findings'])
   })
+
+  test('an outcome with no problems that is likelier than the rest leaves the mention unplaced after one request', async () => {
+    const asked: string[] = []
+    const tree: PlaceTree = [{ id: id(3), title: 'Nothing under this', problems: [] }, TREE[1] as PlaceTree[number]]
+    const result = await placeMention(
+      judgeWith({ place_outcome: { 'Nothing under this': 0.8, 'Share findings': 0.2, [NONE_OF_THESE]: 0 }, 'place_problem:Share findings': { 'Exports lose formatting': 1, [NONE_OF_THESE]: 0 } }, asked),
+      STATE,
+      tree,
+      0.7,
+    )
+    expect(result.kind).toBe('unplaced')
+    expect(asked).toEqual(['place_outcome'])
+  })
+
+  test('an outcome with no problems still beats a populated branch whose path is less likely', async () => {
+    const tree: PlaceTree = [{ id: id(3), title: 'Nothing under this', problems: [] }, ...TREE]
+    const result = await placeMention(
+      judgeWith({
+        place_outcome: { 'Nothing under this': 0.5, 'Trust the numbers': 0.4, 'Share findings': 0.1, [NONE_OF_THESE]: 0 },
+        'place_problem:Trust the numbers': problem(0.9),
+        'place_problem:Share findings': { 'Exports lose formatting': 1, [NONE_OF_THESE]: 0 },
+      }),
+      STATE,
+      tree,
+      0.7,
+    )
+    // 0.4 x 0.9 = 0.36 is below the 0.5 the judge gave the outcome with no problems.
+    expect(result.kind).toBe('unplaced')
+  })
 })
