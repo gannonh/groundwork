@@ -5,6 +5,9 @@
 //   goto=/path             navigate to a path on the instance
 //   click=role/Name        click the element with that ARIA role and accessible name
 //   click-in-row=Text|Name click the link named Name inside the one table row that contains Text
+//   click-in-figure=Text|Name click the link named Name inside the one quote (figure) that contains Text
+//   focus=role/Name        focus the element with that ARIA role and accessible name, without clicking it
+//   wait=ms                pause, so a video shows the state for a moment
 //   choose-file=Label|path set the file input labelled Label to a file (path relative to the repo root)
 //   select=Label|Option    open the Select (combobox) labelled Label and pick Option
 //   press=Key              press a key on the focused element (Tab, Enter, /)
@@ -96,6 +99,21 @@ const steps = {
     }
     await rows.getByRole('link', { name: link, exact: true }).click()
   },
+  'click-in-figure': async (arg) => {
+    const [text, link] = pair(arg)
+    const figures = page.getByRole('figure').filter({ hasText: text })
+    try {
+      await expect(figures).toHaveCount(1)
+    } catch {
+      throw new Error(`expected exactly 1 quote containing '${text}', found ${await figures.count()}`)
+    }
+    await figures.getByRole('link', { name: link, exact: true }).click()
+  },
+  focus: (target) => {
+    const slash = target.indexOf('/')
+    return page.getByRole(target.slice(0, slash), { name: target.slice(slash + 1), exact: true }).focus()
+  },
+  wait: (ms) => page.waitForTimeout(Number(ms)),
   'choose-file': (arg) => {
     const [label, path] = pair(arg)
     return page.getByLabel(label).setInputFiles(resolve(root, path))
