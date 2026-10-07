@@ -1,5 +1,6 @@
 import type { QuoteView } from '@/server/opportunity-map.server'
-import { formatDay, formatRole, formatUsd } from './format'
+import { formatConfidence, formatDay, formatRole, formatUsd } from './format'
+import { ItemAnchor } from './map-links'
 import { Pill } from './pill'
 
 export function Quote({ quote }: { quote: QuoteView }) {
@@ -26,12 +27,15 @@ export function Quote({ quote }: { quote: QuoteView }) {
           </>
         )}
         {quote.role && <span>{formatRole(quote.role)}</span>}
-        <span>
+        <ItemAnchor
+          itemId={quote.itemId}
+          mention={quote.mentionId}
+          label={`Open ${quote.source} · ${formatDay(quote.date)}`}
+          className="rounded-[3px] text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
           {quote.source} · {formatDay(quote.date)}
-        </span>
-        {quote.lowConfidence !== null && (
-          <Pill tone="warn">{Math.round(quote.lowConfidence * 100)}% confident</Pill>
-        )}
+        </ItemAnchor>
+        {quote.lowConfidence !== null && <Pill tone="warn">{formatConfidence(quote.lowConfidence)}</Pill>}
       </figcaption>
     </figure>
   )

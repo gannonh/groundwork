@@ -11,6 +11,7 @@ import { RANK_GRID, RankCard } from '@/components/opportunities/rank-card'
 import {
   CLOSED,
   DEFAULT_VIEW,
+  compactView,
   filterOf,
   filterSearch,
   mapSearch,
@@ -106,12 +107,17 @@ function OpportunityMapScreen({ map }: { map: ReadyMap }) {
     [router, view],
   )
   const hrefs = useMemo(() => new Map(map.problems.map((p) => [p.id, hrefOf(p.id)])), [map.problems, hrefOf])
+  const current = useEqualValue(latest)
   const links = useMemo<MapLinks>(
     () => ({
       href: (patch) => router.buildLocation({ to: '/opportunities', search: { ...view, ...patch } }).href,
       go: (patch) => void navigate({ to: '/opportunities', search: { ...view, ...patch }, resetScroll: false }),
+      itemHref: (id, mention) =>
+        router.buildLocation({ to: '/items/$id', params: { id }, search: { mention, from: compactView(current) } }).href,
+      openItem: (id, mention) =>
+        void navigate({ to: '/items/$id', params: { id }, search: { mention, from: compactView(current) } }),
     }),
-    [router, navigate, view],
+    [router, navigate, view, current],
   )
 
   const list = useRef<HTMLElement>(null)

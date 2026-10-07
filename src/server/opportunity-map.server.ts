@@ -87,6 +87,7 @@ export type ProblemView = {
 }
 export type QuoteView = {
   readonly mentionId: MentionId
+  readonly itemId: ItemId
   readonly text: QuoteText
   readonly account: { readonly name: string; readonly arr: Usd } | null
   readonly role: SpeakerRole | null
@@ -402,6 +403,7 @@ async function readWorkspace(
       const account = counted.accountId ? accountsById.get(counted.accountId) : undefined
       return {
         mentionId: counted.mentionId,
+        itemId: counted.itemId,
         text: excerpt(sentencesByItem.get(counted.itemId) ?? [], {
           start: span?.sentenceStart ?? 0,
           end: span?.sentenceEnd ?? 0,

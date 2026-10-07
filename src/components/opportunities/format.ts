@@ -1,4 +1,4 @@
-import type { IsoDate, PainLevel, SpeakerRole } from '@/domain/types'
+import type { Confidence, IsoDate, PainLevel, SpeakerRole } from '@/domain/types'
 
 export const PAIN_LABELS: Record<PainLevel, string> = {
   0: 'Mild annoyance',
@@ -40,4 +40,9 @@ export function formatDay(date: IsoDate): string {
 /** 'end user'. */
 export function formatRole(role: SpeakerRole): string {
   return role.replace('_', ' ')
+}
+
+/** '62% confident'. */
+export function formatConfidence(confidence: Confidence): string {
+  return `${String(Math.round(confidence * 100))}% confident`
 }
