@@ -159,9 +159,10 @@ export type ItemOutcome =
 /**
  * Judges one item and stores everything about it in one transaction, or records why it failed. Idempotent per item
  * and pack version: an item already finished is skipped, and rows from a rerun that races a first run are ignored.
- * Anything but a JudgeError is thrown for the queue to retry.
+ * Anything but a JudgeError is thrown for the queue to retry, unless `retriesLeft` is false: then the item is recorded
+ * as failed, because an item with no row would keep its run from finishing.
  */
-export async function processItem(db: Db, context: RunContext, judge: Judge, itemId: ItemId): Promise<ItemOutcome> {
+export async function processItem(db: Db, context: RunContext, judge: Judge, itemId: ItemId, retriesLeft = true): Promise<ItemOutcome> {
   const [finished] = await db
     .select({ itemId: t.pipelineRunItem.itemId })
     .from(t.pipelineRunItem)
@@ -175,15 +176,16 @@ export async function processItem(db: Db, context: RunContext, judge: Judge, ite
     .orderBy(asc(t.sentence.ordinal))
   if (!isNonEmpty(rows)) return recordFailure(db, context, itemId, `Item ${itemId} has no sentences to judge.`)
 
-  let judgement: ItemJudgement
   try {
-    judgement = await judgeItem(judge, context.pack, context.tree, { id: itemId, sentences: rows })
+    const judgement = await judgeItem(judge, context.pack, context.tree, { id: itemId, sentences: rows })
+    await store(db, context, judge, itemId, judgement)
+    return { kind: 'judged' }
   } catch (error) {
     if (error instanceof JudgeError) return recordFailure(db, context, itemId, error.message)
-    throw error
+    if (retriesLeft) throw error
+    const reason = error instanceof Error ? error.message : String(error)
+    return recordFailure(db, context, itemId, `Item ${itemId} failed after its last retry: ${reason}`)
   }
-  await store(db, context, judge, itemId, judgement)
-  return { kind: 'judged' }
 }
 
 async function recordFailure(db: Db, context: RunContext, itemId: ItemId, message: string): Promise<ItemOutcome> {

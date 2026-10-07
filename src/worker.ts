@@ -4,9 +4,8 @@ import { db, pool } from './db/client.ts'
 import { createRecordedJudge, parseRecording } from './judge/backends/recorded.ts'
 import type { Judge } from './judge/types.ts'
 import type { Pack } from './pack/pack.ts'
-import type { RunId } from './domain/types.ts'
 import { createBoss, enqueueItems, ensureQueue, ITEM_QUEUE, parseItemJob } from './pipeline/queue.ts'
-import { loadRunContext, processItem, unfinishedRuns, type RunContext } from './pipeline/run.ts'
+import { loadRunContext, processItem, unfinishedRuns } from './pipeline/run.ts'
 
 const env = z
   .object({
@@ -32,17 +31,16 @@ for (const { runId, itemIds } of await unfinishedRuns(db)) {
   console.log(`Queued the ${String(itemIds.length)} unfinished items of run ${runId}.`)
 }
 
-await boss.work(ITEM_QUEUE, { batchSize: 10, localConcurrency: 2, pollingIntervalSeconds: 0.5 }, async (jobs) => {
-  const contexts = new Map<RunId, RunContext | null>()
-  for (const job of jobs) {
-    const { runId, itemId } = parseItemJob(job.data)
-    if (!contexts.has(runId)) contexts.set(runId, await loadRunContext(db, runId))
-    const context = contexts.get(runId)
-    if (!context) continue
-    const outcome = await processItem(db, context, judgeFor(context.pack), itemId)
-    if (outcome.kind === 'failed') console.log(`Item ${itemId} failed: ${outcome.message}`)
-    else console.log(`Item ${itemId} ${outcome.kind}`)
-  }
+// One job per handler call: pg-boss starts a job's expiry clock when it fetches the job, so a batch would expire its
+// later jobs while the earlier ones ran, and one thrown error would fail the whole batch. localConcurrency gives the parallelism.
+await boss.work(ITEM_QUEUE, { batchSize: 1, localConcurrency: 4, pollingIntervalSeconds: 0.5, includeMetadata: true }, async ([job]) => {
+  if (!job) return
+  const { runId, itemId } = parseItemJob(job.data)
+  const context = await loadRunContext(db, runId)
+  if (!context) return
+  const outcome = await processItem(db, context, judgeFor(context.pack), itemId, job.retryCount < job.retryLimit)
+  if (outcome.kind === 'failed') console.log(`Item ${itemId} failed: ${outcome.message}`)
+  else console.log(`Item ${itemId} ${outcome.kind}`)
 })
 console.log(`Worker ready: judging with the ${env.JUDGE_BACKEND} backend from ${env.JUDGE_FIXTURE}.`)
 

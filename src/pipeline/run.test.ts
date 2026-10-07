@@ -8,6 +8,7 @@ import type { RedactedText } from '../domain/types.ts'
 import { parseCsv, type Parsed } from '../ingest/csv.ts'
 import { guessMapping } from '../ingest/mapping.ts'
 import { createRecordedJudge, parseRecording } from '../judge/backends/recorded.ts'
+import type { Judge } from '../judge/types.ts'
 import { importItems } from '../server/ingest.server.ts'
 import { loadPackFile, loadTemplateFile } from './files.ts'
 import { loadRunContext, pendingItems, processItem, startRun } from './run.ts'
@@ -81,5 +82,23 @@ describe('processItem', () => {
       { kind: 'failed', message: expect.stringContaining(`No recorded answer for item ${rows.first}`) as string },
       { kind: 'judged' },
     ])
+  })
+
+  test('an item whose judge keeps throwing is retried until the last attempt, then recorded as failed and the run finishes', async () => {
+    const rows = await rollbackAfter(async (tx) => {
+      const { context, judge, items } = await startedRun(tx)
+      const [first] = items
+      if (!first) throw new Error('no items')
+      const broken: Judge = { provenance: judge.provenance, answer: () => Promise.reject(new Error('connection reset')) }
+      const early = await processItem(tx, context, broken, first, true).catch((error: unknown) => (error instanceof Error ? error.message : ''))
+      const last = await processItem(tx, context, broken, first, false)
+      const pending = await pendingItems(tx, context.runId)
+      const [stored] = await tx.select({ status: t.pipelineRunItem.status, error: t.pipelineRunItem.error }).from(t.pipelineRunItem).where(eq(t.pipelineRunItem.itemId, first))
+      return { early, last, stillPending: pending.includes(first), stored, first }
+    })
+    expect(rows.early).toBe('connection reset')
+    expect(rows.last).toEqual({ kind: 'failed', message: `Item ${rows.first} failed after its last retry: connection reset` })
+    expect(rows.stillPending).toBe(false)
+    expect(rows.stored).toEqual({ status: 'failed', error: `Item ${rows.first} failed after its last retry: connection reset` })
   })
 })
