@@ -1,11 +1,12 @@
 # Source detail
 
-`/sources/$id` shows one source: its name, item kind, item count, creation date, the column mapping it was imported with, and its 100 newest items. Each row shows the item's date, account, author role, and redacted first sentence, and the whole row opens the item.
+`/sources/$id` shows one source: its name, item kind, item count, creation date, the column mapping it was imported with, a run panel, and its 100 newest items. Each row shows the item's date, account, author role, and redacted first sentence, and the whole row opens the item.
 
 ## Sub-features
 
 - `source-header`: heading with the source name and a line such as `Ticket · 500 items · Created Sep 26, 2026`.
 - `source-mapping`: a term list of Text, Date (with format), Account, and Author columns. Seeded sources have no mapping and skip it.
+- `source-run`: a `Run the pipeline` region. Before a run it lists Items, Judge requests, and Estimated cost beside a `Start run` button. During a run it shows a `Run progress` progressbar and a percentage. After the run it says `Run complete. 500 items judged, 0 failed.` and lists any failed item by ID. Items imported after a run show as `New items` with a new estimate. Starting a run needs the worker: `DATABASE_URL=<instance url> node src/worker.ts`, started by hand because `verify.sh` does not start it. `RECORDED_JUDGE_DELAY_MS=100` slows it enough to interrupt a run.
 - `source-items`: up to 100 rows, newest first, and the caption `Showing 100 of 500 items, newest first.` Items without a linked account show `No account`.
 - `source-missing`: an unknown or malformed id shows `Source not found` and a `Back to sources` link.
 
@@ -28,6 +29,8 @@ Preconditions:
 
 ## Gotchas
 
+- The Triage link in the top bar gains a count of the placements below the pack's `place_confidence`, and its accessible name becomes `Triage, 77 to review`. The seeded workspace already shows 44.
+- In psql compare confidences with `< 0.7::real`. A bare `< 0.7` is numeric, so a stored float4 0.7 reads as below it.
 - The item link's accessible name is the formatted date, such as `Sep 11, 2026`, and many rows share a date. Pick the row by its first sentence and then the date: `click-in-row="Jane from Acme|Sep 11, 2026"`.
 - Only the 100 newest items render. An older item, such as one from June, is not in the table.
 - Rows show `No account` until [accounts.md](./accounts.md) imports `accounts-60.csv`. After that, 450 of the 500 zendesk items show an account name.

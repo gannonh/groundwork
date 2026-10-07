@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto'
+import { PAIN_KEYS } from '../../domain/types.ts'
 import { splitSentences } from '../../ingest/sentences.ts'
 import type {
   AccountId,
@@ -73,7 +74,6 @@ const WEEK0 = Date.UTC(2026, 5, 29) // Monday. Week 11 is Sep 14 to Sep 20.
 const DAY_MS = 86_400_000
 const HOUR_MS = 3_600_000
 const PAIN_OFFSETS = [0, 0, 1, 0, -1, 0, 0, 1, 0, -1] // lower median of any run of 10 is the base
-const PAIN_KEYS = ['mild_annoyance', 'slows_work', 'blocks_work', 'deal_breaker'] as const
 const FILLER_SOURCES: readonly SourceKey[] = ['zd', 'nps', 'gong', 'zd', 'g2', 'nps', 'int', 'zd']
 const FILLER_ROLES: readonly SpeakerRole[] = ['end_user', 'admin', 'end_user', 'buyer', 'executive', 'admin']
 const PROBLEM_LEADS = [

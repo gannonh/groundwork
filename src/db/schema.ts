@@ -17,42 +17,37 @@ import {
 } from 'drizzle-orm/pg-core'
 import {
   ITEM_KINDS,
+  PINNED_MODEL,
   type AccountId,
   type Confidence,
   type ItemId,
+  type JudgeValue,
   type MentionId,
   type OpportunityId,
   type PackId,
   type RawText,
   type RedactedText,
+  type RunId,
   type SourceId,
   type Usd,
   type WorkspaceId,
 } from '../domain/types.ts'
 import type { ColumnMapping } from '../ingest/mapping.ts'
+import type { Pack } from '../pack/pack.ts'
 
 const tz = { withTimezone: true } as const
 const pk = <T extends string>() => uuid('id').$type<T>().primaryKey().default(sql`uuidv7()`)
 const createdAt = () => timestamp('created_at', tz).notNull().defaultNow()
-/** A model name and a semantic version, such as 'jev-1.13.0'. Rejects 'jev-latest' and bare names. */
-const PINNED_MODEL = String.raw`'^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$'`
+const PINNED_MODEL_SQL = `'${PINNED_MODEL.source}'`
 
 export const opportunityKind = pgEnum('opportunity_kind', ['outcome', 'problem', 'solution'])
 export const itemKind = pgEnum('item_kind', ITEM_KINDS)
 export const sourceKind = pgEnum('source_kind', ['upload'])
 export const speakerRole = pgEnum('speaker_role', ['end_user', 'admin', 'buyer', 'executive', 'unknown'])
 export const judgeBackend = pgEnum('judge_backend', ['recorded', 'jev', 'llm'])
+export const runItemStatus = pgEnum('run_item_status', ['judged', 'failed'])
 export const tracker = pgEnum('tracker', ['linear'])
 export const linkTarget = pgEnum('link_target', ['issue', 'project'])
-
-/** Answer payloads. Written only by the judge adapters after parsing a backend response. */
-export type JudgeValue =
-  | { readonly type: 'noul'; readonly yes: number }
-  | { readonly type: 'score'; readonly level: number }
-  | { readonly type: 'choice'; readonly option: string }
-  | { readonly type: 'span'; readonly start: number; readonly end: number }
-/** Parsed pack YAML. The pack slice replaces this with the type derived from its parser. */
-export type PackDefinition = Readonly<Record<string, unknown>>
 
 export const workspace = pgTable('workspace', {
   id: pk<WorkspaceId>(),
@@ -75,12 +70,12 @@ export const pack = pgTable(
     judgeModel: text('judge_model').notNull(),
     detectThreshold: real('detect_threshold').$type<Confidence>().notNull(),
     placeThreshold: real('place_threshold').$type<Confidence>().notNull(),
-    definition: jsonb('definition').$type<PackDefinition>().notNull(),
+    definition: jsonb('definition').$type<Pack>().notNull(),
     createdAt: createdAt(),
   },
   (t) => [
     unique('pack_version_key').on(t.workspaceId, t.name, t.version),
-    check('pack_judge_model_pinned', sql`${t.judgeModel} ~ ${sql.raw(PINNED_MODEL)}`),
+    check('pack_judge_model_pinned', sql`${t.judgeModel} ~ ${sql.raw(PINNED_MODEL_SQL)}`),
     check(
       'pack_thresholds_open_unit',
       sql`${t.detectThreshold} > 0 and ${t.detectThreshold} < 1 and ${t.placeThreshold} > 0 and ${t.placeThreshold} < 1`,
@@ -231,7 +226,7 @@ export const judgeAnswer = pgTable(
   (t) => [
     unique('judge_answer_key').on(t.packId, t.itemId, t.questionKey, t.subject),
     index('judge_answer_question_idx').on(t.packId, t.questionKey),
-    check('judge_answer_model_pinned', sql`${t.modelVersion} ~ ${sql.raw(PINNED_MODEL)}`),
+    check('judge_answer_model_pinned', sql`${t.modelVersion} ~ ${sql.raw(PINNED_MODEL_SQL)}`),
     check('judge_answer_confidence_unit', sql`${t.confidence} >= 0 and ${t.confidence} <= 1`),
   ],
 )
@@ -298,6 +293,53 @@ export const placement = pgTable(
     unique('placement_mention_key').on(t.mentionId),
     index('placement_opportunity_idx').on(t.opportunityId),
     check('placement_confidence_unit', sql`${t.confidence} >= 0 and ${t.confidence} <= 1`),
+  ],
+)
+
+/**
+ * One processing of a source's items under one pack version. Starting it again queues only the items that have not
+ * finished, and moves `startedAt` forward so the items imported since count as part of the run.
+ */
+export const pipelineRun = pgTable(
+  'pipeline_run',
+  {
+    id: pk<RunId>(),
+    sourceId: uuid('source_id')
+      .$type<SourceId>()
+      .notNull()
+      .references(() => source.id, { onDelete: 'cascade' }),
+    packId: uuid('pack_id')
+      .$type<PackId>()
+      .notNull()
+      .references(() => pack.id, { onDelete: 'cascade' }),
+    startedAt: timestamp('started_at', tz).notNull().defaultNow(),
+  },
+  (t) => [unique('pipeline_run_key').on(t.sourceId, t.packId)],
+)
+
+/**
+ * The outcome of one item in a run, written in the same transaction as the item's answers, mentions, and placements.
+ * An item with no row here has not finished, so a restarted worker picks up exactly the items that did not.
+ */
+export const pipelineRunItem = pgTable(
+  'pipeline_run_item',
+  {
+    runId: uuid('run_id')
+      .$type<RunId>()
+      .notNull()
+      .references(() => pipelineRun.id, { onDelete: 'cascade' }),
+    itemId: uuid('item_id')
+      .$type<ItemId>()
+      .notNull()
+      .references(() => item.id, { onDelete: 'cascade' }),
+    status: runItemStatus('status').notNull(),
+    // Why the judge could not answer, naming the item. Set exactly when the item failed.
+    error: text('error'),
+    finishedAt: timestamp('finished_at', tz).notNull().defaultNow(),
+  },
+  (t) => [
+    primaryKey({ columns: [t.runId, t.itemId] }),
+    check('pipeline_run_item_error_iff_failed', sql`(${t.status} = 'failed') = (${t.error} is not null)`),
   ],
 )
 

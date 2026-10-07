@@ -10,6 +10,7 @@ export type OpportunityId = Brand<string, 'OpportunityId'>
 export type AccountId = Brand<string, 'AccountId'>
 export type ItemId = Brand<string, 'ItemId'>
 export type MentionId = Brand<string, 'MentionId'>
+export type RunId = Brand<string, 'RunId'>
 /** A digest of every stored input behind a workspace's numbers. Equal snapshots show equal numbers. */
 export type SnapshotId = Brand<string, 'SnapshotId'>
 /** Whole US dollars. */
@@ -23,7 +24,22 @@ export type RedactedText = Brand<string, 'RedactedText'>
 /** Imported text before redaction. Never leaves the server. */
 export type RawText = Brand<string, 'RawText'>
 
-/** Index into the pack's pain levels: mild_annoyance, slows_work, blocks_work, deal_breaker. */
+/** A model name and a semantic version, such as 'jev-1.13.0'. Rejects 'jev-latest' and bare names. */
+export const PINNED_MODEL = /^[a-z][a-z0-9-]*-[0-9]+\.[0-9]+\.[0-9]+$/
+
+/** Answer payloads. Written only by the judge adapters after parsing a backend response. */
+export type JudgeValue =
+  | { readonly type: 'noul'; readonly yes: number }
+  | { readonly type: 'score'; readonly level: number }
+  | { readonly type: 'choice'; readonly option: string }
+  | { readonly type: 'span'; readonly start: number; readonly end: number }
+
+/** The option every placement question offers besides the tree's own nodes. */
+export const NONE_OF_THESE = 'none'
+
+/** The pain scale, mildest first. A pack's pain question must list exactly these. */
+export const PAIN_KEYS = ['mild_annoyance', 'slows_work', 'blocks_work', 'deal_breaker'] as const
+/** Index into PAIN_KEYS. */
 export type PainLevel = 0 | 1 | 2 | 3
 export const PAIN_LEVELS: readonly PainLevel[] = [0, 1, 2, 3]
 export type SpeakerRole = 'end_user' | 'admin' | 'buyer' | 'executive' | 'unknown'
@@ -56,6 +72,11 @@ export type Placement = {
   readonly itemId: ItemId
   readonly opportunityId: OpportunityId
   readonly confidence: Confidence
+}
+
+export function toConfidence(value: number): Confidence {
+  if (!(value >= 0 && value <= 1)) throw new RangeError(`A confidence is in [0, 1], got ${String(value)}`)
+  return value as Confidence
 }
 
 export function toPainLevel(level: number): PainLevel | null {

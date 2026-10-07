@@ -1,3 +1,4 @@
+import { isLowConfidence } from './triage.ts'
 import type {
   Account,
   AccountId,
@@ -86,7 +87,7 @@ export function computeMetrics(
       itemId: item.id,
       accountId: item.accountId,
       occurredAt: item.occurredAt,
-      lowConfidence: placement.confidence < evidence.placeThreshold ? placement.confidence : null,
+      lowConfidence: isLowConfidence(placement.confidence, evidence.placeThreshold) ? placement.confidence : null,
     }
     for (let node: OpportunityId | null | undefined = placement.opportunityId; node; node = parentOf.get(node)) {
       let mentions = byNode.get(node)

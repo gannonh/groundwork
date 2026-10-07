@@ -1,0 +1,23 @@
+# The starter tree for a B2B SaaS product. A workspace with no tree begins with these outcomes and problems.
+template: b2b-saas
+outcomes:
+  - title: Get customer data in without engineering help
+    problems:
+      - title: CSV imports fail silently on malformed rows
+      - title: Field mapping must be redone for every import
+      - title: No way to backfill historical data
+  - title: Trust the numbers in reports
+    problems:
+      - title: Dashboard totals don't match the source system
+      - title: Can't tell when data was last refreshed
+      - title: Timezone handling shifts daily counts
+  - title: Share findings with stakeholders
+    problems:
+      - title: Exported charts lose formatting in slides
+      - title: Viewers need a paid seat to see a dashboard
+      - title: No scheduled email digest
+  - title: Control access and spend
+    problems:
+      - title: Admins can't restrict access by team
+      - title: Usage-based bill is unpredictable
+      - title: SSO setup requires contacting support

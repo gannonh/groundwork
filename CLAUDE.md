@@ -25,9 +25,10 @@ docker compose up -d db
 pnpm db:migrate
 pnpm db:seed
 pnpm dev
+pnpm worker   # in a second terminal: runs the queued pipeline jobs
 ```
 
-The app serves on http://localhost:3000. The first line lets mise read `.nvmrc`, which it ignores by default. `mise install` then installs that Node. `mise use -g pnpm@12` installs pnpm 12 and puts it on your PATH, and pnpm then switches itself to the exact version pinned in `package.json`. On any other Node major, `pnpm install` and `scripts/setup-worktree.ts` stop with an error that names the version.
+The app serves on http://localhost:3000. A run started on a source's page does nothing until `pnpm worker` is running. The first line lets mise read `.nvmrc`, which it ignores by default. `mise install` then installs that Node. `mise use -g pnpm@12` installs pnpm 12 and puts it on your PATH, and pnpm then switches itself to the exact version pinned in `package.json`. On any other Node major, `pnpm install` and `scripts/setup-worktree.ts` stop with an error that names the version.
 
 Machine roles: the Mac Mini is the desk and the Kata Code client.
 Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
@@ -39,14 +40,16 @@ Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
 | `pnpm dev` | Vite dev server on port 3000. |
 | `pnpm build` | Production build into `.output/`. |
 | `pnpm start` | Runs the production build on port 3000. |
+| `pnpm worker` | Runs the pg-boss worker (`src/worker.ts`) that judges the items of a started run. It replays `fixtures/judge/zendesk-500.jsonl` (`JUDGE_FIXTURE` picks another file), and `RECORDED_JUDGE_DELAY_MS` slows each request to the time a live backend takes. Killing it mid-run loses nothing: a restart finishes the run. Every `RECONCILE_INTERVAL_MS` (30 s) it queues the unfinished items of every run again, so a run whose jobs were never published finishes without a restart. |
 | `pnpm lint` | ESLint with typescript-eslint and react-hooks. |
 | `pnpm typecheck` | `tsc --noEmit`. |
 | `pnpm test` | Vitest unit tests. Needs the database. |
-| `pnpm e2e` | Playwright against the production build on a fresh, seeded database and a fresh, empty one, both dropped afterward. Its servers run on OS-assigned ports, so concurrent runs in other worktrees don't collide. Extra arguments go to `playwright test`. Run `pnpm build` first. Skips the screenshot tests. |
+| `pnpm e2e` | Playwright against the production build on a fresh, seeded database and two fresh, empty ones (one for the map's empty state, one where the run spec imports and runs a source), all dropped afterward. Its servers and the worker run on OS-assigned ports, so concurrent runs in other worktrees don't collide. Extra arguments go to `playwright test`. Run `pnpm build` first. Skips the screenshot tests. |
 | `pnpm e2e:docker` | `pnpm e2e` inside the Playwright image that CI uses, screenshot tests included. Needs Docker with host networking. |
 | `pnpm db:generate` | Generates a Drizzle migration into `drizzle/`. |
 | `pnpm db:migrate` | Applies pending migrations. |
 | `pnpm db:seed` | Replaces the Acme Analytics demo workspace with prototype D's data. Safe to rerun. |
+| `pnpm fixtures:judge` | Rewrites `fixtures/judge/zendesk-500.jsonl`: runs the pipeline over `fixtures/exports/zendesk-500.csv` against a seeded simulated judge and records each answer under the key the recorded backend looks it up by. `--csv path --out path` records any export. Rerun it after a pack's questions or version change. |
 | `pnpm fixtures:generate` | Rewrites the import fixtures in `fixtures/exports/`. `node scripts/generate-fixtures.ts --rows N --out path` writes an N-row Zendesk-shaped file for perf runs. |
 
 `dev`, `start`, `test`, `db:migrate`, and `db:seed` read `.env` when it exists.
@@ -54,17 +57,21 @@ Sartre is the dev server, where agents, worktrees, Postgres, and Docker e2e run.
 ### Layout
 
 - `src/routes/`: file routes. `opportunities.tsx` is the map, and its index child route `opportunities.index.tsx` owns the evidence sheet. `src/routes/api/` holds server routes.
-- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, evidence sheet, rail, sparklines, and trend bars, `map-links.tsx` (plain anchors to the current map view), and `search.ts`, the zod schema for the map's URL search params. `src/components/sources/` holds the import screens' file field, notices, redaction pills, and formatters. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
+- `src/components/`: custom components. `src/components/opportunities/` holds the opportunity map's cards, detail, evidence sheet, rail, sparklines, and trend bars, `map-links.tsx` (plain anchors to the current map view), and `search.ts`, the zod schema for the map's URL search params. `src/components/sources/` holds the import screens' file field, notices, redaction pills, and formatters, and the run panel of a source's page. `src/components/ui/` holds shadcn/ui components from the CLI; do not hand-edit them.
 - `src/domain/`: pure domain code: branded types, `computeMetrics`, `rank` and its presets, `filterEvidence`, and quote selection. No database or React imports.
 - `src/ingest/`: pure import code shared by the browser preview and the server import: CSV parsing, column mapping and date parsing, account parsing, redaction, and sentence splitting. No database, React, or `node:` imports.
-- `src/server/`: server-only code (`*.server.ts`): screen loaders that query the database and build view models for a route's server function, and `ingest.server.ts`, which writes item and account imports.
-- `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/`, `src/domain/`, and `src/ingest/` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` runs them without a bundler.
+- `src/server/`: server-only code (`*.server.ts`): screen loaders that query the database and build view models for a route's server function, `ingest.server.ts`, which writes item and account imports, `run.server.ts`, which loads and starts a source's run panel, `queue.server.ts`, the web server's job producer, and `triage-count.server.ts`, the nav's count.
+- `src/judge/`: the judge contract of ADR 0004. `types.ts` holds `Judge`, `Question`, and the answers, `adapters.ts` has one adapter per question type that parses a backend's raw response, `key.ts` hashes the recorded-answer key, and `backends/` holds one file per backend (`recorded.ts` so far). No database or React imports.
+- `src/pack/`: question packs and starter trees parsed from YAML at the boundary. `packs/product-insights.yaml` is the pack, `templates/b2b-saas.yaml` the starter tree.
+- `src/pipeline/`: detect, quote, and place (`detect.ts`, `quote.ts`, `place.ts`, joined by `item.ts`) are pure given a `Judge`. `run.ts` stores one item's answers, mention, and placement in one transaction and opens a run, and `queue.ts` configures the pg-boss queue. `src/worker.ts` is the worker's entry point.
+- `src/db/`: Postgres pool, Drizzle schema, and the migrate and seed scripts. `src/db/seed/` builds prototype D's demo workspace. `src/db/`, `src/domain/`, `src/ingest/`, `src/judge/`, `src/pack/`, `src/pipeline/`, and `src/worker.ts` use relative `.ts` imports and erasable TypeScript only, because `node src/db/seed.ts` and `node src/worker.ts` run them without a bundler.
 - `src/styles/`: `app.css`, the Tailwind theme, prototype tokens, and the type and spacing scales. `contrast.test.ts` fails when muted text drops under 4.5:1 on a surface token.
 - `src/lib/`: `utils.ts` exports `cn`, which merges classes and knows the type scale. `tsconfig.json` and `vite.config.ts` point the bare `cn` import there, so the shadcn components stay as the CLI writes them.
 - `drizzle/`: generated SQL migrations.
 - `fixtures/exports/`: generated CSV exports for tests and live checks: `zendesk-500.csv`, `nps-300.csv` (DD/MM/YYYY dates), and `accounts-60.csv`.
+- `fixtures/judge/`: `zendesk-500.jsonl`, the recorded judge's answers for `zendesk-500.csv`, written by `pnpm fixtures:judge`.
 - `e2e/`: Playwright specs. `axe.ts` holds `expectAccessible`, the WCAG 2.2 AA scan each spec runs at its key states, and the list of rules it skips with the reason for each.
-- `scripts/`: dev tooling. `e2e.ts` runs Playwright on throwaway databases, and `e2e-docker.ts` runs it in the Playwright image. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `tailwind-scale.ts` rewrites one-off font sizes and spacing onto the scales in `app.css`; `--check` fails if any remain. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG.
+- `scripts/`: dev tooling. `e2e.ts` runs Playwright on throwaway databases, and `e2e-docker.ts` runs it in the Playwright image. `setup-worktree.ts` readies a new worktree with its own database; a local, gitignored `t3.json` runs it when Kata Code creates one. `tailwind-scale.ts` rewrites one-off font sizes and spacing onto the scales in `app.css`; `--check` fails if any remain. `generate-fixtures.ts` writes `fixtures/exports/` from a seeded PRNG, and `record-judge.ts` writes `fixtures/judge/`.
 - `docs/`: product spec, ADRs, and process docs.
 - `prototypes/`: throwaway design prototypes.
 - `.github/workflows/`: CI.
