@@ -14,27 +14,40 @@ export function renderState(sentences: readonly Sentence[]): RedactedText {
 }
 
 /**
- * Splits an item into consecutive runs of sentences that each fit in one request. A run keeps the item's own
- * sentence numbers. A single sentence longer than the limit is cut to fit, because it cannot be split further.
+ * Splits an item into consecutive runs of sentences that each fit in one request and hold at most `maxSentences`
+ * sentences. A run keeps the item's own sentence numbers. A single sentence longer than the limit is split across
+ * runs, each piece under the sentence's own number, so no text is dropped and a quote still names a real sentence.
+ * The pieces of one sentence never share a run, so a Choice over a run's numbers never repeats a number.
  */
 export function chunkSentences(
   sentences: NonEmptyArray<Sentence>,
   limitTokens = STATE_TOKEN_LIMIT,
+  maxSentences = Infinity,
 ): NonEmptyArray<NonEmptyArray<Sentence>> {
   const limitChars = limitTokens * CHARS_PER_TOKEN
   const chunks: Sentence[][] = []
   let size = 0
-  for (const sentence of sentences) {
-    const fitted = sentence.text.length > limitChars ? { ...sentence, text: sentence.text.slice(0, limitChars) as RedactedText } : sentence
-    const cost = renderState([fitted]).length + 1
+  for (const sentence of sentences.flatMap((s) => splitToFit(s, limitChars))) {
+    const cost = renderState([sentence]).length + 1
     const last = chunks.at(-1)
-    if (last && size + cost <= limitChars) {
-      last.push(fitted)
+    if (last && last.length < maxSentences && size + cost <= limitChars) {
+      last.push(sentence)
       size += cost
     } else {
-      chunks.push([fitted])
+      chunks.push([sentence])
       size = cost
     }
   }
   return chunks as unknown as NonEmptyArray<NonEmptyArray<Sentence>>
+}
+
+/** The sentence as pieces that each render within the limit, or the sentence itself when it fits. */
+function splitToFit(sentence: Sentence, limitChars: number): Sentence[] {
+  const room = Math.max(1, limitChars - renderState([{ ...sentence, text: '' as RedactedText }]).length - 1)
+  if (sentence.text.length <= room) return [sentence]
+  const pieces: Sentence[] = []
+  for (let start = 0; start < sentence.text.length; start += room) {
+    pieces.push({ ...sentence, text: sentence.text.slice(start, start + room) as RedactedText })
+  }
+  return pieces
 }
