@@ -5,7 +5,8 @@ Groundwork turns customer conversations into a ranked map of customer problems, 
 - Product spec: `docs/product/prd.md`.
 - Visual spec: variant D in `prototypes/opportunity-map/index.html`. Open it with `open "prototypes/opportunity-map/index.html#hybrid"`.
 - Decisions: `docs/adr/`. Read the relevant ADR before changing what it decided.
-- Work: the Linear project **Groundwork** in the Kata-sh team (issues KAT-3462 to KAT-3470), milestone **Gate 1: Evidence map from real exports**.
+- Work: Groundwork's issues live in the Punchlist instance on sartre (`https://sartre.tail984796.ts.net:7880`), workspace `Groundwork`, issues `GW-<n>`, read and moved with `pl --workspace GW` or the app. Where the rules below say Linear, read this instance. The Linear project **Groundwork** in the Kata-sh team is read-only since the cutover (PL-89); its issues were imported, each showing its `KAT-<n>` id.
+- Runs: Punchlist dispatches agents by `.punchlist/workflow.toml` and the prompts in `.punchlist/prompts/` (Claude Code builds, Codex reviews, Claude Code merges). Runs act on GitHub as the App `punchlist-sartre[bot]`, so neither CodeRabbit nor Codex's GitHub connector reviews their requests; Gannon may ask `@coderabbitai review` or `@codex review` on a pull request in Human Review.
 
 ## Stack
 
