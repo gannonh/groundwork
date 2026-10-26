@@ -1,0 +1,27 @@
+2026-10-26T00:41:19.666Z run gw39-review dev http://127.0.0.1:4100 viewport=1440x900 git=76e8a53
+2026-10-26T00:41:20.619Z ok   goto=/opportunities
+2026-10-26T00:41:20.623Z ok   expect-eval=document.querySelector('nav').textContent.includes('121')
+2026-10-26T00:41:20.701Z snap map -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-39/.verify/evidence/gw39-review/low-item/map.{png,aria.yml}
+2026-10-26T00:41:20.701Z ok   snap=map
+2026-10-26T00:41:25.702Z ok   wait=5000
+2026-10-26T00:41:25.730Z ok   click=link/Show the 183 mentions
+2026-10-26T00:41:25.880Z ok   expect-eval=[...document.querySelectorAll('figure')].some(f=>f.textContent.includes('Our finance team caught the mismatch during the monthly close')&&f.textContent.includes('69% confident'))
+2026-10-26T00:41:26.026Z snap evidence -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-39/.verify/evidence/gw39-review/low-item/evidence.{png,aria.yml}
+2026-10-26T00:41:26.026Z ok   snap=evidence
+2026-10-26T00:41:31.028Z ok   wait=5000
+2026-10-26T00:41:31.745Z ok   goto=/items/01a175a6-9e3c-7d9d-986c-3a7a5fc6cdf8
+2026-10-26T00:41:31.762Z ok   expect-text=69% confident
+2026-10-26T00:41:31.764Z ok   expect-eval=document.querySelector('ul[aria-label="Mentions"] a').classList.contains('border-l-warn-line')
+2026-10-26T00:41:31.801Z snap low -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-39/.verify/evidence/gw39-review/low-item/low.{png,aria.yml}
+2026-10-26T00:41:31.801Z ok   snap=low
+2026-10-26T00:41:41.808Z ok   wait=10000
+2026-10-26T00:41:42.420Z ok   goto=/items/01a175a6-9e3b-7151-b16f-246a54ffdbe6
+2026-10-26T00:41:42.435Z ok   expect-text=70% confident
+2026-10-26T00:41:42.437Z ok   expect-eval=!document.querySelector('ul[aria-label="Mentions"] .border-l-warn-line')&&!document.querySelector('ul[aria-label="Mentions"] [title]')
+2026-10-26T00:41:42.473Z snap exact-threshold -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-39/.verify/evidence/gw39-review/low-item/exact-threshold.{png,aria.yml}
+2026-10-26T00:41:42.473Z ok   snap=exact-threshold
+2026-10-26T00:41:52.474Z ok   wait=10000
+2026-10-26T00:41:52.499Z ok   click=link/Opportunities
+2026-10-26T00:41:52.499Z ok   expect-eval=document.querySelector('nav').textContent.includes('121')
+2026-10-26T00:41:53.843Z video -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-39/.verify/evidence/gw39-review/low-item/video.webm
+2026-10-26T00:41:53.863Z result PASS

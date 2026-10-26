@@ -1,0 +1,49 @@
+# http://127.0.0.1:4100/items/01a175a6-9e3c-7d9d-986c-3a7a5fc6cdf8
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 121 to review":
+      - /url: /triage
+      - text: Triage121
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - link "Sources":
+    - /url: /sources
+  - text: /
+  - link "zendesk-500":
+    - /url: /sources/01a175a6-9e27-789c-878e-1a2b26144de4
+  - heading "Ticket from Jul 14, 2026" [level=1]
+  - term: Date
+  - definition: Jul 14, 2026
+  - term: Source
+  - definition:
+    - link "zendesk-500":
+      - /url: /sources/01a175a6-9e27-789c-878e-1a2b26144de4
+  - term: Account
+  - definition: No account
+  - term: Author
+  - definition: executive
+  - heading "Mentions" [level=2]
+  - list "Mentions":
+    - listitem:
+      - link "Dashboard totals don't match the source system Problem in Trust the numbers in reports Sentence 1 69% confident":
+        - /url: /items/01a175a6-9e3c-7d9d-986c-3a7a5fc6cdf8?mention=01a175a6-ba22-7823-8521-05b1f61775ce
+  - heading "Sentences" [level=2]
+  - list "Sentences":
+    - listitem: Hello, Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers.
+    - listitem: The revenue total on our Marketing Funnel dashboard is about 12% lower than what Salesforce shows for the same period.
+    - listitem: We filtered both systems to the same date range, and the totals still differ.
+    - listitem: "Steps to reproduce:"
+    - listitem: "1."
+    - listitem: Open the Pipeline dashboard.
+    - listitem: "2."
+    - listitem: Set the range to "Last 30 days".
+    - listitem: "3."
+    - listitem: Compare the total with the source system.

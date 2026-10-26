@@ -1,0 +1,19 @@
+select s.name,i.id item,m.id mention,p.confidence,pk.place_threshold,p.confidence<pk.place_threshold low_confidence from placement p join mention m on m.id=p.mention_id join item i on i.id=m.item_id join source s on s.id=i.source_id join pack pk on pk.id=m.pack_id where s.name='zendesk-500' and p.confidence>=0.695 and p.confidence<0.7 order by p.confidence; select count(*) as triage_count from placement p join mention m on m.id=p.mention_id join pack pk on pk.id=m.pack_id where p.confidence<pk.place_threshold; select status,count(*) from pipeline_run_item group by status;
+    name     |                 item                 |               mention                | confidence | place_threshold | low_confidence 
+-------------+--------------------------------------+--------------------------------------+------------+-----------------+----------------
+ zendesk-500 | 01a175a6-cde9-7eda-acf2-5326bf008d5a | 01a175a6-ea53-7f94-a2b2-cfe5ecdb9f1e |   0.695764 |             0.7 | t
+ zendesk-500 | 01a175a6-cdea-7f73-b7d2-25434949645a | 01a175a6-f9fd-70ab-ba3f-6a57d291097c |    0.69732 |             0.7 | t
+ zendesk-500 | 01a175a6-cde9-7bb4-aaee-f65a9e3b8168 | 01a175a6-e67a-7393-b0cb-8cb825ba79d1 |   0.697754 |             0.7 | t
+ zendesk-500 | 01a175a6-cde9-7f7e-a87e-5cd281d9eea3 | 01a175a6-ea57-74a8-96bc-b9d46f5facd2 |    0.69839 |             0.7 | t
+(4 rows)
+
+ triage_count 
+--------------
+          121
+(1 row)
+
+ status | count 
+--------+-------
+ judged |   500
+(1 row)
+
