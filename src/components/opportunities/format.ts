@@ -1,3 +1,4 @@
+import { isLowConfidence } from '@/domain/triage'
 import type { Confidence, IsoDate, PainLevel, SpeakerRole } from '@/domain/types'
 
 export const PAIN_LABELS: Record<PainLevel, string> = {
@@ -42,7 +43,10 @@ export function formatRole(role: SpeakerRole): string {
   return role.replace('_', ' ')
 }
 
-/** '62% confident'. */
-export function formatConfidence(confidence: Confidence): string {
-  return `${String(Math.round(confidence * 100))}% confident`
+/** '62% confident'. Below the pack's place threshold it reads under the threshold: 0.6978 under 0.7 is '69% confident'. */
+export function formatConfidence(confidence: Confidence, placeThreshold: Confidence): string {
+  // Round, then cap: flooring every value would turn 0.57 into 56 through float error.
+  const pct = Math.round(confidence * 100)
+  const shown = isLowConfidence(confidence, placeThreshold) ? Math.min(pct, Math.round(placeThreshold * 100) - 1) : pct
+  return `${String(shown)}% confident`
 }

@@ -35,7 +35,7 @@ export function Quote({ quote }: { quote: QuoteView }) {
         >
           {quote.source} · {formatDay(quote.date)}
         </ItemAnchor>
-        {quote.lowConfidence !== null && <Pill tone="warn">{formatConfidence(quote.lowConfidence)}</Pill>}
+        {quote.lowConfidence !== null && <Pill tone="warn">{formatConfidence(quote.lowConfidence, quote.placeThreshold)}</Pill>}
       </figcaption>
     </figure>
   )
