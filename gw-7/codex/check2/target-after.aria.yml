@@ -1,0 +1,438 @@
+# http://127.0.0.1:4100/opportunities?selected=01a17593-063c-7525-8c22-d805d9ed7830&evidence=mentions
+- dialog "47 mentions":
+  - heading "47 mentions" [level=2]
+  - paragraph: Can't tell when data was last refreshed
+  - figure "admin Open zendesk-500 ticket · Sep 17":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 17":
+      - /url: /items/01a17593-0510-76ac-a6cd-6297ea0fbc50?mention=01a17593-3670-7bae-a8ce-54cff967637b&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 17
+  - figure "end user Open zendesk-500 ticket · Sep 16":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 16":
+      - /url: /items/01a17593-050e-7c34-9cc1-f5d1d449cda4?mention=01a17593-1ef3-7dcb-9ff9-4e1bf1877136&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 16
+  - figure "admin Open zendesk-500 ticket · Sep 15":
+    - blockquote:
+      - text: “Quick question.
+      - mark: I can't tell when the Weekly KPIs dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 15":
+      - /url: /items/01a17593-050f-7f02-b89c-99651df0eac9?mention=01a17593-3089-7230-95d3-c2031f9e0fcb&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 15
+  - figure "end user Open zendesk-500 ticket · Sep 15":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Please advise. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 15":
+      - /url: /items/01a17593-0510-7341-974b-92b45ce6bda9?mention=01a17593-3470-7a33-a876-787df2fc3de0&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 15
+  - figure "buyer Open zendesk-500 ticket · Sep 13":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Please advise.”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Sep 13":
+      - /url: /items/01a17593-050d-7787-b51c-d2687638b7a4?mention=01a17593-0b6a-7830-acdd-167a92b80515&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 13
+  - figure "end user Open zendesk-500 ticket · Sep 11 67% confident":
+    - blockquote:
+      - text: “Hi there.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 11":
+      - /url: /items/01a17593-050e-7b52-9edb-bed55b793223?mention=01a17593-1d08-7b50-a8ed-09c33b685e68&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 11
+    - text: 67% confident
+  - figure "end user Open zendesk-500 ticket · Sep 4":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: ”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 4":
+      - /url: /items/01a17593-0510-70ca-a45d-205c8558399f?mention=01a17593-3278-7798-a808-d73d8d9f0288&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 4
+  - figure "admin Open zendesk-500 ticket · Sep 4":
+    - blockquote:
+      - text: “Hi team, Our execs asked twice this week whether the data was current.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 4":
+      - /url: /items/01a17593-0510-7374-b6b8-c4c2720d6648?mention=01a17593-3472-77c0-a7db-4f27c7389975&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 4
+  - figure "end user Open zendesk-500 ticket · Sep 3":
+    - blockquote:
+      - text: “Hi team, A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Thanks!”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 3":
+      - /url: /items/01a17593-050d-740d-9443-9dea026e8bf6?mention=01a17593-0798-7c20-871b-a9f234b82a73&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 3
+  - figure "end user Open zendesk-500 ticket · Aug 27":
+    - blockquote:
+      - text: “Hi team, A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 27":
+      - /url: /items/01a17593-050f-793f-ac30-7bace0798011?mention=01a17593-2aad-729a-b37c-19ef06818eb9&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 27
+  - figure "executive Open zendesk-500 ticket · Aug 26":
+    - blockquote:
+      - text: “
+      - mark: Hello, I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Aug 26":
+      - /url: /items/01a17593-050e-70e8-b04c-56f7e16e165a?mention=01a17593-1344-7942-a498-d83eb8ee1637&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 26
+  - figure "end user Open zendesk-500 ticket · Aug 20 45% confident":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - text: Thanks!”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 20":
+      - /url: /items/01a17593-050f-756a-99f6-aa1b58ee2407?mention=01a17593-26cb-730b-b820-e0a8d014c80b&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 20
+    - text: 45% confident
+  - figure "end user Open zendesk-500 ticket · Aug 17 51% confident":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Any update would help.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 17":
+      - /url: /items/01a17593-050f-7b74-b3b3-5973e8fdae01?mention=01a17593-2c9e-780b-99d1-632d1ee001ca&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 17
+    - text: 51% confident
+  - figure "end user Open zendesk-500 ticket · Aug 16":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - text: Please advise.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 16":
+      - /url: /items/01a17593-0510-7180-90e3-3a1ad3e0ab9e?mention=01a17593-327e-7d4b-b5fa-02489f642e1e&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 16
+  - figure "admin Open zendesk-500 ticket · Aug 16":
+    - blockquote:
+      - text: “Hi team, Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 16":
+      - /url: /items/01a17593-050d-76a1-8b55-1c8995c3a753?mention=01a17593-0985-7a7d-8160-7a0180f2158a&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 16
+  - figure "end user Open zendesk-500 ticket · Aug 15":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 15":
+      - /url: /items/01a17593-050e-7ae5-a216-cea121d6e0a1?mention=01a17593-1d05-73c3-a8d7-027d7007ea7b&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 15
+  - figure "buyer Open zendesk-500 ticket · Aug 11":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Revenue dashboard last refreshed, so I don't know if it includes today's orders.”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 11":
+      - /url: /items/01a17593-0510-75af-af86-07c8532d5b59?mention=01a17593-3666-7d86-a5b1-f03ce93c697a&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 11
+  - figure "end user Open zendesk-500 ticket · Aug 11":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Weekly KPIs dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: "Steps to reproduce: …”"
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 11":
+      - /url: /items/01a17593-050f-7032-8c95-2be78fedc150?mention=01a17593-22d7-7c0a-9efa-30c92ba3c771&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 11
+  - figure "end user Open zendesk-500 ticket · Aug 10":
+    - blockquote:
+      - text: “Hi there.
+      - mark: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 10":
+      - /url: /items/01a17593-050f-7715-9de2-fe5f789fa735?mention=01a17593-28b9-763b-9f92-946416238b1e&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 10
+  - figure "buyer Open zendesk-500 ticket · Aug 9":
+    - blockquote:
+      - text: “Quick question.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 9":
+      - /url: /items/01a17593-050e-7e06-bf35-be85201f0711?mention=01a17593-1efd-74e2-ab58-cf91f4d7d2b6&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 9
+  - figure "end user Open zendesk-500 ticket · Aug 7 51% confident":
+    - blockquote:
+      - text: “Hi there.
+      - mark: I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 7":
+      - /url: /items/01a17593-050f-72a0-9d76-1ed4e9dfdd31?mention=01a17593-24d3-7d1a-8643-5f41aa24a45d&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 7
+    - text: 51% confident
+  - figure "admin Open zendesk-500 ticket · Aug 7":
+    - blockquote:
+      - text: “
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 7":
+      - /url: /items/01a17593-0510-7472-bc33-21294dad7c46?mention=01a17593-3479-70e8-9d5a-7a87e1c476b4&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 7
+  - figure "end user Open zendesk-500 ticket · Aug 6":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Thanks in advance.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 6":
+      - /url: /items/01a17593-050f-7a90-bf3b-ad987eadaa5a?mention=01a17593-2ab6-7436-8135-50d2a4f5a463&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 6
+  - figure "executive Open zendesk-500 ticket · Aug 6":
+    - blockquote:
+      - text: “
+      - mark: Hi team, I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Our execs asked twice this week whether the data was current.”
+    - text: executive
+    - link "Open zendesk-500 ticket · Aug 6":
+      - /url: /items/01a17593-050f-76a2-b7f6-ac1118fcd6ba?mention=01a17593-28bd-7b4d-ae86-e906850ccd0f&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 6
+  - figure "admin Open zendesk-500 ticket · Aug 5":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: ”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 5":
+      - /url: /items/01a17593-050f-757e-b8f5-ea62579872d7?mention=01a17593-26ca-713b-9434-cc513e8ee081&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 5
+  - figure "executive Open zendesk-500 ticket · Aug 5":
+    - blockquote:
+      - text: “A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Aug 5":
+      - /url: /items/01a17593-050f-74cd-a31f-976e301aa60f?mention=01a17593-26c9-7759-9271-85e8fa551360&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 5
+  - figure "end user Open zendesk-500 ticket · Aug 5":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: I can't tell when the Revenue dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 5":
+      - /url: /items/01a17593-050d-7352-9067-17340cc07286?mention=01a17593-07a0-749f-9a8f-ebe2bfba67e8&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 5
+  - figure "end user Open zendesk-500 ticket · Aug 1":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Thanks!”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 1":
+      - /url: /items/01a17593-050f-70c9-ba4d-909b3941efdc?mention=01a17593-22de-7b7d-87a6-5fb90acfea0c&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 1
+  - figure "end user Open zendesk-500 ticket · Jul 31 47% confident":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 31":
+      - /url: /items/01a17593-050e-792a-89bf-f23c4e48a17a?mention=01a17593-1b18-7244-a96e-924a668632bb&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 31
+    - text: 47% confident
+  - figure "end user Open zendesk-500 ticket · Jul 28":
+    - blockquote:
+      - text: “Hi there.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Weekly KPIs dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 28":
+      - /url: /items/01a17593-050d-7a02-86c0-8babfb57632d?mention=01a17593-0d66-7544-b1a2-ff5f2996828f&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 28
+  - figure "end user Open zendesk-500 ticket · Jul 27":
+    - blockquote:
+      - text: “
+      - mark: Hello, I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 27":
+      - /url: /items/01a17593-050e-756e-86cf-4d5a6068a09c?mention=01a17593-1916-70c4-8e65-14ae7ceacdc2&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 27
+  - figure "admin Open zendesk-500 ticket · Jul 24":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 24":
+      - /url: /items/01a17593-0510-7487-9db5-be962c48360f?mention=01a17593-3479-71d5-a4ea-883f24faed0d&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 24
+  - figure "end user Open zendesk-500 ticket · Jul 21":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 21":
+      - /url: /items/01a17593-050e-7815-b120-f29e1c0df5f3?mention=01a17593-1b0b-7d0a-9ef0-96837c313932&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 21
+  - figure "admin Open zendesk-500 ticket · Jul 20 70% confident":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Any update would help.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 20":
+      - /url: /items/01a17593-050e-7b7a-9a76-76e7be7a1fce?mention=01a17593-1d0b-7065-97c7-87f20da8dd10&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 20
+    - text: 70% confident
+  - figure "executive Open zendesk-500 ticket · Jul 14":
+    - blockquote:
+      - text: “
+      - mark: Hi team, Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Jul 14":
+      - /url: /items/01a17593-050f-71ee-9b62-0a883af79645?mention=01a17593-22e1-7b31-82c9-5ad693316385&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 14
+  - figure "end user Open zendesk-500 ticket · Jul 14 52% confident":
+    - blockquote:
+      - text: “… Is there a way to see which rows make up a total, so we can reconcile it ourselves?
+      - mark: We filtered both systems to the same date range, and the totals still differ.
+      - text: The revenue total on our Weekly KPIs dashboard is about 6% lower than what Salesforce shows for the same period. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 14":
+      - /url: /items/01a17593-050e-7268-8c8a-6822fbe528e0?mention=01a17593-1538-7aa0-a53f-695c298d2a6e&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 14
+    - text: 52% confident
+  - figure "admin Open zendesk-500 ticket · Jul 10 54% confident":
+    - blockquote:
+      - text: “
+      - mark: Hello, Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: A simple "last updated" timestamp on each chart would save us a lot of back and forth. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 10":
+      - /url: /items/01a17593-050e-7024-b118-dffd3b0f53fd?mention=01a17593-1340-709f-ba63-a6fc707a3332&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 10
+    - text: 54% confident
+  - figure "admin Open zendesk-500 ticket · Jul 10 66% confident":
+    - blockquote:
+      - text: “Hi there.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 10":
+      - /url: /items/01a17593-050d-7602-96cf-4b23de0a6692?mention=01a17593-0981-7322-ab28-b2737fa1001c&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 10
+    - text: 66% confident
+  - figure "buyer Open zendesk-500 ticket · Jul 10":
+    - blockquote:
+      - text: “Hi team, Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Jul 10":
+      - /url: /items/01a17593-050e-7894-ba65-86569ab773f0?mention=01a17593-1b11-7ce0-9514-1f1f2076c441&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 10
+  - figure "end user Open zendesk-500 ticket · Jul 4":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: I can't tell when the Pipeline dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 4":
+      - /url: /items/01a17593-0510-756e-a448-5a0dc433a46e?mention=01a17593-3666-7db3-abc3-f75f46bc0c47&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 4
+  - figure "end user Open zendesk-500 ticket · Jul 3":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Please advise.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 3":
+      - /url: /items/01a17593-050d-73c0-a0c9-3bd10b86a704?mention=01a17593-0798-768b-8172-e122efbfe31c&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 3
+  - figure "end user Open zendesk-500 ticket · Jul 3":
+    - blockquote:
+      - text: “Quick question.
+      - mark: A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 3":
+      - /url: /items/01a17593-050d-7c69-932f-231e79e47756?mention=01a17593-0f55-77e7-91e7-7625368ebd72&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 3
+  - figure "admin Open zendesk-500 ticket · Jul 1":
+    - blockquote:
+      - text: “Quick question.
+      - mark: I can't tell when the Churn dashboard last refreshed, so I don't know if it includes today's orders.
+      - text: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 1":
+      - /url: /items/01a17593-050f-7208-a59d-5c56f600d39c?mention=01a17593-22e2-7eba-a887-fb05024bcf32&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 1
+  - figure "buyer Open zendesk-500 ticket · Jun 26":
+    - blockquote:
+      - text: “
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: I can't tell when the Weekly KPIs dashboard last refreshed, so I don't know if it includes today's orders. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Jun 26":
+      - /url: /items/01a17593-050d-7bac-9d9e-2354fd5bebed?mention=01a17593-0f51-79f4-86fe-13828082b703&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 26
+  - figure "end user Open zendesk-500 ticket · Jun 25 45% confident":
+    - blockquote:
+      - text: “… Our execs asked twice this week whether the data was current.
+      - mark: A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - text: Thanks!”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 25":
+      - /url: /items/01a17593-050f-7a23-b0bd-1c637dade804?mention=01a17593-2ab5-7aec-b8aa-5a2d4fcc1db0&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 25
+    - text: 45% confident
+  - figure "end user Open zendesk-500 ticket · Jun 25":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Our execs asked twice this week whether the data was current. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 25":
+      - /url: /items/01a17593-0510-7025-ab98-c0351c8ba6c4?mention=01a17593-3092-7e21-ba56-97ca7ad6c4fe&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 25
+  - figure "end user Open zendesk-500 ticket · Jun 23":
+    - blockquote:
+      - text: “… A simple "last updated" timestamp on each chart would save us a lot of back and forth.
+      - mark: Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running.
+      - text: Please advise.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 23":
+      - /url: /items/01a17593-050e-768f-ae24-6a96bcf62f9f?mention=01a17593-1921-7cd4-8b5c-e840bcb088f0&from=%7B%22selected%22%3A%2201a17593-063c-7525-8c22-d805d9ed7830%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 23
+  - button "Close"

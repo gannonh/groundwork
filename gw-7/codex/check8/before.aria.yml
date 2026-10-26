@@ -1,0 +1,37 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 30 to review":
+      - /url: /triage
+      - text: Triage30
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: 30 low-confidence placements under 70% a accept m move d discard jk select
+  - status
+  - text: 1 of 30 left 0 decided
+  - article "Placement to review":
+    - text: ⚠ 70% confident below the 70% place threshold
+    - blockquote: “Hello, Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers. The revenue total on our Marketing Funnel dashboard is about 12% lower than what Salesforce shows for the same period. …”
+    - link "Open zendesk-500 ticket · Jul 14":
+      - /url: /items/01a17593-050e-7e89-a1f9-ca51a9c29a82?mention=01a17593-20e7-7a52-a3ea-513914c1ef87
+      - text: zendesk-500 ticket · Jul 14
+    - text: Where the judge would place it probability
+    - 'button "Accept: place in Dashboard totals don''t match the source system, 70%"': 1 Dashboard totals don't match the source system Trust the numbers in reports 70%
+    - button "Move to Can't tell when data was last refreshed, 12%": 2 Can't tell when data was last refreshed Trust the numbers in reports 12%
+    - 'button "Discard: none of these, 5%"': – None of these 5%
+    - button "Accept · Dashboard totals don't match the source system": Accept · Dashboard totals don't match the source system a
+    - button "Move…": Move… m
+    - button "Discard": Discard d
+  - text: Up next j k to skip
+  - list "Up next":
+    - listitem: 52% … Is there a way to see which rows make up a total, so we can reconcile it ourselves? We filtered both systems to the same date range, and the totals still differ. The revenue total on our Weekly KPIs dashboard is about 6% lower than what Salesforce shows for the same period. …
+    - listitem: 42% Hi there. If a row is malformed, please tell us which one, instead of silently dropping it. I uploaded a CSV with 9300 rows and only part of it came through, with no error message. …

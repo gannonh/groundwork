@@ -1,0 +1,12 @@
+2026-10-26T00:20:00.602Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:20:01.230Z ok   goto=/opportunities
+2026-10-26T00:20:01.273Z ok   click=link/Triage, 75 to review
+2026-10-26T00:20:01.331Z ok   expect-text=I uploaded a CSV with 7300 rows
+2026-10-26T00:20:01.378Z snap before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check4/before.{png,aria.yml}
+2026-10-26T00:20:01.378Z ok   snap=before
+2026-10-26T00:20:01.402Z ok   click=button/Discard
+2026-10-26T00:20:01.405Z ok   expect-text=74 low-confidence placements
+2026-10-26T00:20:01.508Z ok   expect-eval=document.querySelector("nav a[href=\"/triage\"]").textContent.trim()==="Triage74"
+2026-10-26T00:20:01.541Z snap after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check4/after.{png,aria.yml}
+2026-10-26T00:20:01.541Z ok   snap=after
+2026-10-26T00:20:01.556Z result PASS

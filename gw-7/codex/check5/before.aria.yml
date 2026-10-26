@@ -1,0 +1,37 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 74 to review":
+      - /url: /triage
+      - text: Triage74
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: 74 low-confidence placements under 70% a accept m move d discard jk select
+  - status
+  - text: 1 of 74 left 0 decided
+  - article "Placement to review":
+    - text: ⚠ 55% confident below the 70% place threshold
+    - blockquote: “Following up on last week. Can admins create groups and share a folder with a group instead of with each person? We need to restrict the Weekly KPIs dashboard to the finance team only. …”
+    - link "Open zendesk-500 ticket · Sep 12":
+      - /url: /items/01a17593-050e-75d9-907f-8ed5f1d40766?mention=01a17593-191b-764d-9344-1679a7a78dc1
+      - text: zendesk-500 ticket · Sep 12
+    - text: Where the judge would place it probability
+    - 'button "Accept: place in Admins can''t restrict access by team, 55%"': 1 Admins can't restrict access by team Control access and spend 55%
+    - button "Move to SSO setup requires contacting support, 6%": 2 SSO setup requires contacting support Control access and spend 6%
+    - 'button "Discard: none of these, 16%"': – None of these 16%
+    - button "Accept · Admins can't restrict access by team": Accept · Admins can't restrict access by team a
+    - button "Move…": Move… m
+    - button "Discard": Discard d
+  - text: Up next j k to skip
+  - list "Up next":
+    - listitem: 67% Hi there. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders. …
+    - listitem: 52% … An SVG or high-resolution export would fix most of this. The PNG export is blurry on a projector, so we take screenshots instead. Thanks in advance.

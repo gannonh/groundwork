@@ -1,0 +1,9 @@
+2026-10-26T00:20:37.115Z run codex-gw7 prod http://127.0.0.1:4100 viewport=390x844 git=d5fd62f
+2026-10-26T00:20:37.735Z ok   goto=/opportunities
+2026-10-26T00:20:37.770Z ok   click=link/Triage, 64 to review
+2026-10-26T00:20:37.809Z ok   expect-text=64 low-confidence placements
+2026-10-26T00:20:37.811Z ok   expect-eval=document.documentElement.scrollWidth<=innerWidth
+2026-10-26T00:20:37.812Z ok   expect-eval=['Accept · ','Discard'].every(name=>[...document.querySelectorAll('article button')].some(b=>{const r=b.getBoundingClientRect();return b.getAttribute('aria-label')?.startsWith(name)&&r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight}))
+2026-10-26T00:20:37.845Z snap narrow -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check10/narrow.{png,aria.yml}
+2026-10-26T00:20:37.845Z ok   snap=narrow
+2026-10-26T00:20:37.860Z result PASS

@@ -1,0 +1,45 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage":
+      - /url: /triage
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: Nothing waiting a accept m move d discard jk select
+  - status: Placed in Exported charts lose formatting i…
+  - region "Queue clear":
+    - heading "Queue clear" [level=2]
+    - paragraph: No low-confidence placements are waiting. Every decision is logged as a label for tuning the place threshold and question wording.
+    - paragraph: The next run sends new placements under 70% confidence here.
+    - list "Latest decisions":
+      - listitem:
+        - text: Accepted
+        - link "Exported charts lose formatting in slides":
+          - /url: /items/01a17593-050e-7c5c-893f-9927d52eda9b?mention=01a17593-1ef5-775b-836a-a5e732c79711
+      - listitem:
+        - text: Accepted
+        - link "Field mapping must be redone for every import":
+          - /url: /items/01a17593-050e-74a9-875d-090f5b8888dd?mention=01a17593-1727-7b25-8e6a-e800bd3a69d2
+      - listitem:
+        - text: Accepted
+        - link "Can't tell when data was last refreshed":
+          - /url: /items/01a17593-050e-700f-a4a7-a89281f55cc9?mention=01a17593-133d-7541-8369-ccaf2358ad1f
+      - listitem:
+        - text: Accepted
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /items/01a17593-050d-797a-997b-00b55ae93afe?mention=01a17593-0d62-7de3-92a4-935f4bf7c5bd
+      - listitem:
+        - text: Accepted
+        - link "SSO setup requires contacting support":
+          - /url: /items/01a17593-050f-766e-995e-cdc6b286e345?mention=01a17593-28b9-74a1-b0af-fb6fabc1f60e
+    - link "Back to opportunities":
+      - /url: /opportunities

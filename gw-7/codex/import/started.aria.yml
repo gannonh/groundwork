@@ -1,0 +1,740 @@
+# http://127.0.0.1:4100/sources/01a17593-04f6-7e87-91ed-819a3001b9f5
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage":
+      - /url: /triage
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - link "Sources":
+    - /url: /sources
+  - heading "zendesk-500" [level=1]
+  - paragraph: Ticket · 500 items · Created Oct 26, 2026
+  - term: Text
+  - definition: Description
+  - term: Date
+  - definition: Created at (YYYY-MM-DD)
+  - term: Account
+  - definition: Organization ID
+  - term: Author
+  - definition: Requester role
+  - region "Run the pipeline":
+    - heading "Run the pipeline" [level=2]
+    - progressbar "Run progress"
+    - paragraph: 0% · 0 of 500 items
+  - table:
+    - rowgroup:
+      - row "Date Account Role First sentence":
+        - columnheader "Date"
+        - columnheader "Account"
+        - columnheader "Role"
+        - columnheader "First sentence"
+    - rowgroup:
+      - row "Sep 20, 2026 No account admin Following up on last week.":
+        - cell "Sep 20, 2026":
+          - link "Sep 20, 2026":
+            - /url: /items/01a17593-050e-7e45-b61b-bc3aaab00a1e
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 20, 2026 No account executive Hello, Finance wants a way to set a spending cap before the renewal conversation.":
+        - cell "Sep 20, 2026":
+          - link "Sep 20, 2026":
+            - /url: /items/01a17593-050d-768a-8171-a51b8ecb5988
+        - cell "No account"
+        - cell "executive"
+        - cell "Hello, Finance wants a way to set a spending cap before the renewal conversation."
+      - row "Sep 20, 2026 No account admin Hi there.":
+        - cell "Sep 20, 2026":
+          - link "Sep 20, 2026":
+            - /url: /items/01a17593-050d-794e-9145-7032b846fc61
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi there."
+      - row "Sep 20, 2026 No account end user Hello, I cannot find a usage breakdown that explains the overage.":
+        - cell "Sep 20, 2026":
+          - link "Sep 20, 2026":
+            - /url: /items/01a17593-0510-743f-875d-25d0bafce84b
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, I cannot find a usage breakdown that explains the overage."
+      - row "Sep 19, 2026 No account end user Hi there.":
+        - cell "Sep 19, 2026":
+          - link "Sep 19, 2026":
+            - /url: /items/01a17593-050d-7eb7-b036-9c9d631f3f85
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 19, 2026 No account end user Following up on last week.":
+        - cell "Sep 19, 2026":
+          - link "Sep 19, 2026":
+            - /url: /items/01a17593-050e-7c06-8d1f-adfc2dea09b0
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 19, 2026 No account end user Hello, Can admins create groups and share a folder with a group instead of with each person?":
+        - cell "Sep 19, 2026":
+          - link "Sep 19, 2026":
+            - /url: /items/01a17593-050e-79e4-812d-cdad54014531
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, Can admins create groups and share a folder with a group instead of with each person?"
+      - row "Sep 19, 2026 No account admin Hello, I uploaded a CSV with 8400 rows and only part of it came through, with no error message.":
+        - cell "Sep 19, 2026":
+          - link "Sep 19, 2026":
+            - /url: /items/01a17593-050e-723b-93e8-e900c772a882
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, I uploaded a CSV with 8400 rows and only part of it came through, with no error message."
+      - row "Sep 18, 2026 No account end user I rebuild the same 13 charts in PowerPoint every month for the board deck.":
+        - cell "Sep 18, 2026":
+          - link "Sep 18, 2026":
+            - /url: /items/01a17593-050d-7aaa-9cc7-bc30cf452828
+        - cell "No account"
+        - cell "end user"
+        - cell "I rebuild the same 13 charts in PowerPoint every month for the board deck."
+      - row "Sep 18, 2026 No account admin Hi team, Our ops lead spends about 55 minutes per upload just clicking through the mapping screen.":
+        - cell "Sep 18, 2026":
+          - link "Sep 18, 2026":
+            - /url: /items/01a17593-050d-7810-993e-ba58984bfb05
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi team, Our ops lead spends about 55 minutes per upload just clicking through the mapping screen."
+      - row "Sep 18, 2026 No account admin Following up on last week.":
+        - cell "Sep 18, 2026":
+          - link "Sep 18, 2026":
+            - /url: /items/01a17593-050e-7940-9fe1-05af976c5263
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 18, 2026 No account admin Hello, I uploaded a CSV with 8200 rows and only part of it came through, with no error message.":
+        - cell "Sep 18, 2026":
+          - link "Sep 18, 2026":
+            - /url: /items/01a17593-050e-7b0f-b7c1-3ec002587a61
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, I uploaded a CSV with 8200 rows and only part of it came through, with no error message."
+      - row "Sep 18, 2026 No account buyer Following up on last week.":
+        - cell "Sep 18, 2026":
+          - link "Sep 18, 2026":
+            - /url: /items/01a17593-050e-7c71-8e3a-e89a601dd260
+        - cell "No account"
+        - cell "buyer"
+        - cell "Following up on last week."
+      - row "Sep 17, 2026 No account admin Following up on last week.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-0510-76ac-a6cd-6297ea0fbc50
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 17, 2026 No account admin Hello, We want to enable SSO with Okta, but the settings page says to contact support.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050f-7b5f-a57c-bc9ba4b43e18
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, We want to enable SSO with Okta, but the settings page says to contact support."
+      - row "Sep 17, 2026 No account end user Hi team, I have to screenshot the source system next to yours in every exec review to prove the figure is right.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050f-70df-b08b-6ebcbcceaf3d
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi team, I have to screenshot the source system next to yours in every exec review to prove the figure is right."
+      - row "Sep 17, 2026 No account end user Following up on last week.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050e-735b-99d4-2b28890462bd
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 17, 2026 No account executive Hello, The revenue total on our Pipeline dashboard is about 12% lower than what Salesforce shows for the same period.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050d-7bc8-a162-d39f659b5ab6
+        - cell "No account"
+        - cell "executive"
+        - cell "Hello, The revenue total on our Pipeline dashboard is about 12% lower than what Salesforce shows for the same period."
+      - row "Sep 17, 2026 No account admin Hello, We filtered both systems to the same date range, and the totals still differ.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050d-7628-b558-edbf0aff6478
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, We filtered both systems to the same date range, and the totals still differ."
+      - row "Sep 17, 2026 No account end user Our invoice this month was 7% higher than last month, and nobody on our side changed anything.":
+        - cell "Sep 17, 2026":
+          - link "Sep 17, 2026":
+            - /url: /items/01a17593-050e-7227-b99f-2d76368efe43
+        - cell "No account"
+        - cell "end user"
+        - cell "Our invoice this month was 7% higher than last month, and nobody on our side changed anything."
+      - row "Sep 16, 2026 No account admin Following up on last week.":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-050e-703d-bd47-320b4e4a3576
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 16, 2026 No account buyer Hello, Is there documentation for the SAML attributes you expect?":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-050d-7319-8fed-2076c82b3f54
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hello, Is there documentation for the SAML attributes you expect?"
+      - row "Sep 16, 2026 No account admin Following up on last week.":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-050d-793b-94b6-81263d42e411
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 16, 2026 No account end user Our execs asked twice this week whether the data was current.":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-050e-7c34-9cc1-f5d1d449cda4
+        - cell "No account"
+        - cell "end user"
+        - cell "Our execs asked twice this week whether the data was current."
+      - row "Sep 16, 2026 No account admin Following up on last week.":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-050d-7ea3-91f7-55cc60816c23
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 16, 2026 No account end user Following up on last week.":
+        - cell "Sep 16, 2026":
+          - link "Sep 16, 2026":
+            - /url: /items/01a17593-0510-71b2-a16c-64046ce1fffa
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 15, 2026 No account end user Following up on last week.":
+        - cell "Sep 15, 2026":
+          - link "Sep 15, 2026":
+            - /url: /items/01a17593-0510-7221-b03b-5b56c92fa989
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 15, 2026 No account end user Quick question.":
+        - cell "Sep 15, 2026":
+          - link "Sep 15, 2026":
+            - /url: /items/01a17593-050d-7f32-ba4d-267f6b21b12d
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 15, 2026 No account admin Quick question.":
+        - cell "Sep 15, 2026":
+          - link "Sep 15, 2026":
+            - /url: /items/01a17593-050f-7f02-b89c-99651df0eac9
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 15, 2026 No account end user Quick question.":
+        - cell "Sep 15, 2026":
+          - link "Sep 15, 2026":
+            - /url: /items/01a17593-0510-7341-974b-92b45ce6bda9
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 14, 2026 No account end user Hello, I uploaded a CSV with 7400 rows and only part of it came through, with no error message.":
+        - cell "Sep 14, 2026":
+          - link "Sep 14, 2026":
+            - /url: /items/01a17593-050d-7cef-abea-c2701dd3a4c0
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, I uploaded a CSV with 7400 rows and only part of it came through, with no error message."
+      - row "Sep 14, 2026 No account buyer Hi there.":
+        - cell "Sep 14, 2026":
+          - link "Sep 14, 2026":
+            - /url: /items/01a17593-050f-7b1f-89cb-c9b81c353ede
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hi there."
+      - row "Sep 14, 2026 No account end user Following up on last week.":
+        - cell "Sep 14, 2026":
+          - link "Sep 14, 2026":
+            - /url: /items/01a17593-050f-728b-8ca2-f20e1f214712
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 14, 2026 No account admin Please send a breakdown of the query volume by team.":
+        - cell "Sep 14, 2026":
+          - link "Sep 14, 2026":
+            - /url: /items/01a17593-050d-7c2b-8062-7e9072d1f1b3
+        - cell "No account"
+        - cell "admin"
+        - cell "Please send a breakdown of the query volume by team."
+      - row "Sep 14, 2026 No account executive Hi team, Our procurement team said this is a deal breaker for the renewal.":
+        - cell "Sep 14, 2026":
+          - link "Sep 14, 2026":
+            - /url: /items/01a17593-050d-7571-883f-df9c7f6f245a
+        - cell "No account"
+        - cell "executive"
+        - cell "Hi team, Our procurement team said this is a deal breaker for the renewal."
+      - row "Sep 13, 2026 No account buyer Hi there.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-050d-733f-b0bb-108f739db441
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hi there."
+      - row "Sep 13, 2026 No account buyer Our execs asked twice this week whether the data was current.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-050d-7787-b51c-d2687638b7a4
+        - cell "No account"
+        - cell "buyer"
+        - cell "Our execs asked twice this week whether the data was current."
+      - row "Sep 13, 2026 No account admin Our invoice this month was 17% higher than last month, and nobody on our side changed anything.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-050f-7cd2-954c-9517ea3895f4
+        - cell "No account"
+        - cell "admin"
+        - cell "Our invoice this month was 17% higher than last month, and nobody on our side changed anything."
+      - row "Sep 13, 2026 No account end user Rolling out to 299 new seats is on hold until SSO works.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-050f-746b-b7e3-52b2988dd4b9
+        - cell "No account"
+        - cell "end user"
+        - cell "Rolling out to 299 new seats is on hold until SSO works."
+      - row "Sep 13, 2026 No account executive Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-0510-7010-91c0-581daedf2bce
+        - cell "No account"
+        - cell "executive"
+        - cell "Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon."
+      - row "Sep 13, 2026 No account buyer Quick question.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-050f-7ea8-8363-6b31700955b3
+        - cell "No account"
+        - cell "buyer"
+        - cell "Quick question."
+      - row "Sep 13, 2026 No account admin Quick question.":
+        - cell "Sep 13, 2026":
+          - link "Sep 13, 2026":
+            - /url: /items/01a17593-0510-763b-b7b4-3d0c87c20d07
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 12, 2026 No account end user Following up on last week.":
+        - cell "Sep 12, 2026":
+          - link "Sep 12, 2026":
+            - /url: /items/01a17593-050e-75d9-907f-8ed5f1d40766
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Sep 12, 2026 No account admin Quick question.":
+        - cell "Sep 12, 2026":
+          - link "Sep 12, 2026":
+            - /url: /items/01a17593-050e-7066-a80d-8e82db51a5a3
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 12, 2026 No account admin Rolling out to 236 new seats is on hold until SSO works.":
+        - cell "Sep 12, 2026":
+          - link "Sep 12, 2026":
+            - /url: /items/01a17593-050d-7d8a-9563-7e0f51d4c3ea
+        - cell "No account"
+        - cell "admin"
+        - cell "Rolling out to 236 new seats is on hold until SSO works."
+      - row "Sep 12, 2026 No account admin Hi team, An SVG or high-resolution export would fix most of this.":
+        - cell "Sep 12, 2026":
+          - link "Sep 12, 2026":
+            - /url: /items/01a17593-050e-70d3-9eb2-85c4e55f4468
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi team, An SVG or high-resolution export would fix most of this."
+      - row "Sep 11, 2026 No account admin Quick question.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050f-7770-80e7-0a3163757b44
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 11, 2026 No account end user Hello, We want to enable SSO with Okta, but the settings page says to contact support.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050e-7383-a88b-64b5c7736989
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, We want to enable SSO with Okta, but the settings page says to contact support."
+      - row "Sep 11, 2026 No account buyer The mapping from last week is gone, even though the file has exactly the same headers.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050d-774a-90d1-1daf8e874a8b
+        - cell "No account"
+        - cell "buyer"
+        - cell "The mapping from last week is gone, even though the file has exactly the same headers."
+      - row "Sep 11, 2026 No account executive If a row is malformed, please tell us which one, instead of silently dropping it.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050d-7d71-b4ed-a88cabe9d2c8
+        - cell "No account"
+        - cell "executive"
+        - cell "If a row is malformed, please tell us which one, instead of silently dropping it."
+      - row "Sep 11, 2026 No account end user Hello, Our procurement team said this is a deal breaker for the renewal.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050e-7fdb-bdde-a741c4f1f24c
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, Our procurement team said this is a deal breaker for the renewal."
+      - row "Sep 11, 2026 No account end user Hi there.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050e-7b52-9edb-bed55b793223
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 11, 2026 No account executive Hi, I'm Jane from Acme.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050c-7f9a-bdd1-c8b6d826a5b6
+        - cell "No account"
+        - cell "executive"
+        - cell "Hi, I'm Jane from Acme."
+      - row "Sep 11, 2026 No account buyer Hello, We filtered both systems to the same date range, and the totals still differ.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-0510-74cc-bbcc-99e986b735bf
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hello, We filtered both systems to the same date range, and the totals still differ."
+      - row "Sep 11, 2026 No account end user Hello, We need to restrict the Weekly KPIs dashboard to the finance team only.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050d-75c4-a8e9-92440a106b08
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, We need to restrict the Weekly KPIs dashboard to the finance team only."
+      - row "Sep 11, 2026 No account executive The revenue total on our Executive Summary dashboard is about 15% lower than what Salesforce shows for the same period.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050f-7929-9e55-73e7ab76ccab
+        - cell "No account"
+        - cell "executive"
+        - cell "The revenue total on our Executive Summary dashboard is about 15% lower than what Salesforce shows for the same period."
+      - row "Sep 11, 2026 No account end user Finance wants a way to set a spending cap before the renewal conversation.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050d-759f-b4ac-bd6a33f6d80e
+        - cell "No account"
+        - cell "end user"
+        - cell "Finance wants a way to set a spending cap before the renewal conversation."
+      - row "Sep 11, 2026 No account buyer Following up on last week.":
+        - cell "Sep 11, 2026":
+          - link "Sep 11, 2026":
+            - /url: /items/01a17593-050f-78c9-9fc6-4de31818f0fe
+        - cell "No account"
+        - cell "buyer"
+        - cell "Following up on last week."
+      - row "Sep 10, 2026 No account end user Quick question.":
+        - cell "Sep 10, 2026":
+          - link "Sep 10, 2026":
+            - /url: /items/01a17593-050d-73d4-a052-db757fe61c25
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 10, 2026 No account end user Quick question.":
+        - cell "Sep 10, 2026":
+          - link "Sep 10, 2026":
+            - /url: /items/01a17593-050d-739d-af39-17699c9bf8e1
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 10, 2026 No account buyer Hi team, We need to restrict the Marketing Funnel dashboard to the finance team only.":
+        - cell "Sep 10, 2026":
+          - link "Sep 10, 2026":
+            - /url: /items/01a17593-050f-7b90-882d-44a6d01afcb9
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hi team, We need to restrict the Marketing Funnel dashboard to the finance team only."
+      - row "Sep 10, 2026 No account executive Hi there.":
+        - cell "Sep 10, 2026":
+          - link "Sep 10, 2026":
+            - /url: /items/01a17593-050e-7e9e-90c1-f71acfbb639f
+        - cell "No account"
+        - cell "executive"
+        - cell "Hi there."
+      - row "Sep 10, 2026 No account end user Quick question.":
+        - cell "Sep 10, 2026":
+          - link "Sep 10, 2026":
+            - /url: /items/01a17593-050d-7ad0-bb1c-780f29e9bcd2
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 9, 2026 No account admin Hi team, We want to enable SSO with Okta, but the settings page says to contact support.":
+        - cell "Sep 9, 2026":
+          - link "Sep 9, 2026":
+            - /url: /items/01a17593-0510-73cc-9def-98084cd1a6d5
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi team, We want to enable SSO with Okta, but the settings page says to contact support."
+      - row "Sep 9, 2026 No account admin Our IT team expected to configure SAML themselves, the same way they do for other tools.":
+        - cell "Sep 9, 2026":
+          - link "Sep 9, 2026":
+            - /url: /items/01a17593-050d-76f7-b1a9-d98170dc5e9c
+        - cell "No account"
+        - cell "admin"
+        - cell "Our IT team expected to configure SAML themselves, the same way they do for other tools."
+      - row "Sep 8, 2026 No account end user Hi team, Our IT team expected to configure SAML themselves, the same way they do for other tools.":
+        - cell "Sep 8, 2026":
+          - link "Sep 8, 2026":
+            - /url: /items/01a17593-050f-7232-8b1d-82b8e6d0be3e
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi team, Our IT team expected to configure SAML themselves, the same way they do for other tools."
+      - row "Sep 8, 2026 No account end user Hi team, The revenue total on our Revenue dashboard is about 11% lower than what Salesforce shows for the same period.":
+        - cell "Sep 8, 2026":
+          - link "Sep 8, 2026":
+            - /url: /items/01a17593-0510-742a-a94e-7bca5eb8c4cb
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi team, The revenue total on our Revenue dashboard is about 11% lower than what Salesforce shows for the same period."
+      - row "Sep 7, 2026 No account admin Quick question.":
+        - cell "Sep 7, 2026":
+          - link "Sep 7, 2026":
+            - /url: /items/01a17593-050d-771e-a3e3-f918dcb5d7c8
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 7, 2026 No account admin Hello, Is there documentation for the SAML attributes you expect?":
+        - cell "Sep 7, 2026":
+          - link "Sep 7, 2026":
+            - /url: /items/01a17593-0510-73fd-8f55-aefcb37ee8f1
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, Is there documentation for the SAML attributes you expect?"
+      - row "Sep 6, 2026 No account executive Following up on last week.":
+        - cell "Sep 6, 2026":
+          - link "Sep 6, 2026":
+            - /url: /items/01a17593-050f-71da-b83f-05e198de14cf
+        - cell "No account"
+        - cell "executive"
+        - cell "Following up on last week."
+      - row "Sep 6, 2026 No account admin Following up on last week.":
+        - cell "Sep 6, 2026":
+          - link "Sep 6, 2026":
+            - /url: /items/01a17593-050e-79ff-a6e2-9d685d08c6fc
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 6, 2026 No account admin Hi team, I cannot find a usage breakdown that explains the overage.":
+        - cell "Sep 6, 2026":
+          - link "Sep 6, 2026":
+            - /url: /items/01a17593-050e-71bc-a748-f355af5408f4
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi team, I cannot find a usage breakdown that explains the overage."
+      - row "Sep 5, 2026 No account admin Following up on last week.":
+        - cell "Sep 5, 2026":
+          - link "Sep 5, 2026":
+            - /url: /items/01a17593-050f-7643-b870-faeb9802d998
+        - cell "No account"
+        - cell "admin"
+        - cell "Following up on last week."
+      - row "Sep 5, 2026 No account end user Hi there.":
+        - cell "Sep 5, 2026":
+          - link "Sep 5, 2026":
+            - /url: /items/01a17593-050f-71af-b97c-ceb7ac899251
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 5, 2026 No account end user Hi there.":
+        - cell "Sep 5, 2026":
+          - link "Sep 5, 2026":
+            - /url: /items/01a17593-050e-7e1b-8440-7d6d59cc6203
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 4, 2026 No account end user Hello, Our execs asked twice this week whether the data was current.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-0510-70ca-a45d-205c8558399f
+        - cell "No account"
+        - cell "end user"
+        - cell "Hello, Our execs asked twice this week whether the data was current."
+      - row "Sep 4, 2026 No account buyer Quick question.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050d-7fe7-8682-a82cb15486d3
+        - cell "No account"
+        - cell "buyer"
+        - cell "Quick question."
+      - row "Sep 4, 2026 No account end user Hi there.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050d-72fa-ab63-e1367d4d691d
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 4, 2026 No account admin Hi team, Our execs asked twice this week whether the data was current.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-0510-7374-b6b8-c4c2720d6648
+        - cell "No account"
+        - cell "admin"
+        - cell "Hi team, Our execs asked twice this week whether the data was current."
+      - row "Sep 4, 2026 No account buyer Hi there.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050d-7737-bdf7-2170dac04609
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hi there."
+      - row "Sep 4, 2026 No account executive Following up on last week.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050e-72c3-8fd5-0d792116dc7a
+        - cell "No account"
+        - cell "executive"
+        - cell "Following up on last week."
+      - row "Sep 4, 2026 No account buyer Hi there.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050e-7880-9e81-053bbcc405f0
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hi there."
+      - row "Sep 4, 2026 No account executive Our procurement team said this is a deal breaker for the renewal.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050d-7a92-8b5c-d0bf96f6c425
+        - cell "No account"
+        - cell "executive"
+        - cell "Our procurement team said this is a deal breaker for the renewal."
+      - row "Sep 4, 2026 No account admin Quick question.":
+        - cell "Sep 4, 2026":
+          - link "Sep 4, 2026":
+            - /url: /items/01a17593-050f-75fd-9604-85e09f03bbe7
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 3, 2026 No account end user Hi team, A simple \"last updated\" timestamp on each chart would save us a lot of back and forth.":
+        - cell "Sep 3, 2026":
+          - link "Sep 3, 2026":
+            - /url: /items/01a17593-050d-740d-9443-9dea026e8bf6
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi team, A simple \"last updated\" timestamp on each chart would save us a lot of back and forth."
+      - row "Sep 3, 2026 No account executive Quick question.":
+        - cell "Sep 3, 2026":
+          - link "Sep 3, 2026":
+            - /url: /items/01a17593-050e-771f-9485-3a1ff9513207
+        - cell "No account"
+        - cell "executive"
+        - cell "Quick question."
+      - row "Sep 3, 2026 No account end user Our procurement team said this is a deal breaker for the renewal.":
+        - cell "Sep 3, 2026":
+          - link "Sep 3, 2026":
+            - /url: /items/01a17593-050f-7be5-be85-a0370b4cc294
+        - cell "No account"
+        - cell "end user"
+        - cell "Our procurement team said this is a deal breaker for the renewal."
+      - row "Sep 3, 2026 No account end user Hi there.":
+        - cell "Sep 3, 2026":
+          - link "Sep 3, 2026":
+            - /url: /items/01a17593-050f-7363-8267-584fe7995444
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 2, 2026 No account admin Our IT team expected to configure SAML themselves, the same way they do for other tools.":
+        - cell "Sep 2, 2026":
+          - link "Sep 2, 2026":
+            - /url: /items/01a17593-050e-775d-87c7-11fdcc0891ac
+        - cell "No account"
+        - cell "admin"
+        - cell "Our IT team expected to configure SAML themselves, the same way they do for other tools."
+      - row "Sep 2, 2026 No account executive I rebuild the same 15 charts in PowerPoint every month for the board deck.":
+        - cell "Sep 2, 2026":
+          - link "Sep 2, 2026":
+            - /url: /items/01a17593-050f-7e92-a7f6-57d316b48fd7
+        - cell "No account"
+        - cell "executive"
+        - cell "I rebuild the same 15 charts in PowerPoint every month for the board deck."
+      - row "Sep 2, 2026 No account end user Quick question.":
+        - cell "Sep 2, 2026":
+          - link "Sep 2, 2026":
+            - /url: /items/01a17593-050f-789c-bb26-061b0c269895
+        - cell "No account"
+        - cell "end user"
+        - cell "Quick question."
+      - row "Sep 1, 2026 No account executive Hi team, Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers.":
+        - cell "Sep 1, 2026":
+          - link "Sep 1, 2026":
+            - /url: /items/01a17593-050f-7d45-afb4-b61e430f0523
+        - cell "No account"
+        - cell "executive"
+        - cell "Hi team, Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers."
+      - row "Sep 1, 2026 No account buyer The PNG export is blurry on a projector, so we take screenshots instead.":
+        - cell "Sep 1, 2026":
+          - link "Sep 1, 2026":
+            - /url: /items/01a17593-050f-7e62-8b4d-c3ae6bbe8994
+        - cell "No account"
+        - cell "buyer"
+        - cell "The PNG export is blurry on a projector, so we take screenshots instead."
+      - row "Sep 1, 2026 No account end user Hi there.":
+        - cell "Sep 1, 2026":
+          - link "Sep 1, 2026":
+            - /url: /items/01a17593-050e-70a9-8514-4c8ff0505d81
+        - cell "No account"
+        - cell "end user"
+        - cell "Hi there."
+      - row "Sep 1, 2026 No account admin Quick question.":
+        - cell "Sep 1, 2026":
+          - link "Sep 1, 2026":
+            - /url: /items/01a17593-050d-7bf8-a401-a0c1fa602c18
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Sep 1, 2026 No account buyer Hello, We had to split the file into smaller chunks by hand, which took most of the afternoon.":
+        - cell "Sep 1, 2026":
+          - link "Sep 1, 2026":
+            - /url: /items/01a17593-050e-742e-b5de-3e1e589ab8d8
+        - cell "No account"
+        - cell "buyer"
+        - cell "Hello, We had to split the file into smaller chunks by hand, which took most of the afternoon."
+      - row "Aug 31, 2026 No account admin Hello, We filtered both systems to the same date range, and the totals still differ.":
+        - cell "Aug 31, 2026":
+          - link "Aug 31, 2026":
+            - /url: /items/01a17593-050e-75ab-b2f5-e2b3e4bd5709
+        - cell "No account"
+        - cell "admin"
+        - cell "Hello, We filtered both systems to the same date range, and the totals still differ."
+      - row "Aug 31, 2026 No account end user Following up on last week.":
+        - cell "Aug 31, 2026":
+          - link "Aug 31, 2026":
+            - /url: /items/01a17593-050d-77bf-a1d6-8ce434a62872
+        - cell "No account"
+        - cell "end user"
+        - cell "Following up on last week."
+      - row "Aug 30, 2026 No account admin Quick question.":
+        - cell "Aug 30, 2026":
+          - link "Aug 30, 2026":
+            - /url: /items/01a17593-0510-7651-a402-5e1068cf7277
+        - cell "No account"
+        - cell "admin"
+        - cell "Quick question."
+      - row "Aug 30, 2026 No account end user The PNG export is blurry on a projector, so we take screenshots instead.":
+        - cell "Aug 30, 2026":
+          - link "Aug 30, 2026":
+            - /url: /items/01a17593-050f-7018-b1f5-a0c27001119b
+        - cell "No account"
+        - cell "end user"
+        - cell "The PNG export is blurry on a projector, so we take screenshots instead."
+  - paragraph: Showing 100 of 500 items, newest first.

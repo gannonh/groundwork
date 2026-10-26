@@ -1,0 +1,13 @@
+2026-10-26T00:18:50.914Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:18:51.495Z ok   goto=/opportunities
+2026-10-26T00:18:51.542Z ok   click=link/Sources
+2026-10-26T00:18:51.603Z ok   click=link/New source
+2026-10-26T00:18:51.630Z ok   choose-file=CSV export|fixtures/exports/zendesk-500.csv
+2026-10-26T00:18:51.699Z ok   expect-text=Showing 20 of 500 rows
+2026-10-26T00:18:51.741Z ok   click=button/Import 500 rows
+2026-10-26T00:18:51.954Z ok   expect-text=Imported 500 items
+2026-10-26T00:18:51.985Z ok   click=link/Open zendesk-500
+2026-10-26T00:18:52.086Z ok   click=button/Start run
+2026-10-26T00:18:52.174Z snap started -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/import/started.{png,aria.yml}
+2026-10-26T00:18:52.174Z ok   snap=started
+2026-10-26T00:18:52.189Z result PASS

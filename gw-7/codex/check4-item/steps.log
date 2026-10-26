@@ -1,0 +1,10 @@
+2026-10-26T00:20:12.234Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:20:12.785Z ok   goto=/items/01a17593-0510-7010-91c0-581daedf2bce?mention=01a17593-308f-7985-975a-684a9d2b18e2
+2026-10-26T00:20:12.805Z ok   expect-text=Discarded in triage
+2026-10-26T00:20:12.842Z snap discarded -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check4-item/discarded.{png,aria.yml}
+2026-10-26T00:20:12.842Z ok   snap=discarded
+2026-10-26T00:20:13.403Z ok   goto=/opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833
+2026-10-26T00:20:13.406Z ok   expect-eval=document.querySelector('aside[aria-label="Opportunity detail"] a[href$="evidence=mentions"]')?.textContent.trim()==='35'
+2026-10-26T00:20:13.476Z snap map-after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check4-item/map-after.{png,aria.yml}
+2026-10-26T00:20:13.476Z ok   snap=map-after
+2026-10-26T00:20:13.491Z result PASS

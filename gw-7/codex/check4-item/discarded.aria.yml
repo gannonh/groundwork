@@ -1,0 +1,47 @@
+# http://127.0.0.1:4100/items/01a17593-0510-7010-91c0-581daedf2bce?mention=01a17593-308f-7985-975a-684a9d2b18e2
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 74 to review":
+      - /url: /triage
+      - text: Triage74
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - link "Sources":
+    - /url: /sources
+  - text: /
+  - link "zendesk-500":
+    - /url: /sources/01a17593-04f6-7e87-91ed-819a3001b9f5
+  - heading "Ticket from Sep 13, 2026" [level=1]
+  - term: Date
+  - definition: Sep 13, 2026
+  - term: Source
+  - definition:
+    - link "zendesk-500":
+      - /url: /sources/01a17593-04f6-7e87-91ed-819a3001b9f5
+  - term: Account
+  - definition: No account
+  - term: Author
+  - definition: executive
+  - heading "Mentions" [level=2]
+  - list "Mentions":
+    - listitem:
+      - link "Discarded in triage Sentence 4":
+        - /url: /items/01a17593-0510-7010-91c0-581daedf2bce?mention=01a17593-308f-7985-975a-684a9d2b18e2
+        - text: Discarded in triage
+        - mark: Sentence 4
+  - heading "Sentences" [level=2]
+  - list "Sentences":
+    - listitem: Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon.
+    - listitem: The importer says "Upload complete", but half of the rows are missing from the table.
+    - listitem: I uploaded a CSV with 7300 rows and only part of it came through, with no error message.
+    - listitem:
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+    - listitem: Thanks in advance.

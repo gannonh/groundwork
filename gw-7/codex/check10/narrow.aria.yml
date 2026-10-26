@@ -1,0 +1,37 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 64 to review":
+      - /url: /triage
+      - text: Triage64
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: 64 low-confidence placements under 70%
+  - status
+  - text: 1 of 64 left 0 decided
+  - article "Placement to review":
+    - text: ⚠ 50% confident below the 70% place threshold
+    - blockquote: “Hi team, The revenue total on our Revenue dashboard is about 11% lower than what Salesforce shows for the same period. Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers. Thanks in advance.”
+    - link "Open zendesk-500 ticket · Sep 8":
+      - /url: /items/01a17593-0510-742a-a94e-7bca5eb8c4cb?mention=01a17593-3478-7be8-8e0c-dd3e35aa0640
+      - text: zendesk-500 ticket · Sep 8
+    - text: Where the judge would place it probability
+    - 'button "Accept: place in Dashboard totals don''t match the source system, 50%"': 1 Dashboard totals don't match the source system Trust the numbers in reports 50%
+    - button "Move to Can't tell when data was last refreshed, 14%": 2 Can't tell when data was last refreshed Trust the numbers in reports 14%
+    - 'button "Discard: none of these, 11%"': – None of these 11%
+    - button "Accept · Dashboard totals don't match the source system": Accept · Dashboard totals don't match the source system a
+    - button "Move…": Move… m
+    - button "Discard": Discard d
+  - text: Up next j k to skip
+  - list "Up next":
+    - listitem: 55% Hi there. The PNG export is blurry on a projector, so we take screenshots instead. I rebuild the same 4 charts in PowerPoint every month for the board deck. …
+    - listitem: 58% … Every time we import the weekly export, we have to map all 17 columns again. The mapping from last week is gone, even though the file has exactly the same headers. Could the app remember the mapping for a file with the same columns? …

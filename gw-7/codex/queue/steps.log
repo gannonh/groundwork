@@ -1,0 +1,10 @@
+2026-10-26T00:19:04.895Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:19:05.493Z ok   goto=/sources
+2026-10-26T00:19:05.542Z ok   click=link/zendesk-500
+2026-10-26T00:19:05.585Z ok   expect-text-within=Run complete|120
+2026-10-26T00:19:05.622Z ok   click=link/Opportunities
+2026-10-26T00:19:05.653Z ok   click=link/Triage, 77 to review
+2026-10-26T00:19:05.892Z ok   expect-text=77 low-confidence placements
+2026-10-26T00:19:05.928Z snap queue -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/queue/queue.{png,aria.yml}
+2026-10-26T00:19:05.928Z ok   snap=queue
+2026-10-26T00:19:05.948Z result PASS

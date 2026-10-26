@@ -1,0 +1,15 @@
+2026-10-26T00:19:25.122Z run codex-main prod http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:19:25.686Z ok   goto=/opportunities
+2026-10-26T00:19:25.741Z ok   click=link/Sources
+2026-10-26T00:19:25.802Z ok   click=link/New source
+2026-10-26T00:19:25.829Z ok   choose-file=CSV export|fixtures/exports/zendesk-500.csv
+2026-10-26T00:19:25.907Z ok   click=button/Import 500 rows
+2026-10-26T00:19:26.018Z ok   expect-text=Imported 500 items
+2026-10-26T00:19:26.052Z ok   click=link/Open zendesk-500
+2026-10-26T00:19:26.151Z ok   click=button/Start run
+2026-10-26T00:19:38.864Z ok   expect-text-within=Run complete|120
+2026-10-26T00:19:38.903Z ok   click=link/Opportunities
+2026-10-26T00:19:38.905Z ok   expect-eval=document.querySelector("nav a[href=\"/triage\"]").textContent.trim()==="Triage77"
+2026-10-26T00:19:38.980Z snap main-count -> /tmp/gw7-codex-main/.verify/evidence/codex-main/import/main-count.{png,aria.yml}
+2026-10-26T00:19:38.980Z ok   snap=main-count
+2026-10-26T00:19:38.996Z result PASS

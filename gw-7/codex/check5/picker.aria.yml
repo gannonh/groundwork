@@ -1,0 +1,25 @@
+# http://127.0.0.1:4100/triage
+- main:
+  - status: Placed in Dashboard totals don't match the …
+- dialog "Move this’s quote to another opportunity":
+  - heading "Move this’s quote to another opportunity" [level=2]
+  - paragraph: Type to filter the problems, then press Enter to move the quote.
+  - combobox "Filter opportunities" [expanded]
+  - listbox "Opportunities":
+    - text: Suggested · branch 2
+    - option "Field mapping must be redone for every import 11%" [selected]
+    - text: Control access and spend
+    - option "Admins can't restrict access by team"
+    - option "SSO setup requires contacting support"
+    - option "Usage-based bill is unpredictable"
+    - text: Get customer data in without engineering help
+    - option "No way to backfill historical data"
+    - text: Share findings with stakeholders
+    - option "Exported charts lose formatting in slides"
+    - option "No scheduled email digest"
+    - option "Viewers need a paid seat to see a dashboard"
+    - text: Trust the numbers in reports
+    - option "Can't tell when data was last refreshed"
+    - option "Dashboard totals don't match the source system"
+    - option "Timezone handling shifts daily counts"
+  - text: ↑ ↓ choose ↵ move esc close

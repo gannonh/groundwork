@@ -1,0 +1,26 @@
+2026-10-26T00:20:19.277Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:20:19.892Z ok   goto=/opportunities
+2026-10-26T00:20:19.939Z ok   click=link/Triage, 74 to review
+2026-10-26T00:20:19.995Z ok   expect-text=74 low-confidence placements
+2026-10-26T00:20:20.030Z snap before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check5/before.{png,aria.yml}
+2026-10-26T00:20:20.030Z ok   snap=before
+2026-10-26T00:20:20.035Z ok   press=a
+2026-10-26T00:20:20.038Z ok   press=a
+2026-10-26T00:20:20.042Z ok   press=d
+2026-10-26T00:20:20.044Z ok   press=j
+2026-10-26T00:20:20.048Z ok   press=a
+2026-10-26T00:20:20.058Z ok   press=m
+2026-10-26T00:20:20.060Z ok   expect-focus=Filter opportunities
+2026-10-26T00:20:20.128Z snap picker -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check5/picker.{png,aria.yml}
+2026-10-26T00:20:20.128Z ok   snap=picker
+2026-10-26T00:20:20.133Z ok   press=Enter
+2026-10-26T00:20:20.137Z ok   press=a
+2026-10-26T00:20:20.141Z ok   press=d
+2026-10-26T00:20:20.144Z ok   press=a
+2026-10-26T00:20:20.148Z ok   press=a
+2026-10-26T00:20:20.151Z ok   press=a
+2026-10-26T00:20:20.153Z ok   expect-text=64 low-confidence placements
+2026-10-26T00:20:20.256Z ok   expect-eval=document.querySelector("nav a[href=\"/triage\"]").textContent.trim()==="Triage64"
+2026-10-26T00:20:20.289Z snap after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check5/after.{png,aria.yml}
+2026-10-26T00:20:20.289Z ok   snap=after
+2026-10-26T00:20:20.306Z result PASS

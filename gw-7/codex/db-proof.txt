@@ -1,0 +1,120 @@
+
+2026-10-26T00:20:11.930Z
+select d.action,d.mention_id,ja.question_key,ja.value,ja.probabilities,ja.backend,ja.model_version,jo.title judge,ho.title human from triage_decision d join judge_answer ja on ja.id=d.judge_answer_id join opportunity jo on jo.id=d.judge_opportunity_id left join opportunity ho on ho.id=d.opportunity_id order by d.created_at; select o.title,count(p.mention_id) judged,count(p.mention_id) filter(where d.action is distinct from 'discard' and coalesce(d.opportunity_id,p.opportunity_id)=o.id) remaining_on_original from opportunity o join placement p on p.opportunity_id=o.id left join triage_decision d on d.mention_id=p.mention_id where o.title='Field mapping must be redone for every import' group by o.title;
+ action  |              mention_id              |                        question_key                         |                                     value                                      |                                                                               probabilities                                                                                | backend  | model_version |                     judge                      |                     human                     
+---------+--------------------------------------+-------------------------------------------------------------+--------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+----------+---------------+------------------------------------------------+-----------------------------------------------
+ accept  | 01a17593-0d5e-7c37-a20e-cfd2881a4823 | place_problem:Get customer data in without engineering help | {"type": "choice", "option": "Field mapping must be redone for every import"}  | {"none": 0.029, "No way to backfill historical data": 0.098, "CSV imports fail silently on malformed rows": 0.098, "Field mapping must be redone for every import": 0.775} | recorded | jev-1.13.0    | Field mapping must be redone for every import  | Field mapping must be redone for every import
+ move    | 01a17593-3470-7a33-a876-787df2fc3de0 | place_problem:Trust the numbers in reports                  | {"type": "choice", "option": "Dashboard totals don't match the source system"} | {"none": 0.025, "Timezone handling shifts daily counts": 0.084, "Can't tell when data was last refreshed": 0.084, "Dashboard totals don't match the source system": 0.807} | recorded | jev-1.13.0    | Dashboard totals don't match the source system | Can't tell when data was last refreshed
+ discard | 01a17593-308f-7985-975a-684a9d2b18e2 | place_problem:Get customer data in without engineering help | {"type": "choice", "option": "Field mapping must be redone for every import"}  | {"none": 0.048, "No way to backfill historical data": 0.159, "CSV imports fail silently on malformed rows": 0.159, "Field mapping must be redone for every import": 0.634} | recorded | jev-1.13.0    | Field mapping must be redone for every import  | 
+(3 rows)
+
+                     title                     | judged | remaining_on_original 
+-----------------------------------------------+--------+-----------------------
+ Field mapping must be redone for every import |     44 |                    43
+(1 row)
+
+
+2026-10-26T00:20:20.447Z
+select action,count(*) from triage_decision group by 1; select count(*) labels,count(ja.id) judge_answers,count(*) filter(where d.action='discard' and d.opportunity_id is null or d.action<>'discard' and d.opportunity_id is not null) human_answers from triage_decision d left join judge_answer ja on ja.id=d.judge_answer_id; select count(*),md5(string_agg(row_to_json(d)::text,'' order by id)) digest from triage_decision d; select count(*) from pipeline_run_item;
+ action  | count 
+---------+-------
+ move    |     2
+ accept  |     8
+ discard |     3
+(3 rows)
+
+ labels | judge_answers | human_answers 
+--------+---------------+---------------
+     13 |            13 |            13
+(1 row)
+
+ count |              digest              
+-------+----------------------------------
+    13 | 8fc07d8909b97cf02ba4ce5dcd0828dd
+(1 row)
+
+ count 
+-------
+   500
+(1 row)
+
+
+2026-10-26T00:20:25.666Z
+delete from pipeline_run_item; select count(*),md5(string_agg(row_to_json(d)::text,'' order by id)) digest from triage_decision d;
+DELETE 500
+ count |              digest              
+-------+----------------------------------
+    13 | 8fc07d8909b97cf02ba4ce5dcd0828dd
+(1 row)
+
+
+2026-10-26T00:20:39.113Z
+select count(*),md5(string_agg(row_to_json(d)::text,'' order by id)) digest from triage_decision d; select status,count(*) from pipeline_run_item group by 1; select count(*) placements from placement; select count(*) answers from judge_answer; select count(*) queued from placement p left join triage_decision d on d.mention_id=p.mention_id where p.confidence<0.7 and d.id is null;
+ count |              digest              
+-------+----------------------------------
+    13 | 8fc07d8909b97cf02ba4ce5dcd0828dd
+(1 row)
+
+ status | count 
+--------+-------
+ judged |   500
+(1 row)
+
+ placements 
+------------
+        441
+(1 row)
+
+ answers 
+---------
+    4312
+(1 row)
+
+ queued 
+--------
+     64
+(1 row)
+
+
+2026-10-26T00:20:52.111Z
+select count(*) decisions,count(distinct mention_id) unique_mentions from triage_decision;
+ decisions | unique_mentions 
+-----------+-----------------
+        14 |              14
+(1 row)
+
+
+2026-10-26T00:21:26.117Z
+select p.mention_id,p.opportunity_id,d.action,d.opportunity_id human,case when d.action='discard' then null else coalesce(d.opportunity_id,p.opportunity_id) end effective_opportunity from placement p join triage_decision d on d.mention_id=p.mention_id where d.action='discard'; select o.title,count(*) from placement p join opportunity o on o.id=p.opportunity_id where o.id='01a17593-063c-7525-8c22-d805d9ed7830' and exists(select 1 from mention m join item i on i.id=m.item_id where m.id=p.mention_id and i.occurred_at>now()-interval '90 days') group by 1;
+              mention_id              |            opportunity_id            | action  | human | effective_opportunity 
+--------------------------------------+--------------------------------------+---------+-------+-----------------------
+ 01a17593-20e8-77e0-b981-4d5a0372805c | 01a17593-063c-7ea4-a4b7-88358a996390 | discard |       | 
+ 01a17593-3670-7238-97f4-c81f409c677c | 01a17593-063b-769c-be8c-23e6309f7060 | discard |       | 
+ 01a17593-308f-7985-975a-684a9d2b18e2 | 01a17593-063b-7720-94bb-fc7fd5354833 | discard |       | 
+(3 rows)
+
+                  title                  | count 
+-----------------------------------------+-------
+ Can't tell when data was last refreshed |    29
+(1 row)
+
+
+2026-10-26T00:22:12.653Z
+select count(*) decisions,count(distinct mention_id) distinct_mentions from triage_decision; select count(*) queued from placement p left join triage_decision d on d.mention_id=p.mention_id where p.confidence<0.7 and d.id is null; select action,count(*) from triage_decision group by 1;
+ decisions | distinct_mentions 
+-----------+-------------------
+        77 |                77
+(1 row)
+
+ queued 
+--------
+      0
+(1 row)
+
+ action  | count 
+---------+-------
+ move    |     3
+ accept  |    70
+ discard |     4
+(3 rows)
+

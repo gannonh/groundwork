@@ -1,0 +1,37 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 77 to review":
+      - /url: /triage
+      - text: Triage77
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: 77 low-confidence placements under 70% a accept m move d discard jk select
+  - status
+  - text: 1 of 77 left 0 decided
+  - article "Placement to review":
+    - text: ⚠ 61% confident below the 70% place threshold
+    - blockquote: “… Our ops lead spends about 29 minutes per upload just clicking through the mapping screen. The mapping from last week is gone, even though the file has exactly the same headers. Every time we import the weekly export, we have to map all 12 columns again. …”
+    - link "Open zendesk-500 ticket · Sep 20":
+      - /url: /items/01a17593-050d-794e-9145-7032b846fc61?mention=01a17593-0d5e-7c37-a20e-cfd2881a4823
+      - text: zendesk-500 ticket · Sep 20
+    - text: Where the judge would place it probability
+    - 'button "Accept: place in Field mapping must be redone for every import, 61%"': 1 Field mapping must be redone for every import Get customer data in without engineering help 61%
+    - button "Move to CSV imports fail silently on malformed rows, 8%": 2 CSV imports fail silently on malformed rows Get customer data in without engineering help 8%
+    - 'button "Discard: none of these, 13%"': – None of these 13%
+    - button "Accept · Field mapping must be redone for every import": Accept · Field mapping must be redone for every import a
+    - button "Move…": Move… m
+    - button "Discard": Discard d
+  - text: Up next j k to skip
+  - list "Up next":
+    - listitem: 60% … Our execs asked twice this week whether the data was current. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. Please advise. …
+    - listitem: 51% … I uploaded a CSV with 7300 rows and only part of it came through, with no error message. If a row is malformed, please tell us which one, instead of silently dropping it. Thanks in advance.

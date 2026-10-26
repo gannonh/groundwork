@@ -1,0 +1,170 @@
+# http://127.0.0.1:4100/opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 77 to review":
+      - /url: /triage
+      - text: Triage77
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 30
+    - slider "Reach"
+    - text: Distinct accounts Revenue 35
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 15
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced" [pressed]
+    - button "Enterprise"
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market" [checked]
+      - text: Mid-market
+      - checkbox "SMB" [checked]
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "zendesk-500" [checked]
+      - text: zendesk-500
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?selected=01a17593-063d-779e-86be-cdb119954ef6
+          - text: 1 SSO setup requires contacting support Control access and spend, score 25, $0k ARR, 0% over 4 weeks, 9 need review 9 Control access and spend 25 $0k ■ 0%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?selected=01a17593-063d-7730-9ca9-69292f1fae59
+          - text: 2 Admins can't restrict access by team Control access and spend, score 23, $0k ARR, -12% over 4 weeks, 11 need review 11 Control access and spend 23 $0k ▼ -12%
+      - listitem:
+        - link "Field mapping must be redone for every import":
+          - /url: /opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833
+          - text: 3 Field mapping must be redone for every import Get customer data in without engineering help, score 22, $0k ARR, +88% over 4 weeks, 7 need review 7 Get customer data in without engineering help 22 $0k ▲ +88%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?selected=01a17593-063c-7ea4-a4b7-88358a996390
+          - text: 4 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 22, $0k ARR, +200% over 4 weeks, 2 need review 2 Share findings with stakeholders 22 $0k ▲ +200%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?selected=01a17593-063b-769c-be8c-23e6309f7060
+          - text: 5 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 18, $0k ARR, 0% over 4 weeks, 7 need review 7 Get customer data in without engineering help 18 $0k ■ 0%
+      - listitem:
+        - link "Exported charts lose formatting in slides":
+          - /url: /opportunities?selected=01a17593-063c-7e3b-997f-6723cf65c78a
+          - text: 6 Exported charts lose formatting in slides Share findings with stakeholders, score 14, $0k ARR, +11% over 4 weeks, 6 need review 6 Share findings with stakeholders 14 $0k ▲ +11%
+      - listitem:
+        - link "Can't tell when data was last refreshed":
+          - /url: /opportunities?selected=01a17593-063c-7525-8c22-d805d9ed7830
+          - text: 7 Can't tell when data was last refreshed Trust the numbers in reports, score 7, $0k ARR, -50% over 4 weeks, 10 need review 10 Trust the numbers in reports 7 $0k ▼ -50%
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?selected=01a17593-063c-74d2-a6eb-c86ace7aebc7
+          - text: 8 Dashboard totals don't match the source system Trust the numbers in reports, score 5, $0k ARR, 0% over 4 weeks, 11 need review 11 Trust the numbers in reports 5 $0k ■ 0%
+      - listitem:
+        - link "Usage-based bill is unpredictable":
+          - /url: /opportunities?selected=01a17593-063d-778b-9337-42eaaa46b0c7
+          - text: 9 Usage-based bill is unpredictable Control access and spend, score 4, $0k ARR, -8% over 4 weeks, 4 need review 4 Control access and spend 4 $0k ▼ -8%
+  - complementary "Opportunity detail":
+    - text: Get customer data in without engineering help
+    - heading "Field mapping must be redone for every import" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 0 accounts":
+        - /url: /opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833&evidence=accounts
+        - text: "0"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $0k ARR":
+        - /url: /opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833&evidence=accounts
+        - text: $0k
+    - term: Mentions
+    - definition:
+      - link "Show the 36 mentions":
+        - /url: /opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833&evidence=mentions
+        - text: "36"
+    - term: Pain
+    - definition: Slows work
+    - heading "Mentions per week" [level=3]
+    - text: ▲ +88%
+    - 'img "Mentions per week from Jun 29: 4, 3, 1, 1, 2, 1, 3, 2, 3, 2, 5, 5"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - text: 7 need review
+    - figure "admin Open zendesk-500 ticket · Sep 20":
+      - blockquote:
+        - text: “… Could the app remember the mapping for a file with the same columns?
+        - mark: The mapping from last week is gone, even though the file has exactly the same headers.
+        - text: Our ops lead spends about 40 minutes per upload just clicking through the mapping screen. …”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 20":
+        - /url: /items/01a17593-050e-7e45-b61b-bc3aaab00a1e?mention=01a17593-20e4-772a-8429-71307bcdfe37&from=%7B%22selected%22%3A%2201a17593-063b-7720-94bb-fc7fd5354833%22%7D
+        - text: zendesk-500 ticket · Sep 20
+    - figure "admin Open zendesk-500 ticket · Sep 18":
+      - blockquote:
+        - text: “Hi team, Our ops lead spends about 55 minutes per upload just clicking through the mapping screen.
+        - mark: The mapping from last week is gone, even though the file has exactly the same headers.
+        - text: Could the app remember the mapping for a file with the same columns? …”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 18":
+        - /url: /items/01a17593-050d-7810-993e-ba58984bfb05?mention=01a17593-0b6e-78c6-ae8c-80353ff3366b&from=%7B%22selected%22%3A%2201a17593-063b-7720-94bb-fc7fd5354833%22%7D
+        - text: zendesk-500 ticket · Sep 18
+    - figure "admin Open zendesk-500 ticket · Sep 16":
+      - blockquote:
+        - text: “… Could the app remember the mapping for a file with the same columns?
+        - mark: The mapping from last week is gone, even though the file has exactly the same headers.
+        - text: Our ops lead spends about 51 minutes per upload just clicking through the mapping screen. …”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 16":
+        - /url: /items/01a17593-050d-793b-94b6-81263d42e411?mention=01a17593-0d60-7be6-be61-acdd435c94f3&from=%7B%22selected%22%3A%2201a17593-063b-7720-94bb-fc7fd5354833%22%7D
+        - text: zendesk-500 ticket · Sep 16
+    - figure "admin Open zendesk-500 ticket · Sep 20 61% confident":
+      - blockquote:
+        - text: “… Our ops lead spends about 29 minutes per upload just clicking through the mapping screen.
+        - mark: The mapping from last week is gone, even though the file has exactly the same headers.
+        - text: Every time we import the weekly export, we have to map all 12 columns again. …”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 20":
+        - /url: /items/01a17593-050d-794e-9145-7032b846fc61?mention=01a17593-0d5e-7c37-a20e-cfd2881a4823&from=%7B%22selected%22%3A%2201a17593-063b-7720-94bb-fc7fd5354833%22%7D
+        - text: zendesk-500 ticket · Sep 20
+      - text: 61% confident
+    - heading "Requested solutions" [level=3]
+    - text: mentions
+    - paragraph: No requested solutions in this view.
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list

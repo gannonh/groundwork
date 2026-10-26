@@ -1,0 +1,37 @@
+# http://127.0.0.1:4100/triage
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 63 to review":
+      - /url: /triage
+      - text: Triage63
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Triage" [level=1]
+  - text: 63 low-confidence placements under 70% a accept m move d discard jk select
+  - status: Placed in Dashboard totals don't match the …
+  - text: 1 of 63 left 1 decided
+  - article "Placement to review":
+    - text: ⚠ 55% confident below the 70% place threshold
+    - blockquote: “Hi there. The PNG export is blurry on a projector, so we take screenshots instead. I rebuild the same 4 charts in PowerPoint every month for the board deck. …”
+    - link "Open zendesk-500 ticket · Aug 21":
+      - /url: /items/01a17593-0510-7413-855b-65f1c7e30886?mention=01a17593-3472-7af0-9b9b-de67055fb194
+      - text: zendesk-500 ticket · Aug 21
+    - text: Where the judge would place it probability
+    - 'button "Accept: place in Exported charts lose formatting in slides, 55%"': 1 Exported charts lose formatting in slides Share findings with stakeholders 55%
+    - button "Move to No scheduled email digest, 5%": 2 No scheduled email digest Share findings with stakeholders 5%
+    - 'button "Discard: none of these, 16%"': – None of these 16%
+    - button "Accept · Exported charts lose formatting in slides": Accept · Exported charts lose formatting in slides a
+    - button "Move…": Move… m
+    - button "Discard": Discard d
+  - text: Up next j k to skip
+  - list "Up next":
+    - listitem: 58% … Every time we import the weekly export, we have to map all 17 columns again. The mapping from last week is gone, even though the file has exactly the same headers. Could the app remember the mapping for a file with the same columns? …
+    - listitem: 68% Hi there. Could the app remember the mapping for a file with the same columns? Our ops lead spends about 52 minutes per upload just clicking through the mapping screen. …

@@ -1,0 +1,4 @@
+accept -> nav count (n=30): p50 18.0 ms, p95 34.1 ms, max 38.7 ms
+/opportunities main (n=40): p50 11.1 ms, p95 14.5 ms
+/opportunities branch (n=40): p50 10.7 ms, p95 13.5 ms
+branch p50 / main p50: 0.958

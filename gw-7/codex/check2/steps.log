@@ -1,0 +1,39 @@
+2026-10-26T00:19:27.096Z run codex-gw7 prod http://127.0.0.1:4100 viewport=1440x900 git=d5fd62f
+2026-10-26T00:19:27.743Z ok   goto=/opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833
+2026-10-26T00:19:27.748Z ok   expect-eval=(d=>d.textContent.includes('7 need review')&&d.querySelector('a[href$="evidence=mentions"]').textContent.trim()==='36')(document.querySelector('aside[aria-label="Opportunity detail"]'))
+2026-10-26T00:19:27.821Z snap map-before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/map-before.{png,aria.yml}
+2026-10-26T00:19:27.821Z ok   snap=map-before
+2026-10-26T00:19:27.858Z ok   click=link/Triage, 77 to review
+2026-10-26T00:19:28.061Z ok   expect-text=77 low-confidence placements
+2026-10-26T00:19:28.109Z snap before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/before.{png,aria.yml}
+2026-10-26T00:19:28.109Z ok   snap=before
+2026-10-26T00:19:32.110Z ok   wait=4000
+2026-10-26T00:19:32.138Z ok   click=button/Accept · Field mapping must be redone for every import
+2026-10-26T00:19:32.493Z ok   expect-eval=document.querySelector("nav a[href=\"/triage\"]").textContent.trim()==="Triage76"
+2026-10-26T00:19:32.528Z snap after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/after.{png,aria.yml}
+2026-10-26T00:19:32.528Z ok   snap=after
+2026-10-26T00:19:36.530Z ok   wait=4000
+2026-10-26T00:19:36.561Z ok   click=link/Opportunities
+2026-10-26T00:19:37.145Z ok   goto=/opportunities?selected=01a17593-063b-7720-94bb-fc7fd5354833
+2026-10-26T00:19:37.147Z ok   expect-eval=(d=>d.textContent.includes('6 need review')&&d.querySelector('a[href$="evidence=mentions"]').textContent.trim()==='36')(document.querySelector('aside[aria-label="Opportunity detail"]'))
+2026-10-26T00:19:37.210Z snap map-after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/map-after.{png,aria.yml}
+2026-10-26T00:19:37.210Z ok   snap=map-after
+2026-10-26T00:19:41.211Z ok   wait=4000
+2026-10-26T00:19:41.236Z ok   click=link/Triage, 76 to review
+2026-10-26T00:19:41.294Z snap move-before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/move-before.{png,aria.yml}
+2026-10-26T00:19:41.294Z ok   snap=move-before
+2026-10-26T00:19:45.296Z ok   wait=4000
+2026-10-26T00:19:45.318Z ok   click=button/Move to Can't tell when data was last refreshed, 6%
+2026-10-26T00:19:45.346Z ok   expect-text=Moved to
+2026-10-26T00:19:45.700Z ok   expect-eval=document.querySelector("nav a[href=\"/triage\"]").textContent.trim()==="Triage75"
+2026-10-26T00:19:45.734Z snap move-after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/move-after.{png,aria.yml}
+2026-10-26T00:19:45.734Z ok   snap=move-after
+2026-10-26T00:19:49.736Z ok   wait=4000
+2026-10-26T00:19:50.283Z ok   goto=/opportunities?selected=01a17593-063c-7525-8c22-d805d9ed7830&evidence=mentions
+2026-10-26T00:19:50.303Z ok   expect-text=47 mentions
+2026-10-26T00:19:50.305Z ok   expect-eval=[...document.querySelectorAll("[role=dialog] figure")].some(f=>f.textContent.includes("Our execs asked twice this week whether the data was current"))
+2026-10-26T00:19:50.371Z snap target-after -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/target-after.{png,aria.yml}
+2026-10-26T00:19:50.371Z ok   snap=target-after
+2026-10-26T00:19:56.374Z ok   wait=6000
+2026-10-26T00:19:57.303Z video -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-7/.verify/evidence/codex-gw7/check2/video.webm
+2026-10-26T00:19:57.316Z result PASS

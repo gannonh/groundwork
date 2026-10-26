@@ -1,0 +1,170 @@
+# http://127.0.0.1:4101/opportunities
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 77 to review":
+      - /url: /triage
+      - text: Triage77
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 30
+    - slider "Reach"
+    - text: Distinct accounts Revenue 35
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 15
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced" [pressed]
+    - button "Enterprise"
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market" [checked]
+      - text: Mid-market
+      - checkbox "SMB" [checked]
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "zendesk-500" [checked]
+      - text: zendesk-500
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?selected=01a17593-8b4e-7c5c-a972-08f019f88913
+          - text: 1 SSO setup requires contacting support Control access and spend, score 25, $0k ARR, 0% over 4 weeks, 9 need review 9 Control access and spend 25 $0k ■ 0%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?selected=01a17593-8b4e-7bcf-a2c8-f5c26de295a8
+          - text: 2 Admins can't restrict access by team Control access and spend, score 23, $0k ARR, -12% over 4 weeks, 11 need review 11 Control access and spend 23 $0k ▼ -12%
+      - listitem:
+        - link "Field mapping must be redone for every import":
+          - /url: /opportunities?selected=01a17593-8b4c-7ac9-9af4-0063fe0e0f2f
+          - text: 3 Field mapping must be redone for every import Get customer data in without engineering help, score 22, $0k ARR, +88% over 4 weeks, 7 need review 7 Get customer data in without engineering help 22 $0k ▲ +88%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?selected=01a17593-8b4e-7349-8b0b-1e93c7ceceef
+          - text: 4 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 22, $0k ARR, +200% over 4 weeks, 2 need review 2 Share findings with stakeholders 22 $0k ▲ +200%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?selected=01a17593-8b4c-7a2f-86d7-794748dfe83e
+          - text: 5 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 18, $0k ARR, 0% over 4 weeks, 7 need review 7 Get customer data in without engineering help 18 $0k ■ 0%
+      - listitem:
+        - link "Exported charts lose formatting in slides":
+          - /url: /opportunities?selected=01a17593-8b4e-72d6-a0c2-431bc9f4cb26
+          - text: 6 Exported charts lose formatting in slides Share findings with stakeholders, score 14, $0k ARR, +11% over 4 weeks, 6 need review 6 Share findings with stakeholders 14 $0k ▲ +11%
+      - listitem:
+        - link "Can't tell when data was last refreshed":
+          - /url: /opportunities?selected=01a17593-8b4d-78d4-b684-6b838acc4ec3
+          - text: 7 Can't tell when data was last refreshed Trust the numbers in reports, score 7, $0k ARR, -50% over 4 weeks, 10 need review 10 Trust the numbers in reports 7 $0k ▼ -50%
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?selected=01a17593-8b4d-787f-be8d-537233ced28d
+          - text: 8 Dashboard totals don't match the source system Trust the numbers in reports, score 5, $0k ARR, 0% over 4 weeks, 11 need review 11 Trust the numbers in reports 5 $0k ■ 0%
+      - listitem:
+        - link "Usage-based bill is unpredictable":
+          - /url: /opportunities?selected=01a17593-8b4e-7c42-a471-42fc6c7a2915
+          - text: 9 Usage-based bill is unpredictable Control access and spend, score 4, $0k ARR, -8% over 4 weeks, 4 need review 4 Control access and spend 4 $0k ▼ -8%
+  - complementary "Opportunity detail":
+    - text: Control access and spend
+    - heading "SSO setup requires contacting support" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 0 accounts":
+        - /url: /opportunities?evidence=accounts&selected=01a17593-8b4e-7c5c-a972-08f019f88913
+        - text: "0"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $0k ARR":
+        - /url: /opportunities?evidence=accounts&selected=01a17593-8b4e-7c5c-a972-08f019f88913
+        - text: $0k
+    - term: Mentions
+    - definition:
+      - link "Show the 35 mentions":
+        - /url: /opportunities?evidence=mentions&selected=01a17593-8b4e-7c5c-a972-08f019f88913
+        - text: "35"
+    - term: Pain
+    - definition: Deal breaker
+    - heading "Mentions per week" [level=3]
+    - text: ■ 0%
+    - 'img "Mentions per week from Jun 29: 2, 2, 1, 5, 4, 1, 4, 2, 1, 1, 6, 3"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - text: 9 need review
+    - figure "admin Open zendesk-500 ticket · Sep 18":
+      - blockquote:
+        - text: “… We want to enable SSO with Okta, but the settings page says to contact support.
+        - mark: Rolling out to 70 new seats is on hold until SSO works.
+        - text: Any update would help.”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 18":
+        - /url: /items/01a17593-8a80-7086-9228-cd5824cc8503?mention=01a17593-a0be-7adc-8922-c27c969e847f&from=%7B%7D
+        - text: zendesk-500 ticket · Sep 18
+    - figure "admin Open zendesk-500 ticket · Sep 17":
+      - blockquote:
+        - text: “Hello, We want to enable SSO with Okta, but the settings page says to contact support.
+        - mark: Rolling out to 412 new seats is on hold until SSO works.
+        - text: Our IT team expected to configure SAML themselves, the same way they do for other tools. …”
+      - text: admin
+      - link "Open zendesk-500 ticket · Sep 17":
+        - /url: /items/01a17593-8a81-7441-8ab5-7778ee9ceece?mention=01a17593-b245-7a66-9ad0-6d6ec99de6c8&from=%7B%7D
+        - text: zendesk-500 ticket · Sep 17
+    - figure "buyer Open zendesk-500 ticket · Sep 16":
+      - blockquote:
+        - text: “Hello, Is there documentation for the SAML attributes you expect?
+        - mark: Rolling out to 177 new seats is on hold until SSO works.
+        - text: We want to enable SSO with Okta, but the settings page says to contact support. …”
+      - text: buyer
+      - link "Open zendesk-500 ticket · Sep 16":
+        - /url: /items/01a17593-8a7e-779f-9c13-038bd5f6d48f?mention=01a17593-8d48-7cf5-a878-fdb7086eb8ff&from=%7B%7D
+        - text: zendesk-500 ticket · Sep 16
+    - figure "buyer Open zendesk-500 ticket · Aug 13 70% confident":
+      - blockquote:
+        - text: “… We want to enable SSO with Okta, but the settings page says to contact support.
+        - mark: Rolling out to 136 new seats is on hold until SSO works.
+        - text: Any update would help.”
+      - text: buyer
+      - link "Open zendesk-500 ticket · Aug 13":
+        - /url: /items/01a17593-8a80-7676-8fa7-2db7d51439f5?mention=01a17593-a68d-7e24-ad70-a9f2fcbebd93&from=%7B%7D
+        - text: zendesk-500 ticket · Aug 13
+      - text: 70% confident
+    - heading "Requested solutions" [level=3]
+    - text: mentions
+    - paragraph: No requested solutions in this view.
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list
