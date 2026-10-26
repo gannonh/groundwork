@@ -110,3 +110,30 @@ export function bestPlacement(results: readonly PlaceResult[]): PlaceResult {
   if (!first) throw new Error('No placements to choose from')
   return rest.reduce((best, result) => (result.kind === 'placed' && (best.kind === 'unplaced' || result.confidence > best.confidence) ? result : best), first)
 }
+
+/** One problem a mention could go on, scored as the probability of the path to it. */
+export type Branch = { readonly opportunityId: OpportunityId; readonly probability: number }
+
+/**
+ * Rescores a mention's stored place answers against the tree: every problem path the judge was asked about, most
+ * likely first, and the probability of "none" at either level. Answers name nodes by title, so a node renamed since
+ * the run drops out.
+ */
+export function placeBranches(
+  answers: readonly { readonly questionKey: string; readonly probabilities: Readonly<Record<string, number>> }[],
+  tree: PlaceTree,
+): { readonly branches: readonly Branch[]; readonly none: number } {
+  const byKey = new Map(answers.map((a) => [a.questionKey, a.probabilities]))
+  const outcomes = byKey.get(PLACE_OUTCOME_KEY)
+  if (!outcomes) return { branches: [], none: 0 }
+  const branches: Branch[] = []
+  let none = outcomes[NONE_OF_THESE] ?? 0
+  for (const outcome of tree) {
+    const problems = byKey.get(placeProblemKey(outcome.title))
+    const p1 = outcomes[outcome.title] ?? 0
+    if (!problems) continue
+    none += p1 * (problems[NONE_OF_THESE] ?? 0)
+    for (const problem of outcome.problems) branches.push({ opportunityId: problem.id, probability: p1 * (problems[problem.title] ?? 0) })
+  }
+  return { branches: branches.filter((b) => b.probability > 0).sort((a, b) => b.probability - a.probability), none }
+}

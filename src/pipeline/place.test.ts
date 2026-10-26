@@ -2,7 +2,7 @@ import { describe, expect, test } from 'vitest'
 import { NONE_OF_THESE, type ItemId, type NonEmptyArray, type OpportunityId, type RedactedText } from '../domain/types.ts'
 import { adapt } from '../judge/adapters.ts'
 import type { Judge, Question } from '../judge/types.ts'
-import { placeMention, type PlaceTree } from './place.ts'
+import { placeBranches, placeMention, type PlaceTree } from './place.ts'
 
 const id = (n: number) => `00000000-0000-8000-8000-0000000000${String(n).padStart(2, '0')}` as OpportunityId
 const TREE: PlaceTree = [
@@ -126,5 +126,28 @@ describe('placeMention with place_confidence 0.7', () => {
     )
     // 0.4 x 0.9 = 0.36 is below the 0.5 the judge gave the outcome with no problems.
     expect(result.kind).toBe('unplaced')
+  })
+})
+
+describe('placeBranches', () => {
+  test('scores the paths the judge was asked about, most likely first, and sums "none" over both levels', () => {
+    const { branches, none } = placeBranches(
+      [
+        { questionKey: 'place_outcome', probabilities: { 'Trust the numbers': 0.6, 'Share findings': 0.3, [NONE_OF_THESE]: 0.1 } },
+        { questionKey: 'place_problem:Trust the numbers', probabilities: { 'Totals are wrong': 0.5, 'Data is stale': 0.3, [NONE_OF_THESE]: 0.2 } },
+        { questionKey: 'place_problem:Share findings', probabilities: { 'Exports lose formatting': 1 } },
+      ],
+      TREE,
+    )
+    expect(branches.map((b) => [b.opportunityId, Number(b.probability.toFixed(2))])).toEqual([
+      [id(11), 0.3],
+      [id(21), 0.3],
+      [id(12), 0.18],
+    ])
+    expect(none.toFixed(2)).toBe('0.22')
+  })
+
+  test('answers that are not place answers give no branches', () => {
+    expect(placeBranches([{ questionKey: 'pain', probabilities: { slows_work: 1 } }], TREE)).toEqual({ branches: [], none: 0 })
   })
 })

@@ -19,7 +19,7 @@ die() { echo "verify: $*" >&2; exit 1; }
 NODE_MAJOR=$(tr -d '[:space:]v' <"$ROOT/.nvmrc")
 NODE_MAJOR=${NODE_MAJOR%%.*}
 
-# Absolute path to a Node binary of that major, so setsid can exec it directly.
+# Absolute path to a Node binary of that major, so the server's job can exec it directly.
 node_bin() {
   if [[ $(node -v 2>/dev/null) == "v$NODE_MAJOR".* ]]; then command -v node
   elif command -v mise >/dev/null; then mise exec "node@$NODE_MAJOR" -- node -e 'console.log(process.execPath)'
@@ -57,11 +57,18 @@ resolve_id() {
   echo "$id"
 }
 
+# First port in 4100-4199 that refuses a connection on $1. Bash's /dev/tcp works on Linux and macOS.
 free_port() {
   for p in $(seq 4100 4199); do
-    if ! ss -Hltn "sport = :$p" | grep -q .; then echo "$p"; return; fi
+    if ! (: <>"/dev/tcp/$1/$p") 2>/dev/null; then echo "$p"; return; fi
   done
   die "no free port in 4100-4199"
+}
+
+# PIDs listening on TCP port $1: ss on Linux, lsof on macOS.
+port_pids() {
+  if command -v ss >/dev/null; then ss -Hltnp "sport = :$1" | grep -o 'pid=[0-9]*' | cut -d= -f2
+  else lsof -nP -iTCP:"$1" -sTCP:LISTEN -t; fi
 }
 
 # A failed `up` undoes whatever it created, so a broken attempt leaves no process,
@@ -117,15 +124,19 @@ cmd_up() {
     || { cat "$inst/setup.log" >&2; die "migrate/seed failed"; }
 
   local port
-  port=$(free_port)
+  port=$(free_port "$host")
   cd "$ROOT"
+  [[ $mode == prod ]] && { pnpm12 build >"$inst/build.log" 2>&1 || { tail -30 "$inst/build.log" >&2; die "build failed"; }; }
+  # Job control puts the server in its own process group (pgid = pid), so `down` can
+  # kill the group. setsid does the same but is missing on macOS.
+  set -m
   if [[ $mode == prod ]]; then
-    pnpm12 build >"$inst/build.log" 2>&1 || { tail -30 "$inst/build.log" >&2; die "build failed"; }
-    DATABASE_URL=$url PORT=$port HOST=$host setsid "$node" .output/server/index.mjs >"$inst/server.log" 2>&1 &
+    DATABASE_URL=$url PORT=$port HOST=$host "$node" .output/server/index.mjs </dev/null >"$inst/server.log" 2>&1 &
   else
-    DATABASE_URL=$url setsid "$node" node_modules/vite/bin/vite.js dev --port "$port" --strictPort --host "$host" >"$inst/server.log" 2>&1 &
+    DATABASE_URL=$url "$node" node_modules/vite/bin/vite.js dev --port "$port" --strictPort --host "$host" </dev/null >"$inst/server.log" 2>&1 &
   fi
   local pid=$!
+  set +m
   UP_PID=$pid
 
   cat >"$inst/state.env" <<EOF
@@ -140,7 +151,7 @@ DATABASE_URL=$url
 NODE_VERSION=$("$node" -v)
 GIT_HEAD=$(git rev-parse HEAD)
 GIT_DIRTY=$(git status --porcelain | grep -v '^?? .verify' | grep -c . || true)
-STARTED_AT=$(date -Is)
+STARTED_AT=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 EVIDENCE_DIR=$ev
 EOF
   echo "$id" >"$VERIFY_DIR/current"
@@ -171,8 +182,10 @@ cmd_doctor() {
   echo "instance $RUN_ID ($MODE) at $URL"
   if kill -0 "$PID" 2>/dev/null; then ok "process $PID alive"; else bad "process $PID not running"; fi
 
-  if ss -Hltnp "sport = :$PORT" | grep -q "pid=$PID,"; then ok "port $PORT owned by $PID"
-  else bad "port $PORT not held by $PID: $(ss -Hltnp "sport = :$PORT" | head -1)"; fi
+  local pids
+  pids=$(port_pids "$PORT" | tr '\n' ' ' || true)
+  if [[ " $pids" == *" $PID "* ]]; then ok "port $PORT owned by $PID"
+  else bad "port $PORT not held by $PID (listeners: ${pids:-none})"; fi
 
   local health
   health=$(curl -s -o /dev/stdout -w ' %{http_code}' "$URL/api/health" 2>/dev/null || true)
@@ -206,7 +219,7 @@ cmd_down() {
   else
     ids=("$(resolve_id "${1:-}")")
   fi
-  for id in "${ids[@]}"; do
+  for id in ${ids[@]+"${ids[@]}"}; do
     (
       # shellcheck disable=SC1090
       source "$INSTANCES/$id/state.env"

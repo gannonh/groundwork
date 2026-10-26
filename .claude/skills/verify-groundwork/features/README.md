@@ -6,7 +6,7 @@ This directory lists the user-facing behavior of Groundwork that can be verified
 
 - Run `verify.sh up` and wait for the `ready` line. Use `--host tailscale` only for the Kata Code integrated browser.
 - `verify.sh doctor` exits 0 for the instance you are about to drive.
-- The instance has its own database, `gw_verify_<id>`, with every migration applied and the seed run. The seed loads prototype D's Acme Analytics workspace, so Opportunities shows 12 ranked problems, Sources lists 5 sources, and Accounts lists 277 accounts. Triage and Packs start empty.
+- The instance has its own database, `gw_verify_<id>`, with every migration applied and the seed run. The seed loads prototype D's Acme Analytics workspace, so Opportunities shows 12 ranked problems, Sources lists 5 sources, and Accounts lists 277 accounts. Triage holds 44 low-confidence placements. Packs starts empty.
 - Drive only an instance that `verify.sh` started in this worktree.
 
 ## Driving conventions
@@ -39,8 +39,9 @@ Each feature file starts with an H1 title and a one-paragraph description of wha
 - [Source detail](./source-detail.md): one source's mapping and its 100 newest items, each opening its item.
 - [Item detail](./item-detail.md): one item's date, source, account, author, and redacted, numbered sentences.
 - [Accounts](./accounts.md): the account table and the account CSV import that links items to accounts.
+- [Triage](./triage.md): the low-confidence placement queue, accept, move, discard, the label each decision writes, and the empty state.
 - [Health check](./health.md): `GET /api/health` reports whether the server can reach Postgres.
 
 ## Not built yet
 
-These PRD features have no screen yet: the opportunity map's weights, filters, outcome grouping, and other URL view state, triage, packs, and Linear sync. The Triage and Packs routes still render an empty `main`. When a slice lands one of them, add a feature file for it here.
+These PRD features have no screen yet: packs and Linear sync. The Packs route still renders an empty `main`. When a slice lands one of them, add a feature file for it here.

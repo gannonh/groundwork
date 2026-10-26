@@ -12,6 +12,7 @@
 //   select=Label|Option    open the Select (combobox) labelled Label and pick Option
 //   press=Key              press a key on the focused element (Tab, Enter, /)
 //   back=                  press the browser Back button
+//   tab=N                  switch to tab N (1 is the first), opening it if it does not exist yet
 //   expect-url=/path       assert the current path (and search) equals /path
 //   expect-title=Text      assert document.title
 //   expect-current=Name    assert Name is the one and only nav link with aria-current="page"
@@ -65,10 +66,15 @@ const context = await browser.newContext({
   viewport: { width, height },
   ...(video ? { recordVideo: { dir: out, size: { width, height } } } : {}),
 })
-const page = await context.newPage()
-page.on('console', (m) => m.type() === 'error' && log(`console.error ${m.text()}`))
-page.on('pageerror', (e) => log(`pageerror ${e.message}`))
-page.on('response', (r) => r.status() >= 400 && log(`http ${r.status()} ${r.url()}`))
+const openTab = async () => {
+  const tab = await context.newPage()
+  tab.on('console', (m) => m.type() === 'error' && log(`console.error ${m.text()}`))
+  tab.on('pageerror', (e) => log(`pageerror ${e.message}`))
+  tab.on('response', (r) => r.status() >= 400 && log(`http ${r.status()} ${r.url()}`))
+  return tab
+}
+const tabs = [await openTab()]
+let page = tabs[0]
 
 const snap = async (label) => {
   await page.screenshot({ path: join(out, `${label}.png`), fullPage: true })
@@ -129,6 +135,11 @@ const steps = {
   },
   press: (key) => page.keyboard.press(key),
   back: () => page.goBack(),
+  tab: async (n) => {
+    while (tabs.length < Number(n)) tabs.push(await openTab())
+    page = tabs[Number(n) - 1]
+    await page.bringToFront()
+  },
   'expect-url': (path) => expect.poll(() => new URL(page.url()).pathname + new URL(page.url()).search).toBe(path),
   'expect-title': (title) => expect(page).toHaveTitle(title),
   'expect-current': (label) => expect(page.getByRole('navigation').locator('a[aria-current="page"]')).toHaveText([label]),
@@ -169,7 +180,7 @@ for (const step of args) {
 
 await context.close()
 if (video) {
-  const recorded = await page.video()?.path()
+  const recorded = await tabs[0].video()?.path()
   if (recorded) {
     renameSync(recorded, join(out, 'video.webm'))
     log(`video -> ${join(out, 'video.webm')}`)

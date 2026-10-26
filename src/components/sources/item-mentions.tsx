@@ -51,14 +51,16 @@ export function ItemMentions({
                     </span>
                   </>
                 ) : (
-                  <span className="text-ink-3">Not placed yet</span>
+                  <span className="text-ink-3">{mention.discarded ? 'Discarded in triage' : 'Not placed yet'}</span>
                 )}
               </span>
               <span className="text-meta text-ink-3">
                 {isSelected ? <mark className="bg-mark px-px text-foreground">{formatSpan(mention.span)}</mark> : formatSpan(mention.span)}
               </span>
               {placement &&
-                (placement.lowConfidence === null ? (
+                (placement.decided ? (
+                  <span className="text-meta text-ink-3">Decided in triage</span>
+                ) : placement.lowConfidence === null ? (
                   <span className="text-meta text-ink-3 tabular-nums">{formatConfidence(placement.confidence, placement.placeThreshold)}</span>
                 ) : (
                   <Pill tone="warn" title="Below the pack's place threshold">

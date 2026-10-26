@@ -31,6 +31,12 @@ export default defineConfig({
       env: { PORT: '0', ...databaseOf(process.env.E2E_RUN_DATABASE_URL) },
       wait: { stdout: /Listening on: (?<e2e_run_base_url>http:\/\/\S+)\s/ },
     },
+    // The triage spec's own app, on a seeded database whose map no other spec reads.
+    {
+      ...server,
+      env: { PORT: '0', ...databaseOf(process.env.E2E_TRIAGE_DATABASE_URL) },
+      wait: { stdout: /Listening on: (?<e2e_triage_base_url>http:\/\/\S+)\s/ },
+    },
     {
       command: 'node src/worker.ts',
       reuseExistingServer: false,

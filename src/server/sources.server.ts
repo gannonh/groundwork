@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq } from 'drizzle-orm'
+import { and, asc, count, desc, eq, sql } from 'drizzle-orm'
 import { alias } from 'drizzle-orm/pg-core'
 import type { Db } from '@/db/client'
 import * as t from '@/db/schema'
@@ -49,7 +49,9 @@ export type SourceDetail =
 export type ItemMention = {
   readonly id: MentionId
   readonly span: SentenceSpan
-  /** Null while the judge has not placed the mention. */
+  /** A person discarded it in triage, so it counts on no opportunity. */
+  readonly discarded: boolean
+  /** Null while the judge has not placed the mention, and once a person discards it. */
   readonly placement: {
     readonly opportunity: {
       readonly id: OpportunityId
@@ -58,10 +60,13 @@ export type ItemMention = {
       /** The parent's title: a solution's problem, or a problem's outcome. */
       readonly within: string | null
     }
+    /** The judge's. */
     readonly confidence: Confidence
-    /** Set when the confidence is below the pack's place threshold. */
+    /** Set when the confidence is below the pack's place threshold and no person has decided it. */
     readonly lowConfidence: Confidence | null
     readonly placeThreshold: Confidence
+    /** A person accepted or moved it in triage. */
+    readonly decided: boolean
   } | null
 }
 
@@ -212,22 +217,30 @@ async function loadItemMentions(db: Db, itemId: ItemId, workspaceId: WorkspaceId
       title: t.opportunity.title,
       within: parent.title,
       confidence: t.placement.confidence,
+      decision: t.triageDecision.action,
     })
     .from(t.mention)
     .leftJoin(t.placement, eq(t.placement.mentionId, t.mention.id))
-    .leftJoin(t.opportunity, eq(t.opportunity.id, t.placement.opportunityId))
+    .leftJoin(t.triageDecision, eq(t.triageDecision.mentionId, t.mention.id))
+    // A person's decision outranks the judge's placement; a discard leaves no opportunity to join.
+    .leftJoin(
+      t.opportunity,
+      eq(t.opportunity.id, sql`case when ${t.triageDecision.id} is null then ${t.placement.opportunityId} else ${t.triageDecision.opportunityId} end`),
+    )
     .leftJoin(parent, eq(parent.id, t.opportunity.parentId))
     .where(and(eq(t.mention.itemId, itemId), eq(t.mention.packId, pack.id)))
     .orderBy(asc(t.mention.sentenceStart), asc(t.mention.sentenceEnd), asc(t.mention.ordinal))
   return rows.map((row) => ({
     id: row.id,
     span: { start: row.start, end: row.end },
+    discarded: row.decision === 'discard',
     placement:
       row.opportunityId !== null && row.kind !== null && row.title !== null && row.confidence !== null
         ? {
             opportunity: { id: row.opportunityId, kind: row.kind, title: row.title, within: row.within },
             confidence: row.confidence,
-            lowConfidence: lowConfidenceOf(row.confidence, pack.placeThreshold),
+            lowConfidence: row.decision ? null : lowConfidenceOf(row.confidence, pack.placeThreshold),
+            decided: row.decision !== null,
             placeThreshold: pack.placeThreshold,
           }
         : null,

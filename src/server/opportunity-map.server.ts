@@ -11,6 +11,7 @@ import {
   type QuoteText,
 } from '@/domain/evidence'
 import { filterEvidence, type MapFilter } from '@/domain/filters'
+import { decidedPlacement, toHumanAnswer } from '@/domain/triage'
 import {
   computeMetrics,
   evidenceAsOf,
@@ -308,10 +309,13 @@ async function readWorkspace(
       occurredAt: t.item.occurredAt,
       sourceId: t.item.sourceId,
       authorRole: t.item.authorRole,
+      decision: t.triageDecision.action,
+      decidedOn: t.triageDecision.opportunityId,
     })
     .from(t.placement)
     .innerJoin(t.mention, eq(t.mention.id, t.placement.mentionId))
     .innerJoin(t.item, eq(t.item.id, t.mention.itemId))
+    .leftJoin(t.triageDecision, eq(t.triageDecision.mentionId, t.mention.id))
     // The schema does not tie a mention's item to its pack's workspace, so the read path does.
     .where(and(eq(t.mention.packId, pack.id), eq(t.item.workspaceId, ws.id)))
   const accounts: Account[] = await db
@@ -334,7 +338,10 @@ async function readWorkspace(
   const items = new Map<ItemId, Item>()
   const placements: Placement[] = []
   const spans = new Map<MentionId, (typeof placementRows)[number]>()
-  for (const row of placementRows) {
+  for (const judged of placementRows) {
+    const placed = decidedPlacement(judged, judged.decision && toHumanAnswer(judged.decision, judged.decidedOn))
+    if (!placed) continue
+    const row = { ...judged, ...placed }
     items.set(row.itemId, {
       id: row.itemId,
       sourceId: row.sourceId,
@@ -441,7 +448,7 @@ function toOpportunity(row: {
   return { id: row.id, kind: row.kind, parentId: row.parentId, title: row.title }
 }
 
-function itemLabel(sourceName: string, kind: (typeof t.itemKind.enumValues)[number]): string {
+export function itemLabel(sourceName: string, kind: (typeof t.itemKind.enumValues)[number]): string {
   switch (kind) {
     case 'ticket':
       return `${sourceName} ticket`
