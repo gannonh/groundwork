@@ -1,0 +1,62 @@
+ action  |                     judge                     | human | decisions 
+---------+-----------------------------------------------+-------+-----------
+ discard | Field mapping must be redone for every import |       |         3
+(1 row)
+
+select count(*) from triage_decision -- before: 3, after: 13
+ action  | count 
+---------+-------
+ accept  |     8
+ move    |     2
+ discard |     3
+(3 rows)
+
+select d.action, ja.question_key, ja.value->>'option' as judge_answer, round(d.judge_confidence::numeric, 2) as judge_conf, jo.title as judge_opportunity, coalesce(ho.title, '(discarded)') as human_answer, ja.backend, ja.model_version from triage_decision d join judge_answer ja on ja.id = d.judge_answer_id join opportunity jo on jo.id = d.judge_opportunity_id left join opportunity ho on ho.id = d.opportunity_id order by d.created_at
+ action  |                        question_key                         |                  judge_answer                  | judge_conf |               judge_opportunity                |                  human_answer                  | backend  | model_version 
+---------+-------------------------------------------------------------+------------------------------------------------+------------+------------------------------------------------+------------------------------------------------+----------+---------------
+ accept  | place_problem:Get customer data in without engineering help | Field mapping must be redone for every import  |       0.61 | Field mapping must be redone for every import  | Field mapping must be redone for every import  | recorded | jev-1.13.0
+ move    | place_problem:Trust the numbers in reports                  | Dashboard totals don't match the source system |       0.60 | Dashboard totals don't match the source system | Can't tell when data was last refreshed        | recorded | jev-1.13.0
+ discard | place_problem:Get customer data in without engineering help | Field mapping must be redone for every import  |       0.51 | Field mapping must be redone for every import  | (discarded)                                    | recorded | jev-1.13.0
+ accept  | place_problem:Control access and spend                      | Admins can't restrict access by team           |       0.55 | Admins can't restrict access by team           | Admins can't restrict access by team           | recorded | jev-1.13.0
+ accept  | place_problem:Trust the numbers in reports                  | Can't tell when data was last refreshed        |       0.67 | Can't tell when data was last refreshed        | Can't tell when data was last refreshed        | recorded | jev-1.13.0
+ discard | place_problem:Share findings with stakeholders              | Viewers need a paid seat to see a dashboard    |       0.52 | Viewers need a paid seat to see a dashboard    | (discarded)                                    | recorded | jev-1.13.0
+ accept  | place_problem:Trust the numbers in reports                  | Dashboard totals don't match the source system |       0.54 | Dashboard totals don't match the source system | Dashboard totals don't match the source system | recorded | jev-1.13.0
+ move    | place_problem:Get customer data in without engineering help | CSV imports fail silently on malformed rows    |       0.69 | CSV imports fail silently on malformed rows    | Field mapping must be redone for every import  | recorded | jev-1.13.0
+ accept  | place_problem:Get customer data in without engineering help | Field mapping must be redone for every import  |       0.69 | Field mapping must be redone for every import  | Field mapping must be redone for every import  | recorded | jev-1.13.0
+ discard | place_problem:Get customer data in without engineering help | CSV imports fail silently on malformed rows    |       0.63 | CSV imports fail silently on malformed rows    | (discarded)                                    | recorded | jev-1.13.0
+ accept  | place_problem:Share findings with stakeholders              | Viewers need a paid seat to see a dashboard    |       0.54 | Viewers need a paid seat to see a dashboard    | Viewers need a paid seat to see a dashboard    | recorded | jev-1.13.0
+ accept  | place_problem:Trust the numbers in reports                  | Dashboard totals don't match the source system |       0.63 | Dashboard totals don't match the source system | Dashboard totals don't match the source system | recorded | jev-1.13.0
+ accept  | place_problem:Control access and spend                      | Usage-based bill is unpredictable              |       0.63 | Usage-based bill is unpredictable              | Usage-based bill is unpredictable              | recorded | jev-1.13.0
+(13 rows)
+
+ missing_judge_or_human 
+------------------------
+                      0
+(1 row)
+
+-- before rerun
+-- delete from pipeline_run_item (forces every item to be judged again on the same pack)
+DELETE 500
+-- after delete, before the worker re-judges (decisions 13, placements 441, triage 64 before the delete per checks 2-5)
+ run_items_done | decisions | placements | answers |         decisions_digest         
+----------------+-----------+------------+---------+----------------------------------
+              0 |        13 |        441 |    4312 | 2462bf625e5a936bf6f176d1ebfba687
+(1 row)
+
+-- after the rerun finished
+ run_items_done | decisions | placements | answers |         decisions_digest         
+----------------+-----------+------------+---------+----------------------------------
+            500 |        13 |        441 |    4312 | 2462bf625e5a936bf6f176d1ebfba687
+(1 row)
+
+ status | count 
+--------+-------
+ judged |   500
+(1 row)
+
+ decisions | still_queued 
+-----------+--------------
+        77 |            0
+(1 row)
+
+decisions after two-tab race (expect 14): 14
