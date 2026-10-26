@@ -3,7 +3,7 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { TopBar } from '@/components/top-bar'
 import { db } from '@/db/client'
-import { loadTriageCount } from '@/server/triage-count.server'
+import { loadTriageCount } from '@/server/triage.server'
 import appCss from '@/styles/app.css?url'
 
 const getTriageCount = createServerFn({ method: 'GET' }).handler(() => loadTriageCount(db))

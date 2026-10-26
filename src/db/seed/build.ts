@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto'
-import { PAIN_KEYS } from '../../domain/types.ts'
+import { NONE_OF_THESE, PAIN_KEYS } from '../../domain/types.ts'
 import { splitSentences } from '../../ingest/sentences.ts'
+import { PLACE_OUTCOME_KEY, placeProblemKey } from '../../pipeline/place.ts'
 import type {
   AccountId,
   Confidence,
@@ -285,13 +286,23 @@ export function buildSeed(): SeedRows {
       }),
     ]
 
-    const pains = slots.map((slot, g) => pushSlot(rows, p, g, slot, packId, sourceId(slot.source)))
+    const outcomeIndex = OUTCOMES.findIndex((o) => o.key === p.outcome)
+    const titles: PlaceTitles = {
+      outcome: at(OUTCOMES, outcomeIndex).title,
+      otherOutcome: at(OUTCOMES, (outcomeIndex + 1) % OUTCOMES.length).title,
+      problem: p.title,
+      sibling: PROBLEMS.find((q) => q.outcome === p.outcome && q.key !== p.key)?.title ?? fail(`${p.key} sibling`),
+    }
+    const pains = slots.map((slot, g) => pushSlot(rows, p, g, slot, packId, sourceId(slot.source), titles))
     invariant(lowerMedian(pains) === p.pain, `${p.key} pain`)
     invariant(slots.filter((s) => s.confidence < PACK_DEFINITION.thresholds.place_confidence).length === p.low, `${p.key} low`)
   })
 
   return rows
 }
+
+/** The nodes a slot's place answers name: its own outcome and problem, and the runner-up at each level. */
+type PlaceTitles = { readonly outcome: string; readonly otherOutcome: string; readonly problem: string; readonly sibling: string }
 
 function pushSlot(
   rows: {
@@ -306,6 +317,7 @@ function pushSlot(
   slot: Slot,
   packId: PackId,
   sourceId: SourceId,
+  titles: PlaceTitles,
 ): PainLevel {
   const key = `${p.key}/${String(g)}`
   const itemId = seedId('item', key)
@@ -315,6 +327,10 @@ function pushSlot(
   const sentences = splitSentences(slot.text)
   const marked = sentences.flatMap((s, ordinal) => (s.start < slot.mark.end && s.end > slot.mark.start ? [ordinal] : []))
   const confidence = slot.confidence as Confidence
+  const outcomeP = round2(Math.min(0.97, confidence + 0.2))
+  const otherOutcomeP = round2((1 - outcomeP) * 0.6)
+  const problemP = round4(confidence / outcomeP)
+  const siblingP = round4((1 - problemP) * 0.7)
 
   rows.items.push({
     id: itemId,
@@ -340,15 +356,27 @@ function pushSlot(
       confidence: 0.82 as Confidence,
       ...ANSWERS,
     },
+    // The pipeline's two place answers, outcome then problem, whose path probability is the slot's confidence.
+    {
+      id: seedId('answer', `${key}/place_outcome`),
+      packId,
+      itemId,
+      questionKey: PLACE_OUTCOME_KEY,
+      subject: 'm0',
+      value: { type: 'choice', option: titles.outcome },
+      probabilities: { [titles.outcome]: outcomeP, [titles.otherOutcome]: otherOutcomeP, [NONE_OF_THESE]: round4(1 - outcomeP - otherOutcomeP) },
+      confidence: outcomeP as Confidence,
+      ...ANSWERS,
+    },
     {
       id: placeAnswerId,
       packId,
       itemId,
-      questionKey: 'place',
+      questionKey: placeProblemKey(titles.outcome),
       subject: 'm0',
-      value: { type: 'choice', option: slot.opportunityId },
-      probabilities: { [slot.opportunityId]: confidence, none: round2(1 - confidence) },
-      confidence,
+      value: { type: 'choice', option: titles.problem },
+      probabilities: { [titles.problem]: problemP, [titles.sibling]: siblingP, [NONE_OF_THESE]: round4(1 - problemP - siblingP) },
+      confidence: problemP as Confidence,
       ...ANSWERS,
     },
   )
@@ -422,6 +450,10 @@ function clampPain(level: number): PainLevel {
 
 function utcNoon(date: string): number {
   return Date.parse(`${date}T12:00:00Z`)
+}
+
+function round4(n: number): number {
+  return Math.round(n * 10_000) / 10_000
 }
 
 function round2(n: number): number {

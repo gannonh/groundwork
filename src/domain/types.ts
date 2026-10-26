@@ -43,6 +43,9 @@ export const PAIN_KEYS = ['mild_annoyance', 'slows_work', 'blocks_work', 'deal_b
 export type PainLevel = 0 | 1 | 2 | 3
 export const PAIN_LEVELS: readonly PainLevel[] = [0, 1, 2, 3]
 export type SpeakerRole = 'end_user' | 'admin' | 'buyer' | 'executive' | 'unknown'
+/** What a PM can do with a placement in the triage queue. */
+export const TRIAGE_ACTIONS = ['accept', 'move', 'discard'] as const
+export type TriageAction = (typeof TRIAGE_ACTIONS)[number]
 export const ITEM_KINDS = ['ticket', 'call', 'survey_response', 'review', 'interview'] as const
 export type ItemKind = (typeof ITEM_KINDS)[number]
 export type NonEmptyArray<T> = readonly [T, ...T[]]

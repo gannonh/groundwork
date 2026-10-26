@@ -141,13 +141,13 @@ test('an item lists its mentions by first sentence with the opportunity, confide
   expect(lumen).toEqual([
     {
       span: { start: 0, end: 0 },
-      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.62, lowConfidence: 0.62 },
+      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.62, lowConfidence: 0.62, decided: false },
     },
   ])
   expect(multi).toEqual([
     {
       span: { start: 1, end: 1 },
-      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.9, lowConfidence: null },
+      placement: { opportunity: { id: seedId('opportunity', 'p4'), ...problem }, confidence: 0.9, lowConfidence: null, decided: false },
     },
     {
       span: { start: 2, end: 2 },
@@ -160,6 +160,7 @@ test('an item lists its mentions by first sentence with the opportunity, confide
         },
         confidence: 0.55,
         lowConfidence: 0.55,
+        decided: false,
       },
     },
     { span: { start: 3, end: 3 }, placement: null },
