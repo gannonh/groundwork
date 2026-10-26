@@ -6,6 +6,8 @@ The URL is the saved view. Weights, grouping, layout, selection, and filters are
 
 ## Sub-features
 
+Every count, score, ARR, trend, and review number below describes the freshly seeded workspace before any pipeline run. A run adds placements and re-ranks the map: after a zendesk-500 run, card 1 shows 183 mentions instead of 141. After a run, check the map with `map-after-run`, which reads its numbers from the database.
+
 - `map-list`: `/opportunities` shows 12 cards in this order, with this score, ARR, and trend pill. A title followed by an issue id also shows that linked-issue pill. Review is the amber needs-review count on the card.
 
   | # | Problem | Score | ARR | Trend | Review |
@@ -43,9 +45,10 @@ The URL is the saved view. Weights, grouping, layout, selection, and filters are
 - `map-stack`: at 1000x800 the toolbar reads `Click a row to expand`, there is no detail pane, and cards gain an Accounts column. Clicking card 4 expands it inline with its stats and quotes on the left and its trend, solutions, and top accounts on the right. Clicking it again collapses it.
 - `map-evidence`: the detail's Accounts, ARR, and Mentions numbers, each solution's count, and each top account's count and ARR open a right-hand sheet listing the quotes behind that number. The URL keeps the problem and the list, as in `/opportunities?evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378`, so a reload reopens it. Card 1's Mentions list has 141 quotes, 9 of them flagged; its Accounts list has 44 accounts. The list counts the same filtered evidence as the number: with only Enterprise ticked, card 1's Accounts `2` lists Cobalt Insurance and Halcyon Bank. Each quote's source label (`Zendesk ticket · Sep 11`) links to its item, see [item-detail.md](./item-detail.md). Back from the item reopens the same list. Closing the sheet, or choosing another card, clears the list from the URL. `j` and `k` do nothing while the sheet is open. Opening or closing a list never refetches the map.
 - `map-empty`: with no workspace, `/opportunities` shows `No opportunities yet` with an `Import a source` link to `/sources`.
+- `map-after-run`: after a source's pipeline run, the nav's Triage count equals the low-confidence placements in the database, and the problems the run placed mentions on quote the import, labelled `<source name> ticket · <date>`, such as `zendesk-500 ticket · Sep 11`.
 - `map-width`: at 1280x800 the page is Split, has no horizontal scroll, and card titles wrap to at most three lines.
 
-Seeded ids are deterministic, so these paths hold on every run:
+Seeded ids are deterministic, so these paths hold on every run. A pipeline run keeps the ids but can change which card holds each rank:
 
 | # | Path |
 | --- | --- |
@@ -78,6 +81,7 @@ Seeded ids are deterministic, so these paths hold on every run:
 Preconditions:
 
 - The baseline preconditions in the README are met, including the seed.
+- No pipeline run has happened on the instance, except for **After a run**. The other recipes assert the seed's numbers. To return to them, run `verify.sh down`, then `verify.sh up`.
 - Run `source .verify/instances/<id>/state.env` so that `$URL`, `$DB_NAME`, and `$EVIDENCE_DIR` are set.
 
 - **List and detail.** Run `node $S/drive.mjs --name map-list goto=/opportunities expect-url=/opportunities "expect-text=Dashboard totals don't match the source system" expect-text=\$2.31M expect-text=141 snap=map`. Exit code 0. `map.aria.yml` shows the `Ranked problems` region with 12 `listitem` links named by title, in the table's order, and the `Opportunity detail` complementary with the four stats. Compare `map.png` with prototype D in Split layout (`prototypes/opportunity-map/index.html#hybrid`).
@@ -91,9 +95,13 @@ Preconditions:
 - **Keys.** Run `node $S/drive.mjs --name map-keys goto=/opportunities press=j press=j expect-url=/opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96 press=k expect-url=/opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27 snap=keys`. Exit code 0.
 - **Stack.** Run `node $S/drive.mjs --name map-stack --viewport 1000x800 goto=/opportunities "expect-text=Click a row to expand" "click=link/Admins can't restrict access by team" expect-url=/opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa "expect-text=Team-scoped permissions" snap=stack`. Exit code 0. `stack.png` shows card 4 expanded inline in two columns.
 - **Evidence.** Run `node $S/drive.mjs --name map-evidence goto=/opportunities "click=link/Show the 141 mentions" "expect-url=/opportunities?evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378" "expect-text=141 mentions" snap=evidence press=Escape expect-url=/opportunities?selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378`. Exit code 0. `evidence.png` shows the sheet over the map.
+- **After a run.** Run a source first, as in `source-run` in [source-detail.md](./source-detail.md). For zendesk-500, start the worker, run the **Import a ticket export** recipe in [sources-new.md](./sources-new.md), then run `node $S/drive.mjs --name run-zendesk goto=/sources click-in-row="zendesk-500|500 items" click=button/"Start run" expect-text-within="Run complete. 500 items judged, 0 failed.|120"`. Then:
+  1. Read the Triage count from the database. It counts the placements below `place_threshold` of the oldest workspace's newest pack, as `src/server/triage-count.server.ts` does: `T=$(docker compose exec -T db psql -U groundwork -d $DB_NAME -At -c "with w as (select id from workspace order by created_at, id limit 1), p as (select pk.id, pk.place_threshold from pack pk join w on pk.workspace_id = w.id order by pk.created_at desc, pk.id desc limit 1) select count(*) from placement pl join mention m on m.id = pl.mention_id join item i on i.id = m.item_id join p on m.pack_id = p.id join w on i.workspace_id = w.id where pl.confidence < p.place_threshold" | tee "$EVIDENCE_DIR/map-triage.txt")`.
+  2. Find the problem with the most placements from the import: `O=$(docker compose exec -T db psql -U groundwork -d $DB_NAME -At -c "select pl.opportunity_id from placement pl join mention m on m.id = pl.mention_id join item i on i.id = m.item_id join source s on s.id = i.source_id where s.name = 'zendesk-500' group by 1 order by count(*) desc, 1 limit 1" | tee "$EVIDENCE_DIR/map-imported.txt")`.
+  3. Run `node $S/drive.mjs --name map-after-run goto=/opportunities "expect-eval=document.querySelector('nav a[href=\"/triage\"]').getAttribute('aria-label')==='Triage, $T to review'" snap=after-run "goto=/opportunities?evidence=mentions&selected=$O" "expect-text=zendesk-500 ticket" snap=imported-quotes`. Exit code 0. The nav's count matches `$T`, and the problem's Mentions sheet holds at least one quote from the import.
 - **Width.** Run `node $S/drive.mjs --name map-width --viewport 1280x800 goto=/opportunities snap=narrow`. `narrow.png` shows no horizontal scrollbar. In the integrated browser, `preview_evaluate` with `document.documentElement.scrollWidth <= innerWidth` returns `true`.
 - **Empty state.** Only on your own instance: run `docker compose exec -T db psql -U groundwork -d $DB_NAME -c 'delete from workspace'`, then `node $S/drive.mjs --name map-empty goto=/opportunities "expect-text=No opportunities yet" snap=empty`. Exit code 0. Restore the data with `DATABASE_URL=postgres://groundwork:groundwork@localhost:5432/$DB_NAME node src/db/seed.ts`.
-- **Data.** Run `docker compose exec -T db psql -U groundwork -d $DB_NAME -c 'select (select count(*) from opportunity) opportunities, (select count(*) from account) accounts, (select count(*) from placement) placements' | tee "$EVIDENCE_DIR/map-data.txt"`. It prints `36 | 277 | 767`.
+- **Data.** Run `docker compose exec -T db psql -U groundwork -d $DB_NAME -c 'select (select count(*) from opportunity) opportunities, (select count(*) from account) accounts, (select count(*) from placement) placements' | tee "$EVIDENCE_DIR/map-data.txt"`. On the seeded workspace before any run, it prints `36 | 277 | 767`.
 
 ## Gotchas
 
@@ -105,5 +113,6 @@ Preconditions:
 - The trend window ends at the newest seeded item, the week of Sep 14 2026, not today. The map reads the same on any date.
 - Three trend pills differ from the prototype because the seed's weekly counts must sum to each problem's mentions: SSO setup shows 0% (prototype -3%), the email digest shows 0% (+4%), and timezone handling shows -40% (-46%). The order and every integer score match the prototype.
 - Quote highlights cover whole sentences, because a mention is a sentence span. They can be wider than the prototype's `<mark>`.
+- The Triage link's count is in its accessible name, not its visible text, which reads `Triage121`. Assert it with `expect-eval` on `aria-label`. A count of 1,000 or more has a thousands comma.
 - Only filter changes refetch the map. After reseeding, reload the page to see new data.
 - `e2e/opportunities.spec.ts` covers `map-list`, `map-select`, `map-direct`, `map-low`, `map-unknown`, `map-preset`, `map-filter`, `map-keys`, `map-stack`, `map-evidence`, a shared URL, and the refetch rule. It does not replace this recipe.
