@@ -293,13 +293,20 @@ function FocusCard({
         />
       </div>
       <div className="mt-4.5 grid grid-cols-[minmax(0,1fr)_auto_auto] gap-2 max-sm:grid-cols-2">
-        <ActionButton tone="primary" shortcut="a" disabled={disabled} onClick={onAccept} title={`Accept: place in ${first.title}`} className="justify-between max-sm:col-span-2">
+        <ActionButton
+          tone="primary"
+          shortcut="a"
+          label={`Accept · ${first.title}`}
+          disabled={disabled}
+          onClick={onAccept}
+          className="justify-between max-sm:col-span-2"
+        >
           <span className="truncate">Accept · {first.title}</span>
         </ActionButton>
-        <ActionButton shortcut="m" disabled={disabled} onClick={onMove}>
+        <ActionButton shortcut="m" label="Move…" disabled={disabled} onClick={onMove}>
           Move…
         </ActionButton>
-        <ActionButton tone="danger" shortcut="d" disabled={disabled} onClick={onDiscard}>
+        <ActionButton tone="danger" shortcut="d" label="Discard" disabled={disabled} onClick={onDiscard}>
           Discard
         </ActionButton>
       </div>
@@ -347,17 +354,18 @@ function BranchRow({
 function ActionButton({
   tone = 'plain',
   shortcut,
+  label,
   disabled,
   onClick,
-  title,
   className = '',
   children,
 }: {
   tone?: 'primary' | 'plain' | 'danger'
   shortcut: string
+  /** The visible text without the key hint. */
+  label: string
   disabled: boolean
   onClick: () => void
-  title?: string
   className?: string
   children: ReactNode
 }) {
@@ -369,7 +377,8 @@ function ActionButton({
   return (
     <button
       type="button"
-      title={title}
+      title={label}
+      aria-label={label}
       aria-keyshortcuts={shortcut}
       disabled={disabled}
       onClick={onClick}
