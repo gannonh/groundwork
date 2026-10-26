@@ -61,10 +61,10 @@ export function ItemMentions({
                 (placement.decided ? (
                   <span className="text-meta text-ink-3">Decided in triage</span>
                 ) : placement.lowConfidence === null ? (
-                  <span className="text-meta text-ink-3 tabular-nums">{formatConfidence(placement.confidence)}</span>
+                  <span className="text-meta text-ink-3 tabular-nums">{formatConfidence(placement.confidence, placement.placeThreshold)}</span>
                 ) : (
                   <Pill tone="warn" title="Below the pack's place threshold">
-                    {formatConfidence(placement.lowConfidence)}
+                    {formatConfidence(placement.lowConfidence, placement.placeThreshold)}
                   </Pill>
                 ))}
             </Link>

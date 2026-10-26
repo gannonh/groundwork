@@ -97,6 +97,7 @@ export type QuoteView = {
   readonly date: IsoDate
   /** Set when the placement is below the pack's place threshold. */
   readonly lowConfidence: Confidence | null
+  readonly placeThreshold: Confidence
 }
 
 export type EvidenceList =
@@ -420,6 +421,7 @@ async function readWorkspace(
         source: (span && sourceLabel.get(span.sourceId)) ?? '',
         date: counted.occurredAt.toISOString().slice(0, 10) as IsoDate,
         lowConfidence: counted.lowConfidence,
+        placeThreshold: pack.placeThreshold,
       }
     }
   }

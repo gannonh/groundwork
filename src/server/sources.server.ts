@@ -64,6 +64,7 @@ export type ItemMention = {
     readonly confidence: Confidence
     /** Set when the confidence is below the pack's place threshold and no person has decided it. */
     readonly lowConfidence: Confidence | null
+    readonly placeThreshold: Confidence
     /** A person accepted or moved it in triage. */
     readonly decided: boolean
   } | null
@@ -240,6 +241,7 @@ async function loadItemMentions(db: Db, itemId: ItemId, workspaceId: WorkspaceId
             confidence: row.confidence,
             lowConfidence: row.decision ? null : lowConfidenceOf(row.confidence, pack.placeThreshold),
             decided: row.decision !== null,
+            placeThreshold: pack.placeThreshold,
           }
         : null,
   }))
