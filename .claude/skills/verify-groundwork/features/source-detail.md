@@ -29,7 +29,7 @@ Preconditions:
 
 ## Gotchas
 
-- The Triage link in the top bar gains a count of the placements below the pack's `place_confidence`, and its accessible name becomes `Triage, 77 to review`. The seeded workspace already shows 44.
+- The Triage link's count is in its accessible name. It counts the undecided placements below the newest pack's `place_threshold`, so on a seeded instance it reads `Triage, 44 to review` before the run and `Triage, 121 to review` after it: the seed's 44 plus the run's 77. [`map-after-run`](./opportunities.md) in opportunities.md reads the count from psql and asserts it.
 - In psql compare confidences with `< 0.7::real`. A bare `< 0.7` is numeric, so a stored float4 0.7 reads as below it.
 - The item link's accessible name is the formatted date, such as `Sep 11, 2026`, and many rows share a date. Pick the row by its first sentence and then the date: `click-in-row="Jane from Acme|Sep 11, 2026"`.
 - Only the 100 newest items render. An older item, such as one from June, is not in the table.
