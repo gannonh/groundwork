@@ -1,0 +1,232 @@
+# http://127.0.0.1:4101/opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 30
+    - slider "Reach"
+    - text: Distinct accounts Revenue 35
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 15
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced" [pressed]
+    - button "Enterprise"
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market" [checked]
+      - text: Mid-market
+      - checkbox "SMB" [checked]
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "G2" [checked]
+      - text: G2
+      - checkbox "Gong" [checked]
+      - text: Gong
+      - checkbox "Interviews" [checked]
+      - text: Interviews
+      - checkbox "NPS" [checked]
+      - text: NPS
+      - checkbox "Zendesk" [checked]
+      - text: Zendesk
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 Dashboard totals don't match the source system Trust the numbers in reports, score 96, $2.31M ARR, +36% over 4 weeks, 9 need review 9 Trust the numbers in reports 96 $2.31M ▲ +36%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27
+          - text: 2 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 77, $1.42M ARR, +27% over 4 weeks, 6 need review 6 Get customer data in without engineering help 77 $1.42M ▲ +27%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+          - text: 3 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 75, $1.88M ARR, +25% over 4 weeks, 5 need review, linked LIN-482 LIN-482 5 Share findings with stakeholders 75 $1.88M ▲ +25%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 4 Admins can't restrict access by team Control access and spend, score 67, $1.64M ARR, +25% over 4 weeks, 2 need review 2 Control access and spend 67 $1.64M ▲ +25%
+      - listitem:
+        - link "Usage-based bill is unpredictable":
+          - /url: /opportunities?selected=268fd269-10c6-8550-b899-a83f19ea077b
+          - text: 5 Usage-based bill is unpredictable Control access and spend, score 57, $1.12M ARR, +22% over 4 weeks, 7 need review 7 Control access and spend 57 $1.12M ▲ +22%
+      - listitem:
+        - link "Field mapping must be redone for every import":
+          - /url: /opportunities?selected=a696c372-8c2c-870d-a1ef-598837588a31
+          - text: 6 Field mapping must be redone for every import Get customer data in without engineering help, score 52, $980k ARR, +5% over 4 weeks, 2 need review 2 Get customer data in without engineering help 52 $980k ■ +5%
+      - listitem:
+        - link "Can't tell when data was last refreshed":
+          - /url: /opportunities?selected=d3663640-fa75-825a-874b-8cfb0eff0e1e
+          - text: 7 Can't tell when data was last refreshed Trust the numbers in reports, score 49, $1.05M ARR, 0% over 4 weeks, 3 need review, linked LIN-417 LIN-417 3 Trust the numbers in reports 49 $1.05M ■ 0%
+      - listitem:
+        - link "No way to backfill historical data":
+          - /url: /opportunities?selected=52a8a012-dd8b-8a7e-aa68-76e1f5a12e09
+          - text: 8 No way to backfill historical data Get customer data in without engineering help, score 39, $610k ARR, +22% over 4 weeks, 1 need review 1 Get customer data in without engineering help 39 $610k ▲ +22%
+      - listitem:
+        - link "Exported charts lose formatting in slides":
+          - /url: /opportunities?selected=f0e6f097-8c4a-87c6-aeb7-b006f5b8ce45
+          - text: 9 Exported charts lose formatting in slides Share findings with stakeholders, score 30, $540k ARR, -50% over 4 weeks, 4 need review 4 Share findings with stakeholders 30 $540k ▼ -50%
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?selected=b6f18231-8c75-8987-8be8-229734be178b
+          - text: 10 SSO setup requires contacting support Control access and spend, score 28, $720k ARR, 0% over 4 weeks Control access and spend 28 $720k ■ 0%
+      - listitem:
+        - link "No scheduled email digest":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64
+          - text: 11 No scheduled email digest Share findings with stakeholders, score 23, $390k ARR, 0% over 4 weeks, 3 need review 3 Share findings with stakeholders 23 $390k ■ 0%
+      - listitem:
+        - link "Timezone handling shifts daily counts":
+          - /url: /opportunities?selected=76accd2b-babd-8df2-8ddb-2294e47a7fe7
+          - text: 12 Timezone handling shifts daily counts Trust the numbers in reports, score 19, $420k ARR, -40% over 4 weeks, 2 need review 2 Trust the numbers in reports 19 $420k ▼ -40%
+  - complementary "Opportunity detail":
+    - text: Share findings with stakeholders
+    - heading "No scheduled email digest" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 17 accounts":
+        - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=accounts
+        - text: "17"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $390k ARR":
+        - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=accounts
+        - text: $390k
+    - term: Mentions
+    - definition:
+      - link "Show the 41 mentions":
+        - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=mentions
+        - text: "41"
+    - term: Pain
+    - definition: Mild annoyance
+    - heading "Mentions per week" [level=3]
+    - text: ■ 0%
+    - 'img "Mentions per week from Jun 29: 2, 5, 4, 2, 3, 6, 3, 2, 4, 5, 3, 2"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - text: 3 need review
+    - figure "Parcelly $62k ARR executive Open NPS comment · Sep 8":
+      - blockquote:
+        - text: “
+        - mark: I'd love a Monday email with the 5 numbers I care about.
+        - text: ”
+      - text: Parcelly $62k ARR executive
+      - link "Open NPS comment · Sep 8":
+        - /url: /items/cc3fd9dc-7c96-8184-9304-fc04fecac2d7?mention=9771ead1-9e0c-84a3-9d09-e0b423a61091&from=%7B%22selected%22%3A%227d5edfd3-3837-8442-8ca1-63c43dc10b64%22%7D
+        - text: NPS comment · Sep 8
+    - figure "Tidal Logistics $27k ARR end user Open Zendesk ticket · Sep 1":
+      - blockquote:
+        - text: “
+        - mark: "We need this: Weekly email digest."
+        - text: ”
+      - text: Tidal Logistics $27k ARR end user
+      - link "Open Zendesk ticket · Sep 1":
+        - /url: /items/d2719a54-573d-8050-b915-36b5700dae3c?mention=e264114d-ca32-8d9d-b90f-8e8fd4e429fd&from=%7B%22selected%22%3A%227d5edfd3-3837-8442-8ca1-63c43dc10b64%22%7D
+        - text: Zendesk ticket · Sep 1
+    - figure "Birch Media $26k ARR executive Open Gong call · Sep 4":
+      - blockquote:
+        - text: “
+        - mark: "Still seeing it: No scheduled email digest."
+        - text: ”
+      - text: Birch Media $26k ARR executive
+      - link "Open Gong call · Sep 4":
+        - /url: /items/169d2c4d-1357-8a9b-b2ef-e7e6718fe934?mention=77f180c3-13f3-8697-8a03-ca8bf76bc20f&from=%7B%22selected%22%3A%227d5edfd3-3837-8442-8ca1-63c43dc10b64%22%7D
+        - text: Gong call · Sep 4
+    - figure "Ember Media $23k ARR admin Open NPS comment · Sep 11 61% confident":
+      - blockquote:
+        - text: “
+        - mark: "Top request from our team: Weekly email digest."
+        - text: ”
+      - text: Ember Media $23k ARR admin
+      - link "Open NPS comment · Sep 11":
+        - /url: /items/494ce28d-8d4e-85ce-92ee-b91d6fc4b9fd?mention=c57f60cf-47e8-82a1-8e16-309c9646fa7b&from=%7B%22selected%22%3A%227d5edfd3-3837-8442-8ca1-63c43dc10b64%22%7D
+        - text: NPS comment · Sep 11
+      - text: 61% confident
+    - heading "Requested solutions" [level=3]
+    - text: mentions Weekly email digest 2
+    - link "Show the 31 mentions of Weekly email digest":
+      - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=solution&solution=2c8c005c-a264-821a-9a6c-4bd327a52736
+      - text: "31"
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list:
+      - listitem:
+        - text: Parcelly
+        - link "Show Parcelly's 1 mention":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=0776c0e1-0123-8624-9efc-b46fdcb31e74
+          - text: 1 mention
+        - link "Show the quotes behind Parcelly's $62k ARR":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=0776c0e1-0123-8624-9efc-b46fdcb31e74
+          - text: $62k
+      - listitem:
+        - text: Tidal Logistics
+        - link "Show Tidal Logistics's 3 mentions":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=0c437c30-913e-8bc8-a373-b3f7bfdeea36
+          - text: 3 mentions
+        - link "Show the quotes behind Tidal Logistics's $27k ARR":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=0c437c30-913e-8bc8-a373-b3f7bfdeea36
+          - text: $27k
+      - listitem:
+        - text: Acorn Media
+        - link "Show Acorn Media's 3 mentions":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=71e41546-eb2c-849c-8e7c-909419c0c86d
+          - text: 3 mentions
+        - link "Show the quotes behind Acorn Media's $26k ARR":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=71e41546-eb2c-849c-8e7c-909419c0c86d
+          - text: $26k
+      - listitem:
+        - text: Birch Media
+        - link "Show Birch Media's 3 mentions":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=e257e974-ef8c-8d31-a478-9feb25a76d8c
+          - text: 3 mentions
+        - link "Show the quotes behind Birch Media's $26k ARR":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=e257e974-ef8c-8d31-a478-9feb25a76d8c
+          - text: $26k
+      - listitem:
+        - text: Cedar Media
+        - link "Show Cedar Media's 3 mentions":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=ef8a82c9-b3fb-82d0-8493-10cddf275762
+          - text: 3 mentions
+        - link "Show the quotes behind Cedar Media's $25k ARR":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64&evidence=account&account=ef8a82c9-b3fb-82d0-8493-10cddf275762
+          - text: $25k

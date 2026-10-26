@@ -1,0 +1,5 @@
+ opportunities | accounts | placements 
+---------------+----------+------------
+            36 |      277 |        767
+(1 row)
+

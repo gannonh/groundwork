@@ -1,0 +1,10 @@
+2026-10-26T00:49:43.963Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:44.801Z ok   goto=/sources
+2026-10-26T00:49:44.851Z ok   click-in-row=zendesk-500|500 items
+2026-10-26T00:49:44.889Z snap before -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/run-zendesk/before.{png,aria.yml}
+2026-10-26T00:49:44.890Z ok   snap=before
+2026-10-26T00:49:45.130Z ok   click=button/Start run
+2026-10-26T00:49:57.852Z ok   expect-text-within=Run complete. 500 items judged, 0 failed.|120
+2026-10-26T00:49:57.924Z snap complete -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/run-zendesk/complete.{png,aria.yml}
+2026-10-26T00:49:57.924Z ok   snap=complete
+2026-10-26T00:49:57.944Z result PASS

@@ -1,0 +1,10 @@
+2026-10-26T00:49:19.585Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:20.498Z ok   goto=/opportunities
+2026-10-26T00:49:20.533Z ok   press=j
+2026-10-26T00:49:20.562Z ok   press=j
+2026-10-26T00:49:20.564Z ok   expect-url=/opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+2026-10-26T00:49:20.591Z ok   press=k
+2026-10-26T00:49:20.591Z ok   expect-url=/opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27
+2026-10-26T00:49:20.683Z snap keys -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-keys/keys.{png,aria.yml}
+2026-10-26T00:49:20.683Z ok   snap=keys
+2026-10-26T00:49:20.701Z result PASS

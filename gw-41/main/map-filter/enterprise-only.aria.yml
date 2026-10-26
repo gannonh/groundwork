@@ -1,0 +1,162 @@
+# http://127.0.0.1:4101/opportunities?segments=%5B%22enterprise%22%5D
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 30
+    - slider "Reach"
+    - text: Distinct accounts Revenue 35
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 15
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced" [pressed]
+    - button "Enterprise"
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market"
+      - text: Mid-market
+      - checkbox "SMB"
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "G2" [checked]
+      - text: G2
+      - checkbox "Gong" [checked]
+      - text: Gong
+      - checkbox "Interviews" [checked]
+      - text: Interviews
+      - checkbox "NPS" [checked]
+      - text: NPS
+      - checkbox "Zendesk" [checked]
+      - text: Zendesk
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 Dashboard totals don't match the source system Trust the numbers in reports, score 100, $550k ARR, +200% over 4 weeks Trust the numbers in reports 100 $550k ▲ +200%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+          - text: 2 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 88, $460k ARR, +200% over 4 weeks, linked LIN-482 LIN-482 Share findings with stakeholders 88 $460k ▲ +200%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 Admins can't restrict access by team Control access and spend, score 65, $240k ARR, +100% over 4 weeks Control access and spend 65 $240k ▲ +100%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=b2d496f2-f395-891c-b8cb-5091d140af27
+          - text: 4 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 62, $184k ARR, +100% over 4 weeks Get customer data in without engineering help 62 $184k ▲ +100%
+      - listitem:
+        - link "No way to backfill historical data":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=52a8a012-dd8b-8a7e-aa68-76e1f5a12e09
+          - text: 5 No way to backfill historical data Get customer data in without engineering help, score 59, $240k ARR, +100% over 4 weeks Get customer data in without engineering help 59 $240k ▲ +100%
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&selected=b6f18231-8c75-8987-8be8-229734be178b
+          - text: 6 SSO setup requires contacting support Control access and spend, score 41, $310k ARR, -100% over 4 weeks Control access and spend 41 $310k ▼ -100%
+  - complementary "Opportunity detail":
+    - text: Trust the numbers in reports
+    - heading "Dashboard totals don't match the source system" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 2 accounts":
+        - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=accounts&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: "2"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $550k ARR":
+        - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=accounts&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: $550k
+    - term: Mentions
+    - definition:
+      - link "Show the 2 mentions":
+        - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: "2"
+    - term: Pain
+    - definition: Deal breaker
+    - heading "Mentions per week" [level=3]
+    - text: ▲ +200%
+    - 'img "Mentions per week from Jun 29: 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - figure "Cobalt Insurance $310k ARR buyer Open Zendesk ticket · Sep 11":
+      - blockquote:
+        - text: “Numbers don't tie out.
+        - mark: This is a renewal risk for us.
+        - text: ”
+      - text: Cobalt Insurance $310k ARR buyer
+      - link "Open Zendesk ticket · Sep 11":
+        - /url: /items/084c0c67-2025-87d3-aba6-f4cc5c1f0153?mention=f13de966-4676-80d3-b681-66286b5c5a7d&from=%7B%22segments%22%3A%5B%22enterprise%22%5D%7D
+        - text: Zendesk ticket · Sep 11
+    - figure "Halcyon Bank $240k ARR executive Open Gong call · Sep 18":
+      - blockquote:
+        - text: “
+        - mark: Our CFO saw revenue off by 4% versus Stripe and now nobody trusts the dashboard.
+        - text: ”
+      - text: Halcyon Bank $240k ARR executive
+      - link "Open Gong call · Sep 18":
+        - /url: /items/8d6e7ee2-e736-8123-b897-5594ef93152a?mention=3ad9546c-0ead-83db-aded-b095446a8ee4&from=%7B%22segments%22%3A%5B%22enterprise%22%5D%7D
+        - text: Gong call · Sep 18
+    - heading "Requested solutions" [level=3]
+    - text: mentions
+    - paragraph: No requested solutions in this view.
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list:
+      - listitem:
+        - text: Cobalt Insurance
+        - link "Show Cobalt Insurance's 1 mention":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=account&account=c6121199-11b1-879b-a37d-28cd29900e50&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Cobalt Insurance's $310k ARR":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=account&account=c6121199-11b1-879b-a37d-28cd29900e50&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $310k
+      - listitem:
+        - text: Halcyon Bank
+        - link "Show Halcyon Bank's 1 mention":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Halcyon Bank's $240k ARR":
+          - /url: /opportunities?segments=%5B%22enterprise%22%5D&evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $240k

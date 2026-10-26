@@ -1,0 +1,10 @@
+2026-10-26T00:50:53.240Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:54.195Z ok   goto=/opportunities
+2026-10-26T00:50:54.229Z ok   press=j
+2026-10-26T00:50:54.257Z ok   press=j
+2026-10-26T00:50:54.259Z ok   expect-url=/opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+2026-10-26T00:50:54.286Z ok   press=k
+2026-10-26T00:50:54.286Z ok   expect-url=/opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27
+2026-10-26T00:50:54.375Z snap keys -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-keys/keys.{png,aria.yml}
+2026-10-26T00:50:54.375Z ok   snap=keys
+2026-10-26T00:50:54.392Z result PASS

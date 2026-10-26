@@ -1,0 +1,1 @@
+PASS /tmp/gw41-main-review/.verify/evidence/gw41-main: all 12 card ranks, scores, ARR, trend and review numbers; card 1 stats, solutions and confidence; card 4 stats; all four outcome counts/ARR; outcome review 14; 141-mention sheet with 9 flagged quotes.

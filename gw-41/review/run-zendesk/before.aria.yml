@@ -1,0 +1,82 @@
+# http://127.0.0.1:4100/sources/01a175af-2433-7576-8bef-16f64e2a7f16
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - heading "Sources" [level=1]
+  - paragraph: 6 sources
+  - link "New source":
+    - /url: /sources/new
+  - table:
+    - rowgroup:
+      - row "Source Kind Items Created":
+        - columnheader "Source"
+        - columnheader "Kind"
+        - columnheader "Items"
+        - columnheader "Created"
+    - rowgroup:
+      - row "zendesk-500 Ticket 500 items Oct 26, 2026":
+        - cell "zendesk-500":
+          - link "zendesk-500":
+            - /url: /sources/01a175af-2433-7576-8bef-16f64e2a7f16
+        - cell "Ticket"
+        - cell "500 items":
+          - link "500 items":
+            - /url: /sources/01a175af-2433-7576-8bef-16f64e2a7f16
+        - cell "Oct 26, 2026"
+      - row "G2 Review 95 items Oct 26, 2026":
+        - cell "G2":
+          - link "G2":
+            - /url: /sources/6e455b83-173d-8460-97a3-766704559388
+        - cell "Review"
+        - cell "95 items":
+          - link "95 items":
+            - /url: /sources/6e455b83-173d-8460-97a3-766704559388
+        - cell "Oct 26, 2026"
+      - row "Gong Call 105 items Oct 26, 2026":
+        - cell "Gong":
+          - link "Gong":
+            - /url: /sources/15ffe422-4616-817c-8ed5-73fc0283d34a
+        - cell "Call"
+        - cell "105 items":
+          - link "105 items":
+            - /url: /sources/15ffe422-4616-817c-8ed5-73fc0283d34a
+        - cell "Oct 26, 2026"
+      - row "Interviews Interview 93 items Oct 26, 2026":
+        - cell "Interviews":
+          - link "Interviews":
+            - /url: /sources/64f63c26-afd5-8d67-8251-b61c253d7327
+        - cell "Interview"
+        - cell "93 items":
+          - link "93 items":
+            - /url: /sources/64f63c26-afd5-8d67-8251-b61c253d7327
+        - cell "Oct 26, 2026"
+      - row "NPS Survey response 189 items Oct 26, 2026":
+        - cell "NPS":
+          - link "NPS":
+            - /url: /sources/0783a36d-6f67-8e79-9700-723b4f397555
+        - cell "Survey response"
+        - cell "189 items":
+          - link "189 items":
+            - /url: /sources/0783a36d-6f67-8e79-9700-723b4f397555
+        - cell "Oct 26, 2026"
+      - row "Zendesk Ticket 285 items Oct 26, 2026":
+        - cell "Zendesk":
+          - link "Zendesk":
+            - /url: /sources/e6e7daa8-f4cd-8b37-a34f-a78313aaeea0
+        - cell "Ticket"
+        - cell "285 items":
+          - link "285 items":
+            - /url: /sources/e6e7daa8-f4cd-8b37-a34f-a78313aaeea0
+        - cell "Oct 26, 2026"

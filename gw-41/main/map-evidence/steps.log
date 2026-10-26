@@ -1,0 +1,10 @@
+2026-10-26T00:50:56.077Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:57.008Z ok   goto=/opportunities
+2026-10-26T00:50:57.058Z ok   click=link/Show the 141 mentions
+2026-10-26T00:50:57.060Z ok   expect-url=/opportunities?evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+2026-10-26T00:50:57.183Z ok   expect-text=141 mentions
+2026-10-26T00:50:57.301Z snap evidence -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-evidence/evidence.{png,aria.yml}
+2026-10-26T00:50:57.302Z ok   snap=evidence
+2026-10-26T00:50:57.387Z ok   press=Escape
+2026-10-26T00:50:57.387Z ok   expect-url=/opportunities?selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+2026-10-26T00:50:57.406Z result PASS

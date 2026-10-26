@@ -1,0 +1,9 @@
+2026-10-26T00:50:54.689Z run gw41-main dev http://127.0.0.1:4101 viewport=1000x800 git=2697e02
+2026-10-26T00:50:55.628Z ok   goto=/opportunities
+2026-10-26T00:50:55.648Z ok   expect-text=Click a row to expand
+2026-10-26T00:50:55.703Z ok   click=link/Admins can't restrict access by team
+2026-10-26T00:50:55.703Z ok   expect-url=/opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+2026-10-26T00:50:55.706Z ok   expect-text=Team-scoped permissions
+2026-10-26T00:50:55.760Z snap stack -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-stack/stack.{png,aria.yml}
+2026-10-26T00:50:55.760Z ok   snap=stack
+2026-10-26T00:50:55.778Z result PASS

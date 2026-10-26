@@ -1,0 +1,9 @@
+2026-10-26T00:49:08.366Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:09.281Z ok   goto=/opportunities
+2026-10-26T00:49:09.282Z ok   expect-url=/opportunities
+2026-10-26T00:49:09.302Z ok   expect-text=Dashboard totals don't match the source system
+2026-10-26T00:49:09.304Z ok   expect-text=$2.31M
+2026-10-26T00:49:09.306Z ok   expect-text=141
+2026-10-26T00:49:09.363Z snap map -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-list/map.{png,aria.yml}
+2026-10-26T00:49:09.363Z ok   snap=map
+2026-10-26T00:49:09.381Z result PASS

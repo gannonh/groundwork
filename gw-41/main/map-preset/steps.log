@@ -1,0 +1,8 @@
+2026-10-26T00:50:48.627Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:49.557Z ok   goto=/opportunities
+2026-10-26T00:50:49.656Z ok   click=button/Enterprise
+2026-10-26T00:50:49.657Z ok   expect-url=/opportunities?reach=10&revenue=60&momentum=10
+2026-10-26T00:50:49.755Z snap enterprise -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-preset/enterprise.{png,aria.yml}
+2026-10-26T00:50:49.755Z ok   snap=enterprise
+2026-10-26T00:50:49.938Z video -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-preset/video.webm
+2026-10-26T00:50:49.957Z result PASS

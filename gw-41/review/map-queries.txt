@@ -1,0 +1,4 @@
+with w as (select id from workspace order by created_at, id limit 1), p as (select pk.id, pk.place_threshold from pack pk join w on pk.workspace_id = w.id order by pk.created_at desc, pk.id desc limit 1) select count(*) from placement pl join mention m on m.id = pl.mention_id join item i on i.id = m.item_id join p on m.pack_id = p.id join w on i.workspace_id = w.id where pl.confidence < p.place_threshold
+121
+select pl.opportunity_id from placement pl join mention m on m.id = pl.mention_id join item i on i.id = m.item_id join source s on s.id = i.source_id where s.name = 'zendesk-500' group by 1 order by count(*) desc, 1 limit 1
+b2d496f2-f395-891c-b8cb-5091d140af27

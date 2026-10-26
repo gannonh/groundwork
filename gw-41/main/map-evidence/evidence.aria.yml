@@ -1,0 +1,1283 @@
+# http://127.0.0.1:4101/opportunities?evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+- dialog "141 mentions":
+  - heading "141 mentions" [level=2]
+  - paragraph: Dashboard totals don't match the source system
+  - figure "Fjord Energy $42k ARR buyer Open Zendesk ticket · Sep 20 55% confident":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Energy $42k ARR buyer
+    - link "Open Zendesk ticket · Sep 20":
+      - /url: /items/25fc01ac-841e-8619-a856-eb380da9b689?mention=8a682c8d-57a7-8872-9502-aa1c0ebc77df&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 20
+    - text: 55% confident
+  - figure "Ember Energy $42k ARR end user Open Interview · Sep 20 67% confident":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Energy $42k ARR end user
+    - link "Open Interview · Sep 20":
+      - /url: /items/d8901125-2f49-8e43-96f6-331dbe364b9f?mention=ae4797e3-273d-8bf3-b0a4-c368bb36036d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 20
+    - text: 67% confident
+  - figure "Granite Energy $41k ARR executive Open Zendesk ticket · Sep 20 58% confident":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Energy $41k ARR executive
+    - link "Open Zendesk ticket · Sep 20":
+      - /url: /items/8ddd63ff-1d88-837e-996d-fb83a628ffd8?mention=dc54788b-05d9-85b3-89bc-d97fe94329ad&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 20
+    - text: 58% confident
+  - figure "Delta Energy $43k ARR admin Open NPS comment · Sep 19 64% confident":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Energy $43k ARR admin
+    - link "Open NPS comment · Sep 19":
+      - /url: /items/61d73079-5ca2-82fc-a408-0bbd51c1e262?mention=38bd8a48-8bc6-8551-be88-393c07869020&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 19
+    - text: 64% confident
+  - figure "Cedar Energy $44k ARR end user Open G2 review · Sep 19 61% confident":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Energy $44k ARR end user
+    - link "Open G2 review · Sep 19":
+      - /url: /items/e9b087dd-7e6a-8a80-91e0-49a533fcfb53?mention=668f48e8-911f-8f8b-b543-a6ae8fceb29e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 19
+    - text: 61% confident
+  - figure "Halcyon Bank $240k ARR executive Open Gong call · Sep 18":
+    - blockquote:
+      - text: “
+      - mark: Our CFO saw revenue off by 4% versus Stripe and now nobody trusts the dashboard.
+      - text: ”
+    - text: Halcyon Bank $240k ARR executive
+    - link "Open Gong call · Sep 18":
+      - /url: /items/8d6e7ee2-e736-8123-b897-5594ef93152a?mention=3ad9546c-0ead-83db-aded-b095446a8ee4&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 18
+  - figure "Acorn Energy $45k ARR executive Open Gong call · Sep 18 55% confident":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Acorn Energy $45k ARR executive
+    - link "Open Gong call · Sep 18":
+      - /url: /items/55e1986f-39c3-8e0f-8818-18907018e032?mention=b4e1ded2-a68f-88ba-814e-05c3fdea3ac8&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 18
+    - text: 55% confident
+  - figure "Birch Energy $44k ARR admin Open Zendesk ticket · Sep 18 58% confident":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Energy $44k ARR admin
+    - link "Open Zendesk ticket · Sep 18":
+      - /url: /items/a9b2bf95-cf73-8880-89e1-03c0cc4b20cb?mention=e5f992ab-8d84-8ed0-9256-51e3489511b0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 18
+    - text: 58% confident
+  - figure "Tidal Dynamics $46k ARR buyer Open NPS comment · Sep 17 67% confident":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Tidal Dynamics $46k ARR buyer
+    - link "Open NPS comment · Sep 17":
+      - /url: /items/d396bfe9-bddb-88e4-bb90-3fd9c4aca93a?mention=7183dc07-eb69-8caa-999e-97e58a7aeed5&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 17
+    - text: 67% confident
+  - figure "Summit Dynamics $46k ARR end user Open Zendesk ticket · Sep 17":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Export raw rows behind a number."
+      - text: ”
+    - text: Summit Dynamics $46k ARR end user
+    - link "Open Zendesk ticket · Sep 17":
+      - /url: /items/e57fe1c0-3f09-8530-948d-fa13c2f484df?mention=ab207615-1ad5-8657-b32f-4cdbfb32d30d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 17
+  - figure "Raven Dynamics $47k ARR admin Open Zendesk ticket · Sep 17":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Export raw rows behind a number."
+      - text: ”
+    - text: Raven Dynamics $47k ARR admin
+    - link "Open Zendesk ticket · Sep 17":
+      - /url: /items/c15eb9fa-cdde-883e-82ea-c3df0ff61756?mention=c94675a1-371b-8b9a-885d-9382407bafc6&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 17
+  - figure "Pioneer Dynamics $48k ARR admin Open NPS comment · Sep 16":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Dynamics $48k ARR admin
+    - link "Open NPS comment · Sep 16":
+      - /url: /items/09c12e0a-e89e-8876-b68f-2b27b6216897?mention=7b94d3ad-7ecc-8f08-8796-0aab038cf2fc&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 16
+  - figure "Quarry Dynamics $48k ARR end user Open Interview · Sep 16":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Dynamics $48k ARR end user
+    - link "Open Interview · Sep 16":
+      - /url: /items/8dfcb12f-507f-861e-96ac-f05e6c71cab9?mention=d466b10d-8a97-8770-90a5-8156abaa3818&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 16
+  - figure "Onyx Dynamics $49k ARR executive Open G2 review · Sep 16":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Onyx Dynamics $49k ARR executive
+    - link "Open G2 review · Sep 16":
+      - /url: /items/69fcfcfa-a4ef-8bff-b61a-a690d3296089?mention=d7513760-faee-883d-8062-c8dd7e1fb569&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 16
+  - figure "Maple Dynamics $50k ARR end user Open Gong call · Sep 15":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Dynamics $50k ARR end user
+    - link "Open Gong call · Sep 15":
+      - /url: /items/a0def155-66ef-85f3-9a39-f6e8653579ce?mention=bd602d7a-89ee-81ff-a2fb-6cf2ba14559c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 15
+  - figure "Nimbus Dynamics $50k ARR buyer Open Zendesk ticket · Sep 15":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Nimbus Dynamics $50k ARR buyer
+    - link "Open Zendesk ticket · Sep 15":
+      - /url: /items/4ac2b454-1a3e-89a8-ba57-167063c9ea71?mention=cb812cc8-7ec0-8860-b865-f4bd2ac83889&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 15
+  - figure "Kite Dynamics $52k ARR end user Open Zendesk ticket · Sep 14":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Dynamics $52k ARR end user
+    - link "Open Zendesk ticket · Sep 14":
+      - /url: /items/4a9863b4-4b33-8acc-ab0e-4800012d33d2?mention=063b13fc-f504-8fde-8408-0aca0493090e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 14
+  - figure "Linden Dynamics $51k ARR admin Open NPS comment · Sep 14":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Dynamics $51k ARR admin
+    - link "Open NPS comment · Sep 14":
+      - /url: /items/e14535e7-a3cc-8185-8ab7-992ee6ef5b60?mention=e062c082-b4a9-80e7-8860-586b8cd1ec91&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 14
+  - figure "Harbor Foods $27k ARR buyer Open NPS comment · Sep 13":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Foods $27k ARR buyer
+    - link "Open NPS comment · Sep 13":
+      - /url: /items/85fee2eb-7c34-8a0e-857c-9b95a8d9483d?mention=aded325a-334e-89e6-a1aa-d26dc5c05ac2&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 13
+  - figure "Jasper Foods $26k ARR admin Open Zendesk ticket · Sep 13":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Jasper Foods $26k ARR admin
+    - link "Open Zendesk ticket · Sep 13":
+      - /url: /items/8f98b315-648c-8404-bf95-056216d47a6f?mention=c5426de4-085a-897c-a7d9-e710956b7b45&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 13
+  - figure "Iris Foods $27k ARR executive Open Interview · Sep 13":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Iris Foods $27k ARR executive
+    - link "Open Interview · Sep 13":
+      - /url: /items/67b64fd0-f13a-89dc-8753-e62158c55459?mention=d0300568-9583-887e-af31-77e6a98b465c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 13
+  - figure "Ember Foods $29k ARR end user Open Gong call · Sep 12":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Foods $29k ARR end user
+    - link "Open Gong call · Sep 12":
+      - /url: /items/84ca45f4-c781-8a7c-9468-b0860264360a?mention=0bb29113-acd7-8f64-9cce-05ca3a3d445b&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 12
+  - figure "Granite Foods $28k ARR end user Open G2 review · Sep 12":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Foods $28k ARR end user
+    - link "Open G2 review · Sep 12":
+      - /url: /items/81af5b6b-843b-8d8f-be8c-f90aedf6d3b3?mention=73e7579e-35d9-8a1d-b505-80493d27e061&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 12
+  - figure "Fjord Foods $29k ARR admin Open Zendesk ticket · Sep 12":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Foods $29k ARR admin
+    - link "Open Zendesk ticket · Sep 12":
+      - /url: /items/b91d3fd9-dd7d-826f-9e7f-90f769bd27c5?mention=f32bfc0a-1ce5-8bf0-b629-81f185fa99d2&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 12
+  - figure "Delta Foods $30k ARR admin Open NPS comment · Sep 11":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Foods $30k ARR admin
+    - link "Open NPS comment · Sep 11":
+      - /url: /items/3933cf09-8cd5-8982-bde9-16c5e7a6a280?mention=36b100f2-1039-8dfe-bbba-ec6d12db10ee&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 11
+  - figure "Cedar Foods $31k ARR executive Open Zendesk ticket · Sep 11":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Foods $31k ARR executive
+    - link "Open Zendesk ticket · Sep 11":
+      - /url: /items/6e07f0cb-93a2-8d7a-9c51-2a98da0fa44b?mention=d3e7603d-5d2b-8eed-8001-6c686fec537f&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 11
+  - figure "Cobalt Insurance $310k ARR buyer Open Zendesk ticket · Sep 11":
+    - blockquote:
+      - text: “Numbers don't tie out.
+      - mark: This is a renewal risk for us.
+      - text: ”
+    - text: Cobalt Insurance $310k ARR buyer
+    - link "Open Zendesk ticket · Sep 11":
+      - /url: /items/084c0c67-2025-87d3-aba6-f4cc5c1f0153?mention=f13de966-4676-80d3-b681-66286b5c5a7d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 11
+  - figure "Acorn Foods $32k ARR end user Open Interview · Sep 10":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Acorn Foods $32k ARR end user
+    - link "Open Interview · Sep 10":
+      - /url: /items/e5302f00-7e86-822d-860f-9d75a8b619a5?mention=9f063fcb-a4cf-821d-ad1f-e7158127b501&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 10
+  - figure "Tidal Energy $33k ARR admin Open NPS comment · Sep 10":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Export raw rows behind a number."
+      - text: ”
+    - text: Tidal Energy $33k ARR admin
+    - link "Open NPS comment · Sep 10":
+      - /url: /items/72789b8b-a969-8d54-9a98-a4154eb05223?mention=a4a5b638-3d88-81a1-94f3-aa487ce9cf82&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 10
+  - figure "Birch Foods $31k ARR buyer Open Zendesk ticket · Sep 10":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Foods $31k ARR buyer
+    - link "Open Zendesk ticket · Sep 10":
+      - /url: /items/d7f28c3f-3ac9-8f35-ac3f-7ff2ebf8dbb5?mention=b79d442f-168c-8006-a2df-e7603171c454&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 10
+  - figure "Quarry Energy $35k ARR executive Open Gong call · Sep 9":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Energy $35k ARR executive
+    - link "Open Gong call · Sep 9":
+      - /url: /items/51e9d372-e7c8-87e8-b25f-6fe5146f1f82?mention=1ca35825-580a-829b-9ef3-32d385ed4d68&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 9
+  - figure "Raven Energy $34k ARR admin Open Zendesk ticket · Sep 9":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Energy $34k ARR admin
+    - link "Open Zendesk ticket · Sep 9":
+      - /url: /items/71fe5271-d3ed-8e0d-b2d2-deff30007140?mention=771b95b7-7bd5-825b-a98d-ebe62a8e5247&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 9
+  - figure "Summit Energy $33k ARR end user Open G2 review · Sep 9":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Export raw rows behind a number."
+      - text: ”
+    - text: Summit Energy $33k ARR end user
+    - link "Open G2 review · Sep 9":
+      - /url: /items/af447998-33c7-8542-866d-54096245db05?mention=ab294863-58c0-8faf-94df-65a59c12667f&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 9
+  - figure "Onyx Energy $36k ARR end user Open Zendesk ticket · Sep 8":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Onyx Energy $36k ARR end user
+    - link "Open Zendesk ticket · Sep 8":
+      - /url: /items/52b38c5c-dbb8-8c2e-ae62-089194215927?mention=1f1c7151-a2a2-87df-bce7-37f578b5f5da&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 8
+  - figure "Pioneer Energy $35k ARR buyer Open NPS comment · Sep 8":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Energy $35k ARR buyer
+    - link "Open NPS comment · Sep 8":
+      - /url: /items/75f43b30-d4f8-8cc8-b719-ee3390cbd4c1?mention=61f98011-ee53-8181-9161-67dccae02b4d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 8
+  - figure "Maple Energy $37k ARR end user Open Interview · Sep 7":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Energy $37k ARR end user
+    - link "Open Interview · Sep 7":
+      - /url: /items/5fa7abca-87ce-89fe-b118-f9fb64f04383?mention=05f85b91-05a6-8717-aa47-94c0df3936d9&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 7
+  - figure "Nimbus Energy $37k ARR admin Open Zendesk ticket · Sep 7":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Nimbus Energy $37k ARR admin
+    - link "Open Zendesk ticket · Sep 7":
+      - /url: /items/daf2a432-f174-8657-959b-3b723187b055?mention=54e56f6b-2e2f-820a-a2bc-2d2905898763&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 7
+  - figure "Linden Energy $38k ARR admin Open NPS comment · Sep 6":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Energy $38k ARR admin
+    - link "Open NPS comment · Sep 6":
+      - /url: /items/a6a24abe-d447-8ae9-9668-53653d6c0655?mention=11b6255e-301e-8c74-9d27-4c0a6369346c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 6
+  - figure "Orbitly $132k ARR end user Open Interview · Sep 6":
+    - blockquote:
+      - text: “
+      - mark: I have to screenshot the source system next to yours in every exec review to prove it's right.
+      - text: ”
+    - text: Orbitly $132k ARR end user
+    - link "Open Interview · Sep 6":
+      - /url: /items/1780bed9-f4be-8cd3-9345-98a60a0bd1ff?mention=4bf74888-370d-855f-9e68-fb44efdc1c80&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 6
+  - figure "Kite Energy $39k ARR executive Open G2 review · Sep 6":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Energy $39k ARR executive
+    - link "Open G2 review · Sep 6":
+      - /url: /items/56a79bb2-3b39-8f1b-a6ab-f3ff6601a6a6?mention=f5524872-70f8-8f54-bd94-3a96603e7f71&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 6
+  - figure "Jasper Energy $39k ARR buyer Open Zendesk ticket · Sep 5":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Jasper Energy $39k ARR buyer
+    - link "Open Zendesk ticket · Sep 5":
+      - /url: /items/a93963d5-ed2b-8ad2-ac74-1a48b5117d35?mention=91c92168-4dae-86fa-beb3-852bd51adc78&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 5
+  - figure "Iris Energy $40k ARR end user Open Gong call · Sep 5":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Iris Energy $40k ARR end user
+    - link "Open Gong call · Sep 5":
+      - /url: /items/50c49a16-364b-83a3-ab5d-af7f3893b59d?mention=edee90eb-a22e-8d91-8331-e342ade0adf4&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 5
+  - figure "Harbor Energy $40k ARR admin Open NPS comment · Sep 4":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Energy $40k ARR admin
+    - link "Open NPS comment · Sep 4":
+      - /url: /items/32a9de74-d9d0-802a-ae29-81c5aab6aa58?mention=47178663-24ca-8e9f-ba35-3d2c317daa66&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 4
+  - figure "Granite Energy $41k ARR end user Open Zendesk ticket · Sep 4":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Energy $41k ARR end user
+    - link "Open Zendesk ticket · Sep 4":
+      - /url: /items/bd8ae7d1-0843-88cd-9591-a26369e03539?mention=f993a92c-1872-8351-b44c-2b070cd2b667&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 4
+  - figure "Ember Energy $42k ARR executive Open Interview · Sep 3":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Energy $42k ARR executive
+    - link "Open Interview · Sep 3":
+      - /url: /items/ec541340-050d-85b4-be7f-d454e0cbbc70?mention=8cd84fe4-4320-8e25-8bb8-b983295a7c33&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 3
+  - figure "Fjord Energy $42k ARR admin Open Zendesk ticket · Sep 3":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Energy $42k ARR admin
+    - link "Open Zendesk ticket · Sep 3":
+      - /url: /items/0f91d5a1-105f-81a8-81d5-0b23ab00a5aa?mention=d17d18ae-25d4-87a9-928e-79e534a9a02a&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 3
+  - figure "Cedar Energy $44k ARR end user Open G2 review · Sep 2":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Energy $44k ARR end user
+    - link "Open G2 review · Sep 2":
+      - /url: /items/f879404d-a364-88a9-9a81-e9fe38aab33b?mention=20ad9427-ad7e-8fc7-b94e-a97d4538687a&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 2
+  - figure "Delta Energy $43k ARR buyer Open NPS comment · Sep 2":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Energy $43k ARR buyer
+    - link "Open NPS comment · Sep 2":
+      - /url: /items/e206cb27-bca5-85ad-a20d-11f9d20e01db?mention=abbce4d1-ed77-8ece-82d7-ae47a20142ed&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 2
+  - figure "Birch Energy $44k ARR admin Open Zendesk ticket · Sep 1":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Energy $44k ARR admin
+    - link "Open Zendesk ticket · Sep 1":
+      - /url: /items/85cef22f-2423-8332-8c00-bcb98b054c81?mention=06fdb5ff-036a-8084-afac-68d0e40de00d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 1
+  - figure "Acorn Energy $45k ARR end user Open Gong call · Sep 1":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Acorn Energy $45k ARR end user
+    - link "Open Gong call · Sep 1":
+      - /url: /items/ddbc6a00-acf7-8c8a-bd5b-cfd46e6a5b76?mention=37e1548c-247e-83ef-b879-1a3efa94d641&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 1
+  - figure "Tidal Dynamics $46k ARR admin Open NPS comment · Aug 31":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Export raw rows behind a number."
+      - text: ”
+    - text: Tidal Dynamics $46k ARR admin
+    - link "Open NPS comment · Aug 31":
+      - /url: /items/c0a6ed98-c226-8967-9132-7b19c167f88b?mention=98b048c4-7877-8a72-9fa6-5fa2d81d3010&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 31
+  - figure "Summit Dynamics $46k ARR executive Open Zendesk ticket · Aug 30":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Export raw rows behind a number."
+      - text: ”
+    - text: Summit Dynamics $46k ARR executive
+    - link "Open Zendesk ticket · Aug 30":
+      - /url: /items/a99b2146-60e8-8658-9c0b-3a309e71fd13?mention=e6dedd58-8342-8b34-8325-c25a51367bc4&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 30
+  - figure "Raven Dynamics $47k ARR buyer Open Zendesk ticket · Aug 30":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Dynamics $47k ARR buyer
+    - link "Open Zendesk ticket · Aug 30":
+      - /url: /items/220c9935-5b56-8594-a0af-4ed170504244?mention=ee6accc5-fe97-8f2a-9dd4-ec91cf0ca8ae&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 30
+  - figure "Quarry Dynamics $48k ARR end user Open Interview · Aug 29":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Dynamics $48k ARR end user
+    - link "Open Interview · Aug 29":
+      - /url: /items/8ea64e13-4b08-8092-85d6-501032fb4b61?mention=8d8d8f22-2d32-8baa-bebb-62325c1abb25&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 29
+  - figure "Pioneer Dynamics $48k ARR admin Open NPS comment · Aug 29":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Dynamics $48k ARR admin
+    - link "Open NPS comment · Aug 29":
+      - /url: /items/80f25af5-b50d-8037-9688-85e2be1b1130?mention=c5a98af5-72f7-87bb-8060-b698c7369407&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 29
+  - figure "Onyx Dynamics $49k ARR end user Open G2 review · Aug 28":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Onyx Dynamics $49k ARR end user
+    - link "Open G2 review · Aug 28":
+      - /url: /items/6a027cdb-f39d-8d07-bb31-418906e49349?mention=41f74b28-00d4-8eb5-8a85-ea7c8bab062e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 28
+  - figure "Maple Dynamics $50k ARR executive Open Gong call · Aug 27":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Dynamics $50k ARR executive
+    - link "Open Gong call · Aug 27":
+      - /url: /items/5510c1f6-81d4-805b-8b74-ca3030470c81?mention=32bbb47d-0808-8996-b6fe-41228147064d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 27
+  - figure "Nimbus Dynamics $50k ARR admin Open Zendesk ticket · Aug 27":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Nimbus Dynamics $50k ARR admin
+    - link "Open Zendesk ticket · Aug 27":
+      - /url: /items/5c9590f8-2f78-8ef0-86a1-e0643ece10ba?mention=a0cb026e-b7d1-866d-a7f4-f1f1a144e02b&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 27
+  - figure "Linden Dynamics $51k ARR buyer Open NPS comment · Aug 26":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Dynamics $51k ARR buyer
+    - link "Open NPS comment · Aug 26":
+      - /url: /items/4b5615c6-bd8e-8373-a604-fd5bd7b1d622?mention=203759e7-e638-850f-acb4-7776c6bab2c6&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 26
+  - figure "Kite Dynamics $52k ARR end user Open Zendesk ticket · Aug 26":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Dynamics $52k ARR end user
+    - link "Open Zendesk ticket · Aug 26":
+      - /url: /items/0d325e46-3d96-8d2b-886b-8b68715c448b?mention=429d451e-c1de-82c4-a026-797c731cdc77&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 26
+  - figure "Lumen Clinics $74k ARR end user Open G2 review · Aug 25 62% confident":
+    - blockquote:
+      - text: “
+      - mark: Totals are different depending on which page you look at?
+      - text: ”
+    - text: Lumen Clinics $74k ARR end user
+    - link "Open G2 review · Aug 25":
+      - /url: /items/0a58b63a-5af8-8375-8d7c-d91d9dfda0d3?mention=07f3151a-3d35-89ab-86e0-76cffdedc80d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 25
+    - text: 62% confident
+  - figure "Jasper Foods $26k ARR admin Open Zendesk ticket · Aug 25":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Jasper Foods $26k ARR admin
+    - link "Open Zendesk ticket · Aug 25":
+      - /url: /items/2ad59689-7a6d-8101-8c54-b837450b9bc4?mention=15ad10f3-1744-8457-ad80-4fdd10a62ea6&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 25
+  - figure "Iris Foods $27k ARR end user Open Interview · Aug 25":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Iris Foods $27k ARR end user
+    - link "Open Interview · Aug 25":
+      - /url: /items/5d29ef9c-9512-8a61-acd7-8cfc8f1581b3?mention=a66c4ae5-6e82-81b4-915d-9c57c2539bb4&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 25
+  - figure "Harbor Foods $27k ARR admin Open NPS comment · Aug 24":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Foods $27k ARR admin
+    - link "Open NPS comment · Aug 24":
+      - /url: /items/2ab23e88-05a6-87c8-a674-bcbc69bc8bcc?mention=add3725c-d527-8145-8901-acafca1ebc00&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 24
+  - figure "Ember Foods $29k ARR end user Open Gong call · Aug 23":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Foods $29k ARR end user
+    - link "Open Gong call · Aug 23":
+      - /url: /items/b79c68f4-c4e3-8ed7-9153-e6b6277e6691?mention=5e011a4f-df62-8d01-8563-6bc1aa8d5ad0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 23
+  - figure "Fjord Foods $29k ARR buyer Open Zendesk ticket · Aug 23":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Foods $29k ARR buyer
+    - link "Open Zendesk ticket · Aug 23":
+      - /url: /items/4442c273-cb91-82ba-802d-291aaa33ba0d?mention=88a3ed7a-8acc-8aff-8ec1-022bae39d034&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 23
+  - figure "Granite Foods $28k ARR executive Open G2 review · Aug 23":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Foods $28k ARR executive
+    - link "Open G2 review · Aug 23":
+      - /url: /items/e8d487b8-1f6b-8329-bf25-d81ce51a7794?mention=e94f5d6a-61c4-8cd2-bb6b-c6762ee1dfa1&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 23
+  - figure "Cedar Foods $31k ARR end user Open Zendesk ticket · Aug 22":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Foods $31k ARR end user
+    - link "Open Zendesk ticket · Aug 22":
+      - /url: /items/2bce9037-40e6-80aa-9d00-ae0ee8c43409?mention=9b74f8c9-9db1-8e51-9173-45abec5d1085&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 22
+  - figure "Delta Foods $30k ARR admin Open NPS comment · Aug 22":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Foods $30k ARR admin
+    - link "Open NPS comment · Aug 22":
+      - /url: /items/f918bc61-d4d2-835c-862e-69906e739f53?mention=f91312b9-3120-8bc3-825e-c4e55bf3227e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 22
+  - figure "Birch Foods $31k ARR admin Open Zendesk ticket · Aug 21":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Foods $31k ARR admin
+    - link "Open Zendesk ticket · Aug 21":
+      - /url: /items/fd648924-6396-8d63-85de-85ec4930c4cb?mention=21bce9a8-5727-8d0e-b700-fd9bac0fb136&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 21
+  - figure "Acorn Foods $32k ARR executive Open Interview · Aug 21":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Acorn Foods $32k ARR executive
+    - link "Open Interview · Aug 21":
+      - /url: /items/dd96e7fc-fa55-82b4-a7a2-20fcc6bd73a3?mention=2752a8e1-c29f-850c-82dc-5c7d7bfb7053&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 21
+  - figure "Raven Energy $34k ARR admin Open Zendesk ticket · Aug 20":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Energy $34k ARR admin
+    - link "Open Zendesk ticket · Aug 20":
+      - /url: /items/fb6115e2-841f-8ee6-85d1-306bd6174235?mention=07eb45d4-d977-8975-8cbc-c82e9cb9ae70&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 20
+  - figure "Summit Energy $33k ARR end user Open G2 review · Aug 20":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Export raw rows behind a number."
+      - text: ”
+    - text: Summit Energy $33k ARR end user
+    - link "Open G2 review · Aug 20":
+      - /url: /items/a9ec752d-c9cb-84c4-8b8a-4b7c2a5ca499?mention=15ca7350-61cd-8fa9-ba3f-60d258fdd811&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 20
+  - figure "Tidal Energy $33k ARR buyer Open NPS comment · Aug 20":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Export raw rows behind a number."
+      - text: ”
+    - text: Tidal Energy $33k ARR buyer
+    - link "Open NPS comment · Aug 20":
+      - /url: /items/fc3f04f6-8a19-899a-b39c-cd59471ab124?mention=71dbe5ce-311c-80ef-a73c-52ae09121149&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 20
+  - figure "Quarry Energy $35k ARR end user Open Gong call · Aug 19":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Energy $35k ARR end user
+    - link "Open Gong call · Aug 19":
+      - /url: /items/e4874f52-2581-8385-a35e-5bc7d50cd8c1?mention=e4aa6a8f-95e1-871d-94e5-944c247e55f7&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 19
+  - figure "Pioneer Energy $35k ARR admin Open NPS comment · Aug 19":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Energy $35k ARR admin
+    - link "Open NPS comment · Aug 19":
+      - /url: /items/e2c3df92-2c01-8b56-bec3-120914db429f?mention=f3882a4d-d566-8c24-bdc0-b2f999127d3e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 19
+  - figure "Nimbus Energy $37k ARR buyer Open Zendesk ticket · Aug 18":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Nimbus Energy $37k ARR buyer
+    - link "Open Zendesk ticket · Aug 18":
+      - /url: /items/ca4eb27a-f9f8-8722-ab41-cf999c8cecd8?mention=3e93d06b-c5c8-8f87-b51e-c648b7b97c5e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 18
+  - figure "Onyx Energy $36k ARR executive Open Zendesk ticket · Aug 18":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Onyx Energy $36k ARR executive
+    - link "Open Zendesk ticket · Aug 18":
+      - /url: /items/ceffd8fd-1096-8213-9d9e-99fabf2dc8fd?mention=7ade6bcb-d8f8-88a2-b9cf-90a456bbf788&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 18
+  - figure "Maple Energy $37k ARR end user Open Interview · Aug 17":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Energy $37k ARR end user
+    - link "Open Interview · Aug 17":
+      - /url: /items/5f876377-49d9-8901-9354-86e5a4b52055?mention=0876dd17-f8fb-82e9-bc21-e555f847dd47&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 17
+  - figure "Linden Energy $38k ARR admin Open NPS comment · Aug 17":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Energy $38k ARR admin
+    - link "Open NPS comment · Aug 17":
+      - /url: /items/d89bcad9-9489-8698-a90f-2ce02a762e3c?mention=f371bbf3-fc73-8781-a3f5-7a7a06a77016&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 17
+  - figure "Jasper Energy $39k ARR admin Open Zendesk ticket · Aug 16":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Jasper Energy $39k ARR admin
+    - link "Open Zendesk ticket · Aug 16":
+      - /url: /items/fd6f4b23-cb7a-82fb-8852-772be6bec90d?mention=5875f637-d318-88a5-a046-052f9c5644bd&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 16
+  - figure "Kite Energy $39k ARR end user Open G2 review · Aug 16":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Energy $39k ARR end user
+    - link "Open G2 review · Aug 16":
+      - /url: /items/f623e1f1-fc14-8e34-b4c8-be957b1cb982?mention=6d1d4266-89d2-8249-8990-15357742bf5c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 16
+  - figure "Harbor Energy $40k ARR buyer Open NPS comment · Aug 15":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Energy $40k ARR buyer
+    - link "Open NPS comment · Aug 15":
+      - /url: /items/c89a2308-df34-8903-9878-b306232540d7?mention=a66dee96-2f12-82db-ad3a-04780a8128e9&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 15
+  - figure "Iris Energy $40k ARR executive Open Gong call · Aug 15":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Iris Energy $40k ARR executive
+    - link "Open Gong call · Aug 15":
+      - /url: /items/9f1dc16c-b538-8c99-ade2-7e3d37166c63?mention=bc369530-5076-840d-a603-1be5717c933e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 15
+  - figure "Granite Energy $41k ARR end user Open Zendesk ticket · Aug 14":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Energy $41k ARR end user
+    - link "Open Zendesk ticket · Aug 14":
+      - /url: /items/b36ca65e-715d-8b84-9991-eb7713e3ddaa?mention=60e6ed8b-8a97-8d0b-bc43-bb0101d151a0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 14
+  - figure "Fjord Energy $42k ARR admin Open Zendesk ticket · Aug 14":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Energy $42k ARR admin
+    - link "Open Zendesk ticket · Aug 14":
+      - /url: /items/98d86cba-f230-8749-b22b-600c6ce69344?mention=ac63e456-e190-8016-99e5-f26264358816&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 14
+  - figure "Ember Energy $42k ARR end user Open Interview · Aug 13":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Energy $42k ARR end user
+    - link "Open Interview · Aug 13":
+      - /url: /items/8c71a04f-4e61-8565-9081-2703bf9209b8?mention=0793ebe5-d161-88b7-88cb-0bdfd3fe9966&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 13
+  - figure "Delta Energy $43k ARR admin Open NPS comment · Aug 13":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Energy $43k ARR admin
+    - link "Open NPS comment · Aug 13":
+      - /url: /items/1cc818fb-21b8-86aa-bf63-74bc77afced6?mention=f596dca9-6a53-8892-b6a9-e9320357ba3c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 13
+  - figure "Cedar Energy $44k ARR executive Open G2 review · Aug 12":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Energy $44k ARR executive
+    - link "Open G2 review · Aug 12":
+      - /url: /items/f5f666ba-6eb2-86bd-a228-b9da8907899a?mention=a22eb351-6154-859e-86f8-cbf4095dc23a&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 12
+  - figure "Birch Energy $44k ARR buyer Open Zendesk ticket · Aug 12":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Energy $44k ARR buyer
+    - link "Open Zendesk ticket · Aug 12":
+      - /url: /items/e6f1fd20-f7ff-858e-9fdf-747a5f570254?mention=b03f105d-75a1-882b-882a-5c79f75b3050&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 12
+  - figure "Acorn Energy $45k ARR end user Open Gong call · Aug 11":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Export raw rows behind a number."
+      - text: ”
+    - text: Acorn Energy $45k ARR end user
+    - link "Open Gong call · Aug 11":
+      - /url: /items/7e32e9c7-3654-88d3-bd95-c638de75dbb5?mention=2471116a-d2e5-8f24-a873-8050dd5ce144&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 11
+  - figure "Tidal Dynamics $46k ARR admin Open NPS comment · Aug 11":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Export raw rows behind a number."
+      - text: ”
+    - text: Tidal Dynamics $46k ARR admin
+    - link "Open NPS comment · Aug 11":
+      - /url: /items/b728e4c5-752f-84b4-9c72-54d45920f64d?mention=a3362e2a-bc6e-8831-afbd-48b8a2b10f14&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 11
+  - figure "Summit Dynamics $46k ARR end user Open Zendesk ticket · Aug 10":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Summit Dynamics $46k ARR end user
+    - link "Open Zendesk ticket · Aug 10":
+      - /url: /items/d13c1461-2624-842d-bc28-1361b3f19530?mention=505030e3-75d8-8f09-8025-ea5fdc956e39&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 10
+  - figure "Raven Dynamics $47k ARR admin Open Zendesk ticket · Aug 9":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Dynamics $47k ARR admin
+    - link "Open Zendesk ticket · Aug 9":
+      - /url: /items/79ea7bf4-040d-8d42-a25e-5631035094c5?mention=39081ff2-a9a0-8aae-9aa4-e5aa83411768&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 9
+  - figure "Quarry Dynamics $48k ARR executive Open Interview · Aug 9":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Dynamics $48k ARR executive
+    - link "Open Interview · Aug 9":
+      - /url: /items/ea955ac6-90f5-8c8e-8bd1-e27938940c07?mention=fda7d70a-2acf-838f-abb1-7d80868e99fc&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 9
+  - figure "Pioneer Dynamics $48k ARR buyer Open NPS comment · Aug 8":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Dynamics $48k ARR buyer
+    - link "Open NPS comment · Aug 8":
+      - /url: /items/8100f480-dc71-842d-82d5-7561a5ccfaca?mention=aafda1f0-b72b-8d39-bc03-1c83f6db3355&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 8
+  - figure "Onyx Dynamics $49k ARR end user Open G2 review · Aug 7":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Onyx Dynamics $49k ARR end user
+    - link "Open G2 review · Aug 7":
+      - /url: /items/63819f40-45d2-872e-888f-c5d1b73f107b?mention=1355b42b-116c-8d00-baef-7fb972ef1231&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 7
+  - figure "Nimbus Dynamics $50k ARR admin Open Zendesk ticket · Aug 6":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Nimbus Dynamics $50k ARR admin
+    - link "Open Zendesk ticket · Aug 6":
+      - /url: /items/4db31f0a-52ba-8fb1-a7ba-8f581692edc6?mention=5ecbe353-0ff4-85b6-96f4-0cbc74b00a6c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 6
+  - figure "Maple Dynamics $50k ARR end user Open Gong call · Aug 6":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Dynamics $50k ARR end user
+    - link "Open Gong call · Aug 6":
+      - /url: /items/5cafe796-2c84-8fe8-bd33-1560aa9e6b2f?mention=d0890ac0-9afd-825c-9c09-706f00ce1173&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 6
+  - figure "Linden Dynamics $51k ARR admin Open NPS comment · Aug 5":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Dynamics $51k ARR admin
+    - link "Open NPS comment · Aug 5":
+      - /url: /items/65bbe7b0-62a4-8405-b030-84fb68a639ee?mention=6d03c511-ba3d-87a3-8d17-9832106015ac&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 5
+  - figure "Kite Dynamics $52k ARR executive Open Zendesk ticket · Aug 4":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Dynamics $52k ARR executive
+    - link "Open Zendesk ticket · Aug 4":
+      - /url: /items/78f7cf6f-4a5b-854c-9d2d-5bc9266db13e?mention=e75b5376-f9f5-8eab-b866-8dca7eb1433d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 4
+  - figure "Jasper Foods $26k ARR buyer Open Zendesk ticket · Aug 3":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Jasper Foods $26k ARR buyer
+    - link "Open Zendesk ticket · Aug 3":
+      - /url: /items/161f2864-1c88-899a-ac0a-7a7aae0647ba?mention=ab44459e-a0f4-8095-abbd-68b594482a03&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 3
+  - figure "Harbor Foods $27k ARR admin Open NPS comment · Aug 2":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Foods $27k ARR admin
+    - link "Open NPS comment · Aug 2":
+      - /url: /items/12b7aefa-9ab1-89ba-b544-1ee7f9a9a926?mention=67db215f-c4a5-87c6-a40c-14d6eba0dbbf&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 2
+  - figure "Iris Foods $27k ARR end user Open Interview · Aug 2":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Iris Foods $27k ARR end user
+    - link "Open Interview · Aug 2":
+      - /url: /items/e98dd669-2d86-89fd-bf77-8a1a882473c6?mention=f89454a3-1db3-8edf-ac4a-aea5f3ba4d62&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 2
+  - figure "Granite Foods $28k ARR end user Open G2 review · Aug 1":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Foods $28k ARR end user
+    - link "Open G2 review · Aug 1":
+      - /url: /items/6b72aca7-36c6-85d8-a6e2-3855b969c752?mention=3466984e-7bb4-89c6-8b8a-a478f6c88c59&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 1
+  - figure "Fjord Foods $29k ARR admin Open Zendesk ticket · Jul 31":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Foods $29k ARR admin
+    - link "Open Zendesk ticket · Jul 31":
+      - /url: /items/68128ebd-e74b-85fa-a90d-04d1a39ba42b?mention=69febc2a-b6bf-8cde-983f-8f2987fbddff&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 31
+  - figure "Ember Foods $29k ARR executive Open Gong call · Jul 30":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Foods $29k ARR executive
+    - link "Open Gong call · Jul 30":
+      - /url: /items/899ba3b1-864c-8533-8bd7-a0c8d2bd2eb4?mention=1bc76afb-3421-8281-9d99-7dae2a58531d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 30
+  - figure "Delta Foods $30k ARR buyer Open NPS comment · Jul 30":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Foods $30k ARR buyer
+    - link "Open NPS comment · Jul 30":
+      - /url: /items/2f147e33-408c-825d-b858-c03fbc7a36b6?mention=860e64df-ad99-89df-abdc-5d2836060bd3&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 30
+  - figure "Cedar Foods $31k ARR end user Open Zendesk ticket · Jul 29":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Foods $31k ARR end user
+    - link "Open Zendesk ticket · Jul 29":
+      - /url: /items/3cfd6b5b-1ad7-8786-9ae1-d7bc15b4f96e?mention=d1ffdc9d-a978-8238-acc9-f4a04ce7911b&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 29
+  - figure "Birch Foods $31k ARR admin Open Zendesk ticket · Jul 28":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Birch Foods $31k ARR admin
+    - link "Open Zendesk ticket · Jul 28":
+      - /url: /items/78fd653b-578c-8c9e-a60c-1ac239332165?mention=89150e7c-59ff-8c52-addb-9c6580dba703&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 28
+  - figure "Acorn Foods $32k ARR end user Open Interview · Jul 27":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Export raw rows behind a number."
+      - text: ”
+    - text: Acorn Foods $32k ARR end user
+    - link "Open Interview · Jul 27":
+      - /url: /items/221e3cb3-728c-87d8-8321-4a243295e7c0?mention=d59dedd2-4d72-8f6c-ac44-9c25a9262265&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 27
+  - figure "Summit Energy $33k ARR executive Open G2 review · Jul 26":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Summit Energy $33k ARR executive
+    - link "Open G2 review · Jul 26":
+      - /url: /items/fa5d56d2-d600-86d3-ac33-2371fc036080?mention=24be6697-34e2-8045-b281-b3e346de5440&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 26
+  - figure "Tidal Energy $33k ARR admin Open NPS comment · Jul 26":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Export raw rows behind a number."
+      - text: ”
+    - text: Tidal Energy $33k ARR admin
+    - link "Open NPS comment · Jul 26":
+      - /url: /items/3ef8dedc-763d-8288-b533-c3367818c697?mention=7296813c-5975-8f9c-9383-7ce7199289be&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 26
+  - figure "Quarry Energy $35k ARR end user Open Gong call · Jul 25":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Energy $35k ARR end user
+    - link "Open Gong call · Jul 25":
+      - /url: /items/506627d8-b643-8e27-ab0f-f20b2199c154?mention=369f2f94-9b20-8b69-ae7a-362488278ef8&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 25
+  - figure "Raven Energy $34k ARR buyer Open Zendesk ticket · Jul 25":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Energy $34k ARR buyer
+    - link "Open Zendesk ticket · Jul 25":
+      - /url: /items/55305938-561e-8e5d-b792-4ac4e6fb9f2d?mention=59000e11-06f2-881c-9a07-1e5e2f5b1e5d&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 25
+  - figure "Pioneer Energy $35k ARR admin Open NPS comment · Jul 24":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Pioneer Energy $35k ARR admin
+    - link "Open NPS comment · Jul 24":
+      - /url: /items/213c8cea-c3b2-8c8b-994a-1757f1fcc19b?mention=3f0e3a8f-cc99-86c0-8558-df56863899a0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 24
+  - figure "Onyx Energy $36k ARR end user Open Zendesk ticket · Jul 23":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Onyx Energy $36k ARR end user
+    - link "Open Zendesk ticket · Jul 23":
+      - /url: /items/12760146-aa34-8523-8ee5-b143d38cddb6?mention=9b1c2e89-f782-8790-a918-26c456042f01&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 23
+  - figure "Nimbus Energy $37k ARR admin Open Zendesk ticket · Jul 23":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Nimbus Energy $37k ARR admin
+    - link "Open Zendesk ticket · Jul 23":
+      - /url: /items/a9d8e15a-b6bc-817b-9ae8-7fc423ae7a32?mention=a96b285d-7c9c-85dc-a8cd-ba509a11c0e1&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 23
+  - figure "Linden Energy $38k ARR buyer Open NPS comment · Jul 22":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Energy $38k ARR buyer
+    - link "Open NPS comment · Jul 22":
+      - /url: /items/fac5259c-fa5d-899c-a452-4b947b6d9332?mention=737fc984-3672-86b2-b7ea-8869fd718724&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 22
+  - figure "Maple Energy $37k ARR executive Open Interview · Jul 22":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Energy $37k ARR executive
+    - link "Open Interview · Jul 22":
+      - /url: /items/ba9a12f8-962a-86dc-a815-09325d3f0b50?mention=c6f29ee5-23de-8da5-8642-63b602013328&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 22
+  - figure "Kite Energy $39k ARR end user Open G2 review · Jul 21":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Energy $39k ARR end user
+    - link "Open G2 review · Jul 21":
+      - /url: /items/6ece9af4-81ca-891d-bcbe-b6d5d176cf19?mention=76f00e15-f082-8720-bf52-21de207abb67&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 21
+  - figure "Jasper Energy $39k ARR admin Open Zendesk ticket · Jul 20":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Jasper Energy $39k ARR admin
+    - link "Open Zendesk ticket · Jul 20":
+      - /url: /items/3ea96b40-b52f-8c41-8a6a-91a18b93a049?mention=e4d16761-8c16-82ce-8ca8-154ceaef64c0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 20
+  - figure "Iris Energy $40k ARR end user Open Gong call · Jul 19":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Iris Energy $40k ARR end user
+    - link "Open Gong call · Jul 19":
+      - /url: /items/c89ec1ca-a476-8c7a-b9c8-98fb97c66909?mention=f883de74-0e88-82e3-bdc1-4b66d86f1da0&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 19
+  - figure "Harbor Energy $40k ARR admin Open NPS comment · Jul 18":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Harbor Energy $40k ARR admin
+    - link "Open NPS comment · Jul 18":
+      - /url: /items/fcf85981-cd93-88cf-99cd-5893288929d0?mention=d499cefd-346c-8c4a-b27c-64d7ea512191&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 18
+  - figure "Granite Energy $41k ARR executive Open Zendesk ticket · Jul 17":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Granite Energy $41k ARR executive
+    - link "Open Zendesk ticket · Jul 17":
+      - /url: /items/adec9788-a3da-8e33-8f61-aaf5768f9861?mention=4f34a2a2-5c4c-8507-8291-3224fe8b4573&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 17
+  - figure "Fjord Energy $42k ARR buyer Open Zendesk ticket · Jul 16":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Fjord Energy $42k ARR buyer
+    - link "Open Zendesk ticket · Jul 16":
+      - /url: /items/bd199145-f6ce-8667-8fac-69b7707e90a8?mention=2ad7ed2d-1a46-800f-a2cc-bd6229ff2b01&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 16
+  - figure "Ember Energy $42k ARR end user Open Interview · Jul 16":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Ember Energy $42k ARR end user
+    - link "Open Interview · Jul 16":
+      - /url: /items/55309247-f5dd-8653-abc6-bccc91d3929c?mention=7dc9f5c4-ca3f-8267-8198-fc796b953526&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 16
+  - figure "Delta Energy $43k ARR admin Open NPS comment · Jul 15":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Delta Energy $43k ARR admin
+    - link "Open NPS comment · Jul 15":
+      - /url: /items/ebda4b46-7259-82a5-869c-90ec41a572f8?mention=2c78b206-9962-87f7-bc9d-ca7404d710ae&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 15
+  - figure "Cedar Energy $44k ARR end user Open G2 review · Jul 14":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: Dashboard totals don't match the source system."
+      - text: ”
+    - text: Cedar Energy $44k ARR end user
+    - link "Open G2 review · Jul 14":
+      - /url: /items/30e960e4-cbf9-8d6c-a105-2556eef7fc1c?mention=5eb62791-266d-8e42-bf8c-5c7e0f1bda3e&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 14
+  - figure "Birch Energy $44k ARR admin Open Zendesk ticket · Jul 13":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Export raw rows behind a number."
+      - text: ”
+    - text: Birch Energy $44k ARR admin
+    - link "Open Zendesk ticket · Jul 13":
+      - /url: /items/cc80315d-501c-8125-933d-bf4e66925be6?mention=0a8e0673-7d4b-8d1c-8f9c-43e8c687cce5&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 13
+  - figure "Acorn Energy $45k ARR executive Open Gong call · Jul 12":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Export raw rows behind a number."
+      - text: ”
+    - text: Acorn Energy $45k ARR executive
+    - link "Open Gong call · Jul 12":
+      - /url: /items/5a423d61-d9bf-8bfe-95ad-daf4c6b11de2?mention=3714daf7-21e7-8ba0-a0f8-99e223e05c6a&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 12
+  - figure "Tidal Dynamics $46k ARR buyer Open NPS comment · Jul 11":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Show calculation lineage per metric."
+      - text: ”
+    - text: Tidal Dynamics $46k ARR buyer
+    - link "Open NPS comment · Jul 11":
+      - /url: /items/95e622c6-016c-85c6-876a-39531551f67a?mention=9c550357-e758-851c-a09b-2a8e722a0079&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 11
+  - figure "Summit Dynamics $46k ARR end user Open Zendesk ticket · Jul 9":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Show calculation lineage per metric."
+      - text: ”
+    - text: Summit Dynamics $46k ARR end user
+    - link "Open Zendesk ticket · Jul 9":
+      - /url: /items/297c2ee5-9730-81f3-8b6b-e841d2d2b17e?mention=1aedbd73-a8e8-87dc-b85f-fdd523b46f63&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 9
+  - figure "Raven Dynamics $47k ARR admin Open Zendesk ticket · Jul 8":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Show calculation lineage per metric."
+      - text: ”
+    - text: Raven Dynamics $47k ARR admin
+    - link "Open Zendesk ticket · Jul 8":
+      - /url: /items/722be153-b9b1-8ccf-83b1-c76668d50cb3?mention=260a0da8-a7ac-8ac0-a7bc-769436ff7a21&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 8
+  - figure "Quarry Dynamics $48k ARR end user Open Interview · Jul 7":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Show calculation lineage per metric."
+      - text: ”
+    - text: Quarry Dynamics $48k ARR end user
+    - link "Open Interview · Jul 7":
+      - /url: /items/90bb71eb-f56a-86c2-a28f-37eaf670c838?mention=fd2d9015-6b6c-83ff-aecf-a4fbb167a4a4&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 7
+  - figure "Pioneer Dynamics $48k ARR admin Open NPS comment · Jul 5":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Pioneer Dynamics $48k ARR admin
+    - link "Open NPS comment · Jul 5":
+      - /url: /items/0bfa4e97-7d68-897e-bb02-bbb2818a33da?mention=9294ee6d-e4a6-8f4e-af01-f4774506c3ae&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 5
+  - figure "Onyx Dynamics $49k ARR executive Open G2 review · Jul 4":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Onyx Dynamics $49k ARR executive
+    - link "Open G2 review · Jul 4":
+      - /url: /items/e09d0de8-a008-8f96-9769-aad72b698bf0?mention=b847a49f-119a-881d-828f-42b40857dd51&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 4
+  - figure "Nimbus Dynamics $50k ARR buyer Open Zendesk ticket · Jul 3":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Reconciliation view vs. source."
+      - text: ”
+    - text: Nimbus Dynamics $50k ARR buyer
+    - link "Open Zendesk ticket · Jul 3":
+      - /url: /items/5836aed7-10a3-8b88-8509-fc592ba28337?mention=769a51f6-9c3b-8990-91d9-c387fc505cd8&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 3
+  - figure "Maple Dynamics $50k ARR end user Open Gong call · Jul 2":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Reconciliation view vs. source."
+      - text: ”
+    - text: Maple Dynamics $50k ARR end user
+    - link "Open Gong call · Jul 2":
+      - /url: /items/7ec334af-16f7-86ae-a0ad-34c14b0a8252?mention=b4ab0831-b8ad-8fa5-8bea-a170a3f2752c&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 2
+  - figure "Linden Dynamics $51k ARR admin Open NPS comment · Jul 1":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Reconciliation view vs. source."
+      - text: ”
+    - text: Linden Dynamics $51k ARR admin
+    - link "Open NPS comment · Jul 1":
+      - /url: /items/ce7311a2-d12f-8c2e-9a3a-ff2ea1d7f053?mention=90364190-9b39-84c3-83d0-03c298a40341&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 1
+  - figure "Kite Dynamics $52k ARR end user Open Zendesk ticket · Jun 30":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Reconciliation view vs. source."
+      - text: ”
+    - text: Kite Dynamics $52k ARR end user
+    - link "Open Zendesk ticket · Jun 30":
+      - /url: /items/7b4c08a1-23c1-8064-8d9d-2ad3d41ad55c?mention=f15009cd-0d3e-8003-bc3d-ed43e89d1cff&from=%7B%22selected%22%3A%220e64ff74-d1e2-8d47-8251-6935c4e2e378%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jun 30
+  - button "Close"

@@ -1,0 +1,9 @@
+2026-10-26T00:50:41.104Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:42.616Z ok   goto=/opportunities
+2026-10-26T00:50:42.618Z ok   expect-url=/opportunities
+2026-10-26T00:50:42.637Z ok   expect-text=Dashboard totals don't match the source system
+2026-10-26T00:50:42.639Z ok   expect-text=$2.31M
+2026-10-26T00:50:42.641Z ok   expect-text=141
+2026-10-26T00:50:42.698Z snap map -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-list/map.{png,aria.yml}
+2026-10-26T00:50:42.698Z ok   snap=map
+2026-10-26T00:50:42.716Z result PASS

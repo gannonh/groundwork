@@ -1,0 +1,6 @@
+2026-10-26T00:49:11.244Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:12.163Z ok   goto=/opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64
+2026-10-26T00:49:12.183Z ok   expect-text=No scheduled email digest
+2026-10-26T00:49:12.244Z snap direct -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-direct/direct.{png,aria.yml}
+2026-10-26T00:49:12.244Z ok   snap=direct
+2026-10-26T00:49:12.262Z result PASS

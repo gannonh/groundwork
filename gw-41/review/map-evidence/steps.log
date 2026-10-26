@@ -1,0 +1,10 @@
+2026-10-26T00:49:22.358Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:23.265Z ok   goto=/opportunities
+2026-10-26T00:49:23.313Z ok   click=link/Show the 141 mentions
+2026-10-26T00:49:23.315Z ok   expect-url=/opportunities?evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+2026-10-26T00:49:23.451Z ok   expect-text=141 mentions
+2026-10-26T00:49:23.568Z snap evidence -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-evidence/evidence.{png,aria.yml}
+2026-10-26T00:49:23.568Z ok   snap=evidence
+2026-10-26T00:49:23.654Z ok   press=Escape
+2026-10-26T00:49:23.654Z ok   expect-url=/opportunities?selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+2026-10-26T00:49:23.674Z result PASS

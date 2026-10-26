@@ -1,0 +1,240 @@
+# http://127.0.0.1:4101/opportunities?reach=10&revenue=60&momentum=10
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 10
+    - slider "Reach"
+    - text: Distinct accounts Revenue 60
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 10
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced"
+    - button "Enterprise" [pressed]
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market" [checked]
+      - text: Mid-market
+      - checkbox "SMB" [checked]
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "G2" [checked]
+      - text: G2
+      - checkbox "Gong" [checked]
+      - text: Gong
+      - checkbox "Interviews" [checked]
+      - text: Interviews
+      - checkbox "NPS" [checked]
+      - text: NPS
+      - checkbox "Zendesk" [checked]
+      - text: Zendesk
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 Dashboard totals don't match the source system Trust the numbers in reports, score 97, $2.31M ARR, +36% over 4 weeks, 9 need review 9 Trust the numbers in reports 97 $2.31M ▲ +36%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+          - text: 2 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 76, $1.88M ARR, +25% over 4 weeks, 5 need review, linked LIN-482 LIN-482 5 Share findings with stakeholders 76 $1.88M ▲ +25%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 Admins can't restrict access by team Control access and spend, score 73, $1.64M ARR, +25% over 4 weeks, 2 need review 2 Control access and spend 73 $1.64M ▲ +25%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=b2d496f2-f395-891c-b8cb-5091d140af27
+          - text: 4 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 72, $1.42M ARR, +27% over 4 weeks, 6 need review 6 Get customer data in without engineering help 72 $1.42M ▲ +27%
+      - listitem:
+        - link "Usage-based bill is unpredictable":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=268fd269-10c6-8550-b899-a83f19ea077b
+          - text: 5 Usage-based bill is unpredictable Control access and spend, score 54, $1.12M ARR, +22% over 4 weeks, 7 need review 7 Control access and spend 54 $1.12M ▲ +22%
+      - listitem:
+        - link "Field mapping must be redone for every import":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=a696c372-8c2c-870d-a1ef-598837588a31
+          - text: 6 Field mapping must be redone for every import Get customer data in without engineering help, score 49, $980k ARR, +5% over 4 weeks, 2 need review 2 Get customer data in without engineering help 49 $980k ■ +5%
+      - listitem:
+        - link "Can't tell when data was last refreshed":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=d3663640-fa75-825a-874b-8cfb0eff0e1e
+          - text: 7 Can't tell when data was last refreshed Trust the numbers in reports, score 44, $1.05M ARR, 0% over 4 weeks, 3 need review, linked LIN-417 LIN-417 3 Trust the numbers in reports 44 $1.05M ■ 0%
+      - listitem:
+        - link "No way to backfill historical data":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=52a8a012-dd8b-8a7e-aa68-76e1f5a12e09
+          - text: 8 No way to backfill historical data Get customer data in without engineering help, score 38, $610k ARR, +22% over 4 weeks, 1 need review 1 Get customer data in without engineering help 38 $610k ▲ +22%
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=b6f18231-8c75-8987-8be8-229734be178b
+          - text: 9 SSO setup requires contacting support Control access and spend, score 31, $720k ARR, 0% over 4 weeks Control access and spend 31 $720k ■ 0%
+      - listitem:
+        - link "Exported charts lose formatting in slides":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=f0e6f097-8c4a-87c6-aeb7-b006f5b8ce45
+          - text: 10 Exported charts lose formatting in slides Share findings with stakeholders, score 26, $540k ARR, -50% over 4 weeks, 4 need review 4 Share findings with stakeholders 26 $540k ▼ -50%
+      - listitem:
+        - link "Timezone handling shifts daily counts":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=76accd2b-babd-8df2-8ddb-2294e47a7fe7
+          - text: 11 Timezone handling shifts daily counts Trust the numbers in reports, score 20, $420k ARR, -40% over 4 weeks, 2 need review 2 Trust the numbers in reports 20 $420k ▼ -40%
+      - listitem:
+        - link "No scheduled email digest":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64
+          - text: 12 No scheduled email digest Share findings with stakeholders, score 17, $390k ARR, 0% over 4 weeks, 3 need review 3 Share findings with stakeholders 17 $390k ■ 0%
+  - complementary "Opportunity detail":
+    - text: Trust the numbers in reports
+    - heading "Dashboard totals don't match the source system" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 44 accounts":
+        - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=accounts&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: "44"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $2.31M ARR":
+        - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=accounts&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: $2.31M
+    - term: Mentions
+    - definition:
+      - link "Show the 141 mentions":
+        - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=mentions&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+        - text: "141"
+    - term: Pain
+    - definition: Deal breaker
+    - heading "Mentions per week" [level=3]
+    - text: ▲ +36%
+    - 'img "Mentions per week from Jun 29: 6, 5, 8, 11, 9, 9, 13, 16, 13, 14, 19, 18"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - text: 9 need review
+    - figure "Cobalt Insurance $310k ARR buyer Open Zendesk ticket · Sep 11":
+      - blockquote:
+        - text: “Numbers don't tie out.
+        - mark: This is a renewal risk for us.
+        - text: ”
+      - text: Cobalt Insurance $310k ARR buyer
+      - link "Open Zendesk ticket · Sep 11":
+        - /url: /items/084c0c67-2025-87d3-aba6-f4cc5c1f0153?mention=f13de966-4676-80d3-b681-66286b5c5a7d&from=%7B%22reach%22%3A10%2C%22revenue%22%3A60%2C%22momentum%22%3A10%7D
+        - text: Zendesk ticket · Sep 11
+    - figure "Halcyon Bank $240k ARR executive Open Gong call · Sep 18":
+      - blockquote:
+        - text: “
+        - mark: Our CFO saw revenue off by 4% versus Stripe and now nobody trusts the dashboard.
+        - text: ”
+      - text: Halcyon Bank $240k ARR executive
+      - link "Open Gong call · Sep 18":
+        - /url: /items/8d6e7ee2-e736-8123-b897-5594ef93152a?mention=3ad9546c-0ead-83db-aded-b095446a8ee4&from=%7B%22reach%22%3A10%2C%22revenue%22%3A60%2C%22momentum%22%3A10%7D
+        - text: Gong call · Sep 18
+    - figure "Orbitly $132k ARR end user Open Interview · Sep 6":
+      - blockquote:
+        - text: “
+        - mark: I have to screenshot the source system next to yours in every exec review to prove it's right.
+        - text: ”
+      - text: Orbitly $132k ARR end user
+      - link "Open Interview · Sep 6":
+        - /url: /items/1780bed9-f4be-8cd3-9345-98a60a0bd1ff?mention=4bf74888-370d-855f-9e68-fb44efdc1c80&from=%7B%22reach%22%3A10%2C%22revenue%22%3A60%2C%22momentum%22%3A10%7D
+        - text: Interview · Sep 6
+    - figure "Lumen Clinics $74k ARR end user Open G2 review · Aug 25 62% confident":
+      - blockquote:
+        - text: “
+        - mark: Totals are different depending on which page you look at?
+        - text: ”
+      - text: Lumen Clinics $74k ARR end user
+      - link "Open G2 review · Aug 25":
+        - /url: /items/0a58b63a-5af8-8375-8d7c-d91d9dfda0d3?mention=07f3151a-3d35-89ab-86e0-76cffdedc80d&from=%7B%22reach%22%3A10%2C%22revenue%22%3A60%2C%22momentum%22%3A10%7D
+        - text: G2 review · Aug 25
+      - text: 62% confident
+    - heading "Requested solutions" [level=3]
+    - text: mentions Reconciliation view vs. source
+    - link "Show the 36 mentions of Reconciliation view vs. source":
+      - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=solution&solution=c8f3c4fc-e2a1-86b1-9a1a-e27818d87dcd&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+      - text: "36"
+    - text: Show calculation lineage per metric
+    - link "Show the 29 mentions of Show calculation lineage per metric":
+      - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=solution&solution=db8280c6-d660-8491-98fc-0481388d0bac&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+      - text: "29"
+    - text: Export raw rows behind a number
+    - link "Show the 14 mentions of Export raw rows behind a number":
+      - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=solution&solution=9887f055-69e8-8b8d-beca-dd6403cd87d6&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+      - text: "14"
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list:
+      - listitem:
+        - text: Cobalt Insurance
+        - link "Show Cobalt Insurance's 1 mention":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=c6121199-11b1-879b-a37d-28cd29900e50&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Cobalt Insurance's $310k ARR":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=c6121199-11b1-879b-a37d-28cd29900e50&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $310k
+      - listitem:
+        - text: Halcyon Bank
+        - link "Show Halcyon Bank's 1 mention":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Halcyon Bank's $240k ARR":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $240k
+      - listitem:
+        - text: Orbitly
+        - link "Show Orbitly's 1 mention":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=2a032135-5736-821d-9674-694de917da4e&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Orbitly's $132k ARR":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=2a032135-5736-821d-9674-694de917da4e&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $132k
+      - listitem:
+        - text: Lumen Clinics needs review
+        - link "Show Lumen Clinics's 1 mention":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=31786ac9-cd6c-8f02-8ff0-b27b23db2859&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 mention
+        - link "Show the quotes behind Lumen Clinics's $74k ARR":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=31786ac9-cd6c-8f02-8ff0-b27b23db2859&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $74k
+      - listitem:
+        - text: Kite Dynamics
+        - link "Show Kite Dynamics's 4 mentions":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=18e15505-3f46-89c3-8e2a-45a041db8e75&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 4 mentions
+        - link "Show the quotes behind Kite Dynamics's $52k ARR":
+          - /url: /opportunities?reach=10&revenue=60&momentum=10&evidence=account&account=18e15505-3f46-89c3-8e2a-45a041db8e75&selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: $52k

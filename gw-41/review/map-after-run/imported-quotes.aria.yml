@@ -1,0 +1,1522 @@
+# http://127.0.0.1:4100/opportunities?evidence=mentions&selected=b2d496f2-f395-891c-b8cb-5091d140af27
+- dialog "167 mentions":
+  - heading "167 mentions" [level=2]
+  - paragraph: CSV imports fail silently on malformed rows
+  - figure "Cedar Analytics $40k ARR admin Open Zendesk ticket · Sep 20 61% confident":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Cedar Analytics $40k ARR admin
+    - link "Open Zendesk ticket · Sep 20":
+      - /url: /items/a2102a08-658b-8fc3-89f4-04f0d59f7a73?mention=643efaec-1414-85ea-abaa-dfb451d03e85&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 20
+    - text: 61% confident
+  - figure "Delta Analytics $39k ARR end user Open G2 review · Sep 20 64% confident":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Delta Analytics $39k ARR end user
+    - link "Open G2 review · Sep 20":
+      - /url: /items/cd9ce09a-0a65-87ed-a135-c442868c2884?mention=b9ed45c8-e0d5-8a61-995e-04b9811c968b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 20
+    - text: 64% confident
+  - figure "Acorn Analytics $41k ARR buyer Open NPS comment · Sep 19 55% confident":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Acorn Analytics $41k ARR buyer
+    - link "Open NPS comment · Sep 19":
+      - /url: /items/8e8b8fb9-260f-8bda-a5c2-26e4db6fda58?mention=3936c3f2-fcc2-84c4-a50c-3bf8a819080b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 19
+    - text: 55% confident
+  - figure "Birch Analytics $40k ARR executive Open Gong call · Sep 19 58% confident":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Birch Analytics $40k ARR executive
+    - link "Open Gong call · Sep 19":
+      - /url: /items/3ff2c276-ac07-81bf-b7c0-0f0c9fffe135?mention=d0d2c339-7b71-8e7f-bbd2-b812e34c18b4&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 19
+    - text: 58% confident
+  - figure "admin Open zendesk-500 ticket · Sep 19":
+    - blockquote:
+      - text: “
+      - mark: Hello, I uploaded a CSV with 8400 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 19":
+      - /url: /items/01a175af-244c-779a-b489-539e61bc9b89?mention=01a175af-5adb-74b2-9bad-0e267ac0fbc8&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 19
+  - figure "Onyx Bio $21k ARR end user Open Zendesk ticket · Sep 18 67% confident":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Onyx Bio $21k ARR end user
+    - link "Open Zendesk ticket · Sep 18":
+      - /url: /items/4a79a954-3557-86af-8455-b6bdb6053ace?mention=d0dbc787-38fd-8c1d-8cba-fef513513d0e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 18
+    - text: 67% confident
+  - figure "admin Open zendesk-500 ticket · Sep 18":
+    - blockquote:
+      - text: “
+      - mark: Hello, I uploaded a CSV with 8200 rows and only part of it came through, with no error message.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 18":
+      - /url: /items/01a175af-244d-70d7-8519-4595a916ffc1?mention=01a175af-62a6-7858-b00f-c33be051ef44&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 18
+  - figure "Maple Bio $22k ARR end user Open Interview · Sep 17":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Maple Bio $22k ARR end user
+    - link "Open Interview · Sep 17":
+      - /url: /items/4b8ff2bd-6056-86e7-b602-485c43908ff6?mention=922775fa-18c1-8cc7-82f9-be07d00d74e0&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 17
+  - figure "Nimbus Bio $21k ARR admin Open Zendesk ticket · Sep 17":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Nimbus Bio $21k ARR admin
+    - link "Open Zendesk ticket · Sep 17":
+      - /url: /items/f82da715-1cf6-8874-b381-0d129625f420?mention=bc109395-0f4b-81c8-be36-7805fecaf8a3&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 17
+  - figure "Kite Bio $23k ARR executive Open G2 review · Sep 16":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Dry-run / validate before import."
+      - text: ”
+    - text: Kite Bio $23k ARR executive
+    - link "Open G2 review · Sep 16":
+      - /url: /items/85d6cd7d-04e8-8390-869b-1253ea63d50a?mention=014f34c8-78fd-8e6b-b8aa-f8cc9de58915&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 16
+  - figure "Linden Bio $22k ARR admin Open NPS comment · Sep 16":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Linden Bio $22k ARR admin
+    - link "Open NPS comment · Sep 16":
+      - /url: /items/64b607e7-0182-86fa-8299-61126898d4d2?mention=a3bca17e-51d0-855a-9424-b9b024de754a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 16
+  - figure "Jasper Bio $24k ARR buyer Open Zendesk ticket · Sep 15":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Jasper Bio $24k ARR buyer
+    - link "Open Zendesk ticket · Sep 15":
+      - /url: /items/dafe527c-06b5-8d5d-b208-1a3341e39c00?mention=500b1c1d-2834-8290-8366-d5a734c4f54d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 15
+  - figure "Iris Bio $24k ARR end user Open Gong call · Sep 14":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Iris Bio $24k ARR end user
+    - link "Open Gong call · Sep 14":
+      - /url: /items/02c0bbaf-9569-8d24-9250-9b99a0615679?mention=5ccf2f63-6246-820e-9514-e12948d1c676&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 14
+  - figure "Harbor Bio $25k ARR admin Open NPS comment · Sep 14":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Harbor Bio $25k ARR admin
+    - link "Open NPS comment · Sep 14":
+      - /url: /items/a77890fc-99b8-8421-a8ec-e165bd466543?mention=d12f9bc2-d04e-8df5-af0f-9370521107e6&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 14
+  - figure "end user Open zendesk-500 ticket · Sep 14":
+    - blockquote:
+      - text: “
+      - mark: Hello, I uploaded a CSV with 7400 rows and only part of it came through, with no error message.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 14":
+      - /url: /items/01a175af-244c-70f4-a25a-ab21302b55e2?mention=01a175af-5504-7a78-811d-353989c30aa7&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 14
+  - figure "buyer Open zendesk-500 ticket · Sep 14":
+    - blockquote:
+      - text: “… We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: I uploaded a CSV with 8500 rows and only part of it came through, with no error message. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Sep 14":
+      - /url: /items/01a175af-244e-740a-94e2-4489a93fdd99?mention=01a175af-7242-704e-9141-0a938021226a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 14
+  - figure "end user Open zendesk-500 ticket · Sep 14":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: I uploaded a CSV with 2700 rows and only part of it came through, with no error message.
+      - text: Thanks!”
+    - text: end user
+    - link "Open zendesk-500 ticket · Sep 14":
+      - /url: /items/01a175af-244d-7a08-be79-a08ef8df160e?mention=01a175af-6a70-7239-9b03-8ed7237ba869&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 14
+  - figure "Granite Bio $25k ARR end user Open Zendesk ticket · Sep 13":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Granite Bio $25k ARR end user
+    - link "Open Zendesk ticket · Sep 13":
+      - /url: /items/c39d54ff-50e1-83fe-b199-33307a3e9246?mention=6313f1b6-d84d-8275-81e1-97bbb58a7526&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 13
+  - figure "Fjord Bio $26k ARR admin Open Zendesk ticket · Sep 13":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Fjord Bio $26k ARR admin
+    - link "Open Zendesk ticket · Sep 13":
+      - /url: /items/815ffe78-68d4-8e0a-96e4-a87a039d166d?mention=8a4be8dc-f0e0-8555-b679-3c522a6f471e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 13
+  - figure "Ember Bio $27k ARR executive Open Interview · Sep 12":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Ember Bio $27k ARR executive
+    - link "Open Interview · Sep 12":
+      - /url: /items/305dc365-9aff-8f55-88c2-4fd3e50784fa?mention=12901037-9e0c-8031-a0b4-132b209b2b7c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 12
+  - figure "Juniper Freight $184k ARR admin Open Zendesk ticket · Sep 12":
+    - blockquote:
+      - text: “
+      - mark: We uploaded 40k rows and only 31k showed up.
+      - mark: No error, nothing.
+      - text: We found out a week later from finance.”
+    - text: Juniper Freight $184k ARR admin
+    - link "Open Zendesk ticket · Sep 12":
+      - /url: /items/dc8fef96-c84b-8de3-8895-146a49c1ef74?mention=e7689e08-9224-864a-a33a-e85c7cb8895c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 12
+  - figure "Delta Bio $27k ARR buyer Open NPS comment · Sep 11":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Delta Bio $27k ARR buyer
+    - link "Open NPS comment · Sep 11":
+      - /url: /items/e4679286-fb0b-84d1-8873-b58cb8ca9d8b?mention=e487230d-853e-8e93-9200-47de43ee7e20&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 11
+  - figure "executive Open zendesk-500 ticket · Sep 11":
+    - blockquote:
+      - text: “
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon.”
+    - text: executive
+    - link "Open zendesk-500 ticket · Sep 11":
+      - /url: /items/01a175af-244c-7181-830b-e0119247b27e?mention=01a175af-5508-7d08-a3bf-87496d8a6a05&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 11
+  - figure "Birch Bio $28k ARR admin Open Zendesk ticket · Sep 10":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Birch Bio $28k ARR admin
+    - link "Open Zendesk ticket · Sep 10":
+      - /url: /items/3d150ace-3785-8f7b-bf0e-a2a1bb871b56?mention=004f8533-18f4-85cc-bf13-a97d25c30a0b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 10
+  - figure "Cedar Bio $28k ARR end user Open G2 review · Sep 10":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Cedar Bio $28k ARR end user
+    - link "Open G2 review · Sep 10":
+      - /url: /items/3de7c7ec-3913-896b-a50f-a660f8fa1b88?mention=9aeb7d87-7b48-84a9-804e-74123828d7a9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 10
+  - figure "Acorn Bio $29k ARR end user Open Gong call · Sep 9":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Acorn Bio $29k ARR end user
+    - link "Open Gong call · Sep 9":
+      - /url: /items/3f673a81-8272-8357-acf5-d4464fe6c589?mention=98ae82f3-fd36-8f48-926e-a9fc7d9ed054&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 9
+  - figure "Tidal Analytics $30k ARR admin Open NPS comment · Sep 8":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Tidal Analytics $30k ARR admin
+    - link "Open NPS comment · Sep 8":
+      - /url: /items/ca0e42e0-91a7-83cc-bb1b-3e40fe972aab?mention=9cc3e57b-b148-82d2-9cb5-ce24a94617a4&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 8
+  - figure "Raven Analytics $31k ARR buyer Open Zendesk ticket · Sep 7":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Raven Analytics $31k ARR buyer
+    - link "Open Zendesk ticket · Sep 7":
+      - /url: /items/c5a80c2b-6afa-8845-bfa7-97c3507d1714?mention=5127c9af-b8c3-8a7c-9ba3-ca8a2a80767a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 7
+  - figure "Summit Analytics $30k ARR executive Open Zendesk ticket · Sep 7":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Summit Analytics $30k ARR executive
+    - link "Open Zendesk ticket · Sep 7":
+      - /url: /items/97dcd2ab-8813-8a53-8dee-dabbb017166d?mention=5986fc8a-cb00-850e-96b7-773b87e01480&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 7
+  - figure "Pioneer Analytics $32k ARR admin Open NPS comment · Sep 6":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Pioneer Analytics $32k ARR admin
+    - link "Open NPS comment · Sep 6":
+      - /url: /items/312fb88f-878f-81a8-96c0-b54960bef8f3?mention=13436172-8e2e-816c-879a-15ad42963e88&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 6
+  - figure "Quarry Analytics $31k ARR end user Open Interview · Sep 6":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Quarry Analytics $31k ARR end user
+    - link "Open Interview · Sep 6":
+      - /url: /items/163907e0-9662-8c71-9970-749cb9f40333?mention=da88907b-4f4f-80bf-8a35-0fca1d263297&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 6
+  - figure "admin Open zendesk-500 ticket · Sep 6":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: I uploaded a CSV with 4800 rows and only part of it came through, with no error message. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Sep 6":
+      - /url: /items/01a175af-244d-704d-b69a-c0acf71e91ed?mention=01a175af-62aa-7586-a557-1524f7c93d0f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 6
+  - figure "Onyx Analytics $33k ARR end user Open G2 review · Sep 5":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Dry-run / validate before import."
+      - text: ”
+    - text: Onyx Analytics $33k ARR end user
+    - link "Open G2 review · Sep 5":
+      - /url: /items/54fe2426-7164-80a7-8519-419aa23c2eef?mention=b7c8b254-0c07-8eac-9dde-7a199b717271&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Sep 5
+  - figure "buyer Open zendesk-500 ticket · Sep 4":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: ”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Sep 4":
+      - /url: /items/01a175af-244b-7b36-9e24-e22ef0cc9030?mention=01a175af-4f2b-739e-90b3-44ecd8496851&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 4
+  - figure "Nimbus Analytics $33k ARR admin Open Zendesk ticket · Sep 4":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Nimbus Analytics $33k ARR admin
+    - link "Open Zendesk ticket · Sep 4":
+      - /url: /items/3d1d58b3-7f53-8515-905f-1268f77e175e?mention=ef8a0a09-dcea-88c3-92d7-38eb1b92c871&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 4
+  - figure "Kestrel Labs $96k ARR admin Open Gong call · Sep 3 62% confident":
+    - blockquote:
+      - text: “If a row is bad just tell me which one.
+      - mark: I spent two days bisecting a CSV.
+      - text: ”
+    - text: Kestrel Labs $96k ARR admin
+    - link "Open Gong call · Sep 3":
+      - /url: /items/91ff4b5d-b12f-8ba6-aecb-c9d61e0fc144?mention=23955419-e32c-80ae-8b81-48def654c9d1&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 3
+    - text: 62% confident
+  - figure "Maple Analytics $34k ARR executive Open Gong call · Sep 3":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Maple Analytics $34k ARR executive
+    - link "Open Gong call · Sep 3":
+      - /url: /items/b50ac687-df4b-84a1-b7fe-4b54e916d473?mention=7c51b1f8-bd20-857a-9656-6a524c3d39bc&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Sep 3
+  - figure "Linden Analytics $34k ARR buyer Open NPS comment · Sep 3":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Linden Analytics $34k ARR buyer
+    - link "Open NPS comment · Sep 3":
+      - /url: /items/60bb7eee-96c9-843e-ba1e-e7c8c5342953?mention=b69cbe11-b3f5-86db-837d-d9a41817ee5a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Sep 3
+  - figure "Jasper Analytics $36k ARR admin Open Zendesk ticket · Sep 2":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Jasper Analytics $36k ARR admin
+    - link "Open Zendesk ticket · Sep 2":
+      - /url: /items/a1b2141c-193a-8701-ad4d-ec284741f233?mention=93738b0d-5589-8c18-9d7b-821ed95ba0e5&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 2
+  - figure "Kite Analytics $35k ARR end user Open Zendesk ticket · Sep 2":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Kite Analytics $35k ARR end user
+    - link "Open Zendesk ticket · Sep 2":
+      - /url: /items/dca59098-8e16-8160-a886-2dc3264b0296?mention=9b60b81f-dc57-81f1-8121-5f7ab3696a3e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Sep 2
+  - figure "Iris Analytics $36k ARR end user Open Interview · Sep 1":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Iris Analytics $36k ARR end user
+    - link "Open Interview · Sep 1":
+      - /url: /items/df7db20b-dccf-8360-8ad0-85b827ee95bd?mention=eff4c828-dd41-8dd4-b38c-6e148adafb1b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Sep 1
+  - figure "buyer Open zendesk-500 ticket · Sep 1 69% confident":
+    - blockquote:
+      - text: “Hello, We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Sep 1":
+      - /url: /items/01a175af-244c-79f6-bd2b-809f562102cf?mention=01a175af-5cd0-747f-b066-2dd6f6585b93&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Sep 1
+    - text: 69% confident
+  - figure "Harbor Analytics $37k ARR admin Open NPS comment · Aug 31":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Harbor Analytics $37k ARR admin
+    - link "Open NPS comment · Aug 31":
+      - /url: /items/ac673603-5fd4-81a5-9b94-0c9a141a39d4?mention=0ebe61d6-5432-83ac-bfee-b556e1b9751f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 31
+  - figure "Granite Analytics $37k ARR executive Open G2 review · Aug 31":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Granite Analytics $37k ARR executive
+    - link "Open G2 review · Aug 31":
+      - /url: /items/2b047101-e841-82c5-a39f-c14248d5fc41?mention=cc1947e5-968c-836d-a58d-bb4398e534bf&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 31
+  - figure "admin Open zendesk-500 ticket · Aug 30":
+    - blockquote:
+      - text: “Quick question.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 30":
+      - /url: /items/01a175af-244f-712d-a739-d54a9dbb737d?mention=01a175af-7c12-7645-a8e8-0175f5b5bf1b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 30
+  - figure "Fjord Analytics $38k ARR buyer Open Zendesk ticket · Aug 30":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Fjord Analytics $38k ARR buyer
+    - link "Open Zendesk ticket · Aug 30":
+      - /url: /items/64fc2ffe-cf24-8f3b-92e0-5e29c4c358e2?mention=bd8f8359-c073-852a-8007-4ab62d5f3b90&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 30
+  - figure "Ember Analytics $39k ARR end user Open Gong call · Aug 30":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Ember Analytics $39k ARR end user
+    - link "Open Gong call · Aug 30":
+      - /url: /items/1bf0ce14-136d-8fe4-b86c-ac4c6e30d953?mention=f21d4f6c-2a3f-8c0b-91c0-5145a82eeea6&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 30
+  - figure "Parcelly $62k ARR end user Open Interview · Aug 29":
+    - blockquote:
+      - text: “
+      - mark: Honestly the import is a black box.
+      - text: I just re-upload until the count looks right.”
+    - text: Parcelly $62k ARR end user
+    - link "Open Interview · Aug 29":
+      - /url: /items/4a7afb11-63da-81bb-8e4d-55cd7ede70e3?mention=9f0fccc6-aeb4-8419-aa04-7ba7a5dd8af9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 29
+  - figure "Delta Analytics $39k ARR admin Open NPS comment · Aug 29":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Delta Analytics $39k ARR admin
+    - link "Open NPS comment · Aug 29":
+      - /url: /items/4802bad3-4c5f-8378-865c-ca0b7e2c4033?mention=dfe88bed-ae9c-84a3-8ffd-cdecc58faf3b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 29
+  - figure "buyer Open zendesk-500 ticket · Aug 29":
+    - blockquote:
+      - text: “Hi there.
+      - mark: We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 29":
+      - /url: /items/01a175af-244e-79e7-933b-ee2e356832e7?mention=01a175af-762f-7260-9491-60c4167b6a04&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 29
+  - figure "admin Open zendesk-500 ticket · Aug 29":
+    - blockquote:
+      - text: “Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: Thanks in advance.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 29":
+      - /url: /items/01a175af-244c-7c46-b622-4bbcd72008db?mention=01a175af-5ec0-7019-934f-105ef50bcfcd&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 29
+  - figure "admin Open zendesk-500 ticket · Aug 28":
+    - blockquote:
+      - text: “Hi team, This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 28":
+      - /url: /items/01a175af-244d-7fbf-94cf-022977fa1474?mention=01a175af-6e61-7168-8bc9-2fba3544bd83&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 28
+  - figure "Cedar Analytics $40k ARR end user Open Zendesk ticket · Aug 28":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Cedar Analytics $40k ARR end user
+    - link "Open Zendesk ticket · Aug 28":
+      - /url: /items/0aabe8de-8b77-8187-a292-eaace5b4275b?mention=852c53c4-0e03-8ffd-89f5-68e8432b84ca&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 28
+  - figure "Acorn Analytics $41k ARR executive Open Interview · Aug 27":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Acorn Analytics $41k ARR executive
+    - link "Open Interview · Aug 27":
+      - /url: /items/06e91430-3df9-83a8-a354-38a8cab7e18f?mention=0a3ec3ab-9c5a-8057-b72b-60a60326276f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 27
+  - figure "Birch Analytics $40k ARR admin Open Zendesk ticket · Aug 27":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Dry-run / validate before import."
+      - text: ”
+    - text: Birch Analytics $40k ARR admin
+    - link "Open Zendesk ticket · Aug 27":
+      - /url: /items/ee917c70-c607-8611-a580-30145e6cb252?mention=4e864e29-f7a9-8f13-bafc-153bf596b992&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 27
+  - figure "Nimbus Bio $21k ARR end user Open G2 review · Aug 26":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Nimbus Bio $21k ARR end user
+    - link "Open G2 review · Aug 26":
+      - /url: /items/a6997ea4-05ab-8f74-8ede-606c5faf091d?mention=00941e21-1224-8692-acb0-f9879d91f6db&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 26
+  - figure "Onyx Bio $21k ARR buyer Open NPS comment · Aug 26":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Onyx Bio $21k ARR buyer
+    - link "Open NPS comment · Aug 26":
+      - /url: /items/bf84bcea-5b39-807a-ae56-a60fb8ba6c5c?mention=6ce39c37-13b5-8d08-a043-36e329a81ed2&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 26
+  - figure "Maple Bio $22k ARR admin Open Zendesk ticket · Aug 25":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Maple Bio $22k ARR admin
+    - link "Open Zendesk ticket · Aug 25":
+      - /url: /items/1d5b7df3-a3d7-8d71-9345-b2ffe88a1d87?mention=3786a566-ec04-8182-aa9f-7d7218d5a7e4&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 25
+  - figure "executive Open zendesk-500 ticket · Aug 24 63% confident":
+    - blockquote:
+      - text: “Hello, The importer says "Upload complete", but half of the rows are missing from the table.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Aug 24":
+      - /url: /items/01a175af-244f-7101-a166-f432e44860b3?mention=01a175af-7c0f-765a-9667-c9dd9d22e953&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 24
+    - text: 63% confident
+  - figure "admin Open zendesk-500 ticket · Aug 24":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Please advise.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 24":
+      - /url: /items/01a175af-244d-72af-87dd-df6cdc23a2dc?mention=01a175af-649d-750e-837c-b5116e97ec4f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 24
+  - figure "Linden Bio $22k ARR end user Open Gong call · Aug 24":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Linden Bio $22k ARR end user
+    - link "Open Gong call · Aug 24":
+      - /url: /items/95f2bafc-1e97-8285-9d7e-f02d16108960?mention=7cacaddd-4850-837c-96a1-836fb8b5aa3c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 24
+  - figure "Kite Bio $23k ARR admin Open NPS comment · Aug 24":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Kite Bio $23k ARR admin
+    - link "Open NPS comment · Aug 24":
+      - /url: /items/bd767118-5485-8e74-a5fc-f9e603a5d372?mention=7f226a79-cf52-8b46-8d80-0dd10a202e18&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 24
+  - figure "Jasper Bio $24k ARR executive Open Zendesk ticket · Aug 23":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Jasper Bio $24k ARR executive
+    - link "Open Zendesk ticket · Aug 23":
+      - /url: /items/e607ad27-7742-8f96-8a82-59b64892478f?mention=ac2b3cf7-95a3-8ec4-aa91-2e54e58809ab&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 23
+  - figure "Iris Bio $24k ARR buyer Open Zendesk ticket · Aug 22":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Iris Bio $24k ARR buyer
+    - link "Open Zendesk ticket · Aug 22":
+      - /url: /items/34c0ebcd-c35f-80e6-aaaa-77e01c2a7408?mention=b92cf295-2e3c-825a-b176-7a8f5548dd50&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 22
+  - figure "Harbor Bio $25k ARR end user Open Interview · Aug 21":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Harbor Bio $25k ARR end user
+    - link "Open Interview · Aug 21":
+      - /url: /items/3f7bae4f-6b0d-8254-a9f7-7f74fdff57a1?mention=fcb88b55-2d9d-8224-b450-6406c03c2218&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 21
+  - figure "end user Open zendesk-500 ticket · Aug 21":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Any update would help.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 21":
+      - /url: /items/01a175af-244c-7fae-a596-3962fa1be559?mention=01a175af-62a7-738e-a129-e7fe3559dd00&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 21
+  - figure "Granite Bio $25k ARR admin Open NPS comment · Aug 20":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Granite Bio $25k ARR admin
+    - link "Open NPS comment · Aug 20":
+      - /url: /items/7946e296-6751-8a58-9bb4-b2a7065c97dd?mention=05c2d5d8-e2f8-849c-a4b2-dc8ab310cbb9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 20
+  - figure "Fjord Bio $26k ARR end user Open G2 review · Aug 20":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Fjord Bio $26k ARR end user
+    - link "Open G2 review · Aug 20":
+      - /url: /items/b8a5153d-2a4e-8a7a-8c12-9c4359f275b0?mention=4339a286-d6f3-81d5-a1aa-c4b32b0f66f3&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 20
+  - figure "Ember Bio $27k ARR admin Open Zendesk ticket · Aug 19":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Ember Bio $27k ARR admin
+    - link "Open Zendesk ticket · Aug 19":
+      - /url: /items/94e230d0-cbeb-8503-b486-ce730fb803c9?mention=32f6d31a-8337-8e3f-9bbf-c9fab6334a86&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 19
+  - figure "admin Open zendesk-500 ticket · Aug 19":
+    - blockquote:
+      - text: “We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: I uploaded a CSV with 4600 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 19":
+      - /url: /items/01a175af-244d-7e53-aa01-5a987174bcb7?mention=01a175af-6c6e-7a75-8b45-c1784a736e6a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 19
+  - figure "buyer Open zendesk-500 ticket · Aug 18":
+    - blockquote:
+      - text: “… We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: I uploaded a CSV with 2500 rows and only part of it came through, with no error message.
+      - text: ”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 18":
+      - /url: /items/01a175af-244c-7886-9ca4-72e413abff97?mention=01a175af-5ae1-7097-a897-513ed8fed138&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 18
+  - figure "Delta Bio $27k ARR executive Open Gong call · Aug 18":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Delta Bio $27k ARR executive
+    - link "Open Gong call · Aug 18":
+      - /url: /items/30cf4bec-d5a8-8429-87ab-f09e7666852a?mention=d6c24547-4046-8fb4-9256-32faf685367f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 18
+  - figure "Cedar Bio $28k ARR buyer Open NPS comment · Aug 17":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Cedar Bio $28k ARR buyer
+    - link "Open NPS comment · Aug 17":
+      - /url: /items/ae974dc8-65c0-82ee-ab60-569298d344e1?mention=54aa8538-1543-8c7c-a962-af56de357fd7&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 17
+  - figure "Birch Bio $28k ARR end user Open Zendesk ticket · Aug 17":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Birch Bio $28k ARR end user
+    - link "Open Zendesk ticket · Aug 17":
+      - /url: /items/f913bd8b-8a76-894f-8f25-ebff4ffb82dc?mention=66d68675-a638-8f67-a9aa-556f3fe9cb63&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 17
+  - figure "admin Open zendesk-500 ticket · Aug 17":
+    - blockquote:
+      - text: “… I uploaded a CSV with 3200 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Please advise.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 17":
+      - /url: /items/01a175af-244c-7de2-96c4-b121a8f460db?mention=01a175af-60b0-7615-b9b8-f0cf76e97347&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 17
+  - figure "admin Open zendesk-500 ticket · Aug 17":
+    - blockquote:
+      - text: “… I uploaded a CSV with 6400 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Please advise.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 17":
+      - /url: /items/01a175af-244d-7c7c-a026-565a9d874f0e?mention=01a175af-6a7d-7722-9655-89b85af45845&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 17
+  - figure "Acorn Bio $29k ARR admin Open Zendesk ticket · Aug 16":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Dry-run / validate before import."
+      - text: ”
+    - text: Acorn Bio $29k ARR admin
+    - link "Open Zendesk ticket · Aug 16":
+      - /url: /items/f869de58-5c00-8281-9b07-49405e54302c?mention=a36c57c0-7d32-82b8-a75d-836697165420&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 16
+  - figure "admin Open zendesk-500 ticket · Aug 16":
+    - blockquote:
+      - text: “Hi team, This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Aug 16":
+      - /url: /items/01a175af-244e-7b41-b19b-bef22eaaa07e?mention=01a175af-7818-7607-91e9-1636c054006b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 16
+  - figure "end user Open zendesk-500 ticket · Aug 15":
+    - blockquote:
+      - text: “Hi there.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 15":
+      - /url: /items/01a175af-244c-763d-9ebf-3f9de30b30ee?mention=01a175af-58ec-7c13-bd53-988b3f978118&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 15
+  - figure "Tidal Analytics $30k ARR end user Open Interview · Aug 15":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Tidal Analytics $30k ARR end user
+    - link "Open Interview · Aug 15":
+      - /url: /items/c63394f4-759f-81b0-9a76-d0eddaccfae9?mention=02939d67-765b-8983-9ae1-7279ce9e61ca&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 15
+  - figure "buyer Open zendesk-500 ticket · Aug 15":
+    - blockquote:
+      - text: “
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: I uploaded a CSV with 2000 rows and only part of it came through, with no error message. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 15":
+      - /url: /items/01a175af-244b-7de9-af1d-8e28a1920914?mention=01a175af-5308-74c5-bc2d-2903ed553472&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 15
+  - figure "Summit Analytics $30k ARR admin Open NPS comment · Aug 14":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Summit Analytics $30k ARR admin
+    - link "Open NPS comment · Aug 14":
+      - /url: /items/fe78ade7-6f4d-811c-b595-c263adcae6b7?mention=62ea58c4-ee0b-883a-95fd-34f1b542682e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 14
+  - figure "Quarry Analytics $31k ARR buyer Open Zendesk ticket · Aug 13":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Quarry Analytics $31k ARR buyer
+    - link "Open Zendesk ticket · Aug 13":
+      - /url: /items/9d9f56fb-de74-80f8-bbca-19642cfe334c?mention=6c0ba78e-0e34-8b58-9e13-85f28d47fcac&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 13
+  - figure "Raven Analytics $31k ARR executive Open G2 review · Aug 13":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Raven Analytics $31k ARR executive
+    - link "Open G2 review · Aug 13":
+      - /url: /items/b8a847a4-d2bb-8429-8328-b8d77dcf9e1b?mention=d7a54c98-0b8b-8461-8458-798fb58ae810&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 13
+  - figure "Pioneer Analytics $32k ARR end user Open Gong call · Aug 12":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Pioneer Analytics $32k ARR end user
+    - link "Open Gong call · Aug 12":
+      - /url: /items/3a50b633-4479-8239-8e94-87fc6dde9260?mention=0e5fc788-87ee-863b-97c7-a9b80190e62f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 12
+  - figure "Onyx Analytics $33k ARR admin Open NPS comment · Aug 11":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Onyx Analytics $33k ARR admin
+    - link "Open NPS comment · Aug 11":
+      - /url: /items/a2aae22a-0353-8910-8a14-295d9f25f04e?mention=4341b7ba-c125-88ae-b3f8-5b38adf750c9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 11
+  - figure "buyer Open zendesk-500 ticket · Aug 11":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: I uploaded a CSV with 9800 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Aug 11":
+      - /url: /items/01a175af-244e-783b-92f6-74264fe81e4f?mention=01a175af-7627-7945-a1bb-310df3a2d02e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 11
+  - figure "Nimbus Analytics $33k ARR end user Open Zendesk ticket · Aug 10":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Nimbus Analytics $33k ARR end user
+    - link "Open Zendesk ticket · Aug 10":
+      - /url: /items/2dc92d8a-ab40-8a96-b8df-54fe9c6e86a5?mention=7a862a62-a896-862e-a94e-777f282a0f51&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 10
+  - figure "Maple Analytics $34k ARR admin Open Zendesk ticket · Aug 10":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Maple Analytics $34k ARR admin
+    - link "Open Zendesk ticket · Aug 10":
+      - /url: /items/32f3c9a7-fcf9-8ec4-9457-5ec93d7cbe9f?mention=99198a4f-7836-8894-956e-73807316bd85&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 10
+  - figure "Kite Analytics $35k ARR buyer Open NPS comment · Aug 9":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Kite Analytics $35k ARR buyer
+    - link "Open NPS comment · Aug 9":
+      - /url: /items/f8e7d253-21a1-8f2e-b105-d0079056f14d?mention=a0e7705c-ba75-8787-9c85-7a770363ad46&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 9
+  - figure "Linden Analytics $34k ARR executive Open Interview · Aug 9":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Linden Analytics $34k ARR executive
+    - link "Open Interview · Aug 9":
+      - /url: /items/995c59ee-4948-80c3-bf80-842335297851?mention=f415c0b1-178b-88ff-8d0d-f67608d73ac9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 9
+  - figure "Jasper Analytics $36k ARR end user Open G2 review · Aug 8":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Jasper Analytics $36k ARR end user
+    - link "Open G2 review · Aug 8":
+      - /url: /items/34af8910-77c1-8d42-9b65-b8fc5470fbe3?mention=a9f30f8a-483e-8cc5-8b18-0fe701877726&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 8
+  - figure "end user Open zendesk-500 ticket · Aug 7":
+    - blockquote:
+      - text: “
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 7":
+      - /url: /items/01a175af-244d-7e37-a224-e436318b6738?mention=01a175af-6c6b-7f83-8910-7cc64d3edb77&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 7
+  - figure "Iris Analytics $36k ARR admin Open Zendesk ticket · Aug 7":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Iris Analytics $36k ARR admin
+    - link "Open Zendesk ticket · Aug 7":
+      - /url: /items/67f7aa92-ec7d-86b1-872d-212f1a68e910?mention=9245545a-4979-863e-b29a-3a884f0ca9e2&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 7
+  - figure "Harbor Analytics $37k ARR end user Open Gong call · Aug 6":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Harbor Analytics $37k ARR end user
+    - link "Open Gong call · Aug 6":
+      - /url: /items/3f7cc7b3-fc91-8172-8126-6d55162de339?mention=9ffe226c-760f-8333-8c70-1d0f723f0169&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Aug 6
+  - figure "Granite Analytics $37k ARR admin Open NPS comment · Aug 6":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Granite Analytics $37k ARR admin
+    - link "Open NPS comment · Aug 6":
+      - /url: /items/d23dc288-c3e7-8d01-9847-0cd7e0890576?mention=e1f9edec-fe05-8d2a-8c6f-286d5dbb954b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 6
+  - figure "Fjord Analytics $38k ARR executive Open Zendesk ticket · Aug 5":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Dry-run / validate before import."
+      - text: ”
+    - text: Fjord Analytics $38k ARR executive
+    - link "Open Zendesk ticket · Aug 5":
+      - /url: /items/054a249f-78e3-89e2-ab30-53efbdbd8522?mention=29a307ce-fc99-8b6b-bd66-41d1b7c13c49&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 5
+  - figure "Ember Analytics $39k ARR buyer Open Zendesk ticket · Aug 4":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Dry-run / validate before import."
+      - text: ”
+    - text: Ember Analytics $39k ARR buyer
+    - link "Open Zendesk ticket · Aug 4":
+      - /url: /items/c12f22ce-3b2b-81b1-95f4-8231803dfdee?mention=b67fe589-c5d7-8302-a82c-8179dc5d5529&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 4
+  - figure "Delta Analytics $39k ARR end user Open Interview · Aug 3":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Delta Analytics $39k ARR end user
+    - link "Open Interview · Aug 3":
+      - /url: /items/a9b193e4-39b2-8a89-8380-75c5bb9a50cd?mention=292df043-c74d-88af-aa25-b025f1643337&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Aug 3
+  - figure "Cedar Analytics $40k ARR admin Open NPS comment · Aug 3":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Cedar Analytics $40k ARR admin
+    - link "Open NPS comment · Aug 3":
+      - /url: /items/a6cc665c-48c3-842a-9357-581e2ab4fb01?mention=c66b89f9-17f3-850d-87b9-11b08c20e68e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Aug 3
+  - figure "Birch Analytics $40k ARR end user Open G2 review · Aug 2":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Birch Analytics $40k ARR end user
+    - link "Open G2 review · Aug 2":
+      - /url: /items/d8cb88d1-e2ba-8d86-8c98-016bfa8337ff?mention=f9a7ada7-401a-8bad-bbf3-dc148eefebef&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Aug 2
+  - figure "end user Open zendesk-500 ticket · Aug 2":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: I uploaded a CSV with 8100 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Aug 2":
+      - /url: /items/01a175af-244c-7d72-988a-f90631bf696f?mention=01a175af-60ab-7e04-a63f-f779c12d2718&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Aug 2
+  - figure "Acorn Analytics $41k ARR admin Open Zendesk ticket · Aug 1":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Acorn Analytics $41k ARR admin
+    - link "Open Zendesk ticket · Aug 1":
+      - /url: /items/a190e5c8-bcbf-8e90-a382-726e32a33ff3?mention=12d1c306-da96-89e2-ae35-d66fdd4feed1&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Aug 1
+  - figure "Onyx Bio $21k ARR executive Open Gong call · Jul 31":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Onyx Bio $21k ARR executive
+    - link "Open Gong call · Jul 31":
+      - /url: /items/134dc3d2-baa4-8ade-b102-094e49e5a903?mention=43cfe781-e171-897b-a2ca-c98d0c4ea028&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 31
+  - figure "Nimbus Bio $21k ARR buyer Open NPS comment · Jul 30":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Nimbus Bio $21k ARR buyer
+    - link "Open NPS comment · Jul 30":
+      - /url: /items/31a818b3-436f-83a3-82bc-87ac03ae26a7?mention=5812c7d9-baa9-809c-acfa-58209d4e424e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 30
+  - figure "Maple Bio $22k ARR end user Open Zendesk ticket · Jul 30":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Maple Bio $22k ARR end user
+    - link "Open Zendesk ticket · Jul 30":
+      - /url: /items/a40c070d-3f67-8785-a0cf-0471628e9e82?mention=6da177b3-9e28-813c-9290-768e6808426b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 30
+  - figure "buyer Open zendesk-500 ticket · Jul 30":
+    - blockquote:
+      - text: “This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: I uploaded a CSV with 3900 rows and only part of it came through, with no error message.
+      - text: Thanks!”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Jul 30":
+      - /url: /items/01a175af-244d-7cc6-b010-946d4d582f20?mention=01a175af-6a7f-7764-9539-20f0019e4b90&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 30
+  - figure "admin Open zendesk-500 ticket · Jul 30":
+    - blockquote:
+      - text: “
+      - mark: Hello, The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 30":
+      - /url: /items/01a175af-244c-72b7-a763-d151292151bc?mention=01a175af-56f2-7a38-a1a6-a5adbf71d7fa&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 30
+  - figure "end user Open zendesk-500 ticket · Jul 29":
+    - blockquote:
+      - text: “Quick question.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 29":
+      - /url: /items/01a175af-244f-70d5-8037-8573e7790d7c?mention=01a175af-7c0b-7b8b-973c-0d2b11796921&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 29
+  - figure "Linden Bio $22k ARR admin Open Zendesk ticket · Jul 29":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Linden Bio $22k ARR admin
+    - link "Open Zendesk ticket · Jul 29":
+      - /url: /items/29ae9476-4bc1-80db-9459-6a737c07dedc?mention=5b553b56-916b-885a-8d44-b51bfe69a18a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 29
+  - figure "buyer Open zendesk-500 ticket · Jul 29 45% confident":
+    - blockquote:
+      - text: “Hello, I uploaded a CSV with 4100 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Jul 29":
+      - /url: /items/01a175af-244e-7d1e-8e7d-3d4f8ad6eb20?mention=01a175af-782b-7b18-8fd3-70a94ad03478&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 29
+    - text: 45% confident
+  - figure "Kite Bio $23k ARR end user Open Interview · Jul 28":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Kite Bio $23k ARR end user
+    - link "Open Interview · Jul 28":
+      - /url: /items/5a050a3a-e039-8190-bf91-a237bf328cd0?mention=2188f595-128d-877f-8541-9b5ab9478ddf&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 28
+  - figure "Iris Bio $24k ARR executive Open G2 review · Jul 27":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Iris Bio $24k ARR executive
+    - link "Open G2 review · Jul 27":
+      - /url: /items/8e721d01-8599-8ea1-9b1e-b417d543df32?mention=53139476-e88a-8cb9-bcb4-0b9acbc616f6&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 27
+  - figure "Jasper Bio $24k ARR admin Open NPS comment · Jul 27":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Jasper Bio $24k ARR admin
+    - link "Open NPS comment · Jul 27":
+      - /url: /items/50e476e7-19a9-810c-8a7a-2f9aeb017563?mention=9aee6d32-9bda-8629-9221-a0dc9f12ec1f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 27
+  - figure "Harbor Bio $25k ARR buyer Open Zendesk ticket · Jul 26":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Harbor Bio $25k ARR buyer
+    - link "Open Zendesk ticket · Jul 26":
+      - /url: /items/cb0b50f2-72b3-8fef-838a-2b20f0448fe8?mention=9cf1e0fe-1383-8842-8afc-0bd96a3bacf4&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 26
+  - figure "Granite Bio $25k ARR end user Open Gong call · Jul 25":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Granite Bio $25k ARR end user
+    - link "Open Gong call · Jul 25":
+      - /url: /items/5b454eca-c72a-8586-a1da-9fb281605dc2?mention=b949f023-25f4-8995-999d-f3c56c7d021c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 25
+  - figure "admin Open zendesk-500 ticket · Jul 25 53% confident":
+    - blockquote:
+      - text: “
+      - mark: Hello, The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 25":
+      - /url: /items/01a175af-244c-7f97-9b67-2b5f56f1e758?mention=01a175af-62a1-7da8-9ca4-fe99a23ab996&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 25
+    - text: 53% confident
+  - figure "end user Open zendesk-500 ticket · Jul 24":
+    - blockquote:
+      - text: “
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 24":
+      - /url: /items/01a175af-244e-7ae5-85c9-0af304b72911?mention=01a175af-7634-7692-b018-aba81b008ad8&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 24
+  - figure "Fjord Bio $26k ARR admin Open NPS comment · Jul 24":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Fjord Bio $26k ARR admin
+    - link "Open NPS comment · Jul 24":
+      - /url: /items/db097144-5928-8dd6-9417-5e8aed67111d?mention=b00c12a5-0fa7-8051-97c2-f48585319107&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 24
+  - figure "Ember Bio $27k ARR end user Open Zendesk ticket · Jul 23":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Dry-run / validate before import."
+      - text: ”
+    - text: Ember Bio $27k ARR end user
+    - link "Open Zendesk ticket · Jul 23":
+      - /url: /items/7a09f698-1861-8498-be61-5df1921c3f88?mention=6642fd12-9b87-8bb8-a504-4359ab462cc6&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 23
+  - figure "end user Open zendesk-500 ticket · Jul 23":
+    - blockquote:
+      - text: “… This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 23":
+      - /url: /items/01a175af-244b-7dbe-97fa-9d612acc9133?mention=01a175af-530a-775c-ba72-0433e6f6e158&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 23
+  - figure "end user Open zendesk-500 ticket · Jul 23":
+    - blockquote:
+      - text: “Quick question.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 23":
+      - /url: /items/01a175af-244c-7127-959a-b05e13e89924?mention=01a175af-5506-745d-867b-f4da4e9fe56d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 23
+  - figure "end user Open zendesk-500 ticket · Jul 23 57% confident":
+    - blockquote:
+      - text: “… I uploaded a CSV with 3200 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 23":
+      - /url: /items/01a175af-244e-75eb-8cad-0ce296ef3494?mention=01a175af-7438-7a53-892d-515dae85bd46&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 23
+    - text: 57% confident
+  - figure "executive Open zendesk-500 ticket · Jul 22":
+    - blockquote:
+      - text: “… The importer says "Upload complete", but half of the rows are missing from the table.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Jul 22":
+      - /url: /items/01a175af-244e-7601-baec-51e8b6e6ae03?mention=01a175af-7435-77d8-ab95-545b7afc2f31&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 22
+  - figure "Delta Bio $27k ARR admin Open Zendesk ticket · Jul 22":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Dry-run / validate before import."
+      - text: ”
+    - text: Delta Bio $27k ARR admin
+    - link "Open Zendesk ticket · Jul 22":
+      - /url: /items/eb2707b0-41ff-89d0-9f18-638f0119555b?mention=adb25b0e-fef9-8039-8e87-8b6d3f948e6d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 22
+  - figure "Cedar Bio $28k ARR executive Open Interview · Jul 21":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Cedar Bio $28k ARR executive
+    - link "Open Interview · Jul 21":
+      - /url: /items/19dbc131-4684-8789-b5c2-239307f0c41c?mention=35c4b8ba-51e5-875d-8bf4-37fdee62fc23&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 21
+  - figure "end user Open zendesk-500 ticket · Jul 20":
+    - blockquote:
+      - text: “… We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 20":
+      - /url: /items/01a175af-244b-7a03-b509-a8e9b775eac6?mention=01a175af-4f20-7e5e-9450-e42fef4c4681&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 20
+  - figure "Birch Bio $28k ARR buyer Open NPS comment · Jul 20":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Birch Bio $28k ARR buyer
+    - link "Open NPS comment · Jul 20":
+      - /url: /items/e480ff25-ee83-8982-a439-070d998b01e9?mention=0cd89b0e-82ed-8e92-bfdf-5547ea78b609&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 20
+  - figure "admin Open zendesk-500 ticket · Jul 20":
+    - blockquote:
+      - text: “… We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: Any update would help. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 20":
+      - /url: /items/01a175af-244d-708d-99d6-cdaefeac7c95?mention=01a175af-62a6-70b3-b0b7-75787b79bd78&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 20
+  - figure "Acorn Bio $29k ARR end user Open G2 review · Jul 19":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Acorn Bio $29k ARR end user
+    - link "Open G2 review · Jul 19":
+      - /url: /items/b93ea8b7-43b4-8937-8562-badcb62b8639?mention=818533fd-40ab-880d-833e-b975711fea72&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 19
+  - figure "Tidal Analytics $30k ARR admin Open Zendesk ticket · Jul 18":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Tidal Analytics $30k ARR admin
+    - link "Open Zendesk ticket · Jul 18":
+      - /url: /items/74ed6fcc-defb-89f0-83c6-c6f3ee86b9b7?mention=53de24f2-9c8c-8ec5-b27b-df9adb033c9f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 18
+  - figure "Summit Analytics $30k ARR end user Open Gong call · Jul 17":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Summit Analytics $30k ARR end user
+    - link "Open Gong call · Jul 17":
+      - /url: /items/71c338bf-8699-8eeb-afdb-110b305e7ac0?mention=f5243cc8-25bc-8c62-a696-4997a59c8076&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 17
+  - figure "end user Open zendesk-500 ticket · Jul 17":
+    - blockquote:
+      - text: “Hi there.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 17":
+      - /url: /items/01a175af-244d-7edc-8f04-361d29a98d58?mention=01a175af-6c74-7e52-98ee-0017270a33ad&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 17
+  - figure "Raven Analytics $31k ARR admin Open NPS comment · Jul 16":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Raven Analytics $31k ARR admin
+    - link "Open NPS comment · Jul 16":
+      - /url: /items/aef6b075-9c46-8962-b3a8-832a399450ce?mention=42ed0d61-e948-80fa-a624-d464422b0190&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 16
+  - figure "end user Open zendesk-500 ticket · Jul 15":
+    - blockquote:
+      - text: “Hello, I uploaded a CSV with 7600 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Please advise.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 15":
+      - /url: /items/01a175af-244d-7d0b-b30f-73979482cf3a?mention=01a175af-6c64-7bda-91a9-7b5a179119f5&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 15
+  - figure "Quarry Analytics $31k ARR executive Open Zendesk ticket · Jul 15":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Quarry Analytics $31k ARR executive
+    - link "Open Zendesk ticket · Jul 15":
+      - /url: /items/7323722d-d94f-86ba-aae7-53eeaa78aba0?mention=3fda67fe-b45c-8822-8194-993e5b51c8d9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 15
+  - figure "Pioneer Analytics $32k ARR buyer Open Zendesk ticket · Jul 14":
+    - blockquote:
+      - text: “
+      - mark: "Our team hit this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Pioneer Analytics $32k ARR buyer
+    - link "Open Zendesk ticket · Jul 14":
+      - /url: /items/3a7010e4-851f-85c8-8451-f2b76ce0f9a0?mention=05027039-8f27-80e6-a4bb-20d35812509c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 14
+  - figure "admin Open zendesk-500 ticket · Jul 14":
+    - blockquote:
+      - text: “… I uploaded a CSV with 8200 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices.”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 14":
+      - /url: /items/01a175af-244e-7b57-a665-54423cccade9?mention=01a175af-7818-76db-b5b6-618ca0ec13fd&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 14
+  - figure "admin Open zendesk-500 ticket · Jul 14 42% confident":
+    - blockquote:
+      - text: “Hi there.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: I uploaded a CSV with 9300 rows and only part of it came through, with no error message. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 14":
+      - /url: /items/01a175af-244e-775b-882a-d71f4c1378e9?mention=01a175af-743a-7931-9e48-5410a145de24&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 14
+    - text: 42% confident
+  - figure "Onyx Analytics $33k ARR end user Open Interview · Jul 13":
+    - blockquote:
+      - text: “
+      - mark: "This keeps coming up: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Onyx Analytics $33k ARR end user
+    - link "Open Interview · Jul 13":
+      - /url: /items/b1f38839-6643-876f-b514-a9916076a273?mention=bd50885a-092c-88a5-ad71-a67473fd666a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 13
+  - figure "executive Open zendesk-500 ticket · Jul 13":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: I uploaded a CSV with 3700 rows and only part of it came through, with no error message.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices.”
+    - text: executive
+    - link "Open zendesk-500 ticket · Jul 13":
+      - /url: /items/01a175af-244c-7f50-9dbd-47e745489c4b?mention=01a175af-60b9-7d96-964e-fdb2b8c1f172&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 13
+  - figure "Nimbus Analytics $33k ARR admin Open NPS comment · Jul 12":
+    - blockquote:
+      - text: “
+      - mark: "Raising this again: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Nimbus Analytics $33k ARR admin
+    - link "Open NPS comment · Jul 12":
+      - /url: /items/2776ede3-ca9e-8896-afac-81a96a4c537c?mention=057d99a0-76f8-80c8-8757-44cb630279e4&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 12
+  - figure "admin Open zendesk-500 ticket · Jul 11":
+    - blockquote:
+      - text: “
+      - mark: Hi team, The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 11":
+      - /url: /items/01a175af-244c-7744-9116-bc5cda42954f?mention=01a175af-5ad5-72c3-936a-09a3d3dedae3&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 11
+  - figure "executive Open zendesk-500 ticket · Jul 11":
+    - blockquote:
+      - text: “Quick question.
+      - mark: I uploaded a CSV with 7100 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: executive
+    - link "Open zendesk-500 ticket · Jul 11":
+      - /url: /items/01a175af-244c-732b-a4cc-8c3881144578?mention=01a175af-56f4-7e60-a265-81bf059a77f9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 11
+  - figure "Maple Analytics $34k ARR end user Open G2 review · Jul 11":
+    - blockquote:
+      - text: “
+      - mark: "Same issue for us: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Maple Analytics $34k ARR end user
+    - link "Open G2 review · Jul 11":
+      - /url: /items/4b4618aa-88f0-879a-9733-9e8db0137e5c?mention=e341cd2e-8bfb-8ce6-b5e3-e632ccd0aaf1&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 11
+  - figure "Linden Analytics $34k ARR admin Open Zendesk ticket · Jul 10":
+    - blockquote:
+      - text: “
+      - mark: "Flagging this before renewal: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Linden Analytics $34k ARR admin
+    - link "Open Zendesk ticket · Jul 10":
+      - /url: /items/fc20cb85-dc53-8eae-a03a-3e0e6bd0cd44?mention=dc2f5f54-ec28-8c76-a58e-2db1bfbe5322&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 10
+  - figure "end user Open zendesk-500 ticket · Jul 10":
+    - blockquote:
+      - text: “… I uploaded a CSV with 3200 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Thanks in advance.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 10":
+      - /url: /items/01a175af-244c-76b4-ade4-16e0fe48aaca?mention=01a175af-5acf-71c2-9213-f4751a53fe1b&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 10
+  - figure "Kite Analytics $35k ARR executive Open Gong call · Jul 9":
+    - blockquote:
+      - text: “
+      - mark: "Still seeing it: CSV imports fail silently on malformed rows."
+      - text: ”
+    - text: Kite Analytics $35k ARR executive
+    - link "Open Gong call · Jul 9":
+      - /url: /items/5544f5ca-9042-8139-85b7-7a6f92b8cb47?mention=26390eb9-a996-8feb-95ee-747cfd3de14c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 9
+  - figure "Jasper Analytics $36k ARR buyer Open NPS comment · Jul 8":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Dry-run / validate before import."
+      - text: ”
+    - text: Jasper Analytics $36k ARR buyer
+    - link "Open NPS comment · Jul 8":
+      - /url: /items/255d7783-f18a-88bc-8c4d-fdef4c852386?mention=86adee49-8ba4-800a-a7f6-e7c9a3823dbf&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 8
+  - figure "Iris Analytics $36k ARR end user Open Zendesk ticket · Jul 7":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Dry-run / validate before import."
+      - text: ”
+    - text: Iris Analytics $36k ARR end user
+    - link "Open Zendesk ticket · Jul 7":
+      - /url: /items/5e0958f9-5bf0-85b2-800d-41276812a348?mention=8cc556f0-b392-8b9f-9f3c-5939bba54b2d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 7
+  - figure "end user Open zendesk-500 ticket · Jul 7 53% confident":
+    - blockquote:
+      - text: “Following up on last week.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 7":
+      - /url: /items/01a175af-244b-7dd3-b1ee-502fd8900fdc?mention=01a175af-5309-71fc-b295-755069f59779&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 7
+    - text: 53% confident
+  - figure "Harbor Analytics $37k ARR admin Open Zendesk ticket · Jul 6":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Dry-run / validate before import."
+      - text: ”
+    - text: Harbor Analytics $37k ARR admin
+    - link "Open Zendesk ticket · Jul 6":
+      - /url: /items/bcd3b4bd-a238-8be8-bc03-b73d87afc26b?mention=3c7f73e0-6c1c-8366-962d-57482445d816&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 6
+  - figure "Granite Analytics $37k ARR end user Open Interview · Jul 6":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Dry-run / validate before import."
+      - text: ”
+    - text: Granite Analytics $37k ARR end user
+    - link "Open Interview · Jul 6":
+      - /url: /items/ccbdf993-03ab-8db1-84ed-3c1b14a2bc34?mention=a9211fe0-f67c-80ab-80cb-754b7aa54fad&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Interview · Jul 6
+  - figure "Fjord Analytics $38k ARR admin Open NPS comment · Jul 5":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Fjord Analytics $38k ARR admin
+    - link "Open NPS comment · Jul 5":
+      - /url: /items/ee50b56a-8725-8596-ab52-f2eb4c963f4c?mention=ebd04e08-9545-8346-9695-ea59a01d70c8&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jul 5
+  - figure "end user Open zendesk-500 ticket · Jul 4":
+    - blockquote:
+      - text: “… The importer says "Upload complete", but half of the rows are missing from the table.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: Any update would help.”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 4":
+      - /url: /items/01a175af-244c-7a54-9723-41ec43d49329?mention=01a175af-5cd3-77a0-a38c-4b065790e66f&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 4
+  - figure "Ember Analytics $39k ARR executive Open G2 review · Jul 4":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Ember Analytics $39k ARR executive
+    - link "Open G2 review · Jul 4":
+      - /url: /items/de6e8293-ddc9-87d6-a384-f5ca0ed9064c?mention=88a4a7cf-0e17-86fd-ac91-d78ae006eb1a&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: G2 review · Jul 4
+  - figure "end user Open zendesk-500 ticket · Jul 4":
+    - blockquote:
+      - text: “Quick question.
+      - mark: The importer says "Upload complete", but half of the rows are missing from the table.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jul 4":
+      - /url: /items/01a175af-244c-7da3-8ee9-ad0be47ac0f6?mention=01a175af-60ae-725c-9ae9-6033304a90c3&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 4
+  - figure "buyer Open zendesk-500 ticket · Jul 3":
+    - blockquote:
+      - text: “Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: buyer
+    - link "Open zendesk-500 ticket · Jul 3":
+      - /url: /items/01a175af-244c-7c8f-801f-9620189aec8e?mention=01a175af-5ec8-7bbe-b7a8-1f31d53d7a05&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 3
+  - figure "admin Open zendesk-500 ticket · Jul 2":
+    - blockquote:
+      - text: “… I uploaded a CSV with 3300 rows and only part of it came through, with no error message.
+      - mark: If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 2":
+      - /url: /items/01a175af-244e-7cc2-8abb-f41797d6ba23?mention=01a175af-7823-781b-8827-bda383a49ba9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 2
+  - figure "Delta Analytics $39k ARR buyer Open Zendesk ticket · Jul 2":
+    - blockquote:
+      - text: “
+      - mark: "This would unblock us: Row-level error report after import."
+      - text: ”
+    - text: Delta Analytics $39k ARR buyer
+    - link "Open Zendesk ticket · Jul 2":
+      - /url: /items/8b5b7353-d51e-8d7a-a406-f5326efe92af?mention=0cb56c8e-3dcf-8439-a427-37e3037c39c5&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jul 2
+  - figure "admin Open zendesk-500 ticket · Jul 2":
+    - blockquote:
+      - text: “Quick question.
+      - mark: I uploaded a CSV with 4800 rows and only part of it came through, with no error message.
+      - text: This blocks our weekly reporting, because the numbers are incomplete until someone notices. …”
+    - text: admin
+    - link "Open zendesk-500 ticket · Jul 2":
+      - /url: /items/01a175af-244c-7fc3-8e62-c0a134cef90e?mention=01a175af-62a9-797f-b884-e9a9d589d74e&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jul 2
+  - figure "Cedar Analytics $40k ARR end user Open Gong call · Jul 1":
+    - blockquote:
+      - text: “
+      - mark: "Please prioritize: Row-level error report after import."
+      - text: ”
+    - text: Cedar Analytics $40k ARR end user
+    - link "Open Gong call · Jul 1":
+      - /url: /items/aa0e970e-c01e-85b4-b00b-7e1efc6dfb6e?mention=510ab813-25f2-8bd5-9508-cfff0976ac2d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Gong call · Jul 1
+  - figure "Birch Analytics $40k ARR admin Open NPS comment · Jun 30":
+    - blockquote:
+      - text: “
+      - mark: "Top request from our team: Row-level error report after import."
+      - text: ”
+    - text: Birch Analytics $40k ARR admin
+    - link "Open NPS comment · Jun 30":
+      - /url: /items/86e0e6a6-1443-8f50-919f-7c341344c4f5?mention=1bba3e2d-ec07-8c7f-80f3-73f55eec38f9&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: NPS comment · Jun 30
+  - figure "Acorn Analytics $41k ARR end user Open Zendesk ticket · Jun 29":
+    - blockquote:
+      - text: “
+      - mark: "We need this: Row-level error report after import."
+      - text: ”
+    - text: Acorn Analytics $41k ARR end user
+    - link "Open Zendesk ticket · Jun 29":
+      - /url: /items/cce0bd87-0f45-8747-a754-d0da1b3f46de?mention=ddcd95dd-ff56-8356-ad0a-b736aefea668&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: Zendesk ticket · Jun 29
+  - figure "end user Open zendesk-500 ticket · Jun 29":
+    - blockquote:
+      - text: “Hi team, We had to split the file into smaller chunks by hand, which took most of the afternoon.
+      - mark: I uploaded a CSV with 7300 rows and only part of it came through, with no error message.
+      - text: The importer says "Upload complete", but half of the rows are missing from the table. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 29":
+      - /url: /items/01a175af-244d-7f1e-baba-4247126a1555?mention=01a175af-6e56-7955-acc1-19c50b3a975d&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 29
+  - figure "end user Open zendesk-500 ticket · Jun 27":
+    - blockquote:
+      - text: “
+      - mark: Hi team, This blocks our weekly reporting, because the numbers are incomplete until someone notices.
+      - text: We had to split the file into smaller chunks by hand, which took most of the afternoon. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 27":
+      - /url: /items/01a175af-244d-727f-9994-c8d787d542c1?mention=01a175af-649a-70da-98f2-51b6d39b6c3c&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 27
+  - figure "end user Open zendesk-500 ticket · Jun 24":
+    - blockquote:
+      - text: “
+      - mark: Hi team, If a row is malformed, please tell us which one, instead of silently dropping it.
+      - text: I uploaded a CSV with 4600 rows and only part of it came through, with no error message. …”
+    - text: end user
+    - link "Open zendesk-500 ticket · Jun 24":
+      - /url: /items/01a175af-244e-730c-a4ce-89ec6aa24f8b?mention=01a175af-7058-789d-8e66-ed786bff2bd0&from=%7B%22selected%22%3A%22b2d496f2-f395-891c-b8cb-5091d140af27%22%2C%22evidence%22%3A%22mentions%22%7D
+      - text: zendesk-500 ticket · Jun 24
+  - button "Close"

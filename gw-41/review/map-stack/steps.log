@@ -1,0 +1,9 @@
+2026-10-26T00:49:21.006Z run gw41-review dev http://127.0.0.1:4100 viewport=1000x800 git=aa4dce5
+2026-10-26T00:49:21.899Z ok   goto=/opportunities
+2026-10-26T00:49:21.920Z ok   expect-text=Click a row to expand
+2026-10-26T00:49:21.971Z ok   click=link/Admins can't restrict access by team
+2026-10-26T00:49:21.972Z ok   expect-url=/opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+2026-10-26T00:49:21.975Z ok   expect-text=Team-scoped permissions
+2026-10-26T00:49:22.030Z snap stack -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-stack/stack.{png,aria.yml}
+2026-10-26T00:49:22.030Z ok   snap=stack
+2026-10-26T00:49:22.047Z result PASS

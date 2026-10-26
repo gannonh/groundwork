@@ -1,0 +1,6 @@
+2026-10-26T00:49:13.846Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:14.732Z ok   goto=/opportunities?selected=00000000-0000-0000-0000-000000000000
+2026-10-26T00:49:14.753Z ok   expect-text=Opportunity not found
+2026-10-26T00:49:14.803Z snap unknown -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-unknown/unknown.{png,aria.yml}
+2026-10-26T00:49:14.803Z ok   snap=unknown
+2026-10-26T00:49:14.824Z result PASS

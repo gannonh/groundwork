@@ -1,0 +1,8 @@
+2026-10-26T00:49:18.197Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:19.102Z ok   goto=/opportunities
+2026-10-26T00:49:19.180Z ok   click=radio/By outcome
+2026-10-26T00:49:19.182Z ok   expect-url=/opportunities?group=outcome
+2026-10-26T00:49:19.187Z ok   expect-text=3 problems · 84 accounts · $3.78M ARR
+2026-10-26T00:49:19.262Z snap grouped -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-group/grouped.{png,aria.yml}
+2026-10-26T00:49:19.262Z ok   snap=grouped
+2026-10-26T00:49:19.280Z result PASS

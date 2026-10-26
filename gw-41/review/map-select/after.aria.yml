@@ -1,0 +1,236 @@
+# http://127.0.0.1:4100/opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - complementary "Ranking and filters":
+    - heading "Rank by" [level=2]
+    - text: Reach 30
+    - slider "Reach"
+    - text: Distinct accounts Revenue 35
+    - slider "Revenue"
+    - text: ARR of those accounts Pain 20
+    - slider "Pain"
+    - text: Judge-scored severity Momentum 15
+    - slider "Momentum"
+    - text: 4-week change in mentions
+    - button "Balanced" [pressed]
+    - button "Enterprise"
+    - button "Breadth"
+    - button "Heating up"
+    - heading "Filter" [level=2]
+    - group "Segment":
+      - text: Segment
+      - checkbox "Enterprise" [checked]
+      - text: Enterprise
+      - checkbox "Mid-market" [checked]
+      - text: Mid-market
+      - checkbox "SMB" [checked]
+      - text: SMB
+    - group "Source":
+      - text: Source
+      - checkbox "G2" [checked]
+      - text: G2
+      - checkbox "Gong" [checked]
+      - text: Gong
+      - checkbox "Interviews" [checked]
+      - text: Interviews
+      - checkbox "NPS" [checked]
+      - text: NPS
+      - checkbox "Zendesk" [checked]
+      - text: Zendesk
+    - group "Speaker":
+      - text: Speaker
+      - toolbar "Speaker":
+        - button "End user"
+        - button "Admin"
+        - button "Buyer"
+        - button "Exec"
+    - group "Date":
+      - text: Date
+      - radiogroup "Date":
+        - radio "30d"
+        - radio "90d" [checked]
+        - radio "1y"
+  - radiogroup "Grouping":
+    - radio "Ranked" [checked]
+    - radio "By outcome"
+  - text: j k to move
+  - radiogroup "Detail layout":
+    - radio "▤ Stack"
+    - radio "◧ Split" [checked]
+  - region "Ranked problems":
+    - list:
+      - listitem:
+        - link "Dashboard totals don't match the source system":
+          - /url: /opportunities?selected=0e64ff74-d1e2-8d47-8251-6935c4e2e378
+          - text: 1 Dashboard totals don't match the source system Trust the numbers in reports, score 96, $2.31M ARR, +36% over 4 weeks, 9 need review 9 Trust the numbers in reports 96 $2.31M ▲ +36%
+      - listitem:
+        - link "CSV imports fail silently on malformed rows":
+          - /url: /opportunities?selected=b2d496f2-f395-891c-b8cb-5091d140af27
+          - text: 2 CSV imports fail silently on malformed rows Get customer data in without engineering help, score 77, $1.42M ARR, +27% over 4 weeks, 6 need review 6 Get customer data in without engineering help 77 $1.42M ▲ +27%
+      - listitem:
+        - link "Viewers need a paid seat to see a dashboard":
+          - /url: /opportunities?selected=8ef85c10-bd90-8dd6-9ffb-65b8f237ea96
+          - text: 3 Viewers need a paid seat to see a dashboard Share findings with stakeholders, score 75, $1.88M ARR, +25% over 4 weeks, 5 need review, linked LIN-482 LIN-482 5 Share findings with stakeholders 75 $1.88M ▲ +25%
+      - listitem:
+        - link "Admins can't restrict access by team":
+          - /url: /opportunities?selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 4 Admins can't restrict access by team Control access and spend, score 67, $1.64M ARR, +25% over 4 weeks, 2 need review 2 Control access and spend 67 $1.64M ▲ +25%
+      - listitem:
+        - link "Usage-based bill is unpredictable":
+          - /url: /opportunities?selected=268fd269-10c6-8550-b899-a83f19ea077b
+          - text: 5 Usage-based bill is unpredictable Control access and spend, score 57, $1.12M ARR, +22% over 4 weeks, 7 need review 7 Control access and spend 57 $1.12M ▲ +22%
+      - listitem:
+        - link "Field mapping must be redone for every import":
+          - /url: /opportunities?selected=a696c372-8c2c-870d-a1ef-598837588a31
+          - text: 6 Field mapping must be redone for every import Get customer data in without engineering help, score 52, $980k ARR, +5% over 4 weeks, 2 need review 2 Get customer data in without engineering help 52 $980k ■ +5%
+      - listitem:
+        - link "Can't tell when data was last refreshed":
+          - /url: /opportunities?selected=d3663640-fa75-825a-874b-8cfb0eff0e1e
+          - text: 7 Can't tell when data was last refreshed Trust the numbers in reports, score 49, $1.05M ARR, 0% over 4 weeks, 3 need review, linked LIN-417 LIN-417 3 Trust the numbers in reports 49 $1.05M ■ 0%
+      - listitem:
+        - link "No way to backfill historical data":
+          - /url: /opportunities?selected=52a8a012-dd8b-8a7e-aa68-76e1f5a12e09
+          - text: 8 No way to backfill historical data Get customer data in without engineering help, score 39, $610k ARR, +22% over 4 weeks, 1 need review 1 Get customer data in without engineering help 39 $610k ▲ +22%
+      - listitem:
+        - link "Exported charts lose formatting in slides":
+          - /url: /opportunities?selected=f0e6f097-8c4a-87c6-aeb7-b006f5b8ce45
+          - text: 9 Exported charts lose formatting in slides Share findings with stakeholders, score 30, $540k ARR, -50% over 4 weeks, 4 need review 4 Share findings with stakeholders 30 $540k ▼ -50%
+      - listitem:
+        - link "SSO setup requires contacting support":
+          - /url: /opportunities?selected=b6f18231-8c75-8987-8be8-229734be178b
+          - text: 10 SSO setup requires contacting support Control access and spend, score 28, $720k ARR, 0% over 4 weeks Control access and spend 28 $720k ■ 0%
+      - listitem:
+        - link "No scheduled email digest":
+          - /url: /opportunities?selected=7d5edfd3-3837-8442-8ca1-63c43dc10b64
+          - text: 11 No scheduled email digest Share findings with stakeholders, score 23, $390k ARR, 0% over 4 weeks, 3 need review 3 Share findings with stakeholders 23 $390k ■ 0%
+      - listitem:
+        - link "Timezone handling shifts daily counts":
+          - /url: /opportunities?selected=76accd2b-babd-8df2-8ddb-2294e47a7fe7
+          - text: 12 Timezone handling shifts daily counts Trust the numbers in reports, score 19, $420k ARR, -40% over 4 weeks, 2 need review 2 Trust the numbers in reports 19 $420k ▼ -40%
+  - complementary "Opportunity detail":
+    - text: Control access and spend
+    - heading "Admins can't restrict access by team" [level=2]
+    - term: Accounts
+    - definition:
+      - link "Show the 19 accounts":
+        - /url: /opportunities?evidence=accounts&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+        - text: "19"
+    - term: ARR
+    - definition:
+      - link "Show the accounts behind $1.64M ARR":
+        - /url: /opportunities?evidence=accounts&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+        - text: $1.64M
+    - term: Mentions
+    - definition:
+      - link "Show the 47 mentions":
+        - /url: /opportunities?evidence=mentions&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+        - text: "47"
+    - term: Pain
+    - definition: Deal breaker
+    - heading "Mentions per week" [level=3]
+    - text: ▲ +25%
+    - 'img "Mentions per week from Jun 29: 3, 2, 2, 4, 4, 3, 4, 5, 4, 4, 6, 6"': Jun 29 Week of Sep 14
+    - heading "What customers said" [level=3]
+    - text: 2 need review
+    - figure "Halcyon Bank $240k ARR admin Open Gong call · Sep 17":
+      - blockquote:
+        - text: “
+        - mark: Security review flagged that every user can see every region's data.
+        - text: That blocks our rollout.”
+      - text: Halcyon Bank $240k ARR admin
+      - link "Open Gong call · Sep 17":
+        - /url: /items/9a5b4e6f-cf9d-8b0d-9d82-b3af00d20824?mention=6d04ba74-7057-80bf-b2d1-44466777c43f&from=%7B%22selected%22%3A%2200a0c63a-240b-8116-8c54-73c65e0bf9fa%22%7D
+        - text: Gong call · Sep 17
+    - figure "Pioneer Media $104k ARR executive Open Gong call · Sep 7":
+      - blockquote:
+        - text: “
+        - mark: "Please prioritize: Team-scoped permissions."
+        - text: ”
+      - text: Pioneer Media $104k ARR executive
+      - link "Open Gong call · Sep 7":
+        - /url: /items/ef148025-7ff1-89a4-b6f0-af2cd8332d71?mention=d6acf1bf-4726-8343-bbac-7bda51dc54c8&from=%7B%22selected%22%3A%2200a0c63a-240b-8116-8c54-73c65e0bf9fa%22%7D
+        - text: Gong call · Sep 7
+    - figure "Quarry Media $101k ARR admin Open Zendesk ticket · Sep 8":
+      - blockquote:
+        - text: “
+        - mark: "This would unblock us: Team-scoped permissions."
+        - text: ”
+      - text: Quarry Media $101k ARR admin
+      - link "Open Zendesk ticket · Sep 8":
+        - /url: /items/bf9e93dd-8dd1-853f-b07a-843814ecca4d?mention=43f70934-6375-8e75-9236-a90ff0aa0787&from=%7B%22selected%22%3A%2200a0c63a-240b-8116-8c54-73c65e0bf9fa%22%7D
+        - text: Zendesk ticket · Sep 8
+    - figure "Ember Networks $75k ARR admin Open Zendesk ticket · Sep 18 64% confident":
+      - blockquote:
+        - text: “
+        - mark: "This would unblock us: Row-level security."
+        - text: ”
+      - text: Ember Networks $75k ARR admin
+      - link "Open Zendesk ticket · Sep 18":
+        - /url: /items/ac90c1e3-cc0e-84a4-a886-0f035b2fe708?mention=5d86e447-c625-8db4-b9b8-23ed4472cba9&from=%7B%22selected%22%3A%2200a0c63a-240b-8116-8c54-73c65e0bf9fa%22%7D
+        - text: Zendesk ticket · Sep 18
+      - text: 64% confident
+    - heading "Requested solutions" [level=3]
+    - text: mentions Team-scoped permissions
+    - link "Show the 27 mentions of Team-scoped permissions":
+      - /url: /opportunities?evidence=solution&solution=66a87b78-a6f4-8eb0-b475-573e071224e9&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+      - text: "27"
+    - text: Row-level security 2
+    - link "Show the 13 mentions of Row-level security":
+      - /url: /opportunities?evidence=solution&solution=c7937b6a-9dd1-8c58-8701-6316f2b53805&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+      - text: "13"
+    - heading "Top accounts" [level=3]
+    - text: ARR
+    - list:
+      - listitem:
+        - text: Halcyon Bank
+        - link "Show Halcyon Bank's 1 mention":
+          - /url: /opportunities?evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 1 mention
+        - link "Show the quotes behind Halcyon Bank's $240k ARR":
+          - /url: /opportunities?evidence=account&account=a070c926-9293-8380-a96b-4bb36218478f&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: $240k
+      - listitem:
+        - text: Pioneer Media
+        - link "Show Pioneer Media's 3 mentions":
+          - /url: /opportunities?evidence=account&account=5f812ce9-1523-8e9d-b453-67762fa6cfcb&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 mentions
+        - link "Show the quotes behind Pioneer Media's $104k ARR":
+          - /url: /opportunities?evidence=account&account=5f812ce9-1523-8e9d-b453-67762fa6cfcb&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: $104k
+      - listitem:
+        - text: Quarry Media
+        - link "Show Quarry Media's 3 mentions":
+          - /url: /opportunities?evidence=account&account=2cd8e11b-53f6-8eae-8a54-8725fec843a5&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 mentions
+        - link "Show the quotes behind Quarry Media's $101k ARR":
+          - /url: /opportunities?evidence=account&account=2cd8e11b-53f6-8eae-8a54-8725fec843a5&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: $101k
+      - listitem:
+        - text: Raven Media
+        - link "Show Raven Media's 3 mentions":
+          - /url: /opportunities?evidence=account&account=316edc36-3151-8f40-b606-f7e64b11465a&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 mentions
+        - link "Show the quotes behind Raven Media's $98k ARR":
+          - /url: /opportunities?evidence=account&account=316edc36-3151-8f40-b606-f7e64b11465a&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: $98k
+      - listitem:
+        - text: Summit Media
+        - link "Show Summit Media's 3 mentions":
+          - /url: /opportunities?evidence=account&account=b28bae5c-2133-8714-9180-4281b1202000&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: 3 mentions
+        - link "Show the quotes behind Summit Media's $94k ARR":
+          - /url: /opportunities?evidence=account&account=b28bae5c-2133-8714-9180-4281b1202000&selected=00a0c63a-240b-8116-8c54-73c65e0bf9fa
+          - text: $94k

@@ -1,0 +1,6 @@
+2026-10-26T00:50:47.312Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:48.227Z ok   goto=/opportunities?selected=00000000-0000-0000-0000-000000000000
+2026-10-26T00:50:48.248Z ok   expect-text=Opportunity not found
+2026-10-26T00:50:48.298Z snap unknown -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-unknown/unknown.{png,aria.yml}
+2026-10-26T00:50:48.298Z ok   snap=unknown
+2026-10-26T00:50:48.319Z result PASS

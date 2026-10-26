@@ -1,0 +1,9 @@
+2026-10-26T00:50:50.265Z run gw41-main dev http://127.0.0.1:4101 viewport=1440x900 git=2697e02
+2026-10-26T00:50:51.203Z ok   goto=/opportunities
+2026-10-26T00:50:51.275Z ok   click=checkbox/Mid-market
+2026-10-26T00:50:51.361Z ok   click=checkbox/SMB
+2026-10-26T00:50:51.363Z ok   expect-url=/opportunities?segments=%5B%22enterprise%22%5D
+2026-10-26T00:50:51.406Z ok   expect-text=$550k
+2026-10-26T00:50:51.471Z snap enterprise-only -> /tmp/gw41-main-review/.verify/evidence/gw41-main/map-filter/enterprise-only.{png,aria.yml}
+2026-10-26T00:50:51.471Z ok   snap=enterprise-only
+2026-10-26T00:50:51.489Z result PASS

@@ -1,0 +1,186 @@
+# http://127.0.0.1:4100/sources/new
+- banner:
+  - text: Groundwork
+  - navigation:
+    - link "Opportunities":
+      - /url: /opportunities
+    - link "Triage, 44 to review":
+      - /url: /triage
+      - text: Triage44
+    - link "Sources":
+      - /url: /sources
+    - link "Accounts":
+      - /url: /accounts
+    - link "Packs":
+      - /url: /packs
+- main:
+  - link "Sources":
+    - /url: /sources
+  - heading "New source" [level=1]
+  - text: CSV export
+  - button "CSV export"
+  - text: Text column
+  - combobox "Text column": Description
+  - text: Date column
+  - combobox "Date column": Created at
+  - text: Date format
+  - combobox "Date format": YYYY-MM-DD
+  - text: Account column
+  - combobox "Account column": Organization ID
+  - text: Author column
+  - combobox "Author column": Requester role
+  - text: Item kind
+  - combobox "Item kind": Ticket
+  - button "Import 500 rows"
+  - text: zendesk-500.csv
+  - table "Showing 20 of 500 rows":
+    - caption: Showing 20 of 500 rows
+    - rowgroup:
+      - row "Ticket ID Date Created at Subject Text Description Author Requester role Account Organization ID":
+        - columnheader "Ticket ID"
+        - columnheader "Date Created at"
+        - columnheader "Subject"
+        - columnheader "Text Description"
+        - columnheader "Author Requester role"
+        - columnheader "Account Organization ID"
+    - rowgroup:
+      - row "1001 2026-09-11 03:09:52 Dashboard totals are wrong Hi, I'm Jane from Acme. Please email me at jane@acme.com or call +1 (415) 555-0100 about the \"Revenue\" dashboard. Our totals are 8% lower than Salesforce, and my CFO noticed. Executive ACC-004":
+        - cell "1001"
+        - cell "2026-09-11 03:09:52"
+        - cell "Dashboard totals are wrong"
+        - cell "Hi, I'm Jane from Acme. Please email me at jane@acme.com or call +1 (415) 555-0100 about the \"Revenue\" dashboard. Our totals are 8% lower than Salesforce, and my CFO noticed."
+        - cell "Executive"
+        - cell "ACC-004"
+      - row "1002 2026-08-23 17:39:15 Invoice higher than expected Hi team, Finance wants a way to set a spending cap before the renewal conversation. Please send a breakdown of the query volume by team. Our invoice this month was 18% higher than last month, and nobody on our side changed anything. Please advise. Admin ACC-056":
+        - cell "1002"
+        - cell "2026-08-23 17:39:15"
+        - cell "Invoice higher than expected"
+        - cell "Hi team, Finance wants a way to set a spending cap before the renewal conversation. Please send a breakdown of the query volume by team. Our invoice this month was 18% higher than last month, and nobody on our side changed anything. Please advise."
+        - cell "Admin"
+        - cell "ACC-056"
+      - row "1003 2026-07-22 12:40:26 PNG export is blurry Hi team, I rebuild the same 4 charts in PowerPoint every month for the board deck. The PNG export is blurry on a projector, so we take screenshots instead. When I export a chart to slides, the colors reset and the axis labels overlap. Admin ACC-046":
+        - cell "1003"
+        - cell "2026-07-22 12:40:26"
+        - cell "PNG export is blurry"
+        - cell "Hi team, I rebuild the same 4 charts in PowerPoint every month for the board deck. The PNG export is blurry on a projector, so we take screenshots instead. When I export a chart to slides, the colors reset and the axis labels overlap."
+        - cell "Admin"
+        - cell "ACC-046"
+      - row "1004 2026-09-04 20:04:45 Access control request Hi there. Can admins create groups and share a folder with a group instead of with each person? Our procurement team said this is a deal breaker for the renewal. We need to restrict the Revenue dashboard to the finance team only. Right now anyone in the workspace can see salary data, which our security review flagged. Any update would help. End user":
+        - cell "1004"
+        - cell "2026-09-04 20:04:45"
+        - cell "Access control request"
+        - cell "Hi there. Can admins create groups and share a folder with a group instead of with each person? Our procurement team said this is a deal breaker for the renewal. We need to restrict the Revenue dashboard to the finance team only. Right now anyone in the workspace can see salary data, which our security review flagged. Any update would help."
+        - cell "End user"
+        - cell
+      - 'row "1005 2026-09-16 18:16:36 Enable SAML for our workspace Hello, Is there documentation for the SAML attributes you expect? Rolling out to 177 new seats is on hold until SSO works. We want to enable SSO with Okta, but the settings page says to contact support. Please advise. Steps to reproduce: 1. Open the Revenue dashboard. 2. Set the range to \"Last 30 days\". 3. Compare the total with the source system. Buyer ACC-036"':
+        - cell "1005"
+        - cell "2026-09-16 18:16:36"
+        - cell "Enable SAML for our workspace"
+        - 'cell "Hello, Is there documentation for the SAML attributes you expect? Rolling out to 177 new seats is on hold until SSO works. We want to enable SSO with Okta, but the settings page says to contact support. Please advise. Steps to reproduce: 1. Open the Revenue dashboard. 2. Set the range to \"Last 30 days\". 3. Compare the total with the source system."'
+        - cell "Buyer"
+        - cell "ACC-036"
+      - row "1006 2026-07-05 00:09:02 Restrict dashboards by team Quick question. Can admins create groups and share a folder with a group instead of with each person? Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. Please advise. Executive ACC-001":
+        - cell "1006"
+        - cell "2026-07-05 00:09:02"
+        - cell "Restrict dashboards by team"
+        - cell "Quick question. Can admins create groups and share a folder with a group instead of with each person? Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. Please advise."
+        - cell "Executive"
+        - cell "ACC-001"
+      - row "1007 2026-09-13 23:59:18 Restrict dashboards by team Hi there. Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. Can admins create groups and share a folder with a group instead of with each person? Thanks in advance. Buyer ACC-041":
+        - cell "1007"
+        - cell "2026-09-13 23:59:18"
+        - cell "Restrict dashboards by team"
+        - cell "Hi there. Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. Can admins create groups and share a folder with a group instead of with each person? Thanks in advance."
+        - cell "Buyer"
+        - cell "ACC-041"
+      - row "1008 2026-08-05 03:36:30 Stale data on the home dashboard Hi there. A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. I can't tell when the Revenue dashboard last refreshed, so I don't know if it includes today's orders. Our execs asked twice this week whether the data was current. We tried paying the overage with card 4111 1111 1111 1111, and it was declined. Thanks in advance. End user ACC-043":
+        - cell "1008"
+        - cell "2026-08-05 03:36:30"
+        - cell "Stale data on the home dashboard"
+        - cell "Hi there. A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. I can't tell when the Revenue dashboard last refreshed, so I don't know if it includes today's orders. Our execs asked twice this week whether the data was current. We tried paying the overage with card 4111 1111 1111 1111, and it was declined. Thanks in advance."
+        - cell "End user"
+        - cell "ACC-043"
+      - row "1009 2026-06-07 21:39:37 Usage bill question Quick question. Our invoice this month was 14% higher than last month, and nobody on our side changed anything. Please send a breakdown of the query volume by team. End user":
+        - cell "1009"
+        - cell "2026-06-07 21:39:37"
+        - cell "Usage bill question"
+        - cell "Quick question. Our invoice this month was 14% higher than last month, and nobody on our side changed anything. Please send a breakdown of the query volume by team."
+        - cell "End user"
+        - cell
+      - row "1010 2026-09-10 21:42:36 Dashboard totals are wrong Quick question. We filtered both systems to the same date range, and the totals still differ. The revenue total on our Revenue dashboard is about 3% lower than what Salesforce shows for the same period. Please advise. End user":
+        - cell "1010"
+        - cell "2026-09-10 21:42:36"
+        - cell "Dashboard totals are wrong"
+        - cell "Quick question. We filtered both systems to the same date range, and the totals still differ. The revenue total on our Revenue dashboard is about 3% lower than what Salesforce shows for the same period. Please advise."
+        - cell "End user"
+        - cell
+      - row "1011 2026-08-23 20:30:13 Unexpected overage charge Hi team, I cannot find a usage breakdown that explains the overage. Our invoice this month was 14% higher than last month, and nobody on our side changed anything. Please send a breakdown of the query volume by team. Finance wants a way to set a spending cap before the renewal conversation. End user ACC-016":
+        - cell "1011"
+        - cell "2026-08-23 20:30:13"
+        - cell "Unexpected overage charge"
+        - cell "Hi team, I cannot find a usage breakdown that explains the overage. Our invoice this month was 14% higher than last month, and nobody on our side changed anything. Please send a breakdown of the query volume by team. Finance wants a way to set a spending cap before the renewal conversation."
+        - cell "End user"
+        - cell "ACC-016"
+      - row "1012 2026-07-03 10:39:01 Sync status unclear Following up on last week. Our execs asked twice this week whether the data was current. I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders. Please advise. End user ACC-044":
+        - cell "1012"
+        - cell "2026-07-03 10:39:01"
+        - cell "Sync status unclear"
+        - cell "Following up on last week. Our execs asked twice this week whether the data was current. I can't tell when the Marketing Funnel dashboard last refreshed, so I don't know if it includes today's orders. Please advise."
+        - cell "End user"
+        - cell "ACC-044"
+      - row "1013 2026-09-10 23:10:55 Mapping not saved Quick question. Every time we import the weekly export, we have to map all 22 columns again. Our ops lead spends about 54 minutes per upload just clicking through the mapping screen. The mapping from last week is gone, even though the file has exactly the same headers. Could the app remember the mapping for a file with the same columns? Thanks! End user ACC-025":
+        - cell "1013"
+        - cell "2026-09-10 23:10:55"
+        - cell "Mapping not saved"
+        - cell "Quick question. Every time we import the weekly export, we have to map all 22 columns again. Our ops lead spends about 54 minutes per upload just clicking through the mapping screen. The mapping from last week is gone, even though the file has exactly the same headers. Could the app remember the mapping for a file with the same columns? Thanks!"
+        - cell "End user"
+        - cell "ACC-025"
+      - 'row "1014 2026-06-07 07:56:59 Numbers don''t match Salesforce Hello, I have to screenshot the source system next to yours in every exec review to prove the figure is right. Is there a way to see which rows make up a total, so we can reconcile it ourselves? The revenue total on our Weekly KPIs dashboard is about 8% lower than what Salesforce shows for the same period. Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers. Thanks! Steps to reproduce: 1. Open the Weekly KPIs dashboard. 2. Set the range to \"Last 30 days\". 3. Compare the total with the source system. End user ACC-010"':
+        - cell "1014"
+        - cell "2026-06-07 07:56:59"
+        - cell "Numbers don't match Salesforce"
+        - 'cell "Hello, I have to screenshot the source system next to yours in every exec review to prove the figure is right. Is there a way to see which rows make up a total, so we can reconcile it ourselves? The revenue total on our Weekly KPIs dashboard is about 8% lower than what Salesforce shows for the same period. Our finance team caught the mismatch during the monthly close, and now they do not trust any of the numbers. Thanks! Steps to reproduce: 1. Open the Weekly KPIs dashboard. 2. Set the range to \"Last 30 days\". 3. Compare the total with the source system."'
+        - cell "End user"
+        - cell "ACC-010"
+      - row "1015 2026-09-03 21:34:17 Stale data on the home dashboard Hi team, A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. Thanks! End user ACC-012":
+        - cell "1015"
+        - cell "2026-09-03 21:34:17"
+        - cell "Stale data on the home dashboard"
+        - cell "Hi team, A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. Thanks!"
+        - cell "End user"
+        - cell "ACC-012"
+      - row "1016 2026-06-12 05:44:19 Enable SAML for our workspace Hi there. Is there documentation for the SAML attributes you expect? Our IT team expected to configure SAML themselves, the same way they do for other tools. Rolling out to 227 new seats is on hold until SSO works. We want to enable SSO with Okta, but the settings page says to contact support. Admin ACC-021":
+        - cell "1016"
+        - cell "2026-06-12 05:44:19"
+        - cell "Enable SAML for our workspace"
+        - cell "Hi there. Is there documentation for the SAML attributes you expect? Our IT team expected to configure SAML themselves, the same way they do for other tools. Rolling out to 227 new seats is on hold until SSO works. We want to enable SSO with Okta, but the settings page says to contact support."
+        - cell "Admin"
+        - cell "ACC-021"
+      - row "1017 2026-06-16 12:08:00 When was this data refreshed? A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. Our execs asked twice this week whether the data was current. End user ACC-006":
+        - cell "1017"
+        - cell "2026-06-16 12:08:00"
+        - cell "When was this data refreshed?"
+        - cell "A simple \"last updated\" timestamp on each chart would save us a lot of back and forth. Yesterday the numbers looked stale for a few hours, and nobody knew whether the sync was still running. Our execs asked twice this week whether the data was current."
+        - cell "End user"
+        - cell "ACC-006"
+      - row "1018 2026-06-08 03:16:13 Mapping not saved Following up on last week. Could the app remember the mapping for a file with the same columns? Our ops lead spends about 25 minutes per upload just clicking through the mapping screen. The mapping from last week is gone, even though the file has exactly the same headers. Thanks! End user":
+        - cell "1018"
+        - cell "2026-06-08 03:16:13"
+        - cell "Mapping not saved"
+        - cell "Following up on last week. Could the app remember the mapping for a file with the same columns? Our ops lead spends about 25 minutes per upload just clicking through the mapping screen. The mapping from last week is gone, even though the file has exactly the same headers. Thanks!"
+        - cell "End user"
+        - cell
+      - row "1019 2026-09-14 02:37:53 Access control request Hi team, Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. We need to restrict the Churn dashboard to the finance team only. Any update would help. Executive ACC-009":
+        - cell "1019"
+        - cell "2026-09-14 02:37:53"
+        - cell "Access control request"
+        - cell "Hi team, Our procurement team said this is a deal breaker for the renewal. Right now anyone in the workspace can see salary data, which our security review flagged. We need to restrict the Churn dashboard to the finance team only. Any update would help."
+        - cell "Executive"
+        - cell "ACC-009"
+      - row "1020 2026-07-25 05:39:11 Enable SAML for our workspace We want to enable SSO with Okta, but the settings page says to contact support. Is there documentation for the SAML attributes you expect? Rolling out to 169 new seats is on hold until SSO works. Thanks in advance. End user ACC-058":
+        - cell "1020"
+        - cell "2026-07-25 05:39:11"
+        - cell "Enable SAML for our workspace"
+        - cell "We want to enable SSO with Okta, but the settings page says to contact support. Is there documentation for the SAML attributes you expect? Rolling out to 169 new seats is on hold until SSO works. Thanks in advance."
+        - cell "End user"
+        - cell "ACC-058"

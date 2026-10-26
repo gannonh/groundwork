@@ -1,0 +1,9 @@
+2026-10-26T00:49:16.741Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:17.632Z ok   goto=/opportunities
+2026-10-26T00:49:17.694Z ok   click=checkbox/Mid-market
+2026-10-26T00:49:17.775Z ok   click=checkbox/SMB
+2026-10-26T00:49:17.776Z ok   expect-url=/opportunities?segments=%5B%22enterprise%22%5D
+2026-10-26T00:49:17.819Z ok   expect-text=$550k
+2026-10-26T00:49:17.883Z snap enterprise-only -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-filter/enterprise-only.{png,aria.yml}
+2026-10-26T00:49:17.883Z ok   snap=enterprise-only
+2026-10-26T00:49:17.901Z result PASS

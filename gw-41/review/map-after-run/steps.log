@@ -1,0 +1,11 @@
+2026-10-26T00:50:11.387Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:50:12.358Z ok   goto=/opportunities
+2026-10-26T00:50:12.364Z ok   expect-eval=document.querySelector('nav a[href="/triage"]').getAttribute('aria-label')==='Triage, 121 to review'
+2026-10-26T00:50:12.438Z snap after-run -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-after-run/after-run.{png,aria.yml}
+2026-10-26T00:50:12.438Z ok   snap=after-run
+2026-10-26T00:50:13.138Z ok   goto=/opportunities?evidence=mentions&selected=b2d496f2-f395-891c-b8cb-5091d140af27
+2026-10-26T00:50:13.159Z ok   expect-text=zendesk-500 ticket
+2026-10-26T00:50:13.161Z ok   expect-eval=Array.from(document.querySelectorAll('figure')).some(f=>f.textContent.includes('zendesk-500 ticket') && f.querySelector('blockquote')?.textContent.trim().length>0)
+2026-10-26T00:50:13.267Z snap imported-quotes -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-after-run/imported-quotes.{png,aria.yml}
+2026-10-26T00:50:13.267Z ok   snap=imported-quotes
+2026-10-26T00:50:13.288Z result PASS

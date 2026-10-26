@@ -1,0 +1,5 @@
+2026-10-26T00:49:23.968Z run gw41-review dev http://127.0.0.1:4100 viewport=1280x800 git=aa4dce5
+2026-10-26T00:49:24.886Z ok   goto=/opportunities
+2026-10-26T00:49:24.957Z snap narrow -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-width/narrow.{png,aria.yml}
+2026-10-26T00:49:24.957Z ok   snap=narrow
+2026-10-26T00:49:24.980Z result PASS

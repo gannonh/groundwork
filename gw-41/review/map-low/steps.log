@@ -1,0 +1,7 @@
+2026-10-26T00:49:12.562Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:13.455Z ok   goto=/opportunities
+2026-10-26T00:49:13.475Z ok   expect-text=9 need review
+2026-10-26T00:49:13.478Z ok   expect-text=62% confident
+2026-10-26T00:49:13.536Z snap low -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/map-low/low.{png,aria.yml}
+2026-10-26T00:49:13.536Z ok   snap=low
+2026-10-26T00:49:13.553Z result PASS

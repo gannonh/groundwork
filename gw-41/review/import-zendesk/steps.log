@@ -1,0 +1,14 @@
+2026-10-26T00:49:33.283Z run gw41-review dev http://127.0.0.1:4100 viewport=1440x900 git=aa4dce5
+2026-10-26T00:49:34.224Z ok   goto=/
+2026-10-26T00:49:34.278Z ok   click=link/Sources
+2026-10-26T00:49:34.395Z ok   click=link/New source
+2026-10-26T00:49:34.397Z ok   expect-url=/sources/new
+2026-10-26T00:49:34.476Z ok   choose-file=CSV export|fixtures/exports/zendesk-500.csv
+2026-10-26T00:49:34.624Z ok   expect-text=Showing 20 of 500 rows
+2026-10-26T00:49:34.686Z snap preview -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/import-zendesk/preview.{png,aria.yml}
+2026-10-26T00:49:34.686Z ok   snap=preview
+2026-10-26T00:49:34.749Z ok   click=button/Import 500 rows
+2026-10-26T00:49:34.954Z ok   expect-text=Imported 500 items. 0 duplicates skipped.
+2026-10-26T00:49:34.996Z snap imported -> /home/gannonh/.local/share/punchlist/runner/worktrees/gannonh/groundwork/GW-41/.verify/evidence/gw41-review/import-zendesk/imported.{png,aria.yml}
+2026-10-26T00:49:34.996Z ok   snap=imported
+2026-10-26T00:49:35.015Z result PASS
