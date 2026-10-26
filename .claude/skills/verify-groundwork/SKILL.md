@@ -71,6 +71,7 @@ It runs the steps in order in headless Chromium and stops at the first failure. 
 | `select=Label\|Option` | Open the Select (combobox) named `Label`, pick `Option`, and wait until the listbox closes and the trigger shows `Option`. |
 | `press=Key` | Press a keyboard key, for example `Tab` or `Enter`. |
 | `back=` | Press the browser Back button. Headless Chromium ignores `press=Alt+ArrowLeft`. |
+| `tab=N` | Make tab N the one later steps drive, opening it if needed. Tab 1 is the first. Use it for two-tab races, such as deciding one triage item in two tabs. `--video` records tab 1 only. |
 | `expect-url=/path` | The pathname plus search equals `/path`. The step retries until it matches or times out. |
 | `expect-title=Text` | Assert `document.title`. |
 | `expect-current=Name` | `Name` is the only top-bar link with `aria-current="page"`. |

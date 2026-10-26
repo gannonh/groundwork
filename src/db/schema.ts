@@ -18,6 +18,7 @@ import {
 import {
   ITEM_KINDS,
   PINNED_MODEL,
+  TRIAGE_ACTIONS,
   type AccountId,
   type Confidence,
   type ItemId,
@@ -48,6 +49,7 @@ export const judgeBackend = pgEnum('judge_backend', ['recorded', 'jev', 'llm'])
 export const runItemStatus = pgEnum('run_item_status', ['judged', 'failed'])
 export const tracker = pgEnum('tracker', ['linear'])
 export const linkTarget = pgEnum('link_target', ['issue', 'project'])
+export const triageAction = pgEnum('triage_action', TRIAGE_ACTIONS)
 
 export const workspace = pgTable('workspace', {
   id: pk<WorkspaceId>(),
@@ -268,7 +270,7 @@ export const mention = pgTable(
 
 /**
  * Judge-owned: a mention on its deepest opportunity. Ancestors count it by rollup, so ancestor rows are never
- * written. Human triage (R11) gets its own append-only log, merged at read, and never writes here.
+ * written. Human triage (R11) gets its own append-only log, `triage_decision`, merged at read, and never writes here.
  */
 export const placement = pgTable(
   'placement',
@@ -293,6 +295,45 @@ export const placement = pgTable(
     unique('placement_mention_key').on(t.mentionId),
     index('placement_opportunity_idx').on(t.opportunityId),
     check('placement_confidence_unit', sql`${t.confidence} >= 0 and ${t.confidence} <= 1`),
+  ],
+)
+
+/**
+ * Human-owned: a PM's triage decision on one low-confidence placement, and the label that tunes the pack. Append-only
+ * and one per mention, so a second decision from another tab inserts nothing. Read paths merge it over the placement,
+ * and the pipeline never reads it, so a rerun keeps it and never queues the mention again.
+ */
+export const triageDecision = pgTable(
+  'triage_decision',
+  {
+    id: uuid('id').primaryKey().default(sql`uuidv7()`),
+    mentionId: uuid('mention_id')
+      .$type<MentionId>()
+      .notNull()
+      .references(() => mention.id, { onDelete: 'cascade' }),
+    // The judge answer the decision overrides, and the opportunity it placed the mention on.
+    judgeAnswerId: uuid('judge_answer_id')
+      .notNull()
+      .references(() => judgeAnswer.id, { onDelete: 'cascade' }),
+    judgeOpportunityId: uuid('judge_opportunity_id')
+      .$type<OpportunityId>()
+      .notNull()
+      .references(() => opportunity.id, { onDelete: 'cascade' }),
+    judgeConfidence: real('judge_confidence').$type<Confidence>().notNull(),
+    action: triageAction('action').notNull(),
+    // Where the PM put the mention. Null exactly when they discarded it.
+    opportunityId: uuid('opportunity_id')
+      .$type<OpportunityId>()
+      .references(() => opportunity.id, { onDelete: 'cascade' }),
+    createdAt: createdAt(),
+  },
+  (t) => [
+    unique('triage_decision_mention_key').on(t.mentionId),
+    check(
+      'triage_decision_answer_shape',
+      sql`(${t.action} = 'discard' and ${t.opportunityId} is null) or (${t.action} = 'accept' and ${t.opportunityId} = ${t.judgeOpportunityId}) or (${t.action} = 'move' and ${t.opportunityId} is not null and ${t.opportunityId} <> ${t.judgeOpportunityId})`,
+    ),
+    check('triage_decision_judge_confidence_unit', sql`${t.judgeConfidence} >= 0 and ${t.judgeConfidence} <= 1`),
   ],
 )
 
